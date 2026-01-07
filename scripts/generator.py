@@ -211,29 +211,63 @@ def evolve_ui(news_data, prev_link, history):
     except:
         pass
     
+    # 進化の世代数を計算
+    generation_count = len(history.get('entries', [])) + 1
+    
     design_prompt = f"""
-    あなたは前衛的Webデザイナーです。MorphoNewsのHTMLを作成します。
+    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
     
-    【重要：デザインの方向性】
-    **必ず明るいライトモードのデザインを作成してください。**
-    - 背景色: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
-    - テキスト色: 濃いグレー (#1e293b, #334155) で高い可読性を確保
-    - アクセントカラー: インディゴ (#6366f1) からパープル (#8b5cf6, #a855f7) のグラデーション
-    - カードやセクション: 白背景に薄いボーダーとソフトシャドウ
-    - 全体的に清潔感があり、プロフェッショナルで読みやすいデザイン
+    ===== 🧬 進化のコンテキスト =====
     
-    【指令】
-    1. ムード「{news_data['mood_keyword']}」を反映しつつ、
-       **明るく爽やかなデザイン**で配色・フォント・レイアウトを工夫してください。
+    【現在の世代】Generation #{generation_count}
+    【今日のムード】{news_data['mood_keyword']}
+    【これまでのアーカイブ数】{len(history.get('entries', []))}件
     
-    2. **ナビゲーションバーの実装 (必須)**:
-       ページ上部または下部にナビゲーションを作ってください。
-       - [<< Prev Update] ボタン: リンク先 "{prev_link}" (prev_linkが "#" なら非表示か無効化)
-       - [Archive List] ボタン: リンク先 "../history.html"
+    【前回のデザイン参考（先頭5000文字）】
+    ```html
+    {reference_html if reference_html else '（初回生成のため参考なし）'}
+    ```
+    
+    ===== 🎯 進化の指令 =====
+    
+    【1. 前回からの進化（最重要）】
+    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+    
+    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
+    
+    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
+      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
+    
+    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
+      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
+       CSS Grid の subgrid、container queries、scroll-driven animations など）
+    
+    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+    
+    【2. デザインの方向性】
+    **明るいライトモードのデザイン**を基本としつつ、今日のムード「{news_data['mood_keyword']}」を反映：
+    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
+    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
+    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
+    - 余白とリズム: 心地よい視覚的リズムを意識
+    
+    【3. 必須コンポーネント】
+    
+    A) ナビゲーションバー:
+       - [<< Prev Update] ボタン → リンク先 "{prev_link}" (prev_linkが "#" なら非表示/無効化)
+       - [Archive List] ボタン → リンク先 "../history.html"
        - 現在の日時表示: {display_date} (JST)
+       - 世代表示: 「Generation #{generation_count}」をどこかに
 
-    3. **システム情報の表示 (必須)**:
-       フッターに以下の生成統計を明確に表示するセクションを作成してください。
+    B) メインコンテンツ:
+       - 今日のトレンド要約を魅力的に表示
+       - 注目ニュース{TOP_NEWS_COUNT}件をカード/リスト/タイムラインなど自由な形式で
+       - 各ニュースのリンクは必ずクリック可能に
+
+    C) システム情報フッター:
        - 取得日時(JST): {news_data['meta']['fetch_time_jst']}
        - 収集記事数: {news_data['meta']['article_count']}
        - 使用モデル: {news_data['meta']['model_name']}
@@ -243,14 +277,21 @@ def evolve_ui(news_data, prev_link, history):
        - デザイン生成時間: {{{{ DESIGN_TIME }}}}秒 (後で置換)
        - 全体処理時間: {{{{ TOTAL_TIME }}}}秒 (後で置換)
 
-    4. **プロンプト開示セクション (必須)**:
-       `<details>` タグを使い、折りたたみで以下のプロンプトを表示してください。
+    D) プロンプト開示セクション:
+       `<details>` タグで折りたたみ表示：
        - 「要約AIプロンプト」: {{{{ SUMMARY_PROMPT }}}}
        - 「デザインAIプロンプト」: {{{{ DESIGN_PROMPT }}}}
 
-    5. 出力はHTMLのみ。`<!DOCTYPE html>` から開始。
+    E) 進化ログセクション（推奨）:
+       今回のデザインで試した新しいアプローチを簡潔に記述
+       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
+
+    【4. 出力形式】
+    - HTMLのみを出力。`<!DOCTYPE html>` から開始
+    - 外部CSSは使用せず、<style>タグ内に全て記述
+    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
     
-    【ニュースデータ】
+    ===== 📰 ニュースデータ =====
     {json.dumps({k: v for k, v in news_data.items() if k != 'meta'}, ensure_ascii=False)}
     """
 

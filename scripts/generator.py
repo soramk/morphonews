@@ -27,12 +27,45 @@ HISTORY_FILE = os.path.join(PUBLIC_DIR, "history.json")
 # JST タイムゾーン
 JST = timezone(timedelta(hours=9))
 
+# RSSフィードリスト（日本・海外の主要テック/ITニュースソース）
 RSS_FEEDS = [
-    "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",
-    "https://qiita.com/popular-items/feed",
-    "https://techcrunch.com/feed/",
-    "https://feeds.feedburner.com/TheHackersNews",
+    # --- 日本のテック/ITニュース ---
+    "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",      # ITmedia NEWS
+    "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml",           # ITmedia AI+
+    "https://qiita.com/popular-items/feed",                    # Qiita 人気記事
+    "https://zenn.dev/feed",                                   # Zenn
+    "https://gigazine.net/news/rss_2.0/",                      # GIGAZINE
+    "https://www.publickey1.jp/atom.xml",                      # Publickey
+    "https://gihyo.jp/feed/rss2",                              # gihyo.jp
+    "https://jp.techcrunch.com/feed/",                         # TechCrunch Japan
+    "https://codezine.jp/rss/new/20/index.xml",               # CodeZine
+    "https://www.watch.impress.co.jp/data/rss/1.0/ipw/feed.rdf",  # Impress Watch
+    
+    # --- 海外のテック/ITニュース ---
+    "https://techcrunch.com/feed/",                            # TechCrunch
+    "https://feeds.feedburner.com/TheHackersNews",             # The Hacker News
+    "https://www.theverge.com/rss/index.xml",                  # The Verge
+    "https://feeds.arstechnica.com/arstechnica/index",         # Ars Technica
+    "https://www.wired.com/feed/rss",                          # WIRED
+    "https://feeds.feedburner.com/TechCrunch/",                # TechCrunch (backup)
+    "https://rss.slashdot.org/Slashdot/slashdotMain",          # Slashdot
+    "https://hnrss.org/frontpage",                             # Hacker News
+    "https://www.engadget.com/rss.xml",                        # Engadget
+    "https://feeds.feedburner.com/venturebeat/SZYF",           # VentureBeat
+    "https://www.zdnet.com/news/rss.xml",                      # ZDNet
+    "https://www.infoworld.com/index.rss",                     # InfoWorld
+    
+    # --- AI/ML専門 ---
+    "https://openai.com/blog/rss/",                            # OpenAI Blog
+    "https://blog.google/technology/ai/rss/",                  # Google AI Blog
+    "https://ai.meta.com/blog/rss/",                           # Meta AI Blog
 ]
+
+# 各フィードから取得する最大記事数
+ARTICLES_PER_FEED = 3
+
+# AIが選ぶ注目ニュースの数
+TOP_NEWS_COUNT = 10
 
 # --- ヘルパー関数: 履歴管理 ---
 def load_history():
@@ -90,8 +123,8 @@ def fetch_and_summarize_news(timestamp_id):
         try:
             feed = feedparser.parse(url)
             source_urls.append(url)
-            # 各フィードから最新2件
-            for entry in feed.entries[:2]:
+            # 各フィードから最新記事を取得
+            for entry in feed.entries[:ARTICLES_PER_FEED]:
                 articles.append({
                     "title": entry.title,
                     "link": entry.link,
@@ -105,8 +138,8 @@ def fetch_and_summarize_news(timestamp_id):
     ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
     
     【要件】
-    1. 「今日のテックトレンド要約」(400文字)を作成。
-    2. 注目ニュース3選をピックアップ。
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース{TOP_NEWS_COUNT}選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
     3. 出力はJSON形式。
     
     入力: {json.dumps(articles, ensure_ascii=False)}
@@ -265,7 +298,7 @@ def evolve_ui(news_data, prev_link, history):
 
 # --- 3. 履歴一覧ページ生成 ---
 def generate_history_page(history):
-    """履歴一覧HTMLを生成"""
+    """履歴一覧HTMLを生成（ライトモード・Lucideアイコン使用）"""
     print("Step 3: Generating history page...")
     
     entries_html = ""
@@ -279,21 +312,36 @@ def generate_history_page(history):
         model = entry.get('model_name', 'N/A')
         
         entries_html += f"""
-        <article class="history-card" data-mood="{mood.lower()}">
-            <div class="card-header">
-                <time class="card-date">{fetch_time}</time>
-                <span class="card-mood">{mood}</span>
-            </div>
-            <p class="card-summary">{summary}</p>
-            <div class="card-meta">
-                <span class="meta-item">🤖 {model}</span>
-                <span class="meta-item">🔢 {tokens} tokens</span>
-            </div>
-            <div class="card-actions">
-                <a href="./archives/{entry['id']}.html" class="btn-view">📰 記事を見る</a>
-                <a href="./data/{entry['id']}.json" class="btn-data">📊 JSONデータ</a>
-            </div>
-        </article>
+            <article class="history-card" data-mood="{mood.lower()}">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        {fetch_time}
+                    </time>
+                    <span class="card-mood">{mood}</span>
+                </div>
+                <p class="card-summary">{summary}</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        {model}
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        {tokens} tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/{entry['id']}.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/{entry['id']}.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
         """
     
     history_html = f"""<!DOCTYPE html>
@@ -304,19 +352,23 @@ def generate_history_page(history):
     <title>MorphoNews Archive | 進化するニュースの記録</title>
     <meta name="description" content="MorphoNewsの過去のニュースアーカイブ一覧。AIが自動生成した日々のテックニュースを振り返ることができます。">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {{
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a25;
-            --text-primary: #e8e8ef;
-            --text-secondary: #9898a8;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
             --accent-primary: #6366f1;
             --accent-secondary: #8b5cf6;
             --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-            --border-color: #2a2a3a;
+            --border-color: #e2e8f0;
             --success: #22c55e;
             --warning: #f59e0b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }}
 
         * {{
@@ -333,7 +385,6 @@ def generate_history_page(history):
             line-height: 1.6;
         }}
 
-        /* Animated background */
         body::before {{
             content: '';
             position: fixed;
@@ -342,9 +393,8 @@ def generate_history_page(history):
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
         }}
@@ -352,11 +402,11 @@ def generate_history_page(history):
         header {{
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
-            padding: 2rem;
+            padding: 1.5rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
         }}
 
         .header-content {{
@@ -376,24 +426,18 @@ def generate_history_page(history):
         }}
 
         .logo-icon {{
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             background: var(--accent-gradient);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            animation: pulse 2s infinite;
-        }}
-
-        @keyframes pulse {{
-            0%, 100% {{ transform: scale(1); }}
-            50% {{ transform: scale(1.05); }}
+            color: white;
         }}
 
         .logo h1 {{
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
@@ -402,14 +446,14 @@ def generate_history_page(history):
         }}
 
         .logo span {{
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             display: block;
         }}
 
         nav {{
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
         }}
 
         nav a {{
@@ -417,12 +461,15 @@ def generate_history_page(history):
             text-decoration: none;
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }}
 
         nav a:hover {{
-            background: var(--bg-card);
+            background: var(--bg-primary);
             color: var(--text-primary);
         }}
 
@@ -437,9 +484,26 @@ def generate_history_page(history):
             padding: 2rem;
         }}
 
+        .page-title {{
+            text-align: center;
+            margin-bottom: 2rem;
+        }}
+
+        .page-title h2 {{
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }}
+
+        .page-title p {{
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }}
+
         .stats-bar {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }}
@@ -450,24 +514,35 @@ def generate_history_page(history):
             border-radius: 12px;
             padding: 1.25rem;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
         }}
 
         .stat-card:hover {{
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }}
+
+        .stat-icon {{
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            color: var(--accent-primary);
         }}
 
         .stat-value {{
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
         }}
 
         .stat-label {{
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             margin-top: 0.25rem;
         }}
@@ -483,9 +558,10 @@ def generate_history_page(history):
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.5rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }}
 
         .history-card::before {{
@@ -497,13 +573,13 @@ def generate_history_page(history):
             height: 3px;
             background: var(--accent-gradient);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
         }}
 
         .history-card:hover {{
             transform: translateY(-4px);
             border-color: var(--accent-primary);
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+            box-shadow: var(--shadow-lg);
         }}
 
         .history-card:hover::before {{
@@ -519,8 +595,11 @@ def generate_history_page(history):
 
         .card-date {{
             font-family: 'Fira Code', monospace;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }}
 
         .card-mood {{
@@ -553,7 +632,7 @@ def generate_history_page(history):
             color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.35rem;
         }}
 
         .card-actions {{
@@ -569,7 +648,11 @@ def generate_history_page(history):
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }}
 
         .btn-view {{
@@ -583,7 +666,7 @@ def generate_history_page(history):
         }}
 
         .btn-data {{
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
         }}
@@ -609,11 +692,10 @@ def generate_history_page(history):
         .footer-text {{
             color: var(--text-secondary);
             font-size: 0.875rem;
-        }}
-
-        .footer-text a {{
-            color: var(--accent-primary);
-            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }}
 
         .empty-state {{
@@ -623,8 +705,15 @@ def generate_history_page(history):
         }}
 
         .empty-state-icon {{
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--accent-primary);
         }}
 
         @media (max-width: 768px) {{
@@ -651,49 +740,74 @@ def generate_history_page(history):
     <header>
         <div class="header-content">
             <div class="logo">
-                <div class="logo-icon">🦋</div>
+                <div class="logo-icon">
+                    <i data-lucide="sparkles" style="width: 24px; height: 24px;"></i>
+                </div>
                 <div>
                     <h1>MorphoNews</h1>
                     <span>Archive Collection</span>
                 </div>
             </div>
             <nav>
-                <a href="./archives/{sorted_entries[0]['id'] if sorted_entries else ''}.html">🏠 最新版</a>
-                <a href="./history.html" class="active">📚 アーカイブ</a>
-                <a href="https://github.com/sora0513/morphonews" target="_blank">💻 GitHub</a>
+                <a href="./archives/{sorted_entries[0]['id'] if sorted_entries else ''}.html">
+                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                    最新版
+                </a>
+                <a href="./history.html" class="active">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブ
+                </a>
             </nav>
         </div>
     </header>
 
     <main>
+        <div class="page-title">
+            <h2>ニュースアーカイブ</h2>
+            <p>AIが毎日生成したテックニュースの記録</p>
+        </div>
+
         <div class="stats-bar">
             <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
+                </div>
                 <div class="stat-value">{len(sorted_entries)}</div>
                 <div class="stat-label">総アーカイブ数</div>
             </div>
             <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-lucide="calendar" style="width: 20px; height: 20px;"></i>
+                </div>
                 <div class="stat-value">{sorted_entries[0]['id'][:10] if sorted_entries else 'N/A'}</div>
                 <div class="stat-label">最新更新日</div>
             </div>
             <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-lucide="flag" style="width: 20px; height: 20px;"></i>
+                </div>
                 <div class="stat-value">{sorted_entries[-1]['id'][:10] if sorted_entries else 'N/A'}</div>
                 <div class="stat-label">初回生成日</div>
             </div>
         </div>
 
         <section class="history-grid">
-            {entries_html if entries_html else '<div class="empty-state"><div class="empty-state-icon">📭</div><p>まだアーカイブがありません</p></div>'}
+            {entries_html if entries_html else '<div class="empty-state"><div class="empty-state-icon"><i data-lucide="inbox" style="width: 40px; height: 40px;"></i></div><p>まだアーカイブがありません</p></div>'}
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <p class="footer-text">
-                🦋 MorphoNews - AI駆動の自己進化型ニュースサイト<br>
-                Powered by <a href="https://github.com/sora0513/morphonews" target="_blank">GitHub Actions</a> & Gemini AI
+                <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+                MorphoNews - AI駆動の自己進化型ニュースサイト
             </p>
         </div>
     </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>"""
     

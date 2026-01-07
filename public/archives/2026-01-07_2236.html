@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews // Transformative_Shift_2026-01-07</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --accent-primary: #00ffcc;
+            --accent-secondary: #ff00ff;
+            --accent-tertiary: #ffff00;
+            --text-main: #e0e0e0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --morph-gradient: linear-gradient(135deg, #00ffcc, #ff00ff, #ffff00);
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', 'Syncopate', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            word-break: break-all;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            border-color: var(--accent-secondary);
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--accent-secondary);
+        }
+
+        .current-time {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--accent-tertiary);
+        }
+
+        /* Hero / Header */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .morph-bg {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: var(--morph-gradient);
+            background-size: 200% 200%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: morph 15s infinite alternate, flow 20s infinite linear;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            background: var(--morph-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: flow 10s infinite linear;
+            text-align: center;
+        }
+
+        .mood-tag {
+            font-size: 1rem;
+            letter-spacing: 0.5rem;
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            padding: 0.5rem 2rem;
+            margin-top: 1rem;
+            transform: skewX(-20deg);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .daily-summary {
+            font-size: 1.5rem;
+            margin-bottom: 6rem;
+            border-left: 2px solid var(--accent-secondary);
+            padding-left: 2rem;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .daily-summary::after {
+            content: "SUMMARY_DATA";
+            position: absolute;
+            top: -20px;
+            left: 2rem;
+            font-size: 0.7rem;
+            color: var(--accent-secondary);
+        }
+
+        /* News Cards */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(0, 255, 204, 0.1);
+        }
+
+        .news-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .news-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+
+        .news-link {
+            text-decoration: none;
+            color: var(--accent-primary);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-link::after {
+            content: "→";
+            transition: transform 0.3s;
+        }
+
+        .news-link:hover::after {
+            transform: translateX(10px);
+        }
+
+        /* Footer / System Info */
+        footer {
+            margin-top: 10rem;
+            padding: 4rem 2rem;
+            background: #000;
+            border-top: 1px solid var(--accent-secondary);
+        }
+
+        .system-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-item {
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 1rem;
+        }
+
+        .stat-label {
+            color: #666;
+            display: block;
+        }
+
+        .stat-value {
+            color: var(--accent-secondary);
+        }
+
+        details {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: bold;
+            color: var(--accent-tertiary);
+            padding: 0.5rem;
+        }
+
+        .prompt-content {
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #888;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        /* Responsive UI */
+        @media (max-width: 768px) {
+            h1 { font-size: 4rem; }
+            .morph-bg { width: 300px; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-links">
+            <a href="./2026-01-07_1315.html">[&lt;&lt; Prev Update]</a>
+            <a href="../history.html">[Archive List]</a>
+        </div>
+        <div class="current-time">2026-01-07 22:36 (JST)</div>
+    </nav>
+
+    <header>
+        <div class="morph-bg"></div>
+        <h1>Morpho<br>News</h1>
+        <div class="mood-tag">TRANSFORMATIVE</div>
+    </header>
+
+    <main>
+        <section class="daily-summary">
+            今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArticul8が巨額の資金調達を進めるなど、インフラ投資の勢いは止まりません。また、ワークフロー自動化ツールn8nで深刻な脆弱性が報告されるなど、AIや自動化技術の普及に伴うセキュリティリスクへの対策も急務となっています。クリエイティブ面ではClaudeを活用した漫画生成パイプラインの構築事例が注目を集め、Robloxでは若年層の安全確保を目的とした年齢確認が義務化されるなど、技術の進歩とガバナンスの調和が模索される一日となりました。
+        </section>
+
+        <div class="news-grid">
+            <!-- News Item 1 -->
+            <article class="news-card">
+                <div>
+                    <h3>雑誌「Mac Fan」定期刊行を終了へ：32年の歴史に区切り</h3>
+                    <p>1993年創刊のApple専門誌が3月の5月号をもって定期刊行を終了。デジタル中心の「新しい形」への移行は、レガシーメディアの転換点を象徴しています。</p>
+                </div>
+                <a href="https://www.itmedia.co.jp/news/articles/2601/07/news133.html" class="news-link">Read Full Shift</a>
+            </article>
+
+            <!-- News Item 2 -->
+            <article class="news-card">
+                <div>
+                    <h3>Intel発のAIスタートアップArticul8、評価額5億ドルで資金調達</h3>
+                    <p>エンタープライズ向けAIを展開するArticul8が7000万ドルの資金調達を進行。AIインフラとプラットフォームへの投資熱は依然として高い水準を維持しています。</p>
+                </div>
+                <a href="https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/" class="news-link">Trace Capital Flow</a>
+            </article>
+
+            <!-- News Item 3 -->
+            <article class="news-card">
+                <div>
+                    <h3>n8nに最大深刻度CVSS 10.0の脆弱性、RCEの危険性</h3>
+                    <p>ワークフロー自動化プラットフォームn8nに、認証済みリモートコード実行が可能な深刻な脆弱性が発見されました。セルフホスト版およびクラウド版ユーザーは早急なアップデートが推奨されます。</p>
+                </div>
+                <a href="https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html" class="news-link">Secure Patch Node</a>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="system-stats">
+            <div class="stat-item">
+                <span class="stat-label">Acquisition Time</span>
+                <span class="stat-value">2026-01-07 22:36:03 JST</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Article Count</span>
+                <span class="stat-value">8 Articles</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">AI Intelligence</span>
+                <span class="stat-value">gemini-3-flash-preview</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Summary Tokens</span>
+                <span class="stat-value">In:1277 / Out:628 / Sum:3756</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Summary Latency</span>
+                <span class="stat-value">14.36s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Design Tokens</span>
+                <span class="stat-value">入力=1067, 出力=3771, 合計=5716</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Design Latency</span>
+                <span class="stat-value">24.9s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Cycle Time</span>
+                <span class="stat-value">40.56s</span>
+            </div>
+        </div>
+
+        <details>
+            <summary>要約AIプロンプト</summary>
+            <div class="prompt-content">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(400文字)を作成。
+    2. 注目ニュース3選をピックアップ。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;「甘えた～い」「たまにはHなお話も…」　セクハラ辞職の福井県元知事巡る調査結果が公開に　被害女性へのLINE文面も&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news139.html&quot;, &quot;summary&quot;: &quot;福井県が、職員へのセクハラ疑惑で2025年7月に辞職した杉本達治元知事を巡り、同氏によるセクハラがあったことは明らかとする調査報告書を公開した。スカートに手を入れるといった身体的な接触の報告があった他、性的なテキストメッセージの送付を確認したという。メッセージについては、具体的な文面も一部公開した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;雑誌「Mac Fan」定期刊行を終了へ　1993年の創刊から32年、「新しい形」に&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news133.html&quot;, &quot;summary&quot;: &quot;マイナビ出版は7日、雑誌「Mac Fan」の定期刊行を3月27日発売の5月号をもって終了すると発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Claude × Nano Banana Pro で料理漫画を自動生成するパイプラインを作った&quot;, &quot;link&quot;: &quot;https://qiita.com/yongyong/items/cabcfb8c91b857cc164f?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;TL;DR\n\nClaude Opus でキャラクター設定とCSV形式のシナリオを作成\n\nNano Banana Pro でキャラクター画像・背景・漫画ページを生成\n\nPython でCSV駆動の自動生成パイプラインを構築\n\nCanva で誤字脱字を修正（Nano Ban......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;拝啓、出社できなかった日の俺へ。──人生が止まったその日から、俺の挑戦が始まった。&quot;, &quot;link&quot;: &quot;https://qiita.com/Keita-0025/items/c0fb3bed10f49b0ed523?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに：準備が整う日は来ない\n準備が整う日は来ない。\nチャンスが目の前に来たら、まず掴む。\n**知識と技術は、掴んだあとに獲得すればいい。**それで問題ない。\nこの考えに至るまでに、2025年はいろんな意味で“激動”だった。\n休職して、自己投資して、環境を変えて、転職し......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Roblox now requires all users globally to complete age checks to access chat&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/roblox-now-requires-all-users-globally-to-complete-age-checks-to-access-chat/&quot;, &quot;summary&quot;: &quot;Once users complete an age check, they can access age-based chat, which means they can only communicate with others in a similar age group....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Intel spinout Articul8 raises more than half of $70M round at $500M valuation&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/&quot;, &quot;summary&quot;: &quot;Articul8&#x27;s valuation for its current funding round marks a roughly fivefold increase since its Series A....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Webinar: Learn How AI-Powered Zero Trust Detects Attacks with No Files or Indicators&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/webinar-learn-how-ai-powered-zero-trust.html&quot;, &quot;summary&quot;: &quot;Security teams are still catching malware. The problem is what they&#x27;re not catching.\nMore attacks today don&#x27;t arrive as files. They don&#x27;t drop binaries. They don&#x27;t trigger classic alerts. Instead, the...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;n8n Warns of CVSS 10.0 RCE Vulnerability Affecting Self-Hosted and Cloud Versions&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html&quot;, &quot;summary&quot;: &quot;Open-source workflow automation platform n8n has warned of a maximum-severity security flaw that, if successfully exploited, could result in authenticated remote code execution (RCE).\nThe vulnerabilit...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</div>
+        </details>
+
+        <details>
+            <summary>デザインAIプロンプト</summary>
+            <div class="prompt-content">
+    あなたは前衛的Webデザイナーです。MorphoNewsのHTMLを作成します。
+    
+    【指令】
+    1. 以前のデザイン（HTML構造）を参考にしつつ、
+       ムード「Transformative」に合わせて、
+       **配色・フォント・レイアウトを大胆に変異**させてください。
+    
+    2. **ナビゲーションバーの実装 (必須)**:
+       ページ上部または下部にナビゲーションを作ってください。
+       - [&lt;&lt; Prev Update] ボタン: リンク先 &quot;./2026-01-07_1315.html&quot; (prev_linkが &quot;#&quot; なら非表示か無効化)
+       - [Archive List] ボタン: リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-07 22:36 (JST)
+
+    3. **システム情報の表示 (必須)**:
+       フッターに以下の生成統計を明確に表示するセクションを作成してください。
+       - 取得日時(JST): 2026-01-07 22:36:03 JST
+       - 収集記事数: 8
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=1277, 出力=628, 合計=3756
+       - 要約生成時間: 14.36秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    4. **プロンプト開示セクション (必須)**:
+       `&lt;details&gt;` タグを使い、折りたたみで以下のプロンプトを表示してください。
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    5. 出力はHTMLのみ。`&lt;!DOCTYPE html&gt;` から開始。
+    
+    【ニュースデータ】
+    {&quot;daily_summary&quot;: &quot;今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArticul8が巨額の資金調達を進めるなど、インフラ投資の勢いは止まりません。また、ワークフロー自動化ツールn8nで深刻な脆弱性が報告されるなど、AIや自動化技術の普及に伴うセキュリティリスクへの対策も急務となっています。クリエイティブ面ではClaudeを活用した漫画生成パイプラインの構築事例が注目を集め、Robloxでは若年層の安全確保を目的とした年齢確認が義務化されるなど、技術の進歩とガバナンスの調和が模索される一日となりました。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;雑誌「Mac Fan」定期刊行を終了へ：32年の歴史に区切り&quot;, &quot;description&quot;: &quot;1993年創刊のApple専門誌が3月の5月号をもって定期刊行を終了。デジタル中心の「新しい形」への移行は、レガシーメディアの転換点を象徴しています。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news133.html&quot;}, {&quot;title&quot;: &quot;Intel発のAIスタートアップArticul8、評価額5億ドルで資金調達&quot;, &quot;description&quot;: &quot;エンタープライズ向けAIを展開するArticul8が7000万ドルの資金調達を進行。AIインフラとプラットフォームへの投資熱は依然として高い水準を維持しています。&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/&quot;}, {&quot;title&quot;: &quot;n8nに最大深刻度CVSS 10.0の脆弱性、RCEの危険性&quot;, &quot;description&quot;: &quot;ワークフロー自動化プラットフォームn8nに、認証済みリモートコード実行が可能な深刻な脆弱性が発見されました。セルフホスト版およびクラウド版ユーザーは早急なアップデートが推奨されます。&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html&quot;}], &quot;mood_keyword&quot;: &quot;Transformative&quot;}
+    </div>
+        </details>
+    </footer>
+
+</body>
+</html>

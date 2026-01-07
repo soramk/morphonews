@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MorphoNews Archive | 進化するニュースの記録</title>
     <meta name="description" content="MorphoNewsの過去のニュースアーカイブ一覧。AIが自動生成した日々のテックニュースを振り返ることができます。">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
@@ -49,7 +46,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background:
+            background: 
                 radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
             pointer-events: none;
@@ -377,23 +374,22 @@
             header {
                 padding: 1rem;
             }
-
+            
             .header-content {
                 flex-direction: column;
                 text-align: center;
             }
-
+            
             main {
                 padding: 1rem;
             }
-
+            
             .history-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-
 <body>
     <header>
         <div class="header-content">
@@ -407,7 +403,7 @@
                 </div>
             </div>
             <nav>
-                <a href="./archives/2026-01-07_2236.html">
+                <a href="./archives/2026-01-07_2259.html">
                     <i data-lucide="home" style="width: 18px; height: 18px;"></i>
                     最新版
                 </a>
@@ -430,7 +426,7 @@
                 <div class="stat-icon">
                     <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
                 </div>
-                <div class="stat-value">2</div>
+                <div class="stat-value">3</div>
                 <div class="stat-label">総アーカイブ数</div>
             </div>
             <div class="stat-card">
@@ -450,6 +446,38 @@
         </div>
 
         <section class="history-grid">
+            
+            <article class="history-card" data-mood="integration">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 22:59:08 JST
+                    </time>
+                    <span class="card-mood">Integration</span>
+                </div>
+                <p class="card-summary">2026年初頭、テクノロジーの潮流は「AIの日常化」から「AIの物理的・社会的な実実装」へと明確にシフトしています。CES 2026の熱狂の中、LenovoやMotorolaが発表した『Qira』は、PCからスマホまで個人の文脈を共有するシームレスなAI体験を提示しました。特筆すべきは、Boston...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        18870 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2259.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2259.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
             <article class="history-card" data-mood="transformative">
                 <div class="card-header">
                     <time class="card-date">
@@ -458,8 +486,7 @@
                     </time>
                     <span class="card-mood">Transformative</span>
                 </div>
-                <p class="card-summary">今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac
-                    Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArt...</p>
+                <p class="card-summary">今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArt...</p>
                 <div class="card-meta">
                     <span class="meta-item">
                         <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
@@ -481,7 +508,7 @@
                     </a>
                 </div>
             </article>
-
+        
             <article class="history-card" data-mood="transformation">
                 <div class="card-header">
                     <time class="card-date">
@@ -490,8 +517,7 @@
                     </time>
                     <span class="card-mood">Transformation</span>
                 </div>
-                <p class="card-summary">今日のテックトレンドは、メディアの構造変化とAIによる創造性の自動化、そして深刻なセキュリティリスクの三点が焦点です。創刊32年の「Mac
-                    Fan」が定期刊行を終了するというニュースは、紙媒体からデジタルへの情報伝達の変遷を象徴しています。一方で、ClaudeとNano Bananaを組み合わせた漫...</p>
+                <p class="card-summary">今日のテックトレンドは、メディアの構造変化とAIによる創造性の自動化、そして深刻なセキュリティリスクの三点が焦点です。創刊32年の「Mac Fan」が定期刊行を終了するというニュースは、紙媒体からデジタルへの情報伝達の変遷を象徴しています。一方で、ClaudeとNano Bananaを組み合わせた漫...</p>
                 <div class="card-meta">
                     <span class="meta-item">
                         <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
@@ -513,6 +539,7 @@
                     </a>
                 </div>
             </article>
+        
         </section>
     </main>
 
@@ -529,5 +556,4 @@
         lucide.createIcons();
     </script>
 </body>
-
 </html>

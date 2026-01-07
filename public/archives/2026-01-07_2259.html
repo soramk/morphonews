@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews | Integration_Phase_20260107</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&family=JetBrains+Mono:wght@300;500&family=Noto+Sans+JP:wght@300;700&display=swap');
+
+        :root {
+            --bg-color: #050507;
+            --accent-primary: #00ffcc; /* Bio-Electric Cyan */
+            --accent-secondary: #ff007a; /* Neural Pink */
+            --accent-tertiary: #7000ff; /* Integration Purple */
+            --text-main: #e0e0e5;
+            --text-dim: #888890;
+            --glass: rgba(20, 20, 25, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', 'Noto Sans JP', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 204, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Navigation Bar */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 7, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            background: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .nav-info {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-secondary);
+        }
+
+        /* Header Layout */
+        header {
+            padding: 10rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .mood-tag {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.5rem;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff 30%, var(--accent-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(112, 0, 255, 0.4));
+        }
+
+        /* Main Summary Section */
+        .summary-box {
+            max-width: 1000px;
+            margin: 0 auto 6rem;
+            padding: 3rem;
+            background: var(--glass);
+            border-left: 2px solid var(--accent-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-box::before {
+            content: "INTEGRATION_REPORT";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+
+        .summary-text {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--text-main);
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2px; /* Integration of lines */
+            background: var(--border);
+            border: 1px solid var(--border);
+            max-width: 1400px;
+            margin: 0 auto 6rem;
+        }
+
+        .news-item {
+            background: var(--bg-color);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            z-index: 2;
+        }
+
+        .news-item::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.4s ease;
+        }
+
+        .news-item:hover::after {
+            width: 100%;
+        }
+
+        .news-category {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .news-desc {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .news-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .news-link::before {
+            content: "→";
+            color: var(--accent-primary);
+        }
+
+        /* Footer & System Info */
+        footer {
+            padding: 4rem 2rem;
+            background: #000;
+            border-top: 1px solid var(--border);
+        }
+
+        .system-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .info-block h4 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: var(--text-main);
+        }
+
+        .disclosure {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        details {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            margin-bottom: 1rem;
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            outline: none;
+        }
+
+        summary:hover {
+            color: var(--accent-primary);
+        }
+
+        .prompt-content {
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            white-space: pre-wrap;
+            border-top: 1px solid var(--border);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 4rem; }
+            .nav-container { flex-direction: column; gap: 1rem; padding: 1rem; }
+            .summary-box { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-container">
+        <div class="nav-links">
+            <a href="./2026-01-07_2236.html" class="nav-btn">&lt;&lt; Prev Update</a>
+            <a href="../history.html" class="nav-btn">Archive List</a>
+        </div>
+        <div class="nav-info">
+            DATETIME_JST: 2026-01-07 22:59
+        </div>
+    </nav>
+
+    <header>
+        <span class="mood-tag">Phase: Integration</span>
+        <h1>Morpho<br>News</h1>
+    </header>
+
+    <main>
+        <section class="summary-box">
+            <div class="summary-text">
+                2026年初頭、テクノロジーの潮流は「AIの日常化」から「AIの物理的・社会的な実実装」へと明確にシフトしています。CES 2026の熱狂の中、LenovoやMotorolaが発表した『Qira』は、PCからスマホまで個人の文脈を共有するシームレスなAI体験を提示しました。特筆すべきは、Boston Dynamicsの人型ロボット『Atlas』の商用化やNeuralinkによるBCI（脳・コンピュータ・インターフェース）の量産化予告です。これらは、AIがソフトウェアの枠を超え、労働力や医療といった物理的な解決策として普及し始める転換点となるでしょう。インフラ面ではOracleとAWSの東京リージョン連携により、ハイブリッド・マルチクラウドの活用が深化。一方で、Mac Fanの定期刊行終了という象徴的な出来事や、AIによる「捏造された町」といったリスクも顕在化しており、技術が私たちの生活の深部へ浸透し続ける中、その品質と倫理が問われています。
+            </div>
+        </section>
+
+        <div class="news-grid">
+            <article class="news-item">
+                <div>
+                    <div class="news-category">System Integration</div>
+                    <h2 class="news-title">LenovoとMotorola、共通AI基盤「Qira」発表</h2>
+                    <p class="news-desc">PCとスマホの間でAIの記憶や文脈を共有する新プラットフォーム。デバイスの垣根を超えたパーソナルなAI体験を目指す。</p>
+                </div>
+                <a href="https://www.itmedia.co.jp/news/articles/2601/07/news099.html" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Physical Embodiment</div>
+                    <h2 class="news-title">Boston Dynamics「Atlas」がついに商用化</h2>
+                    <p class="news-desc">自動車工場などでの稼働を想定し商用展開を開始。人型ロボットの産業利用が本格化する。</p>
+                </div>
+                <a href="https://www.itmedia.co.jp/aiplus/articles/2601/07/news079.html" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Neural Interface</div>
+                    <h2 class="news-title">Neuralink、脳インプラントBCIの大量生産を予告</h2>
+                    <p class="news-desc">イーロン・マスク氏が率いるNeuralinkが量産体制へ。医療とテクノロジーの融合が加速する。</p>
+                </div>
+                <a href="https://gigazine.net/news/20260107-neuralink-bci-breakthrough/" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Cloud Infrastructure</div>
+                    <h2 class="news-title">Oracle Database@AWSが東京で提供開始</h2>
+                    <p class="news-desc">AWSデータセンターでOracleの高性能インフラが利用可能に。企業ユーザー待望の連携が実現。</p>
+                </div>
+                <a href="https://www.publickey1.jp/blog/26/oracle_cloud_databaseawsawsoracle_database.html" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Open Source</div>
+                    <h2 class="news-title">UIライブラリ「Ignite UI」の50成分がOSS化</h2>
+                    <p class="news-desc">React/Angular等向け有償ライブラリの一部を無償公開。Web開発の効率化を支援する大きな転換。</p>
+                </div>
+                <a href="https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Security Alert</div>
+                    <h2 class="news-title">「n8n」にCVSS 10.0の致命的な脆弱性</h2>
+                    <p class="news-desc">認証済みリモートコード実行（RCE）の恐れ。セルフホスト版利用者は即時の対応が求められる。</p>
+                </div>
+                <a href="https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Media Transition</div>
+                    <h2 class="news-title">雑誌「Mac Fan」が定期刊行を終了へ</h2>
+                    <p class="news-desc">1993年から続いたApple専門誌の歴史に幕。デジタル主導のメディア環境への完全移行を象徴。</p>
+                </div>
+                <a href="https://www.itmedia.co.jp/news/articles/2601/07/news133.html" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">AI Hallucination</div>
+                    <h2 class="news-title">米気象局、AIにより「存在しない町」を捏造</h2>
+                    <p class="news-desc">アイダホ州の予報図で架空の町名を生成。公的機関におけるAIの幻覚課題が浮き彫りに。</p>
+                </div>
+                <a href="https://yro.slashdot.org/story/26/01/07/0014200/an-ai-generated-nws-map-invented-fake-towns-in-idaho" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">Mobility</div>
+                    <h2 class="news-title">完全無人ロボットタクシー「ZOOX」実車体験</h2>
+                    <p class="news-desc">ハンドルもペダルもない、次世代の都市移動モビリティ。CES 2026で現実味を増す実写レポート。</p>
+                </div>
+                <a href="https://gihyo.jp/article/2026/01/ces-zoox" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+
+            <article class="news-item">
+                <div>
+                    <div class="news-category">UX Design Criticism</div>
+                    <h2 class="news-title">macOS Tahoeのアイコンに「一貫性」の欠如指摘</h2>
+                    <p class="news-desc">最新OSのメニューアイコンに対し専門家が醜悪さと不整合を分析。デザイン品質低下への議論。</p>
+                </div>
+                <a href="https://gigazine.net/news/20260107-macos-tahoe-menu-icons/" class="news-link">READ_FULL_SOURCE</a>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="system-info">
+            <div class="info-block">
+                <h4>System Status</h4>
+                <div class="info-value">TIMESTAMP: 2026-01-07 22:59:08 JST</div>
+                <div class="info-value">COLLECTED: 63 ARTICLES</div>
+                <div class="info-value">CORE_ENGINE: gemini-3-flash-preview</div>
+            </div>
+            <div class="info-block">
+                <h4>Token Metrics</h4>
+                <div class="info-value">SUMMARY_IN: 8350</div>
+                <div class="info-value">SUMMARY_OUT: 1412</div>
+                <div class="info-value">DESIGN_TOKENS: 入力=1769, 出力=4938, 合計=7812</div>
+                <div class="info-value">TOTAL: 11058</div>
+            </div>
+            <div class="info-block">
+                <h4>Performance</h4>
+                <div class="info-value">SUMMARY_GEN: 19.21s</div>
+                <div class="info-value">DESIGN_GEN: 33.06s</div>
+                <div class="info-value">TOTAL_PROCESS: 63.16s</div>
+            </div>
+        </div>
+
+        <div class="disclosure">
+            <details>
+                <summary>VIEW_SUMMARY_AI_PROMPT</summary>
+                <div class="prompt-content">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;「甘えた～い」「たまにはHなお話も…」　セクハラ辞職の福井県元知事巡る調査結果が公開に　被害女性へのLINE文面も&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news139.html&quot;, &quot;summary&quot;: &quot;福井県が、職員へのセクハラ疑惑で2025年7月に辞職した杉本達治元知事を巡り、同氏によるセクハラがあったことは明らかとする調査報告書を公開した。スカートに手を入れるといった身体的な接触の報告があった他、性的なテキストメッセージの送付を確認したという。メッセージについては、具体的な文面も一部公開した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;雑誌「Mac Fan」定期刊行を終了へ　1993年の創刊から32年、「新しい形」に&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news133.html&quot;, &quot;summary&quot;: &quot;マイナビ出版は7日、雑誌「Mac Fan」の定期刊行を3月27日発売の5月号をもって終了すると発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;アニメやアイドル、VTuber……オタク市場は拡大中　次の大波はインディーゲーム？　矢野経済研が調査&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news127.html&quot;, &quot;summary&quot;: &quot;矢野経済研究所は、アニメや同人誌、VTuberなどの市場動向をまとめた「オタク市場」の調査結果を発表した。2024年度の結果は全17分野のうち、15分野で23年度よりも市場規模が成長した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ホロライブ、カードゲームPVに「不適切な映像制作手法」　動画が非公開に　“AI利用疑惑”受け発覚&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/07/news101.html&quot;, &quot;summary&quot;: &quot;VTuber事務所「ホロライブプロダクション」を運営するカバーは、公式トレーディングカードゲームのPVを一部非公開にした。制作工程の一部に「原画イラストのクオリティーを損なう映像制作手法が含まれていた」という。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;LenovoとMotorola、共通AI基盤「Qira」発表　ペンダント型AI端末「ProjectMaxwell」も披露&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news099.html&quot;, &quot;summary&quot;: &quot;LenovoとMotorolaは、デバイスの垣根を超えるAIプラットフォーム「Qira」を発表した。PCやスマホでAIの記憶や文脈を共有し、シームレスな体験を実現する。また、ペンダント型AI端末「Project Maxwell」のプロトタイプも公開。視覚と聴覚を共有する「常時寄り添うAI」のビジョンを提示した。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Boston Dynamicsの人型ロボット「Atlas」商用化　自動車工場などに導入へ&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/07/news079.html&quot;, &quot;summary&quot;: &quot;ロボット開発企業の米Boston Dynamicsは、同社が開発してきた人型ロボット「Atlas」を商用化すると発表した。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Claude × Nano Banana Pro で料理漫画を自動生成するパイプラインを作った&quot;, &quot;link&quot;: &quot;https://qiita.com/yongyong/items/cabcfb8c91b857cc164f?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;TL;DR\n\nClaude Opus でキャラクター設定とCSV形式のシナリオを作成\n\nNano Banana Pro でキャラクター画像・背景・漫画ページを生成\n\nPython でCSV駆動の自動生成パイプラインを構築\n\nCanva で誤字脱字を修正（Nano Ban......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;拝啓、出社できなかった日の俺へ。──人生が止まったその日から、俺の挑戦が始まった。&quot;, &quot;link&quot;: &quot;https://qiita.com/Keita-0025/items/c0fb3bed10f49b0ed523?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに：準備が整う日は来ない\n準備が整う日は来ない。\nチャンスが目の前に来たら、まず掴む。\n**知識と技術は、掴んだあとに獲得すればいい。**それで問題ない。\nこの考えに至るまでに、2025年はいろんな意味で“激動”だった。\n休職して、自己投資して、環境を変えて、転職し......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;【資格勉強のコツ】私が辿り着いた「勉強モチベ阻害要因の排除」を軸とする合格戦略&quot;, &quot;link&quot;: &quot;https://qiita.com/Yusg_5/items/ae9f2a8d3fc5fb20852f?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n2025年、CLF・SAA・応用情報技術者試験の3つの資格試験に合格しました。\n2025年の受験結果\n\nCLF (AWS Certified Cloud Practitioner)：857点（合格ライン：720点）\n\nSAA (AWS Certified So......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;「SQLiteは本番で使えない」は本当か？ 未経験がRails 8 × 格安VPSで負荷試験を乗り越え、PHP学習アプリをリリースしました！&quot;, &quot;link&quot;: &quot;https://zenn.dev/sekito/articles/31c94dec1cc9a3&quot;, &quot;summary&quot;: &quot;初めまして、sekitoと申します。\nこの度、PHP8技術者認定初級試験の受験者に向けた学習サポートアプリ、『PHP8技術者認定初級試験スタディ』をリリースしました。\nこの記事でお伝えしたいのはアプリの宣伝だけではありません。\nこのアプリは、月額800円のVPSとSQLiteという、一般的には「本番向きではない」とされる構成で動いています。しかし、負荷試験では 同時接続150人（秒間数百リクエスト...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Claude Codeですぐ制限にかからないようにするコツ&quot;, &quot;link&quot;: &quot;https://zenn.dev/aun_phonogram/articles/4be2f4745726fb&quot;, &quot;summary&quot;: &quot;対象読者\n\nClaude Code を使っていて、Usage Limits（利用制限）にすぐ達してしまう方\nトークン消費の仕組みを理解して、効率よくAIを使いたい方\n\n\n はじめに\n\nYou&#x27;ve hit your limit ・ resets xxx (Asia/Tokyo)\n\n開発がいい感じに進んでいるときに限って出てくるこのメッセージ、できるだけ避けたいですよね。すぐに Usage Limi...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;MicrosoftはなぜBinaryFormatterを排除したのか&quot;, &quot;link&quot;: &quot;https://zenn.dev/litharge/articles/16862a6d6884b8&quot;, &quot;summary&quot;: &quot;はじめに\n.NET 9以降、BinaryFormatterというシリアライザが完全に排除されました。\nhttps://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide\n今を生きるエンジニアにはなじみが無いかもしれませんが、WCF(Windows Communication F...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;macOS Tahoeのメニューに表示されるアイコンはデザイン的に一貫性がなく醜悪との指摘&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260107-macos-tahoe-menu-icons/&quot;, &quot;summary&quot;: &quot;2025年秋にリリースされたmacOSの最新版であるmacOS Tahoeでは、メニューに表示される各項目がどういったものかわかりやすいように、アイコンが追加されています。このアイコンのデザインは一貫性がなく醜悪なものとなっていると、ニキータ・プロコポフ氏が解説しています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260107&amp;#45;macos&amp;#45...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;イーロン・マスクが脳インプラント企業「Neuralink」でブレイン・コンピューター・インターフェイスの大量生産を予告&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260107-neuralink-bci-breakthrough/&quot;, &quot;summary&quot;: &quot;脳と機械をつなぐブレイン・コンピューター・インターフェイス(BCI)デバイスの開発を行うスタートアップ「Neuralink」が、BCIデバイスの大量生産を開始することが分かりました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260107&amp;#45;neuralink&amp;#45;bci&amp;#45;breakthrough/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;Amazonの機器を他人の機器とつなぐ「Amazon Sidewalk」が日本にも展開予定、そのほかドア・窓・ガラス割れセンサーなどのホームセンサーを刷新&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260107-amazon-sidewalk-japan/&quot;, &quot;summary&quot;: &quot;Amazonデバイス同士でネットワークを構築してさまざまな機能を使えるようにするという「Amazon Sidewalk」が、ついに日本でも展開されることが明らかになりました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260107&amp;#45;amazon&amp;#45;sidewalk&amp;#45;japan/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Oracle Cloud Database@AWS、東京リージョンで提供開始。AWSで高性能なOracle Databaseが利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/oracle_cloud_databaseawsawsoracle_database.html&quot;, &quot;summary&quot;: &quot;Amazon Web Services（AWS）は、AWSのクラウドデータセンターにOracle Cloudのインフラを持ち込み、そこでOracle Databaseを提供する「Oracle Database@AWS」を東京リージョンで提供......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;AI時代の想像力を育むためのLEGOの挑戦 ――LEGO Press Conferenceより&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/lego-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;今回はCES 2026の2日目、LEGO初のCES Press Conference。スピーチの細部やデモで示されたことを網羅的にまとめるのではなく、筆者が気になった点にフォーカスしてレポートしてみます。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;第894回　デスクトップ環境の2025-2026年&quot;, &quot;link&quot;: &quot;https://gihyo.jp/admin/serial/01/ubuntu-recipe/0894?utm_source=feed&quot;, &quot;summary&quot;: &quot;新しい年の始めに、Ubuntuで使用できるさまざまなデスクトップ環境について2025年に起こったことと2026年に起こりそうなことを紹介します。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;速報：注目無人ロボットタクシー「ZOOX」実車体験レポート&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/ces-zoox?utm_source=feed&quot;, &quot;summary&quot;: &quot;CESは世界最大規模のハイテク展示会の1つで、毎年1月の第2週ごろにラスベガスで開催されています。米国時間2026年1月6日に今年も開幕し、筆者にとっての2026年のCESは、まずこのZOOX体験から始まりました。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;XAML Studioがオープンソース化、WinUI開発ツールの最新版も公開&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22938&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;なぜQAは「後回し」になるのか？ QAを早期に巻き込むVoicy流“1人目QA”の現場改革&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22808&quot;, &quot;summary&quot;: &quot;技術が進化し、プロダクトが複雑さを増すいま、品質保証（QA）の重要性はかつてないほど高まっている。しかし現場を見渡せば、QAが「テストを実行する人」という認識に押し込められ、設計や仕様策定といった上流工程に関われないまま、リリース直前の火消し役として扱われるケースも少なくない。株式会社Voicyの森田麻沙美氏は、その状況に強い課題意識を抱いてきた一人である。本セッションでは、森田氏が“1人目QA”...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;LINE Developersコンソールで1月19日に短時間のメンテナンス実施&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22933&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;国の登録有形文化財がスタバに　横浜「旧長濱検疫所一号停留所」&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076346.html&quot;, &quot;summary&quot;: &quot;横浜市は、25年3月に横浜市金沢区長浜から金沢区海の公園に移設復元され、国から横浜市に寄附された国の登録有形文化財「旧長濱検疫所一号停留所」の活用候補者が「スターバックス コーヒー ジャパン」に決定したと発表した。26年夏頃のオープンに向けて詳細の協議・検討を進める。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;ローソン、全国7地域で「ご当地からあげクン」　味仙監修やもつ鍋味&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076332.html&quot;, &quot;summary&quot;: &quot;ローソンは、1月13日より「ご当地！うまいもん祭」を全国のローソン店舗(ナチュラルローソン、ローソンストア100を除く)で開催する。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;要介助者の「一括サポート手配」拡大　ANAなど航空3社、鉄道10社、全国宿泊施設&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076318.html&quot;, &quot;summary&quot;: &quot;介助やサポートを必要とする人の移動をスムーズにする「Universal MaaS」の取り組みにおいて、「一括サポート手配」の連携事業者が大幅に拡大した。対象エリアのほか、宿泊施設などにもサービスを拡大し、1月より順次、実証実験が行なわれる。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Roblox now requires all users globally to complete age checks to access chat&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/roblox-now-requires-all-users-globally-to-complete-age-checks-to-access-chat/&quot;, &quot;summary&quot;: &quot;Once users complete an age check, they can access age-based chat, which means they can only communicate with others in a similar age group....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Intel spinout Articul8 raises more than half of $70M round at $500M valuation&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/&quot;, &quot;summary&quot;: &quot;Articul8&#x27;s valuation for its current funding round marks a roughly fivefold increase since its Series A....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;McKinsey and General Catalyst execs say the era of ‘learn once, work forever’ is over&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/06/mckinsey-and-general-catalyst-execs-say-the-era-of-learn-once-work-forever-is-over/&quot;, &quot;summary&quot;: &quot;Calacanis, General Catalyst&#x27;s Taneja, and McKinsey&#x27;s Sternfels discussed how AI is reshaping technology and the labor force....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Webinar: Learn How AI-Powered Zero Trust Detects Attacks with No Files or Indicators&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/webinar-learn-how-ai-powered-zero-trust.html&quot;, &quot;summary&quot;: &quot;Security teams are still catching malware. The problem is what they&#x27;re not catching.\nMore attacks today don&#x27;t arrive as files. They don&#x27;t drop binaries. They don&#x27;t trigger classic alerts. Instead, the...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;n8n Warns of CVSS 10.0 RCE Vulnerability Affecting Self-Hosted and Cloud Versions&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html&quot;, &quot;summary&quot;: &quot;Open-source workflow automation platform n8n has warned of a maximum-severity security flaw that, if successfully exploited, could result in authenticated remote code execution (RCE).\nThe vulnerabilit...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;The Future of Cybersecurity Includes Non-Human Employees&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/the-future-of-cybersecurity-includes.html&quot;, &quot;summary&quot;: &quot;Non-human employees are becoming the future of cybersecurity, and enterprises need to prepare accordingly. As organizations scale Artificial Intelligence (AI) and cloud automation, there is exponentia...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;The best tech announced at CES 2026 so far&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/854159/ces-2026-best-tech-gadgets-smartphones-appliances-robots-tvs-ai-smart-home&quot;, &quot;summary&quot;: &quot;The CES show floor officially opened its doors yesterday and along with it came a deluge of more announcements and reveals. If you&#x27;re struggling to stay on top of all the new tech, gadgets, concepts, ...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;The weirdest tech we&amp;#8217;ve seen at CES 2026&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/855460/ces-2026-weirdest-announcements&quot;, &quot;summary&quot;: &quot;There&#x27;s never a shortage of exciting and innovative tech at CES. A superthin TV and tri-folding phone are cool and all, but sometimes the weirdest gadgets are the ones that make us go \&quot;huh.\&quot; Luckily, ...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Logitech caused its mice to freak out by not renewing a certificate&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/857377/logitech-macos-logi-options-mouse-certification-fix&quot;, &quot;summary&quot;: &quot;If you&#x27;re among the macOS users experiencing some weird issues with your Logitech mouse, then good news: Logitech has now released a fix. This comes after multiple Reddit users reported yesterday that...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Here are the launches and landings we’re most excited about in 2026&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/here-are-the-launches-and-landings-were-most-excited-about-in-2026/&quot;, &quot;summary&quot;: &quot;A lot could happen in space next year, but let&#x27;s get real about what actually will....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Motorola reveals the Razr Fold, a book-style foldable launching this summer&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/motorola-reveals-the-razr-fold-a-book-style-foldable-launching-this-summer/&quot;, &quot;summary&quot;: &quot;Motorola is light on details but heavy on hype for its first book-style foldable....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;HP’s EliteBoard G1a is a Ryzen-powered Windows 11 PC in a membrane keyboard&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/hps-eliteboard-g1a-is-a-ryzen-powered-windows-11-pc-in-a-membrane-keyboard/&quot;, &quot;summary&quot;: &quot;The most familiar, full-fledged PC experience you can get from a keyboard....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Home Pilates Equipment for Studio-Quality Workouts (2026)&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/the-best-pilates-at-home-equipment/&quot;, &quot;summary&quot;: &quot;Here’s everything that you should buy, skip, or splurge on for your at-home Pilates workout....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;The Best Cat Toys for Your Furry Friend (2026)&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/best-cat-toys/&quot;, &quot;summary&quot;: &quot;Based on years of testing with our cats, these are our favorite WIRED-approved, techy cat toys and furniture....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;CES Live Blog, Day 3: Even More of the Coolest Tech We’ve Seen&quot;, &quot;link&quot;: &quot;https://www.wired.com/live/ces-2026-live-blog/&quot;, &quot;summary&quot;: &quot;Read our live updates from CES 2026 in Las Vegas to see the latest consumer gadgetry in all of its chatbot-enabled, sensor-packed, AI-infused glory....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Founder of Spyware Maker PcTattletale Pleads Guilty To Hacking, Advertising Surveillance Software&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/07/0033238/founder-of-spyware-maker-pctattletale-pleads-guilty-to-hacking-advertising-surveillance-software?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;An anonymous reader quotes a report from TechCrunch: The founder of a U.S.-based spyware company, whose surveillance products allowed customers to spy on the phones and computers of unsuspecting victi...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Congressman Introduces Legislation To Criminalize Insider Trading On Prediction Markets&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/07/0026210/congressman-introduces-legislation-to-criminalize-insider-trading-on-prediction-markets?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Ritchie Torres has introduced a bill to ban government officials from using insider information to trade on political prediction markets like Polymarket. The bill was prompted by reports that traders ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;An AI-Generated NWS Map Invented Fake Towns In Idaho&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/07/0014200/an-ai-generated-nws-map-invented-fake-towns-in-idaho?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;National Weather Service pulled an AI-generated forecast graphic after it hallucinated fake town names in Idaho. \&quot;The blunder -- not the first of its kind to be posted by the NWS in the past year -- c...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Show HN: KeelTest – AI-driven VS Code unit test generator with bug discovery&quot;, &quot;link&quot;: &quot;https://keelcode.dev/keeltest&quot;, &quot;summary&quot;: &quot;&lt;p&gt;I built this because Cursor, Claude Code and other agentic AI tools kept giving me tests that looked fine but failed when I ran them. Or worse - I&#x27;d ask the agent to run them and it would start loo...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;A4 Paper Stories&quot;, &quot;link&quot;: &quot;https://susam.net/a4-paper-stories.html&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://susam.net/a4-paper-stories.html\&quot;&gt;https://susam.net/a4-paper-stories.html&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46525888\&quot;&gt;https://news....&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Stop Designing Languages. Write Libraries Instead (2016)&quot;, &quot;link&quot;: &quot;https://lbstanza.org/purpose_of_programming_languages.html&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://lbstanza.org/purpose_of_programming_languages.html\&quot;&gt;https://lbstanza.org/purpose_of_programming_languages.html&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinat...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Pick up Amazon&#x27;s latest Kindle on sale for $20 off&quot;, &quot;link&quot;: &quot;https://www.engadget.com/deals/pick-up-amazons-latest-kindle-on-sale-for-20-off-183302556.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;If you&#x27;re one of the many who made a &lt;a href=\&quot;https://www.engadget.com/the-best-gear-to-help-you-stick-to-your-new-years-resolutions-130000389.html\&quot;&gt;New Year&#x27;s resolution&lt;/a&gt; to read more, an eread...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Anker&#x27;s new 45W Nano charger with smart display from CES is already $10 off&quot;, &quot;link&quot;: &quot;https://www.engadget.com/deals/ankers-new-45w-nano-charger-with-smart-display-from-ces-is-already-10-off-160707191.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Anker introduced a nifty little charger at &lt;a href=\&quot;https://www.engadget.com/general/everything-announced-at-ces-2026-130124802.html\&quot;&gt;CES 2026&lt;/a&gt;, which is a refresh of the &lt;a class=\&quot;rapid-with-cl...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Pick up the Apple Watch Series 11 while it&#x27;s $100 off&quot;, &quot;link&quot;: &quot;https://www.engadget.com/deals/pick-up-the-apple-watch-series-11-while-its-100-off-154609513.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;If you&#x27;re looking to get in shape in the new year, a wearable that tracks your daily activity and workouts can help with that. Our current favorite smartwatch is the &lt;a class=\&quot;rapid-with-clickid\&quot; h...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;How Ralph Wiggum went from &#x27;The Simpsons&#x27; to the biggest name in AI right now&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/how-ralph-wiggum-went-from-the-simpsons-to-the-biggest-name-in-ai-right-now&quot;, &quot;summary&quot;: &quot;&lt;p&gt;In the fast-moving world of AI development, it is rare for a tool to be described as both &amp;quot;a meme&amp;quot; and AGI, artificial generalized intelligence, the &amp;quot;holy grail&amp;quot; of a model or s...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Artificial Analysis overhauls its AI Intelligence Index, replacing popular benchmarks with &#x27;real-world&#x27; tests&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/artificial-analysis-overhauls-its-ai-intelligence-index-replacing-popular&quot;, &quot;summary&quot;: &quot;&lt;p&gt;The arms race to build smarter AI models has a measurement problem: the tests used to rank them are becoming obsolete almost as quickly as the models improve. On Monday, &lt;a href=\&quot;https://artificial...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;New ‘Test-Time Training’ method lets AI keep learning without exploding inference costs&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/new-test-time-training-method-lets-ai-keep-learning-without-exploding&quot;, &quot;summary&quot;: &quot;&lt;p&gt;A new study from researchers at Stanford University and Nvidia proposes a way for AI models to keep learning after deployment — without increasing inference costs. For enterprise agents that have t...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;This emergency gadget saved the day after my car battery died in a snowstorm&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/topdon-js3000-12v-car-battery-jump-starter/&quot;, &quot;summary&quot;: &quot;I tried the Topdon JS3000 out of the box, but the real test came six months later when I had to dig it out again to get my car running....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;I tested this $150 AirPods Max stand against a cheap $29 one - and here&#x27;s the winner&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/mophie-airpods-max-charging-stand-vs-cheaper-alternative/&quot;, &quot;summary&quot;: &quot;I tried Mophie&#x27;s AirPods Max stand. Is it really worth up to five times more than budget alternatives?...&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;9 things I always do after setting up Windows 11 - and why you should too&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/setting-up-windows-11-essential-next-steps/&quot;, &quot;summary&quot;: &quot;Microsoft&#x27;s default settings for Windows 11 are filled with tiny annoyances, including unnecessary taskbar icons and unwanted apps. Here&#x27;s how to declutter your new setup and maximize your security se...&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;The latest AI news we announced in December&quot;, &quot;link&quot;: &quot;https://blog.google/technology/ai/google-ai-updates-december-2025/&quot;, &quot;summary&quot;: &quot;Three application preview cards: AI chess interface, Gemini 3 Flash logo, Google search bar....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Google&#x27;s year in review: 8 areas with research breakthroughs in 2025&quot;, &quot;link&quot;: &quot;https://blog.google/technology/ai/2025-research-breakthroughs/&quot;, &quot;summary&quot;: &quot;The image depicts a visual collage or mosaic of multiple different images, with one image in the center that is black and displays the text \&quot;Gemini 3\&quot;....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;60 of our biggest AI announcements in 2025&quot;, &quot;link&quot;: &quot;https://blog.google/technology/ai/google-ai-news-recap-2025/&quot;, &quot;summary&quot;: &quot;A translucent blue rectangle lies against a black background with blue dots and lines. Within the rectangle is text saying 2025, along with a grid of 12 images, each representing a big Google AI momen...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</div>
+            </details>
+            <details>
+                <summary>VIEW_DESIGN_AI_PROMPT</summary>
+                <div class="prompt-content">
+    あなたは前衛的Webデザイナーです。MorphoNewsのHTMLを作成します。
+    
+    【指令】
+    1. 以前のデザイン（HTML構造）を参考にしつつ、
+       ムード「Integration」に合わせて、
+       **配色・フォント・レイアウトを大胆に変異**させてください。
+    
+    2. **ナビゲーションバーの実装 (必須)**:
+       ページ上部または下部にナビゲーションを作ってください。
+       - [&lt;&lt; Prev Update] ボタン: リンク先 &quot;./2026-01-07_2236.html&quot; (prev_linkが &quot;#&quot; なら非表示か無効化)
+       - [Archive List] ボタン: リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-07 22:59 (JST)
+
+    3. **システム情報の表示 (必須)**:
+       フッターに以下の生成統計を明確に表示するセクションを作成してください。
+       - 取得日時(JST): 2026-01-07 22:59:08 JST
+       - 収集記事数: 63
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=8350, 出力=1412, 合計=11058
+       - 要約生成時間: 19.21秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    4. **プロンプト開示セクション (必須)**:
+       `&lt;details&gt;` タグを使い、折りたたみで以下のプロンプトを表示してください。
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    5. 出力はHTMLのみ。`&lt;!DOCTYPE html&gt;` から開始。
+    
+    【ニュースデータ】
+    {&quot;daily_summary&quot;: &quot;2026年初頭、テクノロジーの潮流は「AIの日常化」から「AIの物理的・社会的な実実装」へと明確にシフトしています。CES 2026の熱狂の中、LenovoやMotorolaが発表した『Qira』は、PCからスマホまで個人の文脈を共有するシームレスなAI体験を提示しました。特筆すべきは、Boston Dynamicsの人型ロボット『Atlas』の商用化やNeuralinkによるBCI（脳・コンピュータ・インターフェース）の量産化予告です。これらは、AIがソフトウェアの枠を超え、労働力や医療といった物理的な解決策として普及し始める転換点となるでしょう。一方で、インフラ面ではOracleとAWSの東京リージョン連携というビッグニュースがあり、企業システムにおけるハイブリッド・マルチクラウドの活用が新たな段階に入りました。開発者向けには、有償UIライブラリのオープンソース化や次世代OS『macOS Tahoe』のデザインへの批判など、品質と持続可能性を問う動きも活発です。その傍ら、Mac Fanの定期刊行終了というニュースは、一つの時代が終わり、完全にデジタルが主導するメディア環境への移行を象徴しています。AIによる天気図の捏造といった『ハルシネーション』のリスクを抱えつつも、技術はかつてない速度で私たちの生活の深部へ浸透し続けています。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;LenovoとMotorola、共通AI基盤「Qira」発表。ペンダント型AI端末も&quot;, &quot;description&quot;: &quot;PCとスマホの間でAIの記憶や文脈を共有する新プラットフォーム。デバイスの垣根を超えたパーソナルなAI体験を目指す。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news099.html&quot;}, {&quot;title&quot;: &quot;Boston Dynamicsの人型ロボット「Atlas」がついに商用化&quot;, &quot;description&quot;: &quot;長年研究されてきたAtlasが、自動車工場などでの稼働を想定し商用展開を開始。人型ロボットの産業利用が本格化する。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/07/news079.html&quot;}, {&quot;title&quot;: &quot;Neuralink、脳インプラントBCIの大量生産を予告&quot;, &quot;description&quot;: &quot;イーロン・マスク氏が率いるNeuralinkが、脳とコンピュータを繋ぐデバイスの量産体制へ。医療とテクノロジーの融合が加速。&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260107-neuralink-bci-breakthrough/&quot;}, {&quot;title&quot;: &quot;Oracle Database@AWSが東京リージョンで提供開始&quot;, &quot;description&quot;: &quot;AWSのデータセンターでOracle Databaseの高性能なインフラが利用可能に。企業ユーザー待望の連携が日本でも実現。&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/oracle_cloud_databaseawsawsoracle_database.html&quot;}, {&quot;title&quot;: &quot;ビジネス向けUIライブラリ「Ignite UI」の50コンポーネントがOSS化&quot;, &quot;description&quot;: &quot;インフラジスティックスが、有償だったReact/Angular等向けライブラリの一部を無償公開。Web開発の効率化を支援。&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;}, {&quot;title&quot;: &quot;自動化プラットフォーム「n8n」にCVSS 10.0の致命的な脆弱性&quot;, &quot;description&quot;: &quot;セルフホスト版およびクラウド版に影響。認証済みリモートコード実行（RCE）の恐れがあり、即時の対応が求められる。&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html&quot;}, {&quot;title&quot;: &quot;雑誌「Mac Fan」が定期刊行を終了へ。創刊32年の節目&quot;, &quot;description&quot;: &quot;Apple専門誌として1993年から続いた歴史に幕。今後は定期刊行ではなく「新しい形」での情報発信を模索する。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news133.html&quot;}, {&quot;title&quot;: &quot;米気象局、AI生成画像により「存在しない町」を捏造&quot;, &quot;description&quot;: &quot;アイダホ州の予報図でAIが架空の町名を生成。公的機関のツールでもAIのハルシネーション（幻覚）が課題となっている。&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/07/0014200/an-ai-generated-nws-map-invented-fake-towns-in-idaho&quot;}, {&quot;title&quot;: &quot;完全無人ロボットタクシー「ZOOX」の実車体験レポート&quot;, &quot;description&quot;: &quot;CES 2026にて注目を集めるZOOX。ハンドルもペダルもない、次世代の都市移動モビリティの現実味が増している。&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/ces-zoox&quot;}, {&quot;title&quot;: &quot;macOS Tahoeのメニューアイコンに「一貫性がない」との指摘&quot;, &quot;description&quot;: &quot;最新OSで導入されたアイコンデザインに対し、専門家が醜悪さと一貫性の欠如を分析。UXデザインの品質低下が議論に。&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260107-macos-tahoe-menu-icons/&quot;}], &quot;mood_keyword&quot;: &quot;Integration&quot;}
+    </div>
+            </details>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -60,10 +60,9 @@ jobs:
         run: |
           git config --global user.name 'MorphoNews Bot'
           git config --global user.email 'bot@morphonews.local'
-          git add public/index.html
-          # news_archive.json がない場合のエラー回避
-          git add public/news_archive.json || true 
-          git commit -m "feat: Auto-evolution $(date +'%Y-%m-%d')"
+          # publicディレクトリ配下の変更をすべて追加
+          git add public/
+          git commit -m "feat: Archive & Evolve $(date +'%Y-%m-%d')"
           git push
 
       # GitHub Pagesへのデプロイ処理

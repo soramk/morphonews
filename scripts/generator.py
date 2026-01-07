@@ -426,14 +426,16 @@ def generate_history_page(history):
         }}
 
         .logo-icon {{
-            width: 44px;
-            height: 44px;
-            background: var(--accent-gradient);
+            width: 48px;
+            height: 48px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            overflow: hidden;
+        }}
+
+        .logo-icon img {{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }}
 
         .logo h1 {{
@@ -741,7 +743,7 @@ def generate_history_page(history):
         <div class="header-content">
             <div class="logo">
                 <div class="logo-icon">
-                    <i data-lucide="sparkles" style="width: 24px; height: 24px;"></i>
+                    <img src="./assets/icons/icon_butterfly_morphing.png" alt="MorphoNews Logo">
                 </div>
                 <div>
                     <h1>MorphoNews</h1>

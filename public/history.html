@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MorphoNews Archive | 進化するニュースの記録</title>
     <meta name="description" content="MorphoNewsの過去のニュースアーカイブ一覧。AIが自動生成した日々のテックニュースを振り返ることができます。">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0a0a0f;
@@ -46,7 +43,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background:
+            background: 
                 radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
@@ -93,15 +90,8 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .logo h1 {
@@ -343,23 +333,22 @@
             header {
                 padding: 1rem;
             }
-
+            
             .header-content {
                 flex-direction: column;
                 text-align: center;
             }
-
+            
             main {
                 padding: 1rem;
             }
-
+            
             .history-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-
 <body>
     <header>
         <div class="header-content">
@@ -371,7 +360,7 @@
                 </div>
             </div>
             <nav>
-                <a href="./archives/2026-01-07_1315.html">🏠 最新版</a>
+                <a href="./archives/2026-01-07_2236.html">🏠 最新版</a>
                 <a href="./history.html" class="active">📚 アーカイブ</a>
                 <a href="https://github.com/sora0513/morphonews" target="_blank">💻 GitHub</a>
             </nav>
@@ -381,7 +370,7 @@
     <main>
         <div class="stats-bar">
             <div class="stat-card">
-                <div class="stat-value">1</div>
+                <div class="stat-value">2</div>
                 <div class="stat-label">総アーカイブ数</div>
             </div>
             <div class="stat-card">
@@ -395,22 +384,39 @@
         </div>
 
         <section class="history-grid">
-            <article class="history-card" data-mood="transformation">
-                <div class="card-header">
-                    <time class="card-date">2026-01-07 13:15:27 JST</time>
-                    <span class="card-mood">Transformation</span>
-                </div>
-                <p class="card-summary">今日のテックトレンドは、メディアの構造変化とAIによる創造性の自動化、そして深刻なセキュリティリスクの三点が焦点です。創刊32年の「Mac
-                    Fan」が定期刊行を終了するというニュースは、紙媒体からデジタルへの情報伝達の変遷を象徴しています...</p>
-                <div class="card-meta">
-                    <span class="meta-item">🤖 gemini-3-flash-preview</span>
-                    <span class="meta-item">🔢 3670 tokens</span>
-                </div>
-                <div class="card-actions">
-                    <a href="./archives/2026-01-07_1315.html" class="btn-view">📰 記事を見る</a>
-                    <a href="./data/2026-01-07_1315.json" class="btn-data">📊 JSONデータ</a>
-                </div>
-            </article>
+            
+        <article class="history-card" data-mood="transformative">
+            <div class="card-header">
+                <time class="card-date">2026-01-07 22:36:03 JST</time>
+                <span class="card-mood">Transformative</span>
+            </div>
+            <p class="card-summary">今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArt...</p>
+            <div class="card-meta">
+                <span class="meta-item">🤖 gemini-3-flash-preview</span>
+                <span class="meta-item">🔢 9472 tokens</span>
+            </div>
+            <div class="card-actions">
+                <a href="./archives/2026-01-07_2236.html" class="btn-view">📰 記事を見る</a>
+                <a href="./data/2026-01-07_2236.json" class="btn-data">📊 JSONデータ</a>
+            </div>
+        </article>
+        
+        <article class="history-card" data-mood="transformation">
+            <div class="card-header">
+                <time class="card-date">2026-01-07 13:15:27 JST</time>
+                <span class="card-mood">Transformation</span>
+            </div>
+            <p class="card-summary">今日のテックトレンドは、メディアの構造変化とAIによる創造性の自動化、そして深刻なセキュリティリスクの三点が焦点です。創刊32年の「Mac Fan」が定期刊行を終了するというニュースは、紙媒体からデジタルへの情報伝達の変遷を象徴しています。一方で、ClaudeとNano Bananaを組み合わせた漫...</p>
+            <div class="card-meta">
+                <span class="meta-item">🤖 gemini-3-flash-preview</span>
+                <span class="meta-item">🔢 3670 tokens</span>
+            </div>
+            <div class="card-actions">
+                <a href="./archives/2026-01-07_1315.html" class="btn-view">📰 記事を見る</a>
+                <a href="./data/2026-01-07_1315.json" class="btn-data">📊 JSONデータ</a>
+            </div>
+        </article>
+        
         </section>
     </main>
 
@@ -418,11 +424,9 @@
         <div class="footer-content">
             <p class="footer-text">
                 🦋 MorphoNews - AI駆動の自己進化型ニュースサイト<br>
-                Powered by <a href="https://github.com/sora0513/morphonews" target="_blank">GitHub Actions</a> & Gemini
-                AI
+                Powered by <a href="https://github.com/sora0513/morphonews" target="_blank">GitHub Actions</a> & Gemini AI
             </p>
         </div>
     </footer>
 </body>
-
 </html>

@@ -1,0 +1,51 @@
+{
+  "daily_summary": "今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArticul8が巨額の資金調達を進めるなど、インフラ投資の勢いは止まりません。また、ワークフロー自動化ツールn8nで深刻な脆弱性が報告されるなど、AIや自動化技術の普及に伴うセキュリティリスクへの対策も急務となっています。クリエイティブ面ではClaudeを活用した漫画生成パイプラインの構築事例が注目を集め、Robloxでは若年層の安全確保を目的とした年齢確認が義務化されるなど、技術の進歩とガバナンスの調和が模索される一日となりました。",
+  "top_news": [
+    {
+      "title": "雑誌「Mac Fan」定期刊行を終了へ：32年の歴史に区切り",
+      "description": "1993年創刊のApple専門誌が3月の5月号をもって定期刊行を終了。デジタル中心の「新しい形」への移行は、レガシーメディアの転換点を象徴しています。",
+      "link": "https://www.itmedia.co.jp/news/articles/2601/07/news133.html"
+    },
+    {
+      "title": "Intel発のAIスタートアップArticul8、評価額5億ドルで資金調達",
+      "description": "エンタープライズ向けAIを展開するArticul8が7000万ドルの資金調達を進行。AIインフラとプラットフォームへの投資熱は依然として高い水準を維持しています。",
+      "link": "https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/"
+    },
+    {
+      "title": "n8nに最大深刻度CVSS 10.0の脆弱性、RCEの危険性",
+      "description": "ワークフロー自動化プラットフォームn8nに、認証済みリモートコード実行が可能な深刻な脆弱性が発見されました。セルフホスト版およびクラウド版ユーザーは早急なアップデートが推奨されます。",
+      "link": "https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html"
+    }
+  ],
+  "mood_keyword": "Transformative",
+  "meta": {
+    "id": "2026-01-07_2236",
+    "display_date": "2026-01-07 22:36",
+    "fetch_time_jst": "2026-01-07 22:36:03 JST",
+    "sources": [
+      "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",
+      "https://qiita.com/popular-items/feed",
+      "https://techcrunch.com/feed/",
+      "https://feeds.feedburner.com/TheHackersNews"
+    ],
+    "model_name": "gemini-3-flash-preview",
+    "summary_prompt": "ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。\n    \n    【要件】\n    1. 「今日のテックトレンド要約」(400文字)を作成。\n    2. 注目ニュース3選をピックアップ。\n    3. 出力はJSON形式。\n    \n    入力: [{\"title\": \"「甘えた～い」「たまにはHなお話も…」　セクハラ辞職の福井県元知事巡る調査結果が公開に　被害女性へのLINE文面も\", \"link\": \"https://www.itmedia.co.jp/news/articles/2601/07/news139.html\", \"summary\": \"福井県が、職員へのセクハラ疑惑で2025年7月に辞職した杉本達治元知事を巡り、同氏によるセクハラがあったことは明らかとする調査報告書を公開した。スカートに手を入れるといった身体的な接触の報告があった他、性的なテキストメッセージの送付を確認したという。メッセージについては、具体的な文面も一部公開した。...\", \"source\": \"ITmedia NEWS 最新記事一覧\"}, {\"title\": \"雑誌「Mac Fan」定期刊行を終了へ　1993年の創刊から32年、「新しい形」に\", \"link\": \"https://www.itmedia.co.jp/news/articles/2601/07/news133.html\", \"summary\": \"マイナビ出版は7日、雑誌「Mac Fan」の定期刊行を3月27日発売の5月号をもって終了すると発表した。...\", \"source\": \"ITmedia NEWS 最新記事一覧\"}, {\"title\": \"Claude × Nano Banana Pro で料理漫画を自動生成するパイプラインを作った\", \"link\": \"https://qiita.com/yongyong/items/cabcfb8c91b857cc164f?utm_campaign=popular_items&utm_medium=feed&utm_source=popular_items\", \"summary\": \"TL;DR\\n\\nClaude Opus でキャラクター設定とCSV形式のシナリオを作成\\n\\nNano Banana Pro でキャラクター画像・背景・漫画ページを生成\\n\\nPython でCSV駆動の自動生成パイプラインを構築\\n\\nCanva で誤字脱字を修正（Nano Ban......\", \"source\": \"Qiita - 人気の記事\"}, {\"title\": \"拝啓、出社できなかった日の俺へ。──人生が止まったその日から、俺の挑戦が始まった。\", \"link\": \"https://qiita.com/Keita-0025/items/c0fb3bed10f49b0ed523?utm_campaign=popular_items&utm_medium=feed&utm_source=popular_items\", \"summary\": \"はじめに：準備が整う日は来ない\\n準備が整う日は来ない。\\nチャンスが目の前に来たら、まず掴む。\\n**知識と技術は、掴んだあとに獲得すればいい。**それで問題ない。\\nこの考えに至るまでに、2025年はいろんな意味で“激動”だった。\\n休職して、自己投資して、環境を変えて、転職し......\", \"source\": \"Qiita - 人気の記事\"}, {\"title\": \"Roblox now requires all users globally to complete age checks to access chat\", \"link\": \"https://techcrunch.com/2026/01/07/roblox-now-requires-all-users-globally-to-complete-age-checks-to-access-chat/\", \"summary\": \"Once users complete an age check, they can access age-based chat, which means they can only communicate with others in a similar age group....\", \"source\": \"TechCrunch\"}, {\"title\": \"Intel spinout Articul8 raises more than half of $70M round at $500M valuation\", \"link\": \"https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/\", \"summary\": \"Articul8's valuation for its current funding round marks a roughly fivefold increase since its Series A....\", \"source\": \"TechCrunch\"}, {\"title\": \"Webinar: Learn How AI-Powered Zero Trust Detects Attacks with No Files or Indicators\", \"link\": \"https://thehackernews.com/2026/01/webinar-learn-how-ai-powered-zero-trust.html\", \"summary\": \"Security teams are still catching malware. The problem is what they're not catching.\\nMore attacks today don't arrive as files. They don't drop binaries. They don't trigger classic alerts. Instead, the...\", \"source\": \"The Hacker News\"}, {\"title\": \"n8n Warns of CVSS 10.0 RCE Vulnerability Affecting Self-Hosted and Cloud Versions\", \"link\": \"https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html\", \"summary\": \"Open-source workflow automation platform n8n has warned of a maximum-severity security flaw that, if successfully exploited, could result in authenticated remote code execution (RCE).\\nThe vulnerabilit...\", \"source\": \"The Hacker News\"}]\n    \n    出力Schema:\n    {\n        \"daily_summary\": \"...\",\n        \"top_news\": [ { \"title\": \"...\", \"description\": \"...\", \"link\": \"...\" } ],\n        \"mood_keyword\": \"今のニュースの雰囲気(英単語)\"\n    }",
+    "summary_tokens": {
+      "input": 1277,
+      "output": 628,
+      "total": 3756
+    },
+    "summary_generation_time_sec": 14.36,
+    "article_count": 8,
+    "total_fetch_time_sec": 15.66,
+    "design_prompt": "あなたは前衛的Webデザイナーです。MorphoNewsのHTMLを作成します。\n    \n    【指令】\n    1. 以前のデザイン（HTML構造）を参考にしつつ、\n       ムード「Transformative」に合わせて、\n       **配色・フォント・レイアウトを大胆に変異**させてください。\n    \n    2. **ナビゲーションバーの実装 (必須)**:\n       ページ上部または下部にナビゲーションを作ってください。\n       - [<< Prev Update] ボタン: リンク先 \"./2026-01-07_1315.html\" (prev_linkが \"#\" なら非表示か無効化)\n       - [Archive List] ボタン: リンク先 \"../history.html\"\n       - 現在の日時表示: 2026-01-07 22:36 (JST)\n\n    3. **システム情報の表示 (必須)**:\n       フッターに以下の生成統計を明確に表示するセクションを作成してください。\n       - 取得日時(JST): 2026-01-07 22:36:03 JST\n       - 収集記事数: 8\n       - 使用モデル: gemini-3-flash-preview\n       - 要約AIトークン: 入力=1277, 出力=628, 合計=3756\n       - 要約生成時間: 14.36秒\n       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)\n       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)\n       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)\n\n    4. **プロンプト開示セクション (必須)**:\n       `<details>` タグを使い、折りたたみで以下のプロンプトを表示してください。\n       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}\n       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}\n\n    5. 出力はHTMLのみ。`<!DOCTYPE html>` から開始。\n    \n    【ニュースデータ】\n    {\"daily_summary\": \"今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArticul8が巨額の資金調達を進めるなど、インフラ投資の勢いは止まりません。また、ワークフロー自動化ツールn8nで深刻な脆弱性が報告されるなど、AIや自動化技術の普及に伴うセキュリティリスクへの対策も急務となっています。クリエイティブ面ではClaudeを活用した漫画生成パイプラインの構築事例が注目を集め、Robloxでは若年層の安全確保を目的とした年齢確認が義務化されるなど、技術の進歩とガバナンスの調和が模索される一日となりました。\", \"top_news\": [{\"title\": \"雑誌「Mac Fan」定期刊行を終了へ：32年の歴史に区切り\", \"description\": \"1993年創刊のApple専門誌が3月の5月号をもって定期刊行を終了。デジタル中心の「新しい形」への移行は、レガシーメディアの転換点を象徴しています。\", \"link\": \"https://www.itmedia.co.jp/news/articles/2601/07/news133.html\"}, {\"title\": \"Intel発のAIスタートアップArticul8、評価額5億ドルで資金調達\", \"description\": \"エンタープライズ向けAIを展開するArticul8が7000万ドルの資金調達を進行。AIインフラとプラットフォームへの投資熱は依然として高い水準を維持しています。\", \"link\": \"https://techcrunch.com/2026/01/07/intel-spin-off-articul8-is-halfway-to-70m-ai-funding-round-at-500m-valuation/\"}, {\"title\": \"n8nに最大深刻度CVSS 10.0の脆弱性、RCEの危険性\", \"description\": \"ワークフロー自動化プラットフォームn8nに、認証済みリモートコード実行が可能な深刻な脆弱性が発見されました。セルフホスト版およびクラウド版ユーザーは早急なアップデートが推奨されます。\", \"link\": \"https://thehackernews.com/2026/01/n8n-warns-of-cvss-100-rce-vulnerability.html\"}], \"mood_keyword\": \"Transformative\"}",
+    "design_tokens": {
+      "input": 1067,
+      "output": 3771,
+      "total": 5716
+    },
+    "design_generation_time_sec": 24.9,
+    "total_tokens": 9472,
+    "total_processing_time_sec": 40.56
+  }
+}

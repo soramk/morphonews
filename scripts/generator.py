@@ -1,24 +1,27 @@
 import os
 import json
+import shutil
 import feedparser
 import google.generativeai as genai
-from google.ai.generativelanguage_v1beta.types import content
 from datetime import datetime
 
 # --- 設定 ---
-# GitHub Secretsの名前は OPENAI_API_KEY のままでも動きますが、
-# 中身が Gemini のキー (AIza...) であることを前提とします。
 API_KEY = os.environ.get("OPENAI_API_KEY")
-
 if not API_KEY:
-    raise ValueError("API Key not found in environment variables")
+    # 開発環境などでキーがない場合の安全策（Github ActionsではSecrets必須）
+    pass 
 
 # Geminiの設定
-genai.configure(api_key=API_KEY)
+if API_KEY:
+    genai.configure(api_key=API_KEY)
+    
+MODEL_NAME = "gemini-1.5-flash"
 
-# 指定のモデル（存在しない場合は 'gemini-1.5-flash' や 'gemini-2.0-flash-exp' に変更してください）
-# ※現時点で安定して動く 'gemini-1.5-flash' をデフォルトに設定しています。
-MODEL_NAME = "gemini-3-flash-preview" 
+# ディレクトリ構成
+PUBLIC_DIR = "public"
+ARCHIVE_DIR = os.path.join(PUBLIC_DIR, "archives") # HTML保管場所
+DATA_DIR = os.path.join(PUBLIC_DIR, "data")       # JSON保管場所
+HISTORY_FILE = os.path.join(PUBLIC_DIR, "history.json")
 
 RSS_FEEDS = [
     "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",
@@ -27,20 +30,48 @@ RSS_FEEDS = [
     "https://feeds.feedburner.com/TheHackersNews",
 ]
 
-OUTPUT_HTML_PATH = "public/index.html"
+# --- ヘルパー関数: 履歴管理 ---
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, 'r', encoding='utf-8') as f:
+            try:
+                return json.load(f)
+            except:
+                return []
+    return []
 
-# --- 関数: ニュース収集と要約 (編集者AI) ---
-def fetch_and_summarize_news():
+def save_history(history):
+    # 文字列ソートで時系列順を保証
+    sorted_history = sorted(list(set(history)))
+    with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
+        json.dump(sorted_history, f, indent=2)
+
+def get_prev_link(current_id, history):
+    """履歴リストから、今回(current_id)の一つ前のIDを探してリンクを返す"""
+    # 念のためソート
+    sorted_history = sorted(list(set(history)))
+    
+    # 今回のIDがまだ履歴に含まれていない場合を考慮して、今回より小さい最大のIDを探す
+    past_ids = [hid for hid in sorted_history if hid < current_id]
+    
+    if past_ids:
+        prev_id = past_ids[-1]
+        return f"./{prev_id}.html"
+    
+    return "#"
+
+# --- 1. ニュース収集 (編集者AI) ---
+def fetch_and_summarize_news(timestamp_id):
     print("Step 1: Fetching news...")
     start_time = datetime.now()
     articles = []
     source_urls = []
     
-    # 記事取得
     for url in RSS_FEEDS:
         try:
             feed = feedparser.parse(url)
             source_urls.append(url)
+            # 各フィードから最新2件
             for entry in feed.entries[:2]:
                 articles.append({
                     "title": entry.title,
@@ -51,138 +82,162 @@ def fetch_and_summarize_news():
         except Exception as e:
             print(f"Error fetching {url}: {e}")
 
-    # プロンプト作成
     prompt = f"""
-    あなたは優秀なITジャーナリストです。
-    以下の記事リストから、特にエンジニアにとって重要・興味深いトピックを選定し、
-    **日本語で** Web記事のコンテンツを作成してください。
-
-    【要件】
-    1. 記事全体で400文字程度の「今日のテックトレンド要約」を作成する。
-    2. 個別の注目ニュースを3つピックアップし、それぞれ3行程度で紹介する。
-    3. 結果は **JSON形式** で出力すること。
+    ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
     
-    【入力データ】
-    {json.dumps(articles, ensure_ascii=False)}
-
-    【出力フォーマット (JSON schema)】
+    【要件】
+    1. 「今日のテックトレンド要約」(400文字)を作成。
+    2. 注目ニュース3選をピックアップ。
+    3. 出力はJSON形式。
+    
+    入力: {json.dumps(articles, ensure_ascii=False)}
+    
+    出力Schema:
     {{
-        "daily_summary": "400文字程度の要約",
-        "top_news": [
-            {{ "title": "記事タイトル", "description": "要約", "link": "URL" }}
-        ],
-        "mood_keyword": "今日の雰囲気の英単語 (例: Cyberpunk)"
+        "daily_summary": "...",
+        "top_news": [ {{ "title": "...", "description": "...", "link": "..." }} ],
+        "mood_keyword": "今のニュースの雰囲気(英単語)"
     }}
     """
-
-    print(f"Requesting AI summarization using {MODEL_NAME}...")
     
-    # Gemini モデル初期化 (JSONモード有効化)
+    print(f"Requesting AI summarization ({MODEL_NAME})...")
     model = genai.GenerativeModel(
         model_name=MODEL_NAME,
         generation_config={"response_mime_type": "application/json"}
     )
-    
     response = model.generate_content(prompt)
+    content_json = json.loads(response.text)
     
-    # レスポンスの解析
-    try:
-        content_json = json.loads(response.text)
-    except json.JSONDecodeError:
-        # 万が一JSON以外が返ってきた場合のフォールバック（Geminiは稀にある）
-        print("JSON parse error, trying raw text cleanup...")
-        clean_text = response.text.replace("```json", "").replace("```", "")
-        content_json = json.loads(clean_text)
-
-    # トークン情報の取得 (Gemini SDK仕様)
-    usage = response.usage_metadata
-    total_tokens = usage.total_token_count
-    
-    # メタデータを追加
+    # メタデータ (IDとしてtimestamp_idを使用)
     content_json['meta'] = {
+        'id': timestamp_id,
+        'display_date': start_time.strftime('%Y-%m-%d %H:%M'), # 表示用日時
         'fetch_time': start_time.strftime('%Y-%m-%d %H:%M:%S JST'),
         'sources': source_urls,
-        'summary_prompt': prompt,
-        'summary_tokens': total_tokens,
+        'summary_tokens': response.usage_metadata.total_token_count,
         'article_count': len(articles)
     }
     
+    # JSONデータの保存
+    os.makedirs(DATA_DIR, exist_ok=True)
+    json_path = os.path.join(DATA_DIR, f"{timestamp_id}.json")
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(content_json, f, ensure_ascii=False, indent=2)
+        
     return content_json
 
-# --- 関数: Webページの進化 (デザイナーAI) ---
-def evolve_ui(news_data):
-    print("Step 2: Evolving UI/UX...")
+# --- 2. デザイン生成 (デザイナーAI) ---
+def evolve_ui(news_data, prev_link):
+    current_id = news_data['meta']['id']
+    display_date = news_data['meta']['display_date']
+    print(f"Step 2: Evolving UI for {current_id}...")
     
-    current_html = ""
-    if os.path.exists(OUTPUT_HTML_PATH):
-        with open(OUTPUT_HTML_PATH, "r", encoding="utf-8") as f:
-            current_html = f.read()
+    # 最新のアーカイブがあれば参考にする（なければ空）
+    # historyから最新を取得してもいいが、単純にアーカイブフォルダの最新ファイルを探す
+    reference_html = ""
+    try:
+        archives = sorted(os.listdir(ARCHIVE_DIR))
+        if archives:
+            latest_archive = archives[-1]
+            with open(os.path.join(ARCHIVE_DIR, latest_archive), "r", encoding="utf-8") as f:
+                reference_html = f.read()
+    except:
+        pass
 
-    # デザイン指示のプロンプト
+    # 参考HTMLが長すぎるとトークンを圧迫するので、冒頭部分だけ渡すなどの工夫も可
+    # ここではそのまま渡す
+    
     design_prompt = f"""
-    あなたは前衛的Webデザイナーです。「MorphoNews」のHTMLを作成します。
+    あなたは前衛的Webデザイナーです。MorphoNewsのHTMLを作成します。
     
-    【コンテンツデータ】
-    {json.dumps(news_data, ensure_ascii=False)}
-
-    【デザイン要件】
-    1. 前回 ({datetime.now().strftime('%Y-%m-%d')}) のHTML構造を参考にしつつ、
-       今日のムード「{news_data['mood_keyword']}」に合わせて、
+    【指令】
+    1. 以前のデザイン（HTML構造）を参考にしつつ、
+       ムード「{news_data['mood_keyword']}」に合わせて、
        **配色・フォント・レイアウトを大胆に変異**させてください。
     
-    2. **システムログセクションの必須表示**:
-       ページ下部に以下の情報を表示するエリアを作成してください。
-       - 生成日時: {news_data['meta']['fetch_time']}
-       - 収集記事数: {news_data['meta']['article_count']}
-       - 要約AIトークン数: {news_data['meta']['summary_tokens']}
-       - デザインAIトークン数: {{ DESIGN_TOTAL_TOKENS }} (後で置換)
-       
-    3. **プロンプトの開示**:
-       `<details>` タグを使い、以下のプロンプト全文を表示してください。
-       - Summary Prompt: (中身は "CHECK_JSON_DATA" と記述)
-       - Design Prompt: (中身は "CHECK_PYTHON_SCRIPT" と記述)
+    2. **ナビゲーションバーの実装 (必須)**:
+       ページ上部または下部にナビゲーションを作ってください。
+       - [<< Prev Update] ボタン: リンク先 "{prev_link}" (prev_linkが "#" なら非表示か無効化)
+       - [Archive List] ボタン: リンク先 "../history.json"
+       - 現在の日時表示: {display_date}
 
-    4. 出力は `<!DOCTYPE html>` から始まるHTMLのみ。Markdown記法は不要。
+    3. **システム情報の表示**:
+       フッターに生成統計を表示。
+       - デザインAIトークン: {{ DESIGN_TOTAL_TOKENS }}
+
+    4. 出力はHTMLのみ。
+    
+    【ニュースデータ】
+    {json.dumps(news_data, ensure_ascii=False)}
     """
 
-    # Gemini モデル初期化 (HTML生成用なのでJSONモードはOFF)
     model = genai.GenerativeModel(MODEL_NAME)
-    
     response = model.generate_content(design_prompt)
     
-    # 整形
-    raw_html = response.text
-    clean_html = raw_html.replace("```html", "").replace("```", "").strip()
+    clean_html = response.text.replace("```html", "").replace("```", "").strip()
 
-    # --- HTML内のプレースホルダーを実際の値に置換 ---
+    # トークン置換
     design_tokens = response.usage_metadata.total_token_count
-    total_cost_tokens = news_data['meta']['summary_tokens'] + design_tokens
+    total = news_data['meta']['summary_tokens'] + design_tokens
+    final_html = clean_html.replace("{{ DESIGN_TOTAL_TOKENS }}", f"{design_tokens} (Total: {total})")
     
-    final_html = clean_html.replace("{{ DESIGN_TOTAL_TOKENS }}", f"{design_tokens} (Total: {total_cost_tokens})")
-
-    # プロンプトの実流し込み
-    import html
-    safe_summary_prompt = html.escape(news_data['meta']['summary_prompt'])
-    safe_design_prompt = html.escape(design_prompt)
-    
-    final_html = final_html.replace("CHECK_JSON_DATA", safe_summary_prompt)
-    final_html = final_html.replace("CHECK_PYTHON_SCRIPT", safe_design_prompt)
-
     return final_html
 
-# --- メイン実行 ---
+# --- メイン処理 ---
 if __name__ == "__main__":
+    if not API_KEY:
+        print("Error: OPENAI_API_KEY not found.")
+        exit(1)
+
     try:
-        daily_content = fetch_and_summarize_news()
-        new_html = evolve_ui(daily_content)
+        # 実行IDとして「年月日時分」を使用 (例: 2026-01-08_0930)
+        timestamp_id = datetime.now().strftime('%Y-%m-%d_%H%M')
         
-        os.makedirs(os.path.dirname(OUTPUT_HTML_PATH), exist_ok=True)
-        with open(OUTPUT_HTML_PATH, "w", encoding="utf-8") as f:
+        # 1. 履歴のロードと前のリンク取得
+        history = load_history()
+        prev_link = get_prev_link(timestamp_id, history)
+        
+        # 2. ニュース取得
+        daily_content = fetch_and_summarize_news(timestamp_id)
+        
+        # 3. HTML生成
+        new_html = evolve_ui(daily_content, prev_link)
+        
+        # 4. 保存処理
+        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        
+        # A. アーカイブ保存 (ユニークなファイル名)
+        archive_filename = f"{timestamp_id}.html"
+        archive_path = os.path.join(ARCHIVE_DIR, archive_filename)
+        with open(archive_path, "w", encoding="utf-8") as f:
             f.write(new_html)
             
-        print(f"Success! Updated {OUTPUT_HTML_PATH}")
+        # B. index.html をリダイレクト用に更新
+        # 常に「今生成したファイル」へ飛ばす
+        index_path = os.path.join(PUBLIC_DIR, "index.html")
+        redirect_html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting to MorphoNews...</title>
+    <meta http-equiv="refresh" content="0; url=./archives/{archive_filename}">
+    <style>body{{background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}}</style>
+</head>
+<body>
+    <p>Loading MorphoNews ({timestamp_id})...</p>
+    <p><a href="./archives/{archive_filename}">Click here if not redirected.</a></p>
+</body>
+</html>"""
+        with open(index_path, "w", encoding="utf-8") as f:
+            f.write(redirect_html)
+
+        # C. 履歴リスト更新
+        if timestamp_id not in history:
+            history.append(timestamp_id)
+            save_history(history)
+            
+        print(f"Success! Archived to {archive_path} (ID: {timestamp_id})")
 
     except Exception as e:
         print(f"Fatal Error: {e}")
-        # GitHub Actionsでエラーを通知するために終了コード1を返す
         exit(1)

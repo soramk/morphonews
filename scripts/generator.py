@@ -5,46 +5,41 @@ from openai import OpenAI
 from datetime import datetime
 
 # --- 設定 ---
-# GitHub SecretsからAPIキーを取得
 API_KEY = os.environ.get("OPENAI_API_KEY")
 CLIENT = OpenAI(api_key=API_KEY)
 
-# ニュースソース (RSS URL)
-# 日本と海外のテックニュースをミックス
 RSS_FEEDS = [
-    "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml", # ITmedia (JP)
-    "https://qiita.com/popular-items/feed",              # Qiita (JP)
-    "https://techcrunch.com/feed/",                      # TechCrunch (Global)
-    "https://feeds.feedburner.com/TheHackersNews",       # The Hacker News (Global/Security)
+    "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",
+    "https://qiita.com/popular-items/feed",
+    "https://techcrunch.com/feed/",
+    "https://feeds.feedburner.com/TheHackersNews",
 ]
 
-# 生成ファイルのパス
-OUTPUT_HTML_PATH = "public/index.html" # GitHub Pagesの公開ディレクトリに合わせて調整
-ARCHIVE_JSON_PATH = "public/news_archive.json"
+OUTPUT_HTML_PATH = "public/index.html"
 
 # --- 関数: ニュース収集と要約 (編集者AI) ---
 def fetch_and_summarize_news():
-    print("Step 1: Fetching news from RSS...")
+    print("Step 1: Fetching news...")
+    start_time = datetime.now()
     articles = []
+    source_urls = []
     
-    # 各RSSから最新記事を取得（合計で最大8件程度に絞る）
+    # 記事取得
     for url in RSS_FEEDS:
         try:
             feed = feedparser.parse(url)
-            # 各フィードから上位2件だけ抽出
+            source_urls.append(url)
             for entry in feed.entries[:2]:
                 articles.append({
                     "title": entry.title,
                     "link": entry.link,
-                    "summary": entry.get('summary', '')[:200] + "...", # 長すぎる場合はカット
-                    "source": feed.feed.get('title', 'Unknown Source')
+                    "summary": entry.get('summary', '')[:200] + "...",
+                    "source": feed.feed.get('title', 'Unknown')
                 })
         except Exception as e:
             print(f"Error fetching {url}: {e}")
 
-    print(f"Fetched {len(articles)} articles. Starting AI summarization...")
-
-    # AIへの指示: 記事リストを渡して、日本語のダイジェストを作成させる
+    # プロンプト作成
     prompt = f"""
     あなたは優秀なITジャーナリストです。
     以下の記事リストから、特にエンジニアにとって重要・興味深いトピックを選定し、
@@ -52,77 +47,78 @@ def fetch_and_summarize_news():
 
     【要件】
     1. 記事全体で400文字程度の「今日のテックトレンド要約」を作成する。
-    2. その後、個別の注目ニュースを3つピックアップし、それぞれ3行程度で紹介する。
-    3. 日本のエンジニアが読みやすい文体（「だ・である」調、または「です・ます」調、お任せします）。
-    4. 結果は **JSON形式** で出力すること。
+    2. 個別の注目ニュースを3つピックアップし、それぞれ3行程度で紹介する。
+    3. 結果は **JSON形式** で出力すること。
     
     【入力データ】
     {json.dumps(articles, ensure_ascii=False)}
 
     【出力フォーマット (JSON)】
     {{
-        "daily_summary": "400文字程度の全体のまとめ...",
+        "daily_summary": "...",
         "top_news": [
-            {{ "title": "記事1タイトル", "description": "要約...", "link": "URL" }},
-            {{ "title": "記事2タイトル", "description": "要約...", "link": "URL" }},
-            {{ "title": "記事3タイトル", "description": "要約...", "link": "URL" }}
+            {{ "title": "...", "description": "...", "link": "..." }}
         ],
-        "mood_keyword": "今日のニュースの雰囲気を表す英単語1つ (例: Cyberpunk, Minimal, Urgent, Happy)"
+        "mood_keyword": "Cyberpunk, Minimal, Urgent, Retro, etc."
     }}
     """
 
+    print("Requesting AI summarization...")
     response = CLIENT.chat.completions.create(
-        model="gpt-4o", # 賢いモデル推奨
+        model="gpt-4o",
         response_format={"type": "json_object"},
         messages=[{"role": "user", "content": prompt}]
     )
 
     content_json = json.loads(response.choices[0].message.content)
-    print("Summarization complete.")
+    
+    # メタデータを追加
+    content_json['meta'] = {
+        'fetch_time': start_time.strftime('%Y-%m-%d %H:%M:%S JST'),
+        'sources': source_urls,
+        'summary_prompt': prompt,
+        'summary_tokens': response.usage.total_tokens, # 要約に使ったトークン数
+        'article_count': len(articles)
+    }
+    
     return content_json
 
 # --- 関数: Webページの進化 (デザイナーAI) ---
 def evolve_ui(news_data):
     print("Step 2: Evolving UI/UX...")
     
-    # 前回のHTMLを読み込む（存在しなければ空）
     current_html = ""
     if os.path.exists(OUTPUT_HTML_PATH):
         with open(OUTPUT_HTML_PATH, "r", encoding="utf-8") as f:
             current_html = f.read()
-    else:
-        current_html = "(No previous HTML found. Create a new one from scratch.)"
 
-    # 今日の日付
-    today_str = datetime.now().strftime('%Y-%m-%d')
-
-    # AIへの指示: 前回のコードと今回のニュースを元に、新しいHTMLを生成
+    # デザイン指示のプロンプト
     design_prompt = f"""
-    あなたは世界最高の前衛的Webデザイナー兼エンジニアです。
-    「MorphoNews」という、毎日デザインが進化・変異するニュースサイトのコーディングを担当します。
-
-    【任務】
-    前回（昨日）のHTMLコードを解析し、それを **「破壊的かつ創造的」にリファクタリング** して、
-    今日のニュースを表示する新しい `index.html` を作成してください。
-
-    【ニュースデータ】
-    - 日付: {today_str}
-    - 全体要約: {news_data['daily_summary']}
-    - ピックアップ記事: {json.dumps(news_data['top_news'], ensure_ascii=False)}
-    - 今日のムード: {news_data['mood_keyword']}
-
-    【デザイン・進化の指針】
-    1. **UI/UXの改善**: 前回のHTMLを見て、可読性が悪い箇所があれば修正する。
-    2. **ムード反映**: 「今日のムード」キーワード ({news_data['mood_keyword']}) を元に、配色(CSS)やフォント、レイアウトを大胆に変更する。
-    3. **構造の変化**: 単なる色変えだけでなく、グリッドレイアウト、リスト表示、カード型など、HTML構造自体を変えてみる。
-    4. **必須要素**: ニュースの内容は必ず全て表示すること。
-    5. **1ファイル完結**: HTMLの中にCSS (<style>) と JS (<script>) を埋め込むこと。外部ファイル読み込みは禁止（CDNはOK）。
+    あなたは前衛的Webデザイナーです。「MorphoNews」のHTMLを作成します。
     
-    【前回のHTML】
-    {current_html[:4000]} ... (省略) ...
+    【コンテンツデータ】
+    {json.dumps(news_data, ensure_ascii=False)}
 
-    【出力】
-    解説は不要です。 `<!DOCTYPE html>` から始まる完全なHTMLコードのみを出力してください。
+    【デザイン要件】
+    1. 前回 ({datetime.now().strftime('%Y-%m-%d')}) のHTML構造を参考にしつつ、
+       今日のムード「{news_data['mood_keyword']}」に合わせて、
+       **配色・フォント・レイアウトを大胆に変異**させてください。
+    
+    2. **システムログセクションの必須表示**:
+       ページ下部（フッター付近）に、以下の「生成プロセス情報」を必ず表示エリアを作成してください。
+       - 生成日時: {news_data['meta']['fetch_time']}
+       - 参照ソース一覧: (リスト表示)
+       - 収集記事数: {news_data['meta']['article_count']}
+       - 要約AIトークン数: {news_data['meta']['summary_tokens']}
+       - デザインAIトークン数: {{ DESIGN_TOTAL_TOKENS }}  <-- ※この文字列をそのまま書いてください。後で置換します。
+       
+    3. **プロンプトの開示**:
+       システムログ内に `<details>` タグを使い、以下のプロンプト全文を表示してください。
+       - Summary Prompt: (中身は "CHECK_JSON_DATA" と書いてください)
+       - Design Prompt: (中身は "CHECK_PYTHON_SCRIPT" と書いてください)
+       ※長すぎるため、ここでは仮置きします。
+
+    4. 出力は `<!DOCTYPE html>` から始まるHTMLのみ。
     """
 
     response = CLIENT.chat.completions.create(
@@ -130,29 +126,37 @@ def evolve_ui(news_data):
         messages=[{"role": "user", "content": design_prompt}]
     )
 
-    # Markdownのコードブロック記号を除去
     raw_html = response.choices[0].message.content
     clean_html = raw_html.replace("```html", "").replace("```", "").strip()
+
+    # --- HTML内のプレースホルダーを実際の値に置換 ---
+    # 1. デザイン生成にかかったトークン数
+    design_tokens = response.usage.total_tokens
+    total_cost_tokens = news_data['meta']['summary_tokens'] + design_tokens
     
-    return clean_html
+    final_html = clean_html.replace("{{ DESIGN_TOTAL_TOKENS }}", f"{design_tokens} (Total: {total_cost_tokens})")
+
+    # 2. プロンプトの実流し込み (HTMLエスケープ処理をして安全に埋め込む)
+    import html
+    safe_summary_prompt = html.escape(news_data['meta']['summary_prompt'])
+    safe_design_prompt = html.escape(design_prompt)
+    
+    final_html = final_html.replace("CHECK_JSON_DATA", safe_summary_prompt)
+    final_html = final_html.replace("CHECK_PYTHON_SCRIPT", safe_design_prompt)
+
+    return final_html
 
 # --- メイン実行 ---
 if __name__ == "__main__":
     try:
-        # 1. ニュースを取得・加工
         daily_content = fetch_and_summarize_news()
-        
-        # 2. UIを進化させてHTML生成
         new_html = evolve_ui(daily_content)
         
-        # 3. ファイル書き出し
-        # ディレクトリ作成
         os.makedirs(os.path.dirname(OUTPUT_HTML_PATH), exist_ok=True)
-        
         with open(OUTPUT_HTML_PATH, "w", encoding="utf-8") as f:
             f.write(new_html)
             
-        print(f"Successfully evolved MorphoNews! Saved to {OUTPUT_HTML_PATH}")
+        print(f"Success! Updated {OUTPUT_HTML_PATH}")
 
     except Exception as e:
         print(f"Fatal Error: {e}")

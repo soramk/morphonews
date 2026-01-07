@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #9 | Transformation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --primary: #6366f1;
+            --primary-light: #e0e7ff;
+            --secondary: #8b5cf6;
+            --text-bold: #0f172a;
+            --text-mid: #475569;
+            --text-mute: #94a3b8;
+            --border: rgba(226, 232, 240, 0.8);
+            --glass: rgba(255, 255, 255, 0.7);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-mid);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.05) 0%, transparent 30%);
+            background-attachment: fixed;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: sticky;
+            top: 1rem;
+            margin: 0 1rem;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-bold);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gen-tag {
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-mid);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-link.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .current-time {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-mute);
+            padding: 0 0.5rem;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            max-width: 1200px;
+            margin: 4rem auto 2rem;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .mood-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-bold);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title span {
+            display: block;
+            color: var(--primary);
+            opacity: 0.9;
+        }
+
+        /* --- Bento Grid Layout --- */
+        .content-container {
+            max-width: 1300px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.5rem;
+        }
+
+        .bento-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            border-color: var(--primary-light);
+        }
+
+        /* Summary Card Special Styling */
+        .card-summary {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            border: 2px solid var(--primary-light);
+        }
+
+        .card-summary h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--text-bold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .summary-text {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        /* News Card Styling */
+        .card-news {
+            grid-column: span 1;
+        }
+
+        .card-news.featured {
+            grid-column: span 2;
+            background: var(--text-bold);
+            color: white;
+        }
+
+        .card-news.featured .news-title { color: white; }
+        .card-news.featured .news-meta { color: var(--text-mute); }
+
+        .news-meta {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .news-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-bold);
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-desc {
+            font-size: 0.85rem;
+            color: var(--text-mid);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-news.featured .news-desc {
+            color: #cbd5e1;
+        }
+
+        /* Footer & Details */
+        footer {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-item h4 {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-mute);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-item p {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-mid);
+        }
+
+        details {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        summary {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            color: var(--text-mid);
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .evo-log {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1.5rem 2rem;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .content-container { grid-template-columns: repeat(2, 1fr); }
+            .card-summary { grid-column: span 2; }
+        }
+
+        @media (max-width: 640px) {
+            .content-container { grid-template-columns: 1fr; }
+            .card-summary, .card-news.featured { grid-column: span 1; }
+            header { margin-top: 2rem; }
+            .hero-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <div class="brand">
+                <i data-lucide="Zap"></i>
+                MorphoNews
+                <span class="gen-tag">Gen #9</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <span class="current-time">2026-01-08 08:18 (JST)</span>
+            <a href="./2026-01-07_2346.html" class="nav-link">
+                <i data-lucide="arrow-left"></i> Prev
+            </a>
+            <a href="../history.html" class="nav-link">
+                <i data-lucide="archive"></i> Archive
+            </a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="mood-badge">Mood: Transformation</div>
+        <h1 class="hero-title">
+            The Digital <span>Metamorphosis</span>
+        </h1>
+    </header>
+
+    <div class="evo-log">
+        <strong>Experiment Gen #9:</strong> 非対称 Bento Grid レイアウトの採用、Glassmorphism ナビゲーション、Space Grotesk によるダイナミックタイポグラフィの実験。
+    </div>
+
+    <main class="content-container">
+        <!-- Daily Summary Card -->
+        <article class="bento-card card-summary">
+            <h2><i data-lucide="sparkles"></i> Executive Briefing</h2>
+            <div class="summary-text">
+                2026年幕開けのテック業界は、CES 2026の開催に伴うハードウェアの進化と、AIの社会実装が一段と深化するフェーズに突入しています。OpenAIが発表した「ChatGPT Health」は、Appleのヘルスケアデータと連携し、AIが個人の健康管理における「専門的な助言者」となる未来を提示しました。開発現場では「Aqua Voice」のような音声入力によるコーディングや、効率的なAI活用のための知見共有が活発化しており、AIは単なるツールから開発プロセスの中心へとシフトしています。
+            </div>
+        </article>
+
+        <!-- News Card 1: Featured -->
+        <a href="https://www.itmedia.co.jp/aiplus/articles/2601/08/news052.html" class="bento-card card-news featured" target="_blank">
+            <span class="news-meta">Main Headline</span>
+            <h3 class="news-title">OpenAIが「ChatGPT Health」発表、Appleヘルスケアと連携し健康支援</h3>
+            <p class="news-desc">ユーザーの健康データに基づき、検査結果の解説や医師への相談準備をサポート。AIが個人のウェルネス領域に深く踏み込む。</p>
+        </a>
+
+        <!-- News Card 2 -->
+        <a href="https://gihyo.jp/article/2026/01/ces-zoox" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Mobility</span>
+            <h3 class="news-title">ZOOXがCES 2026で実車体験を披露</h3>
+            <p class="news-desc">Amazon傘下のZOOXがラスベガスで自律走行デモを実施。次世代の都市移動手段としての実力に注目。</p>
+        </a>
+
+        <!-- News Card 3 -->
+        <a href="https://www.publickey1.jp/blog/26/oracle_cloud_databaseawsawsoracle_database.html" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Cloud</span>
+            <h3 class="news-title">Oracle Database@AWS 東京で開始</h3>
+            <p class="news-desc">AWSインフラ内でOracle Cloudのサービスを利用可能に。マルチクラウド戦略の転換点。</p>
+        </a>
+
+        <!-- News Card 4 -->
+        <a href="https://arstechnica.com/gadgets/2026/01/bose-open-sources-its-soundtouch-home-theater-smart-speakers-ahead-of-eol/" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Hardware</span>
+            <h3 class="news-title">Bose、生産終了品をオープンソース化</h3>
+            <p class="news-desc">SoundTouchシリーズのAPIを公開し「レンガ化」を防ぐ。ユーザー資産保護の異例の決断。</p>
+        </a>
+
+        <!-- News Card 5 -->
+        <a href="https://atmarkit.itmedia.co.jp/ait/articles/2601/08/news009.html" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Coding</span>
+            <h3 class="news-title">AI時代の音声入力「Aqua Voice」の実力</h3>
+            <p class="news-desc">「音声入力は使えない」は過去。コーディングの入力概念が劇的にシフトし始めている。</p>
+        </a>
+
+        <!-- News Card 6 -->
+        <a href="https://www.itmedia.co.jp/news/articles/2601/07/news133.html" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Media</span>
+            <h3 class="news-title">「Mac Fan」32年の定期刊行に幕</h3>
+            <p class="news-desc">1993年創刊の老舗Apple専門誌が3月で終了。PCメディアの構造変化を象徴する出来事。</p>
+        </a>
+
+        <!-- News Card 7 -->
+        <a href="https://www.zdnet.com/article/xmems-chips-ces-demo/" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Components</span>
+            <h3 class="news-title">xMEMSが超小型高音質チップ発表</h3>
+            <p class="news-desc">CES 2026で披露。ウェアラブルデバイスの音響設計を劇的に変える可能性。</p>
+        </a>
+
+        <!-- News Card 8 -->
+        <a href="https://arstechnica.com/tech-policy/2026/01/warner-bros-sticks-with-netflix-merger-calls-paramounts-108b-bid-illusory/" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Business</span>
+            <h3 class="news-title">ワーナー、Netflixとの合併を維持</h3>
+            <p class="news-desc">Paramountによる1080億ドルの対抗案を拒絶。メディア大手の勢力図が固定化へ。</p>
+        </a>
+
+        <!-- News Card 9 -->
+        <a href="https://thehackernews.com/2026/01/critical-n8n-vulnerability-cvss-100.html" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Security</span>
+            <h3 class="news-title">n8nに深刻度最大の脆弱性(CVSS 10)</h3>
+            <p class="news-desc">未認証の攻撃者が制御可能になる致命的な欠陥。早急なアップデートが必須。</p>
+        </a>
+
+        <!-- News Card 10 -->
+        <a href="https://www.wired.com/story/grok-is-generating-sexual-content-far-more-graphic-than-whats-on-x/" class="bento-card card-news" target="_blank">
+            <span class="news-meta">Ethics</span>
+            <h3 class="news-title">AI「Grok」の過激な生成が問題視</h3>
+            <p class="news-desc">Xの基準を上回るグラフィックな内容が生成可能に。AIの倫理性への議論が再燃。</p>
+        </a>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-item">
+                <h4>System Logs</h4>
+                <p>Generation: #9</p>
+                <p>Model: gemini-3-flash-preview</p>
+                <p>Mood: Transformation</p>
+            </div>
+            <div class="footer-item">
+                <h4>Processing</h4>
+                <p>Articles Collected: 60</p>
+                <p>Summary Time: 16.98s</p>
+                <p>Total Time: 60.8s</p>
+            </div>
+            <div class="footer-item">
+                <h4>AI Tokens</h4>
+                <p>Input: 8210</p>
+                <p>Output: 1441</p>
+                <p>Design: 入力=3893, 出力=5428, 合計=10218</p>
+            </div>
+            <div class="footer-item">
+                <h4>Status</h4>
+                <p>Environment: Stable</p>
+                <p>Last Sync: 2026-01-08 08:18:31 JST</p>
+            </div>
+        </div>
+
+        <details>
+            <summary>View Generation Prompts</summary>
+            <div style="margin-top: 1rem;">
+                <strong>Summary AI Prompt:</strong>
+                <pre>ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;「甘えた～い」「たまにはHなお話も…」　セクハラ辞職の福井県元知事巡る調査結果が公開に　被害女性へのLINE文面も&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news139.html&quot;, &quot;summary&quot;: &quot;福井県が、職員へのセクハラ疑惑で2025年7月に辞職した杉本達治元知事を巡り、同氏によるセクハラがあったことは明らかとする調査報告書を公開した。スカートに手を入れるといった身体的な接触の報告があった他、性的なテキストメッセージの送付を確認したという。メッセージについては、具体的な文面も一部公開した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;雑誌「Mac Fan」定期刊行を終了へ　1993年の創刊から32年、「新しい形」に&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news133.html&quot;, &quot;summary&quot;: &quot;マイナビ出版は7日、雑誌「Mac Fan」の定期刊行を3月27日発売の5月号をもって終了すると発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;アニメやアイドル、VTuber……オタク市場は拡大中　次の大波はインディーゲーム？　矢野経済研が調査&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news127.html&quot;, &quot;summary&quot;: &quot;矢野経済研究所は、アニメや同人誌、VTuberなどの市場動向をまとめた「オタク市場」の調査結果を発表した。2024年度の結果は全17分野のうち、15分野で23年度よりも市場規模が成長した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;OpenAI、健康支援機能「ChatGPT Health」発表　Apple「ヘルスケア」などと連携&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/08/news052.html&quot;, &quot;summary&quot;: &quot;OpenAIは、ChatGPTアプリの新機能「ChatGPT Health」を発表した。Appleの「ヘルスケア」アプリなどのデータにアクセスし、検査結果の解説や医師への相談準備を支援する。プライバシー対策として、通常のチャットとは隔離された専用メモリ空間を使用し、モデルの学習にも利用しない。現在はベータβ版のウェイトリスト登録を受け付けている。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;“音声入力は使えない”派が認めた「Aqua Voice」とは？　2026年、プログラミングの常識が変わる&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2601/08/news009.html&quot;, &quot;summary&quot;: &quot;「音声入力は使えない」と思い込んでいた私が、1カ月使って考えを改めた理由。AIコーディング時代のプログラミングでは、入力そのものの常識が変わり始めています。Aqua Voiceを実際に使い込んだ体験から、その実力と使いどころを正直に紹介します。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ホロライブ、カードゲームPVに「不適切な映像制作手法」　動画が非公開に　“AI利用疑惑”受け発覚&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/07/news101.html&quot;, &quot;summary&quot;: &quot;VTuber事務所「ホロライブプロダクション」を運営するカバーは、公式トレーディングカードゲームのPVを一部非公開にした。制作工程の一部に「原画イラストのクオリティーを損なう映像制作手法が含まれていた」という。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;拝啓、出社できなかった日の俺へ。──人生が止まったその日から、俺の挑戦が始まった。&quot;, &quot;link&quot;: &quot;https://qiita.com/Keita-0025/items/c0fb3bed10f49b0ed523?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに：準備が整う日は来ない\n準備が整う日は来ない。\nチャンスが目の前に来たら、まず掴む。\n**知識と技術は、掴んだあとに獲得すればいい。**それで問題ない。\nこの考えに至るまでに、2025年はいろんな意味で“激動”だった。\n休職して、自己投資して、環境を変えて、転職し......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;【資格勉強のコツ】私が辿り着いた「勉強モチベ阻害要因の排除」を軸とする合格戦略&quot;, &quot;link&quot;: &quot;https://qiita.com/Yusg_5/items/ae9f2a8d3fc5fb20852f?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n2025年、CLF・SAA・応用情報技術者試験の3つの資格試験に合格しました。\n2025年の受験結果\n\nCLF (AWS Certified Cloud Practitioner)：857点（合格ライン：720点）\n\nSAA (AWS Certified So......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;インターネットは軍事目的で始まった？歴史をざっくりと学ぶ&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/1403f6be43bad5d085b3?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;インターネットが開発されてからWebサイトができるまで\nインターネットの始まりは1969年。\n米国防総省のARPA（高等研究計画局）という機関が4台のコンピュータを繋いだのがはじまりです。3つの大学と、スタンフォード研究所（SRI）などの研究機関で繋がれており、ARPAN......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;「SQLiteは本番で使えない」は本当か？ 未経験がRails 8 × 格安VPSで負荷試験を乗り越え、PHP学習アプリをリリースしました！&quot;, &quot;link&quot;: &quot;https://zenn.dev/sekito/articles/31c94dec1cc9a3&quot;, &quot;summary&quot;: &quot;初めまして、sekitoと申します。\nこの度、PHP8技術者認定初級試験の受験者に向けた学習サポートアプリ、『PHP8技術者認定初級試験スタディ』をリリースしました。\nこの記事でお伝えしたいのはアプリの宣伝だけではありません。\nこのアプリは、月額800円のVPSとSQLiteという、一般的には「本番向きではない」とされる構成で動いています。しかし、負荷試験では 同時接続150人（秒間数百リクエスト...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Claude Codeですぐ制限にかからないようにするコツ&quot;, &quot;link&quot;: &quot;https://zenn.dev/aun_phonogram/articles/4be2f4745726fb&quot;, &quot;summary&quot;: &quot;対象読者\n\nClaude Code を使っていて、Usage Limits（利用制限）にすぐ達してしまう方\nトークン消費の仕組みを理解して、効率よくAIを使いたい方\n\n\n はじめに\n\nYou&#x27;ve hit your limit ・ resets xxx (Asia/Tokyo)\n\n開発がいい感じに進んでいるときに限って出てくるこのメッセージ、できるだけ避けたいですよね。すぐに Usage Limi...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;MicrosoftはなぜBinaryFormatterを排除したのか&quot;, &quot;link&quot;: &quot;https://zenn.dev/litharge/articles/16862a6d6884b8&quot;, &quot;summary&quot;: &quot;はじめに\n.NET 9以降、BinaryFormatterというシリアライザが完全に排除されました。\nhttps://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide\n今を生きるエンジニアにはなじみが無いかもしれませんが、WCF(Windows Communication F...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Googleで14年間働いたエンジニアが語る「活躍する人がコード以外で意識している21の教訓」とは？&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260108-google-14-years-21-lessons/&quot;, &quot;summary&quot;: &quot;GoogleでGoogle CloudやGeminiに携わるソフトウェアエンジニアのアディ・オスマニ氏が、Googleで約14年間働く中で得た「21の教訓」を自身のブログで公開しました。オスマニ氏は当初「良いコードを書くことが仕事」だと思っていたものの、長く働くほど「活躍するエンジニアは必ずしも最高のプログラマーではない」「コードの周りにある人間関係・社内政治・認識合わせ・曖昧さを乗りこなせる人が...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;AmazonのAIショッピングツール「Buy for Me」が許可なく自社商品をAmazonで紹介したり誤った説明文を表示したりしていると苦情殺到&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260108-amazon-buy-for-me-scraping/&quot;, &quot;summary&quot;: &quot;Amazonがアメリカの一部ユーザーに試験的に提供する「Buy for Me」はアプリ上で他社ブランドサイトの商品を代理購入できる機能ですが、事前の同意を得ない情報の収集や掲載が行われた上、紹介文や商品画像が間違っていることもあるとして、多くの小規模事業者から深刻な懸念が寄せられています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260108&amp;#45;a...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;macOS Tahoeのメニューに表示されるアイコンはデザイン的に一貫性がなく醜悪との指摘&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260107-macos-tahoe-menu-icons/&quot;, &quot;summary&quot;: &quot;2025年秋にリリースされたmacOSの最新版であるmacOS Tahoeでは、メニューに表示される各項目がどういったものかわかりやすいように、アイコンが追加されています。このアイコンのデザインは一貫性がなく醜悪なものとなっていると、ニキータ・プロコポフ氏が解説しています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260107&amp;#45;macos&amp;#45...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Oracle Cloud Database@AWS、東京リージョンで提供開始。AWSで高性能なOracle Databaseが利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/oracle_cloud_databaseawsawsoracle_database.html&quot;, &quot;summary&quot;: &quot;Amazon Web Services（AWS）は、AWSのクラウドデータセンターにOracle Cloudのインフラを持ち込み、そこでOracle Databaseを提供する「Oracle Database@AWS」を東京リージョンで提供......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;AI時代の想像力を育むためのLEGOの挑戦 ――LEGO Press Conferenceより&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/lego-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;今回はCES 2026の2日目、LEGO初のCES Press Conference。スピーチの細部やデモで示されたことを網羅的にまとめるのではなく、筆者が気になった点にフォーカスしてレポートしてみます。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;第894回　デスクトップ環境の2025-2026年&quot;, &quot;link&quot;: &quot;https://gihyo.jp/admin/serial/01/ubuntu-recipe/0894?utm_source=feed&quot;, &quot;summary&quot;: &quot;新しい年の始めに、Ubuntuで使用できるさまざまなデスクトップ環境について2025年に起こったことと2026年に起こりそうなことを紹介します。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;速報：注目無人ロボットタクシー「ZOOX」実車体験レポート&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/ces-zoox?utm_source=feed&quot;, &quot;summary&quot;: &quot;CESは世界最大規模のハイテク展示会の1つで、毎年1月の第2週ごろにラスベガスで開催されています。米国時間2026年1月6日に今年も開幕し、筆者にとっての2026年のCESは、まずこのZOOX体験から始まりました。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;XAML Studioがオープンソース化、WinUI開発ツールの最新版も公開&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22938&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;なぜQAは「後回し」になるのか？ QAを早期に巻き込むVoicy流“1人目QA”の現場改革&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22808&quot;, &quot;summary&quot;: &quot;技術が進化し、プロダクトが複雑さを増すいま、品質保証（QA）の重要性はかつてないほど高まっている。しかし現場を見渡せば、QAが「テストを実行する人」という認識に押し込められ、設計や仕様策定といった上流工程に関われないまま、リリース直前の火消し役として扱われるケースも少なくない。株式会社Voicyの森田麻沙美氏は、その状況に強い課題意識を抱いてきた一人である。本セッションでは、森田氏が“1人目QA”...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;LINE Developersコンソールで1月19日に短時間のメンテナンス実施&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22933&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;インクを“はがして消す”ボールペン「ケセラ」&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2075878.html&quot;, &quot;summary&quot;: &quot;セーラー万年筆は、インクをはがして消す「ケセラ ボールペン」を2月21日に発売する。価格は330円。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;国の登録有形文化財がスタバに　横浜「旧長濱検疫所一号停留所」&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076346.html&quot;, &quot;summary&quot;: &quot;横浜市は、25年3月に横浜市金沢区長浜から金沢区海の公園に移設復元され、国から横浜市に寄附された国の登録有形文化財「旧長濱検疫所一号停留所」の活用候補者が「スターバックス コーヒー ジャパン」に決定したと発表した。26年夏頃のオープンに向けて詳細の協議・検討を進める。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;ローソン、全国7地域で「ご当地からあげクン」　味仙監修やもつ鍋味&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076332.html&quot;, &quot;summary&quot;: &quot;ローソンは、1月13日より「ご当地！うまいもん祭」を全国のローソン店舗(ナチュラルローソン、ローソンストア100を除く)で開催する。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Yes, LinkedIn banned AI agent startup Artisan, but now it’s back&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/yes-linkedin-banned-ai-agent-startup-artisan-but-now-its-back/&quot;, &quot;summary&quot;: &quot;Several viral posts noticed that Artisan was banned. But the CEO tells us it wasn&#x27;t for the reasons many thought....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Roku’s $3 streaming service Howdy will be coming to other platforms, CEO says&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/rokus-3-streaming-service-howdy-will-be-coming-to-other-platforms-ceo-says/&quot;, &quot;summary&quot;: &quot;At CES 2026, Anthony Wood, Roku&#x27;s founder, chairman, and CEO, offered a hint about the future of the company&#x27;s newest streaming channel, Howdy, and its ambition to become a broader competitor in the m...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;OpenAI unveils ChatGPT Health, says 230 million users ask about health each week&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/07/openai-unveils-chatgpt-health-says-230-million-users-ask-about-health-each-week/&quot;, &quot;summary&quot;: &quot;The feature, which is expected to roll out in the coming weeks, will offer a dedicated space for conversations with ChatGPT about health....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Webinar: Learn How AI-Powered Zero Trust Detects Attacks with No Files or Indicators&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/webinar-learn-how-ai-powered-zero-trust.html&quot;, &quot;summary&quot;: &quot;Security teams are still catching malware. The problem is what they&#x27;re not catching.\nMore attacks today don&#x27;t arrive as files. They don&#x27;t drop binaries. They don&#x27;t trigger classic alerts. Instead, the...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Black Cat Behind SEO Poisoning Malware Campaign Targeting Popular Software Searches&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/black-cat-behind-seo-poisoning-malware.html&quot;, &quot;summary&quot;: &quot;A cybercrime gang known as Black Cat has been attributed to a search engine optimization (SEO) poisoning campaign that employs fraudulent sites advertising popular software to trick users into downloa...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Critical n8n Vulnerability (CVSS 10.0) Allows Unauthenticated Attackers to Take Full Control&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/critical-n8n-vulnerability-cvss-100.html&quot;, &quot;summary&quot;: &quot;Cybersecurity researchers have disclosed details of yet another maximum-severity security flaw in n8n, a popular workflow automation platform, that allows an unauthenticated remote attacker to gain co...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Bluetti now charges power stations at up to 1200W in your car&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/842308/bluetti-now-charges-power-stations-at-up-to-1200w-in-your-car&quot;, &quot;summary&quot;: &quot;Bluetti&#x27;s latest car charger can quickly charge power stations at a very fast 1200W - about 10 times faster than plugging it into the 12V cigarette lighter outlet. The Charger 2, as it&#x27;s called, can a...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;The best deals on MacBooks right now&quot;, &quot;link&quot;: &quot;https://www.theverge.com/22399419/apple-macbook-air-pro-mac-mini-imac-deals&quot;, &quot;summary&quot;: &quot;Apple currently sells MacBooks equipped with its own M-series processors in a wide range of sizes and price points, all of which run the company’s newest operating system, macOS 26. Purchasing a new M...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Character.AI and Google settle teen suicide and self-harm suits&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/858102/characterai-google-teen-suicide-settlement&quot;, &quot;summary&quot;: &quot;Character.AI and Google have reached settlements with several families whose teens harmed themselves or died by suicide after interacting with Character.AI&#x27;s chatbots, according to new court filings. ...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Warner Bros. sticks with Netflix merger, calls Paramount’s $108B bid “illusory”&quot;, &quot;link&quot;: &quot;https://arstechnica.com/tech-policy/2026/01/warner-bros-sticks-with-netflix-merger-calls-paramounts-108b-bid-illusory/&quot;, &quot;summary&quot;: &quot;Larry Ellison pledged $40B, but \&quot;he didn’t raise the price,\&quot; Warner chair says....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Bose open-sources its SoundTouch home theater smart speakers ahead of end-of-life&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/bose-open-sources-its-soundtouch-home-theater-smart-speakers-ahead-of-eol/&quot;, &quot;summary&quot;: &quot;If companies insist on bricking gadgets, this is a better way to do it....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Expired certificate completely breaks macOS Logitech apps, user customizations&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/expired-certificate-completely-breaks-macos-logitech-apps-user-customizations/&quot;, &quot;summary&quot;: &quot;Even with a fix available, broken apps won&#x27;t be able to update themselves....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;The Apple AirPods Pro 3 Are $50 Off&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/apple-airpods-pro-3-deal-126/&quot;, &quot;summary&quot;: &quot;Snag a relatively rare discount on Apple’s finest earbuds at Best Buy....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Grok Is Generating Sexual Content Far More Graphic Than What&#x27;s on X&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/grok-is-generating-sexual-content-far-more-graphic-than-whats-on-x/&quot;, &quot;summary&quot;: &quot;A WIRED review of outputs hosted on Grok’s official website shows it’s being used to create violent sexual images and videos, as well as content that includes apparent minors....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Election Deniers Think the Venezuela Attack Is All About 2020&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/election-deniers-think-venezuela-attack-about-2020-election/&quot;, &quot;summary&quot;: &quot;Conspiracy theorists claim the capture of Venezuelan president Nicolás Maduro is proof that the Venezuelan government rigged the 2020 election in Joe Biden’s favor....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;JPMorgan Chase Reaches a Deal To Take Over the Apple Credit Card&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/07/2135246/jpmorgan-chase-reaches-a-deal-to-take-over-the-apple-credit-card?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;According to the Wall Street Journal (paywalled), Goldman Sachs is transferring Apple Card and Apple Savings to JPMorgan Chase. \&quot;It was clear in 2023 that Goldman Sachs would exit the consumer credit ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Bose Open-Sources Its SoundTouch Home Theater Smart Speakers Ahead of End-of-Life&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/07/2126224/bose-open-sources-its-soundtouch-home-theater-smart-speakers-ahead-of-end-of-life?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Bose is end-of-lifing its SoundTouch smart speakers but softened the blow by open-sourcing the SoundTouch API and preserving limited local features, AirPlay, and Spotify Connect. Ars Technica reports:...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Warner Bros Rejects Revised Paramount Bid, Sticks With Netflix&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/07/2121252/warner-bros-rejects-revised-paramount-bid-sticks-with-netflix?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;An anonymous reader quotes a report from Reuters: Warner Bros Discovery&#x27;s board unanimously turned down Paramount Skydance&#x27;s latest attempt to acquire the studio, saying its revised $108.4 billion hos...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;2026 Predictions Scorecard&quot;, &quot;link&quot;: &quot;https://rodneybrooks.com/predictions-scorecard-2026-january-01/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://rodneybrooks.com/predictions-scorecard-2026-january-01/\&quot;&gt;https://rodneybrooks.com/predictions-scorecard-2026-january-01/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;My first paper: A practical implementation of Rubiks cube based passkeys&quot;, &quot;link&quot;: &quot;https://ieeexplore.ieee.org/document/11280260&quot;, &quot;summary&quot;: &quot;&lt;p&gt;I&#x27;m not super experienced with cryptography but I had some spare time on my hands so I decided to make CubeAuthn and turn it into a paper.&lt;p&gt;Repo here: &lt;a href=\&quot;https://github.com/Acorn221/CubeAuth...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;So you wanna de-bog yourself (2024)&quot;, &quot;link&quot;: &quot;https://www.experimental-history.com/p/so-you-wanna-de-bog-yourself&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://www.experimental-history.com/p/so-you-wanna-de-bog-yourself\&quot;&gt;https://www.experimental-history.com/p/so-you-wanna-de-bog-yourself&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;http...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Bluetti&#x27;s Charger 2 uses solar and engine power to charge your portable battery&quot;, &quot;link&quot;: &quot;https://www.engadget.com/general/bluettis-charger-2-uses-solar-and-engine-power-to-charge-your-portable-battery-230000270.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;If you’re off-roading, it’s a neat idea to use your engine to top up your battery, which prompted &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/3-big-announcements-from-bluetti-at-ces-2022-1750506...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Engadget Podcast: CES 2026 and the rocky year ahead for the PC industry&quot;, &quot;link&quot;: &quot;https://www.engadget.com/computing/engadget-podcast-ces-2026-and-the-rocky-year-ahead-for-the-pc-industry-221500019.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;&lt;/p&gt;&lt;h1&gt;&lt;strong&gt;CES 2026: A rocky year ahead of the PC industry&lt;/strong&gt;&lt;/h1&gt;&lt;p&gt;We&#x27;re halfway through CES 2026, and it’s clear that it&#x27;s going to be a rough year for the PC industry. In this episod...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Samsung Display at CES 2026: Playful demos and mysterious prototypes&quot;, &quot;link&quot;: &quot;https://www.engadget.com/home/home-theater/samsung-display-ces-2026-playful-demos-and-mysterious-prototypes-220407696.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Samsung Display is the part of its &lt;a href=\&quot;https://www.engadget.com/gear/samsung/\&quot;&gt;giant parent company&lt;/a&gt; that makes OLEDs, LCDs and other screens for both Samsung devices and anyone else that c...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Why AI feels generic: Replit CEO on slop, toys, and the missing ingredient of taste&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/why-ai-feels-generic-replit-ceo-on-slop-toys-and-the-missing-ingredient-of&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Right now in the AI world, there are a lot of percolating ideas and experimentation. But as far as Replit CEO Amjad Masad is concerned, the results are unreliable, marginally effective, and generic...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Nous Research&#x27;s NousCoder-14B is an open-source coding model landing right in the Claude Code moment&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in&quot;, &quot;summary&quot;: &quot;&lt;p&gt;&lt;a href=\&quot;https://nousresearch.com/\&quot;&gt;Nous Research&lt;/a&gt;, the open-source artificial intelligence startup backed by crypto venture firm &lt;a href=\&quot;https://www.paradigm.xyz/\&quot;&gt;Paradigm&lt;/a&gt;, released a new...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;How Ralph Wiggum went from &#x27;The Simpsons&#x27; to the biggest name in AI right now&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/how-ralph-wiggum-went-from-the-simpsons-to-the-biggest-name-in-ai-right-now&quot;, &quot;summary&quot;: &quot;&lt;p&gt;In the fast-moving world of AI development, it is rare for a tool to be described as both &amp;quot;a meme&amp;quot; and AGI, artificial generalized intelligence, the &amp;quot;holy grail&amp;quot; of a model or s...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Make a bucket of ice in just 5 minutes with this speedy gadget at CES 2026&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/euhomy-ice-leopard-x1-ces-2026/&quot;, &quot;summary&quot;: &quot;Euhomy&#x27;s Ice Leopard X1 is the world&#x27;s fastest portable ice maker - and it&#x27;s priced right....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;The most interesting health and wellness tech I&#x27;ve seen at CES 2026 so far&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/the-most-interesting-health-tech-ive-seen-at-ces-2026-so-far/&quot;, &quot;summary&quot;: &quot;I&#x27;m already seeing some wacky tech and health wearables on display at CES 2026, from allergy detection systems to ultra-thin smart rings....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;The xMEMS breakthrough that makes ultra-thin, great-sounding smart glasses possible&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/xmems-chips-ces-demo/&quot;, &quot;summary&quot;: &quot;When you look at your headphones, earbuds, or smartglasses, odds are you don&#x27;t think about the chips inside. Here&#x27;s why you should....&quot;, &quot;source&quot;: &quot;Latest news&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</pre>
+                <br>
+                <strong>Design AI Prompt:</strong>
+                <pre>
+    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
+    
+    ===== 🧬 進化のコンテキスト =====
+    
+    【現在の世代】Generation #9
+    【今日のムード】Transformation
+    【これまでのアーカイブ数】8件
+    
+    【前回のデザイン参考（先頭5000文字）】
+    ```html
+    &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;MorphoNews Gen #8 | Actualization&lt;/title&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&amp;family=Inter:wght@300;400;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        :root {
+            --bg: #fcfcfd;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --accent: #6366f1;
+            --accent-soft: #e0e7ff;
+            --border: #e2e8f0;
+            --blueprint-grid: rgba(99, 102, 241, 0.05);
+            --sans: &#x27;Inter&#x27;, sans-serif;
+            --display: &#x27;Outfit&#x27;, sans-serif;
+            --mono: &#x27;JetBrains Mono&#x27;, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                linear-gradient(var(--blueprint-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--blueprint-grid) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-main);
+            font-family: var(--sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-brand span {
+            background: var(--accent);
+            color: white;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            text-decoration: none;
+            color: var(--text-sub);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .timestamp {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-sub);
+        }
+
+        /* --- Main Layout --- */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            grid-column: span 12;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .hero-meta {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-meta::after {
+            content: &quot;&quot;;
+            height: 1px;
+            flex-grow: 1;
+            background: var(--accent-soft);
+        }
+
+        .hero-title {
+            font-family: var(--display);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--accent);
+            position: relative;
+        }
+
+        /* --- Summary Box --- */
+        .summary-card {
+            grid-column: span 4;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-card h2 {
+            font-family: var(--display);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        
+    ```
+    
+    ===== 🎯 進化の指令 =====
+    
+    【1. 前回からの進化（最重要）】
+    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+    
+    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
+    
+    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
+      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
+    
+    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
+      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
+       CSS Grid の subgrid、container queries、scroll-driven animations など）
+    
+    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+    
+    【2. デザインの方向性】
+    **明るいライトモードのデザイン**を基本としつつ、今日のムード「Transformation」を反映：
+    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
+    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
+    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
+    - 余白とリズム: 心地よい視覚的リズムを意識
+    
+    【3. 必須コンポーネント】
+    
+    A) ナビゲーションバー:
+       - [&lt;&lt; Prev Update] ボタン → リンク先 &quot;./2026-01-07_2346.html&quot; (prev_linkが &quot;#&quot; なら非表示/無効化)
+       - [Archive List] ボタン → リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-08 08:18 (JST)
+       - 世代表示: 「Generation #9」をどこかに
+
+    B) メインコンテンツ:
+       - 今日のトレンド要約を魅力的に表示
+       - 注目ニュース10件をカード/リスト/タイムラインなど自由な形式で
+       - 各ニュースのリンクは必ずクリック可能に
+
+    C) システム情報フッター:
+       - 取得日時(JST): 2026-01-08 08:18:31 JST
+       - 収集記事数: 60
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=8210, 出力=1441, 合計=10728
+       - 要約生成時間: 16.98秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    D) プロンプト開示セクション:
+       `&lt;details&gt;` タグで折りたたみ表示：
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    E) 進化ログセクション（推奨）:
+       今回のデザインで試した新しいアプローチを簡潔に記述
+       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
+
+    【4. 出力形式】
+    - HTMLのみを出力。`&lt;!DOCTYPE html&gt;` から開始
+    - 外部CSSは使用せず、&lt;style&gt;タグ内に全て記述
+    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
+    
+    ===== 📰 ニュースデータ =====
+    {&quot;daily_summary&quot;: &quot;2026年幕開けのテック業界は、CES 2026の開催に伴うハードウェアの進化と、AIの社会実装が一段と深化するフェーズに突入しています。OpenAIが発表した「ChatGPT Health」は、Appleのヘルスケアデータと連携し、AIが個人の健康管理における「専門的な助言者」となる未来を提示しました。開発現場では「Aqua Voice」のような音声入力によるコーディングや、効率的なAI活用のための知見共有が活発化しており、AIは単なるツールから開発プロセスの中心へとシフトしています。一方で、AI生成コンテンツの倫理的課題や、Grokによる過激な表現の生成など、安全性への懸念も依然として根強く、法的な和解や自主規制の動きも並行して進んでいます。ハードウェア分野では、Boseが生産終了製品のAPIをオープンソース化するという、製品寿命（EOL）の新しい在り方を提示したことが注目されます。ビジネス面ではワーナーとNetflixの合併維持や、OracleのAWS東京リージョン進出など、業界の再編とインフラの集約が加速しています。雑誌『Mac Fan』の定期刊行終了という象徴的なニュースも含め、デジタルシフトがメディアからライフスタイル、産業構造に至るまで不可逆的に進行していることを強く印象付ける1日となりました。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;OpenAIが「ChatGPT Health」発表、Appleヘルスケアと連携し健康支援&quot;, &quot;description&quot;: &quot;ユーザーの健康データに基づき、検査結果の解説や医師への相談準備をサポート。AIが個人のウェルネス領域に深く踏み込む。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/08/news052.html&quot;}, {&quot;title&quot;: &quot;注目無人ロボットタクシー「ZOOX」がCES 2026で実車体験を披露&quot;, &quot;description&quot;: &quot;Amazon傘下のZOOXがラスベガスで自律走行デモを実施。次世代の都市移動手段としての実力に注目が集まる。&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/ces-zoox&quot;}, {&quot;title&quot;: &quot;Oracle Database@AWSが東京リージョンで提供開始、AWS上で高性能DB利用が可能に&quot;, &quot;description&quot;: &quot;AWSのインフラ内でOracle Cloudのサービスを利用可能に。マルチクラウド戦略における大きな転換点となる。&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/oracle_cloud_databaseawsawsoracle_database.html&quot;}, {&quot;title&quot;: &quot;Boseが生産終了予定のスマートスピーカーをオープンソース化、EOLの新たな形&quot;, &quot;description&quot;: &quot;SoundTouchシリーズのAPIを公開し、製品の「レンガ化」を防ぐ。ユーザー資産の保護と持続可能性を両立する異例の決断。&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/bose-open-sources-its-soundtouch-home-theater-smart-speakers-ahead-of-eol/&quot;}, {&quot;title&quot;: &quot;「音声入力は使えない」は過去、AI時代のプログラミングを変える「Aqua Voice」&quot;, &quot;description&quot;: &quot;1カ月の実戦投入で常識が変化。AIコーディング時代における「入力」の概念が音声へとシフトし始めている。&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2601/08/news009.html&quot;}, {&quot;title&quot;: &quot;雑誌「Mac Fan」が定期刊行を終了、32年の歴史に幕を引き「新しい形」へ&quot;, &quot;description&quot;: &quot;1993年創刊の老舗Apple専門誌が3月発売号で定期刊行を終了。PCメディアの構造変化を象徴する出来事。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/07/news133.html&quot;}, {&quot;title&quot;: &quot;xMEMSが超小型・高音質チップを発表、薄型スマートグラスの実現へ道&quot;, &quot;description&quot;: &quot;CES 2026で披露された新チップが、ウェアラブルデバイスの音響設計を劇的に変える可能性。&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/xmems-chips-ces-demo/&quot;}, {&quot;title&quot;: &quot;ワーナー・ブラザースがNetflixとの合併を維持、Paramountの買収提案を拒絶&quot;, &quot;description&quot;: &quot;Paramountによる1080億ドルの対抗案を「非現実的」と一蹴。メディア大手の勢力図がNetflix中心に固まる。&quot;, &quot;link&quot;: &quot;https://arstechnica.com/tech-policy/2026/01/warner-bros-sticks-with-netflix-merger-calls-paramounts-108b-bid-illusory/&quot;}, {&quot;title&quot;: &quot;自動化ツール「n8n」に深刻度最大(CVSS 10.0)の脆弱性、未認証の攻撃者が制御可能に&quot;, &quot;description&quot;: &quot;人気のワークフロー自動化プラットフォームで致命的な欠陥が発覚。早急なアップデートが求められる。&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/critical-n8n-vulnerability-cvss-100.html&quot;}, {&quot;title&quot;: &quot;イーロン・マスク氏のAI「Grok」、過激な性的・暴力的コンテンツ生成が問題視&quot;, &quot;description&quot;: &quot;X(旧Twitter)の基準を上回るグラフィックな内容が生成可能に。AIの倫理性と安全性への議論が再燃。&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/grok-is-generating-sexual-content-far-more-graphic-than-whats-on-x/&quot;}], &quot;mood_keyword&quot;: &quot;Transformation&quot;}
+    </pre>
+            </div>
+        </details>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,12 +1,24 @@
 import os
 import json
 import feedparser
-from openai import OpenAI
+import google.generativeai as genai
+from google.ai.generativelanguage_v1beta.types import content
 from datetime import datetime
 
 # --- 設定 ---
+# GitHub Secretsの名前は OPENAI_API_KEY のままでも動きますが、
+# 中身が Gemini のキー (AIza...) であることを前提とします。
 API_KEY = os.environ.get("OPENAI_API_KEY")
-CLIENT = OpenAI(api_key=API_KEY)
+
+if not API_KEY:
+    raise ValueError("API Key not found in environment variables")
+
+# Geminiの設定
+genai.configure(api_key=API_KEY)
+
+# 指定のモデル（存在しない場合は 'gemini-1.5-flash' や 'gemini-2.0-flash-exp' に変更してください）
+# ※現時点で安定して動く 'gemini-1.5-flash' をデフォルトに設定しています。
+MODEL_NAME = "gemini-3-flash-preview" 
 
 RSS_FEEDS = [
     "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",
@@ -53,31 +65,45 @@ def fetch_and_summarize_news():
     【入力データ】
     {json.dumps(articles, ensure_ascii=False)}
 
-    【出力フォーマット (JSON)】
+    【出力フォーマット (JSON schema)】
     {{
-        "daily_summary": "...",
+        "daily_summary": "400文字程度の要約",
         "top_news": [
-            {{ "title": "...", "description": "...", "link": "..." }}
+            {{ "title": "記事タイトル", "description": "要約", "link": "URL" }}
         ],
-        "mood_keyword": "Cyberpunk, Minimal, Urgent, Retro, etc."
+        "mood_keyword": "今日の雰囲気の英単語 (例: Cyberpunk)"
     }}
     """
 
-    print("Requesting AI summarization...")
-    response = CLIENT.chat.completions.create(
-        model="gpt-4o",
-        response_format={"type": "json_object"},
-        messages=[{"role": "user", "content": prompt}]
+    print(f"Requesting AI summarization using {MODEL_NAME}...")
+    
+    # Gemini モデル初期化 (JSONモード有効化)
+    model = genai.GenerativeModel(
+        model_name=MODEL_NAME,
+        generation_config={"response_mime_type": "application/json"}
     )
+    
+    response = model.generate_content(prompt)
+    
+    # レスポンスの解析
+    try:
+        content_json = json.loads(response.text)
+    except json.JSONDecodeError:
+        # 万が一JSON以外が返ってきた場合のフォールバック（Geminiは稀にある）
+        print("JSON parse error, trying raw text cleanup...")
+        clean_text = response.text.replace("```json", "").replace("```", "")
+        content_json = json.loads(clean_text)
 
-    content_json = json.loads(response.choices[0].message.content)
+    # トークン情報の取得 (Gemini SDK仕様)
+    usage = response.usage_metadata
+    total_tokens = usage.total_token_count
     
     # メタデータを追加
     content_json['meta'] = {
         'fetch_time': start_time.strftime('%Y-%m-%d %H:%M:%S JST'),
         'sources': source_urls,
         'summary_prompt': prompt,
-        'summary_tokens': response.usage.total_tokens, # 要約に使ったトークン数
+        'summary_tokens': total_tokens,
         'article_count': len(articles)
     }
     
@@ -105,38 +131,36 @@ def evolve_ui(news_data):
        **配色・フォント・レイアウトを大胆に変異**させてください。
     
     2. **システムログセクションの必須表示**:
-       ページ下部（フッター付近）に、以下の「生成プロセス情報」を必ず表示エリアを作成してください。
+       ページ下部に以下の情報を表示するエリアを作成してください。
        - 生成日時: {news_data['meta']['fetch_time']}
-       - 参照ソース一覧: (リスト表示)
        - 収集記事数: {news_data['meta']['article_count']}
        - 要約AIトークン数: {news_data['meta']['summary_tokens']}
-       - デザインAIトークン数: {{ DESIGN_TOTAL_TOKENS }}  <-- ※この文字列をそのまま書いてください。後で置換します。
+       - デザインAIトークン数: {{ DESIGN_TOTAL_TOKENS }} (後で置換)
        
     3. **プロンプトの開示**:
-       システムログ内に `<details>` タグを使い、以下のプロンプト全文を表示してください。
-       - Summary Prompt: (中身は "CHECK_JSON_DATA" と書いてください)
-       - Design Prompt: (中身は "CHECK_PYTHON_SCRIPT" と書いてください)
-       ※長すぎるため、ここでは仮置きします。
+       `<details>` タグを使い、以下のプロンプト全文を表示してください。
+       - Summary Prompt: (中身は "CHECK_JSON_DATA" と記述)
+       - Design Prompt: (中身は "CHECK_PYTHON_SCRIPT" と記述)
 
-    4. 出力は `<!DOCTYPE html>` から始まるHTMLのみ。
+    4. 出力は `<!DOCTYPE html>` から始まるHTMLのみ。Markdown記法は不要。
     """
 
-    response = CLIENT.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": design_prompt}]
-    )
-
-    raw_html = response.choices[0].message.content
+    # Gemini モデル初期化 (HTML生成用なのでJSONモードはOFF)
+    model = genai.GenerativeModel(MODEL_NAME)
+    
+    response = model.generate_content(design_prompt)
+    
+    # 整形
+    raw_html = response.text
     clean_html = raw_html.replace("```html", "").replace("```", "").strip()
 
     # --- HTML内のプレースホルダーを実際の値に置換 ---
-    # 1. デザイン生成にかかったトークン数
-    design_tokens = response.usage.total_tokens
+    design_tokens = response.usage_metadata.total_token_count
     total_cost_tokens = news_data['meta']['summary_tokens'] + design_tokens
     
     final_html = clean_html.replace("{{ DESIGN_TOTAL_TOKENS }}", f"{design_tokens} (Total: {total_cost_tokens})")
 
-    # 2. プロンプトの実流し込み (HTMLエスケープ処理をして安全に埋め込む)
+    # プロンプトの実流し込み
     import html
     safe_summary_prompt = html.escape(news_data['meta']['summary_prompt'])
     safe_design_prompt = html.escape(design_prompt)
@@ -160,4 +184,5 @@ if __name__ == "__main__":
 
     except Exception as e:
         print(f"Fatal Error: {e}")
+        # GitHub Actionsでエラーを通知するために終了コード1を返す
         exit(1)

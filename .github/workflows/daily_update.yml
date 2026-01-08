@@ -2,8 +2,8 @@ name: Evolve MorphoNews
 
 on:
   schedule:
-    # 毎日 日本時間 8:00 (UTC 23:00) に実行
-    - cron: '0 23 * * *'
+    # 8時間ごとに実行 (UTC 0:00, 8:00, 16:00)
+    - cron: '0 */8 * * *'
   workflow_dispatch: # 手動実行ボタン
 
 permissions:

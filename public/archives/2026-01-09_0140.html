@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #11 | Pragmatic Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Pragmatic Palette - High Contrast & Tech Focus */
+            --bg: #ffffff;
+            --bg-canvas: #f1f5f9;
+            --surface: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-dim: #94a3b8;
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.1);
+            --border: #e2e8f0;
+            --border-strong: #cbd5e1;
+            
+            /* Typography */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Spacing */
+            --gutter: 2rem;
+            --radius-sm: 4px;
+            --radius-md: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation: Minimal Utility Bar --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--gutter);
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .gen-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            background: var(--text-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* --- Main Layout --- */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--gutter);
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gutter);
+        }
+
+        /* --- Daily Summary: Hero Section --- */
+        .hero {
+            grid-column: span 12;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 40%; height: 100%;
+            background: radial-gradient(circle at 70% 30%, var(--accent-glow), transparent);
+            pointer-events: none;
+        }
+
+        .hero-meta {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-summary {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            border-left: 2px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        /* --- News Grid: Container Queries & Subgrid approach --- */
+        .news-section {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+            container-type: inline-size;
+        }
+
+        .news-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.04);
+        }
+
+        .card-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        /* --- Evolutionary Log & System Info --- */
+        .meta-container {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gutter);
+            margin-top: 2rem;
+        }
+
+        .system-card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+        }
+
+        .system-card h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.75rem 1.5rem;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+        }
+
+        .info-label { color: var(--text-dim); }
+        .info-value { color: var(--text-secondary); font-weight: 500; }
+
+        details {
+            margin-top: 1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        summary {
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+        }
+
+        .prompt-box {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            white-space: pre-wrap;
+            margin-top: 0.5rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* --- Evolution Log Highlight --- */
+        .evolution-box {
+            background: var(--accent);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+        }
+        .evolution-box h3 { font-family: var(--font-display); margin-bottom: 1rem; }
+        .evolution-box p { font-size: 0.9rem; opacity: 0.9; }
+
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; padding: 2rem; }
+            .hero-title { font-size: 2.5rem; }
+            .meta-container { grid-template-columns: 1fr; }
+        }
+
+        @container (max-width: 600px) {
+            .card-title { font-size: 1.15rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="brand">
+                MorphoNews <span class="gen-tag">Gen #11</span>
+            </a>
+            <div class="nav-controls">
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); margin-right: 1rem;">
+                    2026-01-09 01:40 (JST)
+                </span>
+                <a href="./2026-01-08_1740.html" class="btn">
+                    <i data-lucide="chevron-left"></i> Prev
+                </a>
+                <a href="../history.html" class="btn">
+                    <i data-lucide="archive"></i> Archive
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <div class="hero">
+            <div>
+                <span class="hero-meta">Daily Synthesis // Pragmatic</span>
+                <h1 class="hero-title">技術の民主化と実用主義の交差</h1>
+            </div>
+            <div class="hero-summary">
+                2026年の幕開けと共に、テック業界は「実用化」と「ハードウェアの多様性」を軸に大きく動いています。AI分野では、GoogleがGmailへの「AI Inbox」機能を一般開放するなど、生成AIが個人の日常業務に深く浸透し始めています。一方で、ツールの成熟が問われるフェーズに入り、ハードウェア面ではCES 2026を筆頭に多様性を再評価する動きが加速しています。
+            </div>
+        </div>
+
+        <!-- News Feed -->
+        <section class="news-section">
+            <a href="https://arstechnica.com/google/2026/01/google-announces-ai-overviews-in-gmail-search-experimental-ai-organized-inbox/" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">AI & PRODUCTIVITY</span>
+                    <h2 class="card-title">Google、GmailにAI要約機能「AI Inbox」を追加　無料ユーザーにも順次展開</h2>
+                    <p class="card-desc">これまで有料だった機能が一般ユーザーにも解放され、AIの民主化が加速。AIによるメール整理が日常の一部へ。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://techcrunch.com/2026/01/08/elon-musks-lawsuit-against-openai-will-face-a-jury-in-march/" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">LEGAL & GOVERNANCE</span>
+                    <h2 class="card-title">イーロン・マスク対OpenAIの訴訟、3月に陪審員裁判へ</h2>
+                    <p class="card-desc">非営利構造維持を巡る歴史的な裁判。AI業界のガバナンスと透明性に一石を投じる展開へ。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://techcrunch.com/2026/01/08/hands-on-with-a-prototype-of-clicks-communicator-a-new-blackberry-like-smartphone/" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">HARDWARE</span>
+                    <h2 class="card-title">物理キーボード復活？Android搭載「Clicks Communicator」がCESで実機披露</h2>
+                    <p class="card-desc">BlackBerryを彷彿とさせる新型スマホ。画一的なタッチパネル時代に、特定の物理的なニーズに応えるハードウェアが再注目。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://www.theverge.com/transportation/858514/is-this-the-worlds-first-solid-state-battery" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">ENERGY TECH</span>
+                    <h2 class="card-title">世界初の「全固体電池」ついに実用化か　CES 2026で発表相次ぐ</h2>
+                    <p class="card-desc">輸送分野に革命を起こすと期待される全固体電池。2年以内の実用化を見据えた技術デモが話題に。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://zenn.dev/beagle/articles/_0019_keypoints_from_responses_of_boris" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">DEVELOPER TOOLS</span>
+                    <h2 class="card-title">「IDEよりターミナル」海外の開発者間でClaude CodeのCLI運用がトレンドに</h2>
+                    <p class="card-desc">重いIDEを避け、ターミナルで軽量かつ高速にAIコーディングを行うワークフロー。効率重視のエンジニアが支持。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://news.slashdot.org/story/26/01/08/1559224/china-hacked-email-systems-of-us-congressional-committee-staff" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">SECURITY</span>
+                    <h2 class="card-title">中国系ハッカー集団「Salt Typhoon」、米下院委員会のメールに侵入</h2>
+                    <p class="card-desc">通信インフラや政府機関を標的にした大規模な諜報活動。サイバー安全保障の脆弱性が改めて露呈。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://www.watch.impress.co.jp/docs/news/2076701.html" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">FINTECH</span>
+                    <h2 class="card-title">Apple Card、発行元をゴールドマンからチェースに切り替えへ</h2>
+                    <p class="card-desc">金融プラットフォームとしてのAppleの戦略的転換。Chaseとの連携によりサービスの安定化と拡大を図る。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://venturebeat.com/technology/mirominds-mirothinker-1-5-delivers-trillion-parameter-performance-from-a-30b" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">AI ARCHITECTURE</span>
+                    <h2 class="card-title">30Bモデルで1兆級性能？推論モデル「MiroThinker 1.5」登場</h2>
+                    <p class="card-desc">「小さくて賢い」モデルの競争激化。低コストで高い推論能力を実現する新技術が企業導入を加速。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://gigazine.net/news/20260108-ffmpeg-dmca-takedown-github-rockchip/" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">OPEN SOURCE</span>
+                    <h2 class="card-title">FFmpegが中国RockchipにDMCA削除通知、著作権遵守を巡り強硬姿勢</h2>
+                    <p class="card-desc">OSSコミュニティによる権利保護の動きが活発化。ライセンス遵守を巡る重要な法的事例に。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+
+            <a href="https://www.engadget.com/audio/speakers/bose-made-the-consumer-friendly-move-to-open-source-its-soundtouch-speakers-163459024.html?src=rss" class="news-card" target="_blank">
+                <div class="card-header">
+                    <span class="card-tag">SUSTAINABILITY</span>
+                    <h2 class="card-title">Bose、クラウド終了予定のスピーカーを「オープンソース化」して延命</h2>
+                    <p class="card-desc">製品が「レンガ化」するのを防ぐための異例の決断。ユーザーフレンドリーな延命措置として評価。</p>
+                </div>
+                <div class="card-footer">
+                    <span>READ ARTICLE</span>
+                    <i data-lucide="arrow-up-right"></i>
+                </div>
+            </a>
+        </section>
+
+        <!-- Meta Section -->
+        <div class="meta-container">
+            <div class="evolution-box">
+                <h3>Evolution Log #11</h3>
+                <p>今回の実験: 前回の2カラム・スプリットから、「エンジニアリング・ダッシュボード」を意識した統合型グリッドへ。CSS Container Queries を採用し、各カードが自律的にレイアウトを調整するコンポーネント指向を強化。Space Grotesk の採用により、Pragmatic（実用的）でありながら前衛的な空気感を醸成しています。</p>
+            </div>
+
+            <div class="system-card">
+                <h3><i data-lucide="cpu"></i> System Metadata</h3>
+                <div class="info-grid">
+                    <span class="info-label">Timestamp</span><span class="info-value">2026-01-09 01:40:00 JST</span>
+                    <span class="info-label">Articles</span><span class="info-value">60</span>
+                    <span class="info-label">Model</span><span class="info-value">gemini-3-flash-preview</span>
+                    <span class="info-label">AI Tokens</span><span class="info-value">In: 7946 / Out: 1464 / Total: 10676</span>
+                    <span class="info-label">Summary Time</span><span class="info-value">18.51s</span>
+                    <span class="info-label">Design AI</span><span class="info-value">入力=3920, 出力=5921, 合計=10704 tokens</span>
+                    <span class="info-label">Design Time</span><span class="info-value">35.47s</span>
+                </div>
+
+                <details>
+                    <summary>View Prompt Logs</summary>
+                    <div>
+                        <span class="info-label">Summary AI Prompt:</span>
+                        <div class="prompt-box">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;イトーキ、ソニー・ホンダモビリティ「AFEELA」の協創パートナーに&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/08/news114.html&quot;, &quot;summary&quot;: &quot;オフィス家具メーカーのイトーキは8日、ソニー・ホンダモビリティ（東京都港区）が開発を進めているEVブランド「AFEELA」の共創パートナーとして参画すると発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;建て替える「帝国劇場」の素材で作るメモリアルな家具、ZOZO限定で販売　テーブルライトが25万3000円など&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/08/news112.html&quot;, &quot;summary&quot;: &quot;ZOZOは8日、建て替えのために休館している帝国劇場の素材を使用した家具「帝国プレミアムリメイク」を1月17日から販売すると発表した。劇場を支えてきた建材や備品をカリモク家具がリメイク。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「アジア最大級の犯罪組織」中国出身の創業者を逮捕　カンボジアでオンライン詐欺拠点運営&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/08/news111.html&quot;, &quot;summary&quot;: &quot;カンボジア内務省は1月7日、世界中を標的にしたオンライン詐欺に関与したとして、同国最大規模の華人系複合企業、太子集団控股（プリンス・ホールディング・グループ）の陳志会長（38）を逮捕したと発表した。カンボジア国籍を剥奪し、出身国の中国に送還したとしている。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「X投稿画像がGrokで他人に編集される」防止ツール「ピクシールド」　個人開発者が公開&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/08/news098.html&quot;, &quot;summary&quot;: &quot;「Twitterの人間関係は大切にしたい、でも作品も守りたい時に利用して」...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「出版物をAIに学習させないで」――官能小説出版のフランス書院が注意喚起&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/08/news095.html&quot;, &quot;summary&quot;: &quot;官能小説の出版で知られるフランス書院は、同社の出版物をAIに学習させたり、無断複製・転載したりしないよう注意喚起した。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;AI支援開発で「伸びるチーム」「崩れるチーム」を分ける7つの能力、Googleが分析&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2601/08/news043.html&quot;, &quot;summary&quot;: &quot;GoogleはAIソフトウェア開発に関する調査レポートを公開し、AIの導入効果を増幅させる7つの基礎能力を明らかにした。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;拝啓、出社できなかった日の俺へ。──人生が止まったその日から、俺の挑戦が始まった。&quot;, &quot;link&quot;: &quot;https://qiita.com/Keita-0025/items/c0fb3bed10f49b0ed523?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに：準備が整う日は来ない\n準備が整う日は来ない。\nチャンスが目の前に来たら、まず掴む。\n**知識と技術は、掴んだあとに獲得すればいい。**それで問題ない。\nこの考えに至るまでに、2025年はいろんな意味で“激動”だった。\n休職して、自己投資して、環境を変えて、転職し......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;JSを使わずカルーセルを作る&quot;, &quot;link&quot;: &quot;https://qiita.com/kobayashimakoto/items/9e6595d7c6f6f0c90c4c?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\nカルーセルはWEBアプリケーションでよく採用されるUIコンポーネントの1つですが、一般的な実装パターンがなく、アクセシビリティを配慮しつつ実装するのも複雑で大変なので SlickやSwiperといったライブラリを採用するケースが多いのではないでしょうか。\nそんな......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;情報はどうやって海を越えるのか？IPアドレスとDNSの関係性について&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/a3e91b89b5ed9b266e91?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;DNSは何をしているのか\nDNSは、URLに出てくる example.com みたいな名前を、通信に使えるIPアドレスに変換する仕組みです。\nインターネットの通信は最終的に「IPアドレスのどこに送るか」で動きます。でも人間は 203.0.113.10 みたいな数字を覚えに......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;ついにキタ！NotebookLMのスライドを「編集可能パワポ」に変換する最強ツール「Kirigami」&quot;, &quot;link&quot;: &quot;https://zenn.dev/acntechjp/articles/a878b6aa38fe53&quot;, &quot;summary&quot;: &quot;結論\n\n Kirigamiというサービスを使うと...！\nhttps://kirigami.app\n\n こんな感じにできます！\n編集可能なPowerPoint（pptx）ファイルや、Google Slidesにできます！\n\n\n 今までの流れ\nそもそも「NotebookLMとかパワポ化とかよく分からないんだけど」という方向けに、4行で解説します。（※わかる方は読み飛ばしてOKです。）\n\nNotebo...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;BorisがXのレス内で語ったClaude Codeの使い方&quot;, &quot;link&quot;: &quot;https://zenn.dev/beagle/articles/_0019_keypoints_from_responses_of_boris&quot;, &quot;summary&quot;: &quot;びーぐるです🐶\nClaude Code界隈では、年明けから大変有益な情報が共有されました。Claude Codeの生みの親、Boris Cherny氏が自身のClaude Codeの使い方に関する13のTipsをXでポストしたためです。\nこのポストは世界中で大変な反響を呼び、2026年も引き続きClaude Codeの年であることを多くの人に確信させたと言えるでしょう。\nまた、Boris Cher...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;海外で「IDEでClaude Code動かすな」が流行ってる。私はZed + ターミナル派&quot;, &quot;link&quot;: &quot;https://zenn.dev/kok1eeeee/articles/claude-code-zed-terminal-workflow&quot;, &quot;summary&quot;: &quot;はじめに\n\n業務自動化Pythonエンジニア。バイブコーディング歴1年 ≒ エンジニア歴。\n\n\n Xでこんなのが流れてきた\n海外で「Claude CodeをCursorやVS Codeで動かすのをやめろ」という主張が話題になってる。\n要約するとこんな感じ：\n\n\nターミナルで直接実行しろ。メモリ効率が段違い\nPCが速くなるし、複数ターミナル同時起動できる\n\nIDEはマジで重い。Ghostty（無料）...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;なぜ巨大な木は周囲の環境を食べ尽くさないのか？&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260108-around-trees/&quot;, &quot;summary&quot;: &quot;大きな木の中には、地球最大の動物であるシロナガスクジラ10頭分に匹敵する2000トンの重さを持つものもあります。しかし、巨大な生き物が周囲の食物を食べ尽くしてしまうことはありますが、大きな木の周囲で「栄養が吸い尽くされる」といった現象は起こりません。木が周囲の環境を荒らすことなくこれほど大きく成長できるメカニズムについて、科学系YouTubeチャンネルのKurzgesagtが解説しています。&lt;p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;FFmpegがGitHubで中国半導体メーカー・Rockchipに対してDMCA削除通知を出す&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260108-ffmpeg-dmca-takedown-github-rockchip/&quot;, &quot;summary&quot;: &quot;動画および音声ファイルを記録・変換・再生するためのフリーソフトウェアである「FFmpeg」が、2001年に中国で設立された半導体企業・RockchipのGitHubリポジトリに対してデジタルミレニアム著作権法(DMCA)削除通知を出し、当該リポジトリが無効化されたことが明らかになりました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260108&amp;#45;f...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;テスラと韓国電池メーカーが交わした4600億円の大型契約が120万円に減額される異常事態&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260108-tesla-landf/&quot;, &quot;summary&quot;: &quot;韓国の電池材料メーカーであるL＆Fがテスラと締結していた契約の更新を2025年12月29日に発表しました。29億1083万400ドル(約4600億円)の契約がわずか7386ドル(約120万円)へと減額されています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260108&amp;#45;tesla&amp;#45;landf/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;プログラミングに適したフォントまとめ／GoogleがすべてのサービスにMCPサーバ／リーナス氏「あなたが修正するのは自分だけのバグではない」ほか、2025年12月の人気記事&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/googlemcp202512.html&quot;, &quot;summary&quot;: &quot;読者の皆様、年明けはいかがお過ごしでしょうか。年末年始の長い休み明けにフルで1週間働くのはなかなかつらいですね。 とはいえ2026年は年明けからすぐに、昨年ハマったアニメ「ミルキー★サブウェイ」の劇場版が公開されるので、これを楽しみに頑張っ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;モダンになった「Pebble Round 2」と現代版Blackberry「Clicks Communicator」が発表されました&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/android-weekly-topics-260108?utm_source=feed&quot;, &quot;summary&quot;: &quot;新年早々に発表されたPebble Round 2とClicks Communicator...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;AI時代の想像力を育むためのLEGOの挑戦 ――LEGO Press Conferenceより&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/lego-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;今回はCES 2026の2日目、LEGO初のCES Press Conference。スピーチの細部やデモで示されたことを網羅的にまとめるのではなく、筆者が気になった点にフォーカスしてレポートしてみます。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;第894回　デスクトップ環境の2025-2026年&quot;, &quot;link&quot;: &quot;https://gihyo.jp/admin/serial/01/ubuntu-recipe/0894?utm_source=feed&quot;, &quot;summary&quot;: &quot;新しい年の始めに、Ubuntuで使用できるさまざまなデスクトップ環境について2025年に起こったことと2026年に起こりそうなことを紹介します。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;仕組みから読み解くLLMエージェントの勘所──生成・探索・最適化をつなぐ実務的開発プロセス&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22744&quot;, &quot;summary&quot;: &quot;生成AIとエージェンティックAIの台頭により、LLM（大規模言語モデル）の活用は、多くのソフトウェア開発者にとって基盤スキルへと変わってきた。かつて効率的な開発にはOSやコンパイラといった基盤ソフトウェアに関する「仕組み」の理解が欠かせなかったように、LLMを基盤とする開発でも、モデルの構造や挙動を知ることが重要だ──そう語るのは、三菱電機株式会社の奥田勝己氏である。LLMエージェントの内部構造を...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Microsoft、セキュリティ運用強化の新サービス「Defender Experts Suite」発表&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22936&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;KDDIアジャイル開発センター、「KAGオフショアAIラボ」を開始&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22935&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Apple Card、発行機関をゴールドマンサックスからチェースに切替&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076701.html&quot;, &quot;summary&quot;: &quot;Appleは7日(米国時間)、クレジットカード「Apple Card」の新規発行機関をChase(チェース)に変更すると発表した。Apple Cardは2019年から米国で発行されており、ゴールドマン・サックスが発行機関だったが、今後チェースに切り替えていく。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;「イオンセントラルスクエア静岡」3月6日オープン&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076627.html&quot;, &quot;summary&quot;: &quot;イオンリテールとJR東海不動産は、「セントラルスクエア静岡」内に「イオンセントラルスクエア静岡」を、3月6日にグランドオープンする。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;トライアルとスギHDが協業　調剤併設型スーパー展開やPB相互供給&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076612.html&quot;, &quot;summary&quot;: &quot;トライアルホールディングスとスギホールディングスは1月8日、包括的協業の開始を発表した。両社はスーパーセンター店舗と調剤併設型ドラッグストアの新たな価値創造に向けた協業を行なう。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Elon Musk’s lawsuit against OpenAI will face a jury in March&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/elon-musks-lawsuit-against-openai-will-face-a-jury-in-march/&quot;, &quot;summary&quot;: &quot;District Judge Yvonne Gonzalez Rogers said there was evidence suggesting OpenAI’s leaders made assurances that its original nonprofit structure would be maintained. The case will go to trial in March....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Why this VC thinks 2026 will be ‘the year of the consumer’&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/why-this-vc-thinks-2026-will-be-the-year-of-the-consumer/&quot;, &quot;summary&quot;: &quot;AI adoption in enterprise is stalling as companies don&#x27;t know where to start. Vanessa Larco of Premise VC thinks 2026 will be the year of the consumer....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Hands-on with a prototype of Clicks’ Communicator, a new BlackBerry-like smartphone&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/hands-on-with-a-prototype-of-clicks-communicator-a-new-blackberry-like-smartphone/&quot;, &quot;summary&quot;: &quot;TechCrunch goes hands-on at the CES 2026 show with the new Clicks Communicator, a new Android smartphone with a physical keyboard....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;China-Linked UAT-7290 Targets Telecoms with Linux Malware and ORB Nodes&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/china-linked-uat-7290-targets-telecoms.html&quot;, &quot;summary&quot;: &quot;A China-nexus threat actor known as UAT-7290 has been attributed to espionage-focused intrusions against entities in South Asia and Southeastern Europe.\nThe activity cluster, which has been active sin...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;ThreatsDay Bulletin: RustFS Flaw, Iranian Ops, WebUI RCE, Cloud Leaks, and 12 More Stories&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/threatsday-bulletin-rustfs-flaw-iranian.html&quot;, &quot;summary&quot;: &quot;The internet never stays quiet. Every week, new hacks, scams, and security problems show up somewhere.\nThis week’s stories show how fast attackers change their tricks, how small mistakes turn into big...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;The State of Trusted Open Source&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/the-state-of-trusted-open-source.html&quot;, &quot;summary&quot;: &quot;Chainguard, the trusted source for open source, has a unique view into how modern organizations actually consume open source software and where they run into risk and operational burdens. Across a gro...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;TV makers are taking AI too far&quot;, &quot;link&quot;: &quot;https://www.theverge.com/column/858463/tv-too-much-ai&quot;, &quot;summary&quot;: &quot;This is Lowpass by Janko Roettgers, a newsletter on the ever-evolving intersection of tech and entertainment, syndicated just for The Verge subscribers once a week. Every year, TV makers flock to CES ...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Honor steps up to the big leagues with the Magic 8 Pro&quot;, &quot;link&quot;: &quot;https://www.theverge.com/gadgets/854163/honor-magic-8-pro-review&quot;, &quot;summary&quot;: &quot;I have a simple gut check I use when reviewing phones, especially ones that rely on their cameras as a selling point: how often do I wish I had another phone with me instead? These days, it&#x27;s mostly t...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Is this the world’s first solid-state battery?&quot;, &quot;link&quot;: &quot;https://www.theverge.com/transportation/858514/is-this-the-worlds-first-solid-state-battery&quot;, &quot;summary&quot;: &quot;CES is a land of bold announcements of amazing, innovative products and technologies that will revolutionize the world, often set for release in two years&#x27; time. Twenty-four months seems to be about t...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Former Google CEO plans to singlehandedly fund a Hubble telescope replacement&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/eric-schmidt-will-massively-invest-in-private-telescopes-including-hubble-replacement/&quot;, &quot;summary&quot;: &quot;“This is a very significant contribution to the astronomical community.\&quot;...&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;ChatGPT falls to new data-pilfering attack as a vicious cycle in AI continues&quot;, &quot;link&quot;: &quot;https://arstechnica.com/security/2026/01/chatgpt-falls-to-new-data-pilfering-attack-as-a-vicious-cycle-in-ai-continues/&quot;, &quot;summary&quot;: &quot;Will LLMs ever be able to stamp out the root cause of these attacks? Possibly not....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Google announces AI Overviews in Gmail search, experimental AI-organized inbox&quot;, &quot;link&quot;: &quot;https://arstechnica.com/google/2026/01/google-announces-ai-overviews-in-gmail-search-experimental-ai-organized-inbox/&quot;, &quot;summary&quot;: &quot;Last year&#x27;s premium Gmail AI features are also rolling out to free users....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;People Are Using AI to Falsely Identify the Federal Agent Who Shot Renee Good&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/people-are-using-ai-to-falsely-identify-the-federal-agent-who-shot-renee-good/&quot;, &quot;summary&quot;: &quot;Online detectives are inaccurately claiming to have identified the federal agent who shot and killed a 37-year-old woman in Minnesota based on AI-manipulated images....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Google Is Adding an ‘AI Inbox’ to Gmail That Summarizes Emails&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/google-ai-inbox-gmail/&quot;, &quot;summary&quot;: &quot;New Gmail features, powered by the Gemini model, are part of Google’s continued push for users to incorporate AI into their daily life and conversations....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Creatine Supplements Are Everywhere. Do I Need Them? (2026)&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/should-you-be-taking-creatine-supplements/&quot;, &quot;summary&quot;: &quot;It&#x27;s the most studied supplement in sports medicine, but it&#x27;s not just for athletes anymore....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;China Hacked Email Systems of US Congressional Committee Staff&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/08/1559224/china-hacked-email-systems-of-us-congressional-committee-staff?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;China has hacked the emails used by congressional staff on powerful committees in the US House of Representatives, as part of a massive cyber espionage campaign known as Salt Typhoon. An anonymous rea...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;How Did TVs Get So Cheap?&quot;, &quot;link&quot;: &quot;https://entertainment.slashdot.org/story/26/01/08/1524256/how-did-tvs-get-so-cheap?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;A 50-inch TV that would have set you back $1,100 at Best Buy during Black Friday 2001 now costs less than $200, and the price per area-pixel -- a metric accounting for both screen size and resolution ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Disney+ To Add Vertical Videos In Push To Boost Daily Engagement&quot;, &quot;link&quot;: &quot;https://entertainment.slashdot.org/story/26/01/08/1444209/disney-to-add-vertical-videos-in-push-to-boost-daily-engagement?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Disney+, which is looking to catch up with some streaming and digital rivals in terms of daily engagement, is adding vertical videos to the service. From a report: The arrival of the new format later ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;An Honest Review of Go&quot;, &quot;link&quot;: &quot;https://benraz.dev/blog/golang_review.html&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://benraz.dev/blog/golang_review.html\&quot;&gt;https://benraz.dev/blog/golang_review.html&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46542253\&quot;&gt;https:/...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Our Changing Planet, as Seen from Space&quot;, &quot;link&quot;: &quot;https://e360.yale.edu/digest/nasa-satellite-images-2025&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://e360.yale.edu/digest/nasa-satellite-images-2025\&quot;&gt;https://e360.yale.edu/digest/nasa-satellite-images-2025&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;AI Coding Assistants Are Getting Worse&quot;, &quot;link&quot;: &quot;https://spectrum.ieee.org/ai-coding-degrades&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://spectrum.ieee.org/ai-coding-degrades\&quot;&gt;https://spectrum.ieee.org/ai-coding-degrades&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46542036\&quot;&gt;htt...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Bose made the consumer friendly move to open source its SoundTouch speakers&quot;, &quot;link&quot;: &quot;https://www.engadget.com/audio/speakers/bose-made-the-consumer-friendly-move-to-open-source-its-soundtouch-speakers-163459024.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Bose recently announced the pending end of cloud support for its SoundTouch line of home speakers. This will, in effect, turn the smart speakers into dumb speakers as they will no longer have acces...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;All the tech and gadgets announced at CES 2026&quot;, &quot;link&quot;: &quot;https://www.engadget.com/general/all-the-tech-and-gadgets-announced-at-ces-2026-130124023.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;It&#x27;s the first week of a new year and there&#x27;s no time for the tech world to slowly ease back into things following the holidays. That&#x27;s because &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/tag/ce...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Dell unveils a massive 52-inch 6K ultrawide curved monitor at CES 2026&quot;, &quot;link&quot;: &quot;https://www.engadget.com/computing/dell-unveils-a-massive-52-inch-6k-ultrawide-curved-monitor-at-ces-2026-140024842.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;PC and &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/computing/accessories/the-gaming-monitors-that-caught-our-eye-at-ces-2026-130000433.html\&quot; target=\&quot;_blank\&quot;&gt;gaming monitors&lt;/a&gt; are among the &lt;a ...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;MiroMind’s MiroThinker 1.5 delivers trillion-parameter performance from a 30B model — at 1/20th the cost&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/mirominds-mirothinker-1-5-delivers-trillion-parameter-performance-from-a-30b&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Joining the ranks of a growing number of &lt;a href=\&quot;https://venturebeat.com/technology/tiis-falcon-h1r-7b-can-out-reason-models-up-to-7x-its-size-and-its-mostly\&quot;&gt;smaller, powerful reasoning models&lt;/a...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Why AI feels generic: Replit CEO on slop, toys, and the missing ingredient of taste&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/why-ai-feels-generic-replit-ceo-on-slop-toys-and-the-missing-ingredient-of&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Right now in the AI world, there are a lot of percolating ideas and experimentation. But as far as Replit CEO Amjad Masad is concerned, they&amp;#x27;re just &amp;quot;toys&amp;quot;: unreliable, marginally ef...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Nous Research&#x27;s NousCoder-14B is an open-source coding model landing right in the Claude Code moment&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in&quot;, &quot;summary&quot;: &quot;&lt;p&gt;&lt;a href=\&quot;https://nousresearch.com/\&quot;&gt;Nous Research&lt;/a&gt;, the open-source artificial intelligence startup backed by crypto venture firm &lt;a href=\&quot;https://www.paradigm.xyz/\&quot;&gt;Paradigm&lt;/a&gt;, released a new...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;This free tool gives you one easy way to install apps on Linux and Mac - here&#x27;s how&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/homebrew-package-manager-linux-macos-apps/&quot;, &quot;summary&quot;: &quot;With Homebrew, you get access to even more apps - maintained by both Linux and MacOS developers....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;CES 2026 live updates: Biggest news on TVs, laptops, and weird gadgets&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/ces-2026-live-updates-1-8-26/&quot;, &quot;summary&quot;: &quot;The world&#x27;s largest technology trade show is underway, and we&#x27;re tracking the top announcements from leading brands throughout the week....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;This genius new iPad case from my favorite Kindle accessory maker will save your face&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/strapsicle-ipad-mini-case-ces/&quot;, &quot;summary&quot;: &quot;Strapsicle&#x27;s new iPad mini case transforms an Apple tablet into a better e-reader - and it&#x27;s designed with accessibility in mind....&quot;, &quot;source&quot;: &quot;Latest news&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <span class="info-label">Design AI Prompt:</span>
+                        <div class="prompt-box">
+    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
+    
+    ===== 🧬 進化のコンテキスト =====
+    
+    【現在の世代】Generation #11
+    【今日のムード】Pragmatic
+    【これまでのアーカイブ数】10件
+    
+    【前回のデザイン参考（先頭5000文字）】
+    ```html
+    &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;MorphoNews Gen #10 | Pragmatic Innovation&lt;/title&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&amp;family=Inter:wght@300;400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        :root {
+            /* Pragmatic Palette */
+            --bg: #ffffff;
+            --bg-sub: #f8fafc;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-mute: #94a3b8;
+            --accent: #4f46e5;
+            --accent-soft: #eef2ff;
+            --border: #e2e8f0;
+            --border-heavy: #cbd5e1;
+            
+            /* Typography */
+            --font-display: &#x27;Outfit&#x27;, sans-serif;
+            --font-body: &#x27;Inter&#x27;, sans-serif;
+            --font-mono: &#x27;Fira Code&#x27;, monospace;
+            
+            /* Metrics */
+            --header-height: 72px;
+            --sidebar-width: 380px;
+            --radius: 0px; /* Pragmatic sharp corners combined with soft elements */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .brand-group { display: flex; align-items: center; gap: 1rem; }
+        .brand { 
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+        .gen-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            background: var(--text-main);
+            color: white;
+            border-radius: 4px;
+        }
+
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-btn {
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-btn:hover {
+            background: var(--bg-sub);
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+        .nav-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* --- Main Layout: Split Column --- */
+        .main-container {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* --- Sidebar (Summary Panel) --- */
+        .summary-panel {
+            padding: 3rem 2rem;
+            border-right: 1px solid var(--border);
+            background-color: var(--bg-sub);
+            position: sticky;
+            top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+        }
+
+        .mood-indicator {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: block;
+            letter-spacing: 0.1em;
+        }
+
+        .summary-title {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .summary-content {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .evolution-log {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-heavy);
+        }
+        .evolution-log h3 {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .log-item {
+            font-size: 0.8rem;
+            c
+    ```
+    
+    ===== 🎯 進化の指令 =====
+    
+    【1. 前回からの進化（最重要）】
+    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+    
+    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
+    
+    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
+      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
+    
+    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
+      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
+       CSS Grid の subgrid、container queries、scroll-driven animations など）
+    
+    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+    
+    【2. デザインの方向性】
+    **明るいライトモードのデザイン**を基本としつつ、今日のムード「Pragmatic」を反映：
+    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
+    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
+    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
+    - 余白とリズム: 心地よい視覚的リズムを意識
+    
+    【3. 必須コンポーネント】
+    
+    A) ナビゲーションバー:
+       - [&lt;&lt; Prev Update] ボタン → リンク先 &quot;./2026-01-08_1740.html&quot; (prev_linkが &quot;#&quot; なら非表示/無効化)
+       - [Archive List] ボタン → リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-09 01:40 (JST)
+       - 世代表示: 「Generation #11」をどこかに
+
+    B) メインコンテンツ:
+       - 今日のトレンド要約を魅力的に表示
+       - 注目ニュース10件をカード/リスト/タイムラインなど自由な形式で
+       - 各ニュースのリンクは必ずクリック可能に
+
+    C) システム情報フッター:
+       - 取得日時(JST): 2026-01-09 01:40:00 JST
+       - 収集記事数: 60
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=7946, 出力=1464, 合計=10676
+       - 要約生成時間: 18.51秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    D) プロンプト開示セクション:
+       `&lt;details&gt;` タグで折りたたみ表示：
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    E) 進化ログセクション（推奨）:
+       今回のデザインで試した新しいアプローチを簡潔に記述
+       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
+
+    【4. 出力形式】
+    - HTMLのみを出力。`&lt;!DOCTYPE html&gt;` から開始
+    - 外部CSSは使用せず、&lt;style&gt;タグ内に全て記述
+    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
+    
+    ===== 📰 ニュースデータ =====
+    {&quot;daily_summary&quot;: &quot;2026年の幕開けと共に、テック業界は「実用化」と「ハードウェアの多様性」を軸に大きく動いています。AI分野では、GoogleがGmailへの「AI Inbox」機能を一般開放するなど、生成AIが個人の日常業務に深く浸透し始めています。一方で、開発者コミュニティではAIコーディングアシスタントの性能低下や最適な運用手法（IDE対ターミナル）を巡る議論が活発化しており、ツールとしての成熟が問われるフェーズに入りました。CES 2026では、全固体電池や52インチ超ワイドモニターといった最先端技術に加え、物理キーボード搭載スマホやPebbleの再来など、ガジェットの多様性を再評価する動きが目立ちます。その裏で、イーロン・マスク氏とOpenAIの法廷闘争や、中国系ハッカーによる通信インフラへの攻撃など、法的・安全保障上の緊張も続いています。技術革新が利便性だけでなく、既存のビジネス構造やセキュリティの再考を迫っているのが現状です。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;Google、GmailにAI要約機能「AI Inbox」を追加　無料ユーザーにも順次展開&quot;, &quot;description&quot;: &quot;GoogleがGemini搭載のメール要約機能やAIオーガナイズ機能を発表。これまで有料だった機能が一般ユーザーにも解放され、AIの民主化が加速しています。&quot;, &quot;link&quot;: &quot;https://arstechnica.com/google/2026/01/google-announces-ai-overviews-in-gmail-search-experimental-ai-organized-inbox/&quot;}, {&quot;title&quot;: &quot;イーロン・マスク対OpenAIの訴訟、3月に陪審員裁判へ&quot;, &quot;description&quot;: &quot;OpenAIの非営利構造維持の約束を巡る訴訟が進展。AI業界のガバナンスと透明性に一石を投じる歴史的な裁判となる可能性があります。&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/elon-musks-lawsuit-against-openai-will-face-a-jury-in-march/&quot;}, {&quot;title&quot;: &quot;物理キーボード復活？Android搭載「Clicks Communicator」がCESで実機披露&quot;, &quot;description&quot;: &quot;BlackBerryを彷彿とさせる物理キーボードを備えた新型スマホが登場。画一的なタッチパネル時代に、特定のニーズに応えるハードウェアが注目されています。&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/hands-on-with-a-prototype-of-clicks-communicator-a-new-blackberry-like-smartphone/&quot;}, {&quot;title&quot;: &quot;世界初の「全固体電池」ついに実用化か　CES 2026で大胆な発表相次ぐ&quot;, &quot;description&quot;: &quot;輸送分野に革命を起こすと期待される全固体電池。CESにて、2年以内の実用化を見据えた技術デモが話題を呼んでいます。&quot;, &quot;link&quot;: &quot;https://www.theverge.com/transportation/858514/is-this-the-worlds-first-solid-state-battery&quot;}, {&quot;title&quot;: &quot;「IDEよりターミナル」海外の開発者間でClaude CodeのCLI運用がトレンドに&quot;, &quot;description&quot;: &quot;重いIDEを避け、ターミナルで軽量かつ高速にAIコーディングを行うワークフローが、効率を重視するエンジニアの間で支持を広げています。&quot;, &quot;link&quot;: &quot;https://zenn.dev/beagle/articles/_0019_keypoints_from_responses_of_boris&quot;}, {&quot;title&quot;: &quot;中国系ハッカー集団「Salt Typhoon」、米下院委員会のメールシステムに侵入&quot;, &quot;description&quot;: &quot;通信インフラや政府機関を標的にした大規模なサイバー諜報活動が発覚。サイバー安全保障の脆弱性が改めて浮き彫りとなりました。&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/08/1559224/china-hacked-email-systems-of-us-congressional-committee-staff&quot;}, {&quot;title&quot;: &quot;Apple Card、発行元をゴールドマンからチェースに切り替えへ&quot;, &quot;description&quot;: &quot;金融プラットフォームとしてのAppleの戦略的転換。大手銀行Chaseとの連携により、Fintechサービスの安定化と拡大を図ります。&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076701.html&quot;}, {&quot;title&quot;: &quot;30Bモデルで1兆パラメータ級の性能？推論モデル「MiroThinker 1.5」登場&quot;, &quot;description&quot;: &quot;「小さくて賢い」モデルの競争が激化。低コストで高い推論能力を実現する新技術が、企業のAI導入ハードルを下げつつあります。&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/mirominds-mirothinker-1-5-delivers-trillion-parameter-performance-from-a-30b&quot;}, {&quot;title&quot;: &quot;FFmpegが中国半導体RockchipにDMCA削除通知、著作権遵守を巡り強硬姿勢&quot;, &quot;description&quot;: &quot;オープンソースソフトウェアのライセンス遵守を巡る法的事例。OSSコミュニティによる権利保護の動きが強まっています。&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260108-ffmpeg-dmca-takedown-github-rockchip/&quot;}, {&quot;title&quot;: &quot;Bose、クラウド終了予定のスピーカーを「オープンソース化」して延命へ&quot;, &quot;description&quot;: &quot;サービス終了により製品がゴミになる「レンガ化」を防ぐため、Boseがソース公開を決定。ユーザーフレンドリーな決断として評価されています。&quot;, &quot;link&quot;: &quot;https://www.engadget.com/audio/speakers/bose-made-the-consumer-friendly-move-to-open-source-its-soundtouch-speakers-163459024.html?src=rss&quot;}], &quot;mood_keyword&quot;: &quot;Pragmatic&quot;}
+    </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

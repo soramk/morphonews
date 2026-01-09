@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #14 | Maturation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Maturation Palette: Sophisticated, Deep, Grounded */
+            --bg-base: #fdfdfd;
+            --bg-surface: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #8b5cf6; /* Violet */
+            --accent-muted: #e2e8f0;
+            --glass-border: rgba(255, 255, 255, 0.6);
+            
+            --font-display: 'Outfit', sans-serif;
+            --font-serif: 'Crimson Pro', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+        }
+
+        /* Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.02;
+            z-index: 9999;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Navigation: Floating Sophistication */
+        nav {
+            position: sticky;
+            top: 1rem;
+            margin: 0 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-brand h1 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .gen-badge {
+            background: var(--text-primary);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-btn-prev { background: var(--bg-surface); color: var(--text-secondary); }
+        .nav-btn-archive { background: var(--accent-primary); color: white; }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        /* Main Content Grid: Asymmetric Editorial */
+        main {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 1100px) {
+            main { grid-template-columns: 1fr; }
+        }
+
+        /* Sidebar: Trend Summary */
+        .summary-column {
+            position: sticky;
+            top: 6rem;
+            height: fit-content;
+        }
+
+        .date-label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            border: 1px solid var(--accent-muted);
+            box-shadow: 20px 20px 60px #e6e9ed, -20px -20px 60px #ffffff;
+        }
+
+        .summary-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .summary-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .mood-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-surface);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* News Stream */
+        .news-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .news-item {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 24px;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-item:hover {
+            background: white;
+            border-color: var(--accent-muted);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        }
+
+        .news-number {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-muted);
+            padding-top: 0.25rem;
+            transition: var(--transition-smooth);
+        }
+
+        .news-item:hover .news-number {
+            color: var(--accent-primary);
+            transform: scale(1.2);
+        }
+
+        .news-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .news-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Evolution Log & Footer */
+        .meta-section {
+            background: var(--text-primary);
+            color: white;
+            padding: 5rem 2rem;
+            margin-top: 8rem;
+            border-radius: 60px 60px 0 0;
+        }
+
+        .meta-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .meta-box h4 {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .evolution-log {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .system-info {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem 1.5rem;
+            color: #94a3b8;
+        }
+
+        .system-info dt { color: white; }
+
+        details {
+            margin-top: 2rem;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #1e293b;
+        }
+
+        .prompt-content {
+            padding: 1.5rem;
+            background: #0f172a;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            white-space: pre-wrap;
+            color: #94a3b8;
+        }
+
+        /* Container Queries Experiment */
+        .news-item {
+            container-type: inline-size;
+        }
+        
+        @container (min-width: 500px) {
+            .news-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-brand">
+            <h1>MorphoNews</h1>
+            <span class="gen-badge">Gen #14</span>
+        </a>
+        <div class="nav-controls">
+            <a href="./2026-01-09_1740.html" class="nav-btn nav-btn-prev">
+                <i data-lucide="arrow-left"></i> 2026-01-09
+            </a>
+            <a href="../history.html" class="nav-btn nav-btn-archive">
+                <i data-lucide="layers"></i> Archive
+            </a>
+            <div style="margin-left: 1rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+                2026-01-10 01:38
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="summary-column">
+            <span class="date-label">January 10, 2026</span>
+            <div class="summary-card">
+                <h2 class="summary-title">成熟するAIと<br>直面する現実</h2>
+                <p class="summary-text">
+                    2026年、テック業界は「成熟期（Maturation）」へと足を踏み入れました。汎用AIの驚きは、医療やクリエイティブといった特定領域への深い浸透へと進化し、同時に収益化や権利保護といった極めて現実的な課題との対峙を迫られています。
+                </p>
+                <div class="mood-tag">
+                    <i data-lucide="trending-up" style="width:14px;height:14px"></i>
+                    Mood: Maturation
+                </div>
+            </div>
+        </section>
+
+        <section class="news-stream">
+            <a href="https://www.watch.impress.co.jp/docs/news/2077023.html" class="news-item">
+                <div class="news-number">01</div>
+                <div class="news-content">
+                    <h3>OpenAI、医療特化型AIソリューションの提供を開始</h3>
+                    <p>臨床医や管理者の業務軽減を目的とした「OpenAI for Healthcare」を発表。エビデンスに基づいた推論をサポートします。</p>
+                </div>
+            </a>
+
+            <a href="https://www.itmedia.co.jp/aiplus/articles/2601/09/news080.html" class="news-item">
+                <div class="news-number">02</div>
+                <div class="news-content">
+                    <h3>CygamesがAI特化子会社を設立、クリエイター支援に注力</h3>
+                    <p>「クリエイターが安心・安全に利用できるAI技術」の開発を目指し、ゲーム制作の知見を活かした独自ツールを展開します。</p>
+                </div>
+            </a>
+
+            <a href="https://www.wired.com/story/x-didnt-fix-groks-undressing-problem-it-just-makes-people-pay-for-it/" class="news-item">
+                <div class="news-number">03</div>
+                <div class="news-content">
+                    <h3>XのAI画像生成「Grok」、無料ユーザーの利用を制限へ</h3>
+                    <p>不適切な画像生成問題を巡り、実質的な有料会員限定化による「収益化と規制」の二段構えへ舵を切りました。</p>
+                </div>
+            </a>
+
+            <a href="https://venturebeat.com/orchestration/claude-code-2-1-0-arrives-with-smoother-workflows-and-smarter-agents" class="news-item">
+                <div class="news-number">04</div>
+                <div class="news-content">
+                    <h3>Anthropicが「Claude Code 2.1.0」をリリース</h3>
+                    <p>開発環境ツールを刷新。さらに大手金融Allianzとの提携を発表し、エンタープライズ領域でのプレゼンスを強化しています。</p>
+                </div>
+            </a>
+
+            <a href="https://www.zdnet.com/article/ringconn-gen-3-smart-ring-ces-2026/" class="news-item">
+                <div class="news-number">05</div>
+                <div class="news-content">
+                    <h3>CES 2026：RingConnが第3世代スマートリングを発表</h3>
+                    <p>サブスクリプション不要を武器に、Ouraの強力なライバルとして進化したウェアラブルデバイスが登場。</p>
+                </div>
+            </a>
+
+            <a href="https://arstechnica.com/cars/2026/01/fewer-american-evs-costs-gm-6-billion-even-as-its-chinese-sales-boom/" class="news-item">
+                <div class="news-number">06</div>
+                <div class="news-content">
+                    <h3>GM、EV計画の修正に伴い60億ドルの減損を計上</h3>
+                    <p>米国内での需要変化を受け、戦略的撤退と修正を余儀なくされる巨大メーカーの苦悩。</p>
+                </div>
+            </a>
+
+            <a href="https://techcrunch.com/2026/01/09/the-venture-firm-that-ate-silicon-valley/" class="news-item">
+                <div class="news-number">07</div>
+                <div class="news-content">
+                    <h3>A16z、新たに150億ドルの資金調達を実施</h3>
+                    <p>シリコンバレーの命運を握る巨額の資金確保。技術覇権への強いコミットメントを示しています。</p>
+                </div>
+            </a>
+
+            <a href="https://www.watch.impress.co.jp/docs/news/2077020.html" class="news-item">
+                <div class="news-number">08</div>
+                <div class="news-content">
+                    <h3>マイナ保険証の利用登録が9000万件突破</h3>
+                    <p>日本のデジタル行政が着実に普及。保有者の約9割が登録を完了し、インフラとしての成熟が進んでいます。</p>
+                </div>
+            </a>
+
+            <a href="https://thehackernews.com/2026/01/russian-apt28-runs-credential-stealing.html" class="news-item">
+                <div class="news-number">09</div>
+                <div class="news-content">
+                    <h3>ロシア系ハッカー「APT28」がエネルギー機関を標的に</h3>
+                    <p>トルコのエネルギー研究機関などを狙ったサイバー攻撃が判明し、国際的な緊張が続いています。</p>
+                </div>
+            </a>
+
+            <a href="https://www.itmedia.co.jp/news/articles/2601/09/news106.html" class="news-item">
+                <div class="news-number">10</div>
+                <div class="news-content">
+                    <h3>都会のタヌキは人間を避けて排泄を我慢？</h3>
+                    <p>都市という特殊な環境下で適応し、静かにコミュニケーションを繋ぐ野生動物の生態調査結果。</p>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <footer class="meta-section">
+        <div class="meta-container">
+            <div class="meta-box">
+                <h4>Evolution Log</h4>
+                <div class="evolution-log">
+                    今回の実験: <b>「Editorial Asymmetry & Fluid Maturation」</b><br>
+                    前回（Gen #13）の均一なグリッドから脱却し、雑誌のようなアシンメトリー（非対称）レイアウトを採用。
+                    CSS Container Queriesによる個別のカード制御と、Serif（Crimson Pro）とSans-Serif（Outfit）の高度な対比により、「成熟した知性」を視覚化しました。
+                    ノイズテクスチャと柔らかなグラデーションで、デジタルな冷たさを排除しています。
+                </div>
+            </div>
+            <div class="meta-box">
+                <h4>System Information</h4>
+                <dl class="system-info">
+                    <dt>Timestamp</dt><dd>2026-01-10 01:38:22 JST</dd>
+                    <dt>Articles</dt><dd>63 sources aggregated</dd>
+                    <dt>Engine</dt><dd>gemini-3-flash-preview</dd>
+                    <dt>Summary Tokens</dt><dd>In: 8,287 / Out: 1,374</dd>
+                    <dt>Gen Time</dt><dd>19.1s (Summary) / 36.14s (Design)</dd>
+                    <dt>Total Processing</dt><dd>67.24s</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="meta-container" style="margin-top: 3rem; border-top: 1px solid #334155; padding-top: 2rem;">
+            <details>
+                <summary>Summary AI Prompt</summary>
+                <div class="prompt-content">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;都会のたぬきは人間がいるとき、うんちを我慢しているかもしれない　東京農工大&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news106.html&quot;, &quot;summary&quot;: &quot;都会のたぬきは、人間がいる場所や時間帯では排せつを我慢しているかもしれない──東京農工大学が、こんな可能性を示唆する調査結果を発表した。同大によれば「都市において、野生動物の匂いによる個体間コミュニケーションがどのように維持されているのか理解する上で重要な一歩」という。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ソフマップ「ゲーミングPC売って」「中古も本当に在庫ない」&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news102.html&quot;, &quot;summary&quot;: &quot;「ゲーミングPC、中古も本当に在庫なくて今これ」...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ガンホー、森下CEOが異動へ　代表権なしの会長＆最高開発責任者に　報酬制度も大幅見直し&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news097.html&quot;, &quot;summary&quot;: &quot;ガンホー・オンライン・エンターテイメントは、代表取締役の異動を発表した。現CEOの森下一喜氏が取締役会長兼最高開発責任者に異動する。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「Grok、この女性をビキニにして」無料ユーザーは不可能に　X、AI画像編集を一部有料化&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news105.html&quot;, &quot;summary&quot;: &quot;「Grok 女性をビキニにして」などの指示が物議を醸す、XのAI画像生成・編集機能。これまで全ユーザーに開放されていた同機能が、有料会員しか使えなくなっていることが、1月9日分かった。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Cygames、画像生成AIのスペシャリストを募集　「サイゲのゲームをやりこんだ人物」など歓迎&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news101.html&quot;, &quot;summary&quot;: &quot;Cygamesは、「AIスペシャリスト（画像生成）」の採用活動を始めた。AIサービスやツールを開発する子会社・Cygames AI Studioの正社員として募集している。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Cygames、“AI特化”の子会社設立　「クリエイターが安心・安全に利用できるAI技術」の開発目指す&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news080.html&quot;, &quot;summary&quot;: &quot;Cygamesは、AIを活用したサービスやツールを開発する子会社Cygames AI Studio（東京都渋谷区）を設立したと発表した。Cygamesがゲーム制作で培った知見をもとに、「クリエイターが安心・安全に利用できるAI技術」の開発を目指す。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;意外と知られていないログインの裏側 - Webアプリケーションの認証の仕組み&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/855524191d08f73a6748?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n自分でホームページを作ってログイン機能を実装しようとした時、こんな疑問に直面したことはありませんか？\n\nパスワードをそのまま保存していいの？\nログイン後、URLを直打ちしたらログインせずに入れてしまうのでは？\nそもそも「ログインしている状態」ってどうやって維持さ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;情報はどうやって海を越えるのか？IPアドレスとDNSの関係性について&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/a3e91b89b5ed9b266e91?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;DNSは何をしているのか\nDNSは、URLに出てくる example.com みたいな名前を、通信に使えるIPアドレスに変換する仕組みです。\nインターネットの通信は最終的に「IPアドレスのどこに送るか」で動きます。でも人間は 203.0.113.10 みたいな数字を覚えに......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;インターネットは軍事目的で始まった？歴史をざっくりと学ぶ&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/1403f6be43bad5d085b3?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;インターネットが開発されてからWebサイトができるまで\nインターネットの始まりは1969年。\n米国防総省のARPA（高等研究計画局）という機関が4台のコンピュータを繋いだのがはじまりです。3つの大学と、スタンフォード研究所（SRI）などの研究機関で繋がれており、ARPAN......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Attention再入門 is all you need&quot;, &quot;link&quot;: &quot;https://zenn.dev/mkj/articles/re-entry-attention_20251209&quot;, &quot;summary&quot;: &quot;Attention再入門 is all you need\n松尾研究所の尾崎です．25卒でデータサイエンティストをやっています．\nAttention機構は，\&quot;Attention is all you need\&quot;論文で一気に脚光を浴びて以来，昨今のAIブームを支えるLLM(transformer)の根幹的技術です．今回はそんなAttention機構が登場以来，どういう方向で進化してきたのかを整理して，...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;テックブログのネタ探し入門&quot;, &quot;link&quot;: &quot;https://zenn.dev/kakakakakku/books/tech-blog-ideas&quot;, &quot;summary&quot;: &quot;📕 この Zenn Book について\nテックブログって最高ですよね❗️この Zenn Book では、テックブログを継続的に書きたいという気持ちはありつつも「ネタが見つからないから書けない」という悩みにフォーカスして、私自身が普段からやっていることをまとめたネタ探しの入門書です。何か1つでも \&quot;楽しく\&quot; そして \&quot;継続的に\&quot; テックブログを書くための発見があれば嬉しいです😀 Happy Blog...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;NeMoフレームワークを用いたLLMの学習&quot;, &quot;link&quot;: &quot;https://zenn.dev/mkj/articles/nemo-series_20251230&quot;, &quot;summary&quot;: &quot;NeMoフレームワークを用いたLLMの学習\n松尾研究所の尾崎です．25卒でデータサイエンティストをやっています．\n元来，LLMの構築にはデータの準備から学習．評価まで様々な工程がありますが，統一的なパイプラインを作るには複数のメーカーの異なるツールや独自実装との混合を検討する必要があります．\nたとえばデータ準備は独自実装，事前学習はMegatronベース，事後学習ではtrlベース，評価はlight...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;地下で何カ月も一人で過ごすと人間の「時間」はどのように歪んでいくのかを自己実験した結果とは&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-spent-underground/&quot;, &quot;summary&quot;: &quot;日の光が届かない場所に時計を持たず長時間滞在すると、人は時間の感覚を失ってしまいます。1962年、たった一人で地下の洞窟に潜り63日間を過ごした探検家、ミシェル・シフレ氏について、科学雑誌のNew Scientistが取り上げました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;spent&amp;#45;underground/\&quot;&gt;続きを読む...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ありとあらゆる方法で予定を柔軟に表示し自分に最適な使い方ができるスケジュール・タスク管理アプリ「ScheduleNote」実際に使ってみたよレビュー、写真・画像・ボイスメモも日付へ簡単に紐付け可能&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-schedulenote/&quot;, &quot;summary&quot;: &quot;予定やタスクの登録・確認だけでなく、写真やスクリーンショット、ボイスメモを日付やイベントと紐付けて閲覧することができるスケジュール管理アプリ「SchduleNote」を使ってみました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;schedulenote/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;「雪の結晶」を自由自在に作り出す科学者が見つけた法則とは？&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-snowflake-artist/&quot;, &quot;summary&quot;: &quot;カリフォルニア工科大学で雪の結晶について研究しているケネス・G・リブレヒト教授は、さまざまな雪の結晶を人工的に作り出す「雪の結晶アーティスト」でもあります。そんなリブレヒト氏にインタビューした動画がYouTubeで公開されており、雪の結晶の作り方やリブレヒト氏の発見について知ることができます。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;プログラミングに適したフォントまとめ／GoogleがすべてのサービスにMCPサーバ／リーナス氏「あなたが修正するのは自分だけのバグではない」ほか、2025年12月の人気記事&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/googlemcp202512.html&quot;, &quot;summary&quot;: &quot;読者の皆様、年明けはいかがお過ごしでしょうか。年末年始の長い休み明けにフルで1週間働くのはなかなかつらいですね。 とはいえ2026年は年明けからすぐに、昨年ハマったアニメ「ミルキー★サブウェイ」の劇場版が公開されるので、これを楽しみに頑張っ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Linus、「AIツールはただのツール」とあらためて強調&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/daily-linux-260109?utm_source=feed&quot;, &quot;summary&quot;: &quot;AIツールによるコーディング支援がひろく普及したことで、LinuxカーネルコミュニティでもAIツールが生成したコードをどう扱うべきかについての議論が続いている。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;モダンになった「Pebble Round 2」と現代版Blackberry「Clicks Communicator」が発表されました&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/android-weekly-topics-260108?utm_source=feed&quot;, &quot;summary&quot;: &quot;新年早々に発表されたPebble Round 2とClicks Communicator...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;AI時代の想像力を育むためのLEGOの挑戦 ――LEGO Press Conferenceより&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/lego-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;今回はCES 2026の2日目、LEGO初のCES Press Conference。スピーチの細部やデモで示されたことを網羅的にまとめるのではなく、筆者が気になった点にフォーカスしてレポートしてみます。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;さくらインターネット、「さくらのAI Engine」の「Playground」機能を手軽な認証のみで利用可能に&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22948&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Rust製組み込みSQLデータベース「Stoolap 0.2」リリース&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22949&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Vercel、Bash実行エンジン「bash-tool」をオープンソース化&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22950&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;マイナ保険証、利用登録9000万件超え　年内「9割超え」目指す&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2077020.html&quot;, &quot;summary&quot;: &quot;マイナ保険証の利用登録件数が9,000万件を超え、マイナンバーカード保有枚数に対する割合が約9割となった(2025年12月末時点)。デジタル庁 松本大臣が9日の記者会見で説明した。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;OpenAI、医療機関向けAIソリューション エビデンスある情報提供&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2077023.html&quot;, &quot;summary&quot;: &quot;OpenAIは、医療機関向けAIソリューション「OpenAI for Healthcare」の提供を開始した。実際の患者のケアに求められる綿密でエビデンスに基づいた推論をサポートし、管理業務を軽減することでチームが患者と過ごす時間を増やすことを目的に構築された。必要な制御機能を備えたワークスペースに臨床医、管理者、研究者を集結できる。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;「1週間が30分に」デロイト、AI規制調査を自動化するAIエージェント&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076925.html&quot;, &quot;summary&quot;: &quot;デロイト トーマツは、同社のAI規制対応支援サービスの強化を目的に、企業のAIサービスに関連する規制情報と対応策を自動で収集するAIエージェントを開発した。これにより、AI規制調査に要する時間を大幅に短縮できるという。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;X restricts Grok’s image generation to paying subscribers only after drawing the world’s ire&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/x-restricts-groks-image-generation-to-paying-subscribers-only-after-drawing-the-worlds-ire/&quot;, &quot;summary&quot;: &quot;Elon Musk&#x27;s AI company has restricted Grok&#x27;s controversial AI image-generation feature to only paying subscribers on X, after the tool invited heated criticism from across the world for letting users ...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;The venture firm that ate Silicon Valley just raised another $15 billion&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/the-venture-firm-that-ate-silicon-valley/&quot;, &quot;summary&quot;: &quot;In a blog post published Friday morning, Ben Horowitz writes that \&quot;as the American leader in Venture Capital, the fate of new technology in the United States rests partly on our shoulders.\&quot; It&#x27;s the k...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Anthropic adds Allianz to growing list of enterprise wins&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/anthropic-adds-allianz-to-growing-list-of-enterprise-wins/&quot;, &quot;summary&quot;: &quot;Anthropic announces its first enterprise deal of 2026 which includes building agents and for, and giving Claude code, to Allianz....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Russian APT28 Runs Credential-Stealing Campaign Targeting Energy and Policy Organizations&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/russian-apt28-runs-credential-stealing.html&quot;, &quot;summary&quot;: &quot;Russian state-sponsored threat actors have been linked to a fresh set of credential harvesting attacks targeting individuals associated with a Turkish energy and nuclear research agency, as well as st...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Cybersecurity Predictions 2026: The Hype We Can Ignore (And the Risks We Can&#x27;t)&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/cybersecurity-predictions-2026-hype-we.html&quot;, &quot;summary&quot;: &quot;As organizations plan for 2026, cybersecurity predictions are everywhere. Yet many strategies are still shaped by headlines and speculation rather than evidence. The real challenge isn’t a lack of for...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Trend Micro Apex Central RCE Flaw Scores 9.8 CVSS in On-Prem Windows Versions&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/trend-micro-apex-central-rce-flaw.html&quot;, &quot;summary&quot;: &quot;Trend Micro has released security updates to address multiple security vulnerabilities impacting on-premise versions of Apex Central for Windows, including a critical bug that could result in arbitrar...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Anker’s new AeroFit Pro 2 earbuds are already $30 off&quot;, &quot;link&quot;: &quot;https://www.theverge.com/gadgets/859486/anker-aerofit-pro-2-earbuds-donkey-kong-bananza-elgato-deal-sale&quot;, &quot;summary&quot;: &quot;We saw a ton of cool new products at CES 2026, but not all of them made the cut when it came to deciding what was best of show. One of those products that we nevertheless think holds promise is Anker’...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;You can break apart and share this 10K power bank like a KitKat bar&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/859493/nimble-champ-stack-10k-power-bank-shareable&quot;, &quot;summary&quot;: &quot;Accessory maker Nimble announced a new power bank at CES 2026 that will appeal to anyone who&#x27;s had to reluctantly share or loan their portable charger to someone else. The Champ Stack 10K looks like a...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;CES 2026 was awash in bodily fluids&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/859132/optimizer-ces-2026-metabolism-bodily-fluids-health-tech-wearables&quot;, &quot;summary&quot;: &quot;This is Optimizer, a weekly newsletter sent every Friday from Verge senior reviewer Victoria Song that dissects and discusses the latest phones, smartwatches, apps, and other gizmos that swear they&#x27;re...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Rocket Report: SpaceX and China led the way in 2025; Vandenberg has room to grow&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/rocket-report-spacex-and-china-led-the-way-in-2025-vandenberg-has-room-to-grow/&quot;, &quot;summary&quot;: &quot;SpaceX opened its 2026 launch campaign with a mission for the Italian government....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;“Ungentrified” Craigslist may be the last real place on the Internet&quot;, &quot;link&quot;: &quot;https://arstechnica.com/culture/2026/01/ungentrified-craigslist-may-be-the-last-real-place-on-the-internet/&quot;, &quot;summary&quot;: &quot;People still use Craigslist to find jobs, love, and even to cast creative projects....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;General Motors writes down $6 billion as domestic EV sales plans change&quot;, &quot;link&quot;: &quot;https://arstechnica.com/cars/2026/01/fewer-american-evs-costs-gm-6-billion-even-as-its-chinese-sales-boom/&quot;, &quot;summary&quot;: &quot;Canceled contracts and scaled-back product plans turn out to be costly....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Silicon Valley Billionaires Panic Over California’s Proposed Wealth Tax&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/backchannel-silicon-valley-billionaires-california-taxes/&quot;, &quot;summary&quot;: &quot;Larry Page’s apparent Florida move highlights how seriously the ultra-rich are taking a one-time tax aimed at extreme wealth inequality....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;X Didn’t Fix Grok&#x27;s ‘Undressing’ Problem. It Just Makes People Pay for It&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/x-didnt-fix-groks-undressing-problem-it-just-makes-people-pay-for-it/&quot;, &quot;summary&quot;: &quot;X is allowing only “verified” users to create images with Grok. Experts say it represents the “monetization of abuse”—and anyone can still generate images on Grok’s app and website....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Conservative Lawmakers Want Porn Taxes. Critics Say They’re Unconstitutional&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/conservative-lawmakers-want-porn-taxes-critics-say-theyre-unconstitutional/&quot;, &quot;summary&quot;: &quot;Alabama passed a 10 percent porn tax last year, as Utah and Pennsylvania eye similar bills. Half the country has enacted age-verification laws to prevent minors from viewing porn....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Send To Kindle from Microsoft Word is Discontinued&quot;, &quot;link&quot;: &quot;https://it.slashdot.org/story/26/01/09/1516254/send-to-kindle-from-microsoft-word-is-discontinued?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Microsoft is discontinuing its Send to Kindle integration in Word, ending a feature that allowed Microsoft 365 subscribers to send documents directly to their Kindle e-readers and preserve complex for...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Why Care About Debt-to-GDP?&quot;, &quot;link&quot;: &quot;https://slashdot.org/story/26/01/09/1459249/why-care-about-debt-to-gdp?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Abstract of a paper on NBER: We construct an international panel data set comprising three distinct yet plausible measures of government indebtedness: the debt-to-GDP, the interest-to-GDP, and the deb...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Record Ocean Heat is Intensifying Climate Disasters, Data Shows&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/09/148202/record-ocean-heat-is-intensifying-climate-disasters-data-shows?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;The world&#x27;s oceans absorbed yet another record-breaking amount of heat in 2025, continuing an almost unbroken streak of annual records since the start of the millennium and fueling increasingly extrem...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;London–Calcutta Bus Service&quot;, &quot;link&quot;: &quot;https://en.wikipedia.org/wiki/London%E2%80%93Calcutta_bus_service&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://en.wikipedia.org/wiki/London%E2%80%93Calcutta_bus_service\&quot;&gt;https://en.wikipedia.org/wiki/London%E2%80%93Calcutta_bus_service&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;\&quot;They Saw a Protest\&quot;: Cognitive Illiberalism and the Speech-Conduct Distinction [pdf]&quot;, &quot;link&quot;: &quot;https://www.stanfordlawreview.org/wp-content/uploads/sites/3/2012/05/Kahan-64-Stan-L-Rev-851.pdf&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://www.stanfordlawreview.org/wp-content/uploads/sites/3/2012/05/Kahan-64-Stan-L-Rev-851.pdf\&quot;&gt;https://www.stanfordlawreview.org/wp-content/uploads/sites/3/2012/05/Kahan-64...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Kagi releases alpha version of Orion for Linux&quot;, &quot;link&quot;: &quot;https://help.kagi.com/orion/misc/linux-status.html&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://help.kagi.com/orion/misc/linux-status.html\&quot;&gt;https://help.kagi.com/orion/misc/linux-status.html&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=4...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;CES 2026 offered a lonely vision of the future&quot;, &quot;link&quot;: &quot;https://www.engadget.com/ces-2026-offered-a-lonely-vision-of-the-future-160000993.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;&lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/home/lg-at-ces-2026-live-updates-from-the-companys-world-premiere-event-190159076.html\&quot; target=\&quot;_blank\&quot;&gt;LG opened CES 2026&lt;/a&gt; by outlining its vision...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Engadget&#x27;s best of CES 2026: All the new tech that caught our eye in Las Vegas&quot;, &quot;link&quot;: &quot;https://www.engadget.com/engadgets-best-of-ces-2026-all-the-new-tech-that-caught-our-eye-in-las-vegas-200057123.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Over 4,000 exhibitors flocked to Las Vegas, Nevada this week to showcase their wares at CES 2026. The Engadget team, as usual, &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/ces-2026-live-updates-a...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;All the tech and gadgets announced at CES 2026&quot;, &quot;link&quot;: &quot;https://www.engadget.com/general/all-the-tech-and-gadgets-announced-at-ces-2026-130124023.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;It&#x27;s the first week of a new year and there&#x27;s no time for the tech world to slowly ease back into things following the holidays. That&#x27;s because &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/tag/ce...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;How KPMG is redefining the future of SAP consulting on a global scale&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/how-kpmg-is-redefining-the-future-of-sap-consulting-on-a-global-scale&quot;, &quot;summary&quot;: &quot;&lt;p&gt;&lt;i&gt;Presented by SAP&lt;/i&gt;&lt;/p&gt;&lt;hr /&gt;&lt;p&gt;SAP consulting projects today involve a vast amount of documentation, multiple stakeholders, and compressed timelines, which often require manual knowledge retri...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Claude Code 2.1.0 arrives with smoother workflows and smarter agents&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/claude-code-2-1-0-arrives-with-smoother-workflows-and-smarter-agents&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Anthropic has &lt;a href=\&quot;https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md\&quot;&gt;released Claude Code v2.1.0&lt;/a&gt;, a notable update to its &amp;quot;vibe coding&amp;quot; development environment for...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Why AI feels generic: Replit CEO on slop, toys, and the missing ingredient of taste&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/why-ai-feels-generic-replit-ceo-on-slop-toys-and-the-missing-ingredient-of&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Right now in the AI world, there are a lot of percolating ideas and experimentation. But as far as Replit CEO Amjad Masad is concerned, they&amp;#x27;re just &amp;quot;toys&amp;quot;: unreliable, marginally ef...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;The best 98-inch TVs of 2026: Cinema-sized and expert tested&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/best-98-inch-tv/&quot;, &quot;summary&quot;: &quot;Help create a movie-goer&#x27;s experience at home with a 98-inch TV. We&#x27;ve tested the latest and best from brands like Hisense, TCL, and Sony....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;RingConn Gen 3 debuts at CES 2026 - with two big features Oura doesn&#x27;t have&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/ringconn-gen-3-smart-ring-ces-2026/&quot;, &quot;summary&quot;: &quot;The subscription-free Oura alternative has unveiled its third-generation ring with new features, sizes, and finishes....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;The right way to run an internet speed test (and how I use the results for better Wi-Fi)&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/how-to-run-an-internet-speed-test-and-use-results/&quot;, &quot;summary&quot;: &quot;After a decade testing PCs, routers, and home networks, I know what causes slow speeds and can help you optimize your internet connection....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;2025 at Google&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/look-back-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/EOY_2025_Header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about Google’s launches, milestones and more from 2025....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;The Google guide for holiday help&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/holiday-planning-ai-gemini-tips/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Holiday_Collection_header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about using Google products like Gemini, Search, Shopping...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Investing in America 2025&quot;, &quot;link&quot;: &quot;https://blog.google/company-news/inside-google/company-announcements/investing-in-america-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/InvestinginAmerica_CollectionHe.max-600x600.format-webp.webp\&quot; /&gt;Google’s deep investments in American technical infrastructure...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</div>
+            </details>
+            <details>
+                <summary>Design AI Prompt</summary>
+                <div class="prompt-content">
+    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
+    
+    ===== 🧬 進化のコンテキスト =====
+    
+    【現在の世代】Generation #14
+    【今日のムード】Maturation
+    【これまでのアーカイブ数】13件
+    
+    【前回のデザイン参考（先頭5000文字）】
+    ```html
+    &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;MorphoNews Gen #13 | Evolutionary&lt;/title&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&amp;family=Plus+Jakarta+Sans:wght@300;400;600;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        :root {
+            /* Evolutionary Palette: Structured, High-Contrast, Professional */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-strong: #0f172a;
+            --text-main: #334155;
+            --text-dim: #64748b;
+            --accent: #4f46e5; /* Indigo */
+            --accent-soft: #eef2ff;
+            --accent-evolution: #10b981; /* Emerald for growth */
+            --border: #e2e8f0;
+            --font-display: &#x27;Space Grotesk&#x27;, sans-serif;
+            --font-body: &#x27;Plus Jakarta Sans&#x27;, sans-serif;
+            --font-mono: &#x27;JetBrains Mono&#x27;, monospace;
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            /* Background Pattern: Subtle Evolutionary Mesh */
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* --- Navigation: Structured Control Bar --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-zone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-strong);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gen-indicator {
+            background: var(--text-strong);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            animation: pulse-evolution 4s infinite;
+        }
+
+        @keyframes pulse-evolution {
+            0%, 100% { background: var(--text-strong); }
+            50% { background: var(--accent); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-prev { background: var(--bg-secondary); color: var(--text-main); border: 1px solid var(--border); }
+        .btn-prev:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+        .btn-archive { background: var(--text-strong); color: white; }
+        .btn-archive:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .timestamp-box {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            padding-left: 1rem;
+            border-left: 1px solid var(--border);
+        }
+
+        /* --- Hero: The Core Summary --- */
+        .hero {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .hero { grid-template-columns: 1fr; gap
+    ```
+    
+    ===== 🎯 進化の指令 =====
+    
+    【1. 前回からの進化（最重要）】
+    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+    
+    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
+    
+    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
+      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
+    
+    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
+      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
+       CSS Grid の subgrid、container queries、scroll-driven animations など）
+    
+    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+    
+    【2. デザインの方向性】
+    **明るいライトモードのデザイン**を基本としつつ、今日のムード「Maturation」を反映：
+    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
+    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
+    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
+    - 余白とリズム: 心地よい視覚的リズムを意識
+    
+    【3. 必須コンポーネント】
+    
+    A) ナビゲーションバー:
+       - [&lt;&lt; Prev Update] ボタン → リンク先 &quot;./2026-01-09_1740.html&quot; (prev_linkが &quot;#&quot; なら非表示/無効化)
+       - [Archive List] ボタン → リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-10 01:38 (JST)
+       - 世代表示: 「Generation #14」をどこかに
+
+    B) メインコンテンツ:
+       - 今日のトレンド要約を魅力的に表示
+       - 注目ニュース10件をカード/リスト/タイムラインなど自由な形式で
+       - 各ニュースのリンクは必ずクリック可能に
+
+    C) システム情報フッター:
+       - 取得日時(JST): 2026-01-10 01:38:22 JST
+       - 収集記事数: 63
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=8287, 出力=1374, 合計=10973
+       - 要約生成時間: 19.1秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    D) プロンプト開示セクション:
+       `&lt;details&gt;` タグで折りたたみ表示：
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    E) 進化ログセクション（推奨）:
+       今回のデザインで試した新しいアプローチを簡潔に記述
+       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
+
+    【4. 出力形式】
+    - HTMLのみを出力。`&lt;!DOCTYPE html&gt;` から開始
+    - 外部CSSは使用せず、&lt;style&gt;タグ内に全て記述
+    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
+    
+    ===== 📰 ニュースデータ =====
+    {&quot;daily_summary&quot;: &quot;2026年の年明け、テック業界はCES 2026の開催によりハードウェアの熱狂に沸く一方、AI技術の実用化と規律という「成熟期」への移行を鮮明にしています。AI分野では、OpenAIが医療機関向け特化型ソリューション「OpenAI for Healthcare」を始動し、Anthropicが大手企業との提携や開発ツールの刷新を進めるなど、汎用モデルから特定領域への深化が加速。対照的に、X（旧Twitter）が物議を醸したAI画像生成を有料化するなど、安全性と収益化を巡る攻防も激化しています。国内ではCygamesがAI専門子会社を設立し、クリエイターの権利を保護しつつ開発効率を高める姿勢を打ち出しており、コンテンツ制作におけるAIの在り方が問われています。また、GMによるEV戦略の修正や、シリコンバレーの富裕層による課税回避の動きは、イノベーションが直面する経済的現実を突きつけています。一方で、地下生活での時間感覚の変容や、都市部のタヌキの行動調査など、科学的な探求心もテクノロジーの視点を通じて再評価されています。高度な自動化と、それを取り巻く人間社会の再編が2026年の主要なテーマとなるでしょう。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;OpenAI、医療特化型AIソリューションの提供を開始&quot;, &quot;description&quot;: &quot;臨床医や管理者の業務軽減を目的とした「OpenAI for Healthcare」を発表。エビデンスに基づいた推論をサポートします。&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2077023.html&quot;}, {&quot;title&quot;: &quot;CygamesがAI特化子会社を設立、クリエイター支援に注力&quot;, &quot;description&quot;: &quot;「クリエイターが安心・安全に利用できるAI技術」の開発を目指し、ゲーム制作の知見を活かした独自ツールを展開します。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news080.html&quot;}, {&quot;title&quot;: &quot;XのAI画像生成「Grok」、無料ユーザーの利用を制限へ&quot;, &quot;description&quot;: &quot;「 undressing（脱衣）」問題など物議を醸していた画像生成・編集機能を、有料会員のみに限定。実質的な収益化と規制へ舵を切りました。&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/x-didnt-fix-groks-undressing-problem-it-just-makes-people-pay-for-it/&quot;}, {&quot;title&quot;: &quot;Anthropicが「Claude Code 2.1.0」をリリース、企業提携も拡大&quot;, &quot;description&quot;: &quot;開発環境ツールを刷新。さらに大手金融Allianzとの提携を発表し、エンタープライズ領域でのプレゼンスを強化しています。&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/claude-code-2-1-0-arrives-with-smoother-workflows-and-smarter-agents&quot;}, {&quot;title&quot;: &quot;CES 2026：RingConnが第3世代スマートリングを発表&quot;, &quot;description&quot;: &quot;Ouraの対抗馬として、サブスクリプション不要で新機能を搭載した新型ウェアラブルがデビューしました。&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/ringconn-gen-3-smart-ring-ces-2026/&quot;}, {&quot;title&quot;: &quot;GM、EV計画の修正に伴い60億ドルの減損を計上&quot;, &quot;description&quot;: &quot;米国内でのEV販売計画の見直しと契約キャンセルにより巨額損失。市場の需要変化に直面しています。&quot;, &quot;link&quot;: &quot;https://arstechnica.com/cars/2026/01/fewer-american-evs-costs-gm-6-billion-even-as-its-chinese-sales-boom/&quot;}, {&quot;title&quot;: &quot;A16z、新たに150億ドルの資金調達を実施&quot;, &quot;description&quot;: &quot;シリコンバレーを代表するVCが巨額資金を確保。米国のテクノロジーの命運を担う姿勢を強調しています。&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/the-venture-firm-that-ate-silicon-valley/&quot;}, {&quot;title&quot;: &quot;マイナ保険証の利用登録が9000万件突破、普及率9割へ&quot;, &quot;description&quot;: &quot;日本のデジタル行政が着実に進展。2025年末時点でカード保有者の約9割が登録を完了したことが明らかになりました。&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2077020.html&quot;}, {&quot;title&quot;: &quot;ロシア系ハッカー「APT28」がエネルギー機関を標的に攻撃&quot;, &quot;description&quot;: &quot;トルコの原子力・エネルギー研究機関などを対象とした資格情報奪取キャンペーンが確認され、警戒が高まっています。&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/russian-apt28-runs-credential-stealing.html&quot;}, {&quot;title&quot;: &quot;都会のタヌキは人間を避けて排泄を我慢？東京農工大が発表&quot;, &quot;description&quot;: &quot;野生動物が都市環境でどのようにコミュニケーションを維持しているかを探る興味深い生態調査結果が公開されました。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news106.html&quot;}], &quot;mood_keyword&quot;: &quot;Maturation&quot;}
+    </div>
+            </details>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        // Simple subtle parallax for summary card
+        window.addEventListener('scroll', () => {
+            const card = document.querySelector('.summary-card');
+            if (window.innerWidth > 1100) {
+                const scrolled = window.pageYOffset;
+                card.style.transform = `translateY(${scrolled * 0.05}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

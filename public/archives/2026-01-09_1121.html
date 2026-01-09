@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #12 | Convergence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Convergence Palette: Bright, Fluid, Ethereal */
+            --bg: #fdfdff;
+            --surface-glass: rgba(255, 255, 255, 0.7);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #06b6d4; /* Cyan */
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --border-soft: rgba(226, 232, 240, 0.8);
+            
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+
+            --transition-fluid: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+            word-break: break-word;
+        }
+
+        /* --- Animated Background Elements --- */
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            background: var(--accent-gradient);
+            filter: blur(120px);
+            opacity: 0.03;
+            z-index: -1;
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* --- Navigation: Floating Convergence Bar --- */
+        nav {
+            position: sticky;
+            top: 1rem;
+            z-index: 1000;
+            margin: 0 1rem;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft);
+            border-radius: 100px;
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .gen-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: var(--transition-fluid);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-nav:hover {
+            background: rgba(0,0,0,0.03);
+            color: var(--accent-primary);
+        }
+
+        .btn-nav.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* --- Main Layout: Asymmetric Flow --- */
+        main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 900px) {
+            main { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        /* --- Hero: Convergent Summary --- */
+        .hero-section {
+            grid-column: 1 / -1;
+            position: relative;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.04em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .daily-summary {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            max-width: 800px;
+            font-weight: 300;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        /* --- News Stream: Vertical Flow --- */
+        .news-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border: 1px solid var(--border-soft);
+            padding: 2rem;
+            border-radius: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fluid);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.08);
+            border-color: var(--accent-primary);
+        }
+
+        .news-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 4px; height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .news-card:hover::after { opacity: 1; }
+
+        .news-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .news-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+        }
+
+        /* --- Evolution Log: Side Panel --- */
+        .evolution-panel {
+            position: sticky;
+            top: 6rem;
+            height: fit-content;
+        }
+
+        .evolution-card {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px dashed var(--accent-primary);
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            display: block;
+            letter-spacing: 0.1em;
+        }
+
+        .evolution-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .evolution-list {
+            margin-top: 1rem;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .evolution-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* --- Footer & Details --- */
+        footer {
+            margin-top: 8rem;
+            padding: 4rem 1.5rem;
+            background: white;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .stat-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        details {
+            margin-top: 2rem;
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #f8fafc;
+            user-select: none;
+        }
+
+        .details-content {
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: white;
+            white-space: pre-wrap;
+            color: var(--text-muted);
+        }
+
+        /* --- Scroll Driven Animation simulation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="brand">
+                <i data-lucide="merge"></i>
+                MorphoNews
+                <span class="gen-badge">Gen #12</span>
+            </a>
+            <div class="nav-actions">
+                <span style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); margin-right: 1rem;">2026-01-09 11:21 JST</span>
+                <a href="./2026-01-09_0140.html" class="btn-nav">
+                    <i data-lucide="arrow-left" size="14"></i> Prev
+                </a>
+                <a href="../history.html" class="btn-nav">
+                    <i data-lucide="layers" size="14"></i> Archive
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="hero-title">Physical AI &<br>Human Convergence.</h1>
+            <div class="daily-summary">
+                2026年、テクノロジーは画面の枠を超え、物理世界へと溶け込み始めました。CES 2026でのNVIDIAの発表からGoogleのAIエージェント化まで、今日のニュースは「デジタルと現実の境界が消失する瞬間」を捉えています。
+            </div>
+        </section>
+
+        <section class="news-stream">
+            <span class="section-label">Top Briefings</span>
+            
+            <a href="https://www.itmedia.co.jp/news/articles/2601/09/news066.html" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="mail" size="12"></i> Intelligence</div>
+                <h3 class="news-title">Gmailに「Gemini 3」搭載、AI Inboxが情報を自動抽出</h3>
+                <p class="news-desc">単なる要約を超え、ユーザーの文体学習や能動的なメール管理を行う次世代エージェント機能が実装。</p>
+            </a>
+
+            <a href="https://www.itmedia.co.jp/news/articles/2601/09/news065.html" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="cpu" size="12"></i> Hardware</div>
+                <h3 class="news-title">NVIDIA、自動運転AI「Alpamayo」でフィジカルAIを加速</h3>
+                <p class="news-desc">ジェンスン・フアンが描く未来。デジタル空間の知能が、現実のロボットや車として肉体を得る転換点。</p>
+            </a>
+
+            <a href="https://www.itmedia.co.jp/aiplus/articles/2601/09/news067.html" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="shopping-cart" size="12"></i> Commerce</div>
+                <h3 class="news-title">会話だけで決済完了、「Copilot Checkout」が提示する新市場</h3>
+                <p class="news-desc">MicrosoftがPayPalらと提携。サイト遷移なしで、AIとの対話のみで買い物が完結する未来。</p>
+            </a>
+
+            <a href="https://www.engadget.com/wearables/handwriting-is-my-new-favorite-way-to-text-with-the-meta-ray-ban-display-glasses-213744708.html?src=rss" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="glasses" size="12"></i> Interaction</div>
+                <h3 class="news-title">Metaスマートグラス、空中手書き入力で直感的操作を実現</h3>
+                <p class="news-desc">キーボードや音声に頼らない、空間をキャンバスにする新しいインターフェースの提案。</p>
+            </a>
+
+            <a href="https://gigazine.net/news/20260109-iran-digital-blackout/" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="globe-lock" size="12"></i> Society</div>
+                <h3 class="news-title">イラン全土で通信遮断、デジタル社会の脆弱性と政府による制御</h3>
+                <p class="news-desc">抗議デモへの対抗措置か。高度に連結された社会において、接続の切断は強力な武器となりつつある。</p>
+            </a>
+
+            <a href="https://www.itmedia.co.jp/news/articles/2601/09/news039.html" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="star" size="12"></i> Science</div>
+                <h3 class="news-title">宇宙最古の光に「ワームホール」の証拠、新理論で再検証</h3>
+                <p class="news-desc">アインシュタイン＝ローゼン橋の実在。90年前の予言が、最新の宇宙観測によって裏付けられようとしている。</p>
+            </a>
+
+            <a href="https://techcrunch.com/2026/01/08/governments-grapple-with-the-flood-of-non-consensual-nudity-on-x/" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="shield-alert" size="12"></i> Ethics</div>
+                <h3 class="news-title">X(Grok AI)による不適切画像氾濫、法規制への議論が加速</h3>
+                <p class="news-desc">生成AIが生み出す負の側面。表現の自由と個人の尊厳、プラットフォームの責任が再び問われる。</p>
+            </a>
+
+            <a href="https://www.itmedia.co.jp/aiplus/articles/2601/09/news071.html" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="heart-pulse" size="12"></i> Health</div>
+                <h3 class="news-title">OpenAI for Healthcare発表、機密情報の安全なAI運用を支援</h3>
+                <p class="news-desc">HIPAA準拠の専用環境を提供。人命に関わる医療現場でのAI活用が、法的保護の下で本格化。</p>
+            </a>
+
+            <a href="https://venturebeat.com/data/databricks-instructed-retriever-beats-traditional-rag-data-retrieval-by-70" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="database" size="12"></i> Data</div>
+                <h3 class="news-title">Databricks、RAGの精度を70%向上させる新技術を発表</h3>
+                <p class="news-desc">エンタープライズAIの「回答の正確性」を劇的に改善。情報の検索から推論への流れがより滑らかに。</p>
+            </a>
+
+            <a href="https://audioxpress.com/news/flint-confirms-biodegradable-paper-batteries-are-now-in-production" class="news-card reveal">
+                <div class="news-meta"><i data-lucide="leaf" size="12"></i> Ecology</div>
+                <h3 class="news-title">土に還る「紙バッテリー」実用化、サステナブルなIoTへ</h3>
+                <p class="news-desc">テクノロジーの物理的な終着点。環境負荷を極限まで抑えた次世代電源が量産フェーズに突入。</p>
+            </a>
+        </section>
+
+        <section class="evolution-panel">
+            <div class="evolution-card">
+                <span class="section-label">Design Evolution Log</span>
+                <p class="evolution-text">
+                    Gen #12のテーマは「Convergence（収束）」。前回までの厳格なグリッドを解体し、要素が互いに溶け込むような流体的なレイアウトを採用しました。
+                </p>
+                <ul class="evolution-list">
+                    <li><i data-lucide="check-circle" size="14"></i> <span>Floating Glassmorphism UI</span></li>
+                    <li><i data-lucide="check-circle" size="14"></i> <span>Asymmetric Flow Layout</span></li>
+                    <li><i data-lucide="check-circle" size="14"></i> <span>Scroll-Driven Reveal Effect</span></li>
+                    <li><i data-lucide="check-circle" size="14"></i> <span>Outfit & Inter Dual Typography</span></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="stat-item">
+                <span class="stat-label">Collected Articles</span>
+                <span class="stat-value">63 Articles</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Engine</span>
+                <span class="stat-value">gemini-3-flash-preview</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Processing Time</span>
+                <span class="stat-value">18.2s (Summary)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Generation</span>
+                <span class="stat-value">#12 "Convergence"</span>
+            </div>
+        </div>
+
+        <div style="max-width: 1200px; margin: 2rem auto 0;">
+            <details>
+                <summary>AI System Prompts</summary>
+                <div class="details-content">
+                    <strong>要約AIプロンプト:</strong>
+                    ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;Gmailに「Gemini 3」搭載の大型アップデート、情報の要約や「AI Inbox」が登場&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news066.html&quot;, &quot;summary&quot;: &quot;Googleは、「Gmail」に「Gemini 3」を導入するアップデートを発表した。受信トレイ全体から情報を探し出す「AI Overview」や、ユーザーの文体を学習した「Help Me Write」、重要メールを自動抽出する「AI Inbox」を順次提供する。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;現実世界で動き始めたAI――自動運転にロボット、「フィジカルAI」に突き進むNVIDIAのビジョン&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news065.html&quot;, &quot;summary&quot;: &quot;米ラスベガスで開催中の「CES 2026」。米NVIDIAが1月5日（現地時間）に行った基調講演では、ジェンスン・フアンCEOが登壇。次世代AIスパコン「Vera Rubin」と、推論で思考を語ることができる自動運転AI「Alpamayo」を発表。AIが現実世界に浸透する未来像を示した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「ワームホール」に新理解　宇宙誕生時の光に“証拠”発見か　90年前の「アインシュタイン＝ローゼン橋」を再検討&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news039.html&quot;, &quot;summary&quot;: &quot;英ポーツマス大学などに所属する研究者らは、90年前にアインシュタインとローゼンが予見した「時空をつなぐ数学的な橋」を新理論で再検討し、宇宙最古の光で検証した研究報告を発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;OpenAI、医療機関向け「OpenAI for Healthcare」発表　HIPAA準拠で組織導入を支援&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news071.html&quot;, &quot;summary&quot;: &quot;OpenAIは、医療機関向けの新たな枠組み「OpenAI for Healthcare」を発表した。個人向け「ChatGPT Health」とは異なり、病院などの組織がHIPAA準拠の環境でAIを運用するための専用製品を提供する。データをモデルの学習には使わず、高度な暗号化により、機密性の高い患者情報の安全な取り扱いを可能にするとしている。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Microsoft、Copilot内で決済まで行える「Copilot Checkout」発表&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news067.html&quot;, &quot;summary&quot;: &quot;Microsoftは、「Copilot」内で商品の検索から決済まで完結させる「Copilot Checkout」を発表した。PayPalやShopify、Stripeと提携し、外部サイトに遷移せずチャット上で購入が可能になる。ブランド専用のAI接客ツール「Brand Agents」も展開し、AIが購買を代行する「エージェンティックコマース」の普及を加速させる。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Gmailに「Gemini 3」搭載の大型アップデート、情報の要約や「AI Inbox」が登場&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news066.html&quot;, &quot;summary&quot;: &quot;Googleは、「Gmail」に「Gemini 3」を導入するアップデートを発表した。受信トレイ全体から情報を探し出す「AI Overview」や、ユーザーの文体を学習した「Help Me Write」、重要メールを自動抽出する「AI Inbox」を順次提供する。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;インターネットは軍事目的で始まった？歴史をざっくりと学ぶ&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/1403f6be43bad5d085b3?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;インターネットが開発されてからWebサイトができるまで\nインターネットの始まりは1969年。\n米国防総省のARPA（高等研究計画局）という機関が4台のコンピュータを繋いだのがはじまりです。3つの大学と、スタンフォード研究所（SRI）などの研究機関で繋がれており、ARPAN......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;情報はどうやって海を越えるのか？IPアドレスとDNSの関係性について&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/a3e91b89b5ed9b266e91?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;DNSは何をしているのか\nDNSは、URLに出てくる example.com みたいな名前を、通信に使えるIPアドレスに変換する仕組みです。\nインターネットの通信は最終的に「IPアドレスのどこに送るか」で動きます。でも人間は 203.0.113.10 みたいな数字を覚えに......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;意外と知られていないログインの裏側 - Webアプリケーションの認証の仕組み&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/855524191d08f73a6748?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n自分でホームページを作ってログイン機能を実装しようとした時、こんな疑問に直面したことはありませんか？\n\nパスワードをそのまま保存していいの？\nログイン後、URLを直打ちしたらログインせずに入れてしまうのでは？\nそもそも「ログインしている状態」ってどうやって維持さ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Claude Code on the Webでghコマンドを使う&quot;, &quot;link&quot;: &quot;https://zenn.dev/oikon/articles/claude-code-web-gh-cli&quot;, &quot;summary&quot;: &quot;!\nClaude Code on the Web の仕様は2026年1月8日時点です。今後ghコマンドがデフォルトでインストールされるといくつかの設定が不要になります。\n\nOikonです。普段はAIツール、特にClaude Codeで遊んでいます。\n以前、Claude Code on the Webの仕様を徹底解剖という記事を書きました。その中でghコマンドが禁止されていることを紹介しましたが、最...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Next.jsを採用するのをやめた理由・背景&quot;, &quot;link&quot;: &quot;https://zenn.dev/anatoo/articles/64c18865fc971c&quot;, &quot;summary&quot;: &quot;少し前にReact2ShellというReactのRCEの脆弱性によって、Next.jsを使っているアプリケーションが影響を受けましたが、実はそれ以前から自分は何かウェブアプリケーションを開発するときにNext.jsを採用するのをやめています。\nNext.jsを採用するのをやめたのには、ちょっと微妙な理由がいくつかあったので特に何か書く事はしなかったんですが、興味ある人もいるかもしれないので書いてお...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;フォームのオートコンプリートでデザインが壊れる問題をCSSだけで解決する&quot;, &quot;link&quot;: &quot;https://zenn.dev/localer/articles/b7d9aba4ca4db8&quot;, &quot;summary&quot;: &quot;パスワードマネージャーなどでオートコンプリート(自動補完)されたとき、\n&amp;lt;input/&amp;gt; 要素の背景色や入力された文字の色が、\n自分の意図しない見た目になっていたことはありませんか？\n例えば、\n\n背景が突然黄色や青っぽい色になる\n\nbackground-colorを指定しているのに無視される\n文字色だけが変わり、ダークモードで読めなくなる\n\n\nオートコンプリート時\nこれらはCSSの指定...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;イラン全土でインターネットが使用不可能に、抗議デモに対する政府の妨害か&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-iran-digital-blackout/&quot;, &quot;summary&quot;: &quot;現地時間2026年1月8日20時ごろから、イラン全土でインターネットのトラフィックが極端に減少していることが観測されています。イランでは通貨の暴落と物価高騰に対して全土で抗議デモが2025年12月から発生しており、その対策として政府がネットを遮断したものとみられています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;iran&amp;#45;d...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ありとあらゆる方法で予定を柔軟に表示し自分に最適な使い方ができるスケジュール・タスク管理アプリ「ScheduleNote」実際に使ってみたよレビュー、写真・画像・ボイスメモも日付へ簡単に紐付け可能&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-schedulenote/&quot;, &quot;summary&quot;: &quot;予定やタスクの登録・確認だけでなく、写真やスクリーンショット、ボイスメモを日付やイベントと紐付けて閲覧することができるスケジュール管理アプリ「SchduleNote」を使ってみました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;schedulenote/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;Gmailで「Geminiがメールを集約して回答してくれる機能」や「Geminiがメール文面を高度に添削する機能」をGoogleが発表、まずは有料ユーザーから&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-google-gmail-with-gemini/&quot;, &quot;summary&quot;: &quot;GooglがGmailにAIチャットボットのGeminiを導入し、Geminiにメールの内容を集約させる「AI Overviews(AIによる概要)」や、メールの文面をGeminiが高度に添削する「Proofread(校正)」を試験的に搭載したと発表しました。これらの機能は2026年1月9日から有料ユーザー向けに提供されるほか、これまで有料会員限定だった機能が順次無料ユーザー向けにも提供されるとの...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;プログラミングに適したフォントまとめ／GoogleがすべてのサービスにMCPサーバ／リーナス氏「あなたが修正するのは自分だけのバグではない」ほか、2025年12月の人気記事&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/googlemcp202512.html&quot;, &quot;summary&quot;: &quot;読者の皆様、年明けはいかがお過ごしでしょうか。年末年始の長い休み明けにフルで1週間働くのはなかなかつらいですね。 とはいえ2026年は年明けからすぐに、昨年ハマったアニメ「ミルキー★サブウェイ」の劇場版が公開されるので、これを楽しみに頑張っ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;モダンになった「Pebble Round 2」と現代版Blackberry「Clicks Communicator」が発表されました&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/android-weekly-topics-260108?utm_source=feed&quot;, &quot;summary&quot;: &quot;新年早々に発表されたPebble Round 2とClicks Communicator...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;AI時代の想像力を育むためのLEGOの挑戦 ――LEGO Press Conferenceより&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/lego-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;今回はCES 2026の2日目、LEGO初のCES Press Conference。スピーチの細部やデモで示されたことを網羅的にまとめるのではなく、筆者が気になった点にフォーカスしてレポートしてみます。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;第894回　デスクトップ環境の2025-2026年&quot;, &quot;link&quot;: &quot;https://gihyo.jp/admin/serial/01/ubuntu-recipe/0894?utm_source=feed&quot;, &quot;summary&quot;: &quot;新しい年の始めに、Ubuntuで使用できるさまざまなデスクトップ環境について2025年に起こったことと2026年に起こりそうなことを紹介します。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;OpenAI、創業前後のエンジニア向けプログラム「Grove」応募受付開始&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22945&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Oracle Database@AWSが東京など3リージョンで新たに利用可能に&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22939&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;ITエンジニア転職の決め手とは？「年収」より成長機会や働き方重視傾向が明らかに&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22940&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;吉田カバン、G-SHOCK×POTRコラボウォッチ&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076516.html&quot;, &quot;summary&quot;: &quot;吉田カバンは、G-SHOCKとPOTRのコラボレーションアイテム「G-SHOCK × POTR DW-5600」を1月10日に発売する。価格は25,300円。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Gmail、Gemini 3で大型アップデート　「AIによる概要」や「AI受信箱」&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076709.html&quot;, &quot;summary&quot;: &quot;Googleは8日(米国時間)、「Gmail」にGemini 3のAIを活用した大型アップデートを発表した。能動的な受信トレイとなる「AI Inbox」や「AIによる概要(AI Overviews)」などの新機能を順次導入する。多くの機能は米国のGmailユーザーでGoogle AI Pro/Ultra加入者向けに提供を開始し、英語版からスタート。今後数カ月で言語・地域を拡大予定。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;乗って走れる「電動スーツケース」は違法?　空港で利用禁止広がる【Watch+】&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/topic/2076319.html&quot;, &quot;summary&quot;: &quot;乗って移動ができる「電動スーツケース」。旅行の荷物を入れながら、広い空港でも乗って移動ができる便利さから、主に外国人旅行者に人気です。日本でも販売はされているものの、まだそれほど普及はしていない状況ですが、ここに来て国内の空港では使用禁止の動きが広がっています。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;CES 2026: Everything revealed, from Nvidia’s debuts to AMD’s new chips to Razer’s AI oddities&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/ces-2026-everything-revealed-from-nvidias-debuts-to-amds-new-chips-to-razers-ai-oddities/&quot;, &quot;summary&quot;: &quot;CES 2026 is in full swing in Las Vegas, with the show floor open to the public after a packed couple of days occupied by press conferences from the likes of Nvidia, Sony, and AMD and previews from Sun...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Data security startup Cyera hits $9B valuation six months after being valued at $6B&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/data-security-startup-cyera-hits-9b-valuation-six-months-after-being-valued-at-6b/&quot;, &quot;summary&quot;: &quot;Cyera raised another $400 million just six months after its last huge round....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Governments grapple with the flood of non-consensual nudity on X&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/governments-grapple-with-the-flood-of-non-consensual-nudity-on-x/&quot;, &quot;summary&quot;: &quot;For the past two weeks, X has been flooded with AI-manipulated nude images, created by the Grok AI chatbot — and governments around the world are promising to take action....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;WhatsApp Worm Spreads Astaroth Banking Trojan Across Brazil via Contact Auto-Messaging&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/whatsapp-worm-spreads-astaroth-banking.html&quot;, &quot;summary&quot;: &quot;Cybersecurity researchers have disclosed details of a new campaign that uses WhatsApp as a distribution vector for a Windows banking trojan called Astaroth in attacks targeting Brazil.\nThe campaign ha...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;China-Linked UAT-7290 Targets Telecoms with Linux Malware and ORB Nodes&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/china-linked-uat-7290-targets-telecoms.html&quot;, &quot;summary&quot;: &quot;A China-nexus threat actor known as UAT-7290 has been attributed to espionage-focused intrusions against entities in South Asia and Southeastern Europe.\nThe activity cluster, which has been active sin...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;ThreatsDay Bulletin: RustFS Flaw, Iranian Ops, WebUI RCE, Cloud Leaks, and 12 More Stories&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/threatsday-bulletin-rustfs-flaw-iranian.html&quot;, &quot;summary&quot;: &quot;The internet never stays quiet. Every week, new hacks, scams, and security problems show up somewhere.\nThis week’s stories show how fast attackers change their tricks, how small mistakes turn into big...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Xbox’s Towerborne is switching from a free-to-play game to a paid one&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/859176/towerborne-launch-release-date-paid-offline&quot;, &quot;summary&quot;: &quot;Towerborne, a side-scrolling action RPG published by Xbox Game Studios that has been available in early access, will officially launch on February 26th. But instead of launching as a free-to-play, alw...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;The best Apple Watch to buy&quot;, &quot;link&quot;: &quot;https://www.theverge.com/23037217/best-apple-watch-series-se-ultra&quot;, &quot;summary&quot;: &quot;If you have an iPhone, the Apple Watch is the best smartwatch for you. But there was only one Apple Watch when the smartwatch launched in 2015. A decade later, you’ve got three flavors to choose from:...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Pioneer Sphera is bringing Dolby Atmos in cars to the people&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/858858/pioneer-sphera-ces-2026&quot;, &quot;summary&quot;: &quot;I fully believe that once someone hears Dolby Atmos music in their car, they won&#x27;t want anything else. The sonic envelopment turns your car cabin into an immersive, engaging experience. Every time I h...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Michigan man learns the hard way that “catch a cheater” spyware apps aren’t legal&quot;, &quot;link&quot;: &quot;https://arstechnica.com/security/2026/01/michigan-man-learns-the-hard-way-that-catch-a-cheater-spyware-apps-arent-legal/&quot;, &quot;summary&quot;: &quot;Spying doesn&#x27;t become legal just because \&quot;cheaters\&quot; are the targets....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Wi-Fi advocates get win from FCC with vote to allow higher-power devices&quot;, &quot;link&quot;: &quot;https://arstechnica.com/tech-policy/2026/01/fcc-to-authorize-more-powerful-wireless-devices-in-6-ghz-wi-fi-band/&quot;, &quot;summary&quot;: &quot;FCC says new category of devices \&quot;can operate outdoors and at higher power.\&quot;...&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;High RAM prices mean record-setting profits for Samsung and other memory makers&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/high-ram-prices-mean-record-setting-profits-for-samsung-and-other-memory-makers/&quot;, &quot;summary&quot;: &quot;SK Hynix and Micron are also riding high on the AI industry&#x27;s demand for RAM....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Why a Chinese Robot Vacuum Company Spun Off Not One but 2 EV Brands&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/made-in-china-what-chinese-companies-showed-off-at-ces/&quot;, &quot;summary&quot;: &quot;The pivot doesn’t look out of place at CES, where Chinese electronics companies are increasingly applying their manufacturing prowess to new industries....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Why Are Grok and X Still Available in App Stores?&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/x-grok-app-store-nudify-csam-apple-google-content-moderation/&quot;, &quot;summary&quot;: &quot;Elon Musk’s chatbot has been used to generate thousands of sexualized images of adults and apparent minors. Apple and Google have removed other “nudify” apps—but continue to host X and Grok....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;MAGA Is Already Rewriting the ICE Shooting in Minneapolis&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/maga-trump-rewriting-ice-shooting-minneapolis/&quot;, &quot;summary&quot;: &quot;The federal government’s narrative of the Minneapolis shooting conflicts wildly with video footage of the incident shared online....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;YouTube Will Now Let You Filter Shorts Out of Search Results&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/08/2238227/youtube-will-now-let-you-filter-shorts-out-of-search-results?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;YouTube is updating search filters so users can explicitly choose between Shorts and long-form videos. The change also replaces view-count sorting with a new \&quot;Popularity\&quot; filter and removes underperfo...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Lawsuit Over OpenAI For-Profit Conversion Can Head To Trial, US Judge Says&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/08/2230229/lawsuit-over-openai-for-profit-conversion-can-head-to-trial-us-judge-says?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Longtime Slashdot reader schwit1 shares a report from Reuters: Billionaire entrepreneur Elon Musk persuaded a judge on Wednesday to allow a jury trial on his allegations that ChatGPT maker OpenAI viol...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Illinois Health Department Exposed Over 700,000 Residents&#x27; Personal Data For Years&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/08/2217206/illinois-health-department-exposed-over-700000-residents-personal-data-for-years?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Illinois Department of Human Services disclosed that a misconfigured internal mapping website exposed sensitive personal data for more than 700,000 Illinois residents for over four years, from April 2...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Why I Left iNaturalist&quot;, &quot;link&quot;: &quot;https://kueda.net/blog/2026/01/06/why-i-left-inat/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://kueda.net/blog/2026/01/06/why-i-left-inat/\&quot;&gt;https://kueda.net/blog/2026/01/06/why-i-left-inat/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=4...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Embassy: Modern embedded framework, using Rust and async&quot;, &quot;link&quot;: &quot;https://github.com/embassy-rs/embassy&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://github.com/embassy-rs/embassy\&quot;&gt;https://github.com/embassy-rs/embassy&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46547740\&quot;&gt;https://news.ycom...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Flint Confirms Biodegradable Paper Batteries Are Now in Production&quot;, &quot;link&quot;: &quot;https://audioxpress.com/news/flint-confirms-biodegradable-paper-batteries-are-now-in-production&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://audioxpress.com/news/flint-confirms-biodegradable-paper-batteries-are-now-in-production\&quot;&gt;https://audioxpress.com/news/flint-confirms-biodegradable-paper-batteries-are-...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Lumus brought a massively wider FOV to smartglasses at CES 2026&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/lumus-brought-a-massively-wider-fov-to-smartglasses-at-ces-2026-233245949.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Lumus got a major boost in brand recognition when one of its waveguides was selected for use in the &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/wearables/meta-ray-ban-display-review-chunky-frame...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Handwriting is my new favorite way to text with the Meta Ray-Ban Display glasses&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/handwriting-is-my-new-favorite-way-to-text-with-the-meta-ray-ban-display-glasses-213744708.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;When Meta first announced its display-enabled smart glasses last year, it teased a handwriting feature that allows users to send messages by tracing letters with their hands. Now, the company is st...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;IXI’s autofocusing lenses are almost ready to replace multifocal glasses&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/ixis-autofocusing-lenses-multifocal-glasses-ces-2026-212608427.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;While wave upon wave of smartglasses and face-based wearables crash on the shores of CES, traditional glasses really haven’t changed much over the hundreds of years we’ve been using them. The last ...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Claude Code 2.1.0 arrives with smoother workflows and smarter agents&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/claude-code-2-1-0-arrives-with-smoother-workflows-and-smarter-agents&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Anthropic has &lt;a href=\&quot;https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md\&quot;&gt;released Claude Code v2.1.0&lt;/a&gt;, a notable update to its &amp;quot;vibe coding&amp;quot; development environment for...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Why AI feels generic: Replit CEO on slop, toys, and the missing ingredient of taste&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/why-ai-feels-generic-replit-ceo-on-slop-toys-and-the-missing-ingredient-of&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Right now in the AI world, there are a lot of percolating ideas and experimentation. But as far as Replit CEO Amjad Masad is concerned, they&amp;#x27;re just &amp;quot;toys&amp;quot;: unreliable, marginally ef...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Databricks&#x27; Instructed Retriever beats traditional RAG data retrieval by 70% — enterprise metadata was the missing link&quot;, &quot;link&quot;: &quot;https://venturebeat.com/data/databricks-instructed-retriever-beats-traditional-rag-data-retrieval-by-70&quot;, &quot;summary&quot;: &quot;&lt;p&gt;A core element of any data retrieval operation is the use of a component known as a retriever. Its job is to retrieve the relevant content for a given query. &lt;/p&gt;&lt;p&gt;In the AI era, retrievers have b...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;This lightweight distro loaded with apps is not your father&#x27;s GNU/Linux - here&#x27;s why&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/besgnulinux-gnu-linux-distro-lightweight-lots-of-open-source-software/&quot;, &quot;summary&quot;: &quot;Lightweight Linux distributions get a bad rap for shipping with minimal reinstalled software. Besgnulinux, loaded with old-school charm, is the exception....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;The 13 best and most useful smart home devices I&#x27;ve seen at CES 2026&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/smart-home-tech-ces-2026/&quot;, &quot;summary&quot;: &quot;I spent the week on the CES show floor, searching for compelling smart home devices. Here&#x27;s what I found....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;OnePlus is offering $100 off its latest flagship (and giving away free earbuds)&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/oneplus-15-deal/&quot;, &quot;summary&quot;: &quot;The OnePlus 15 is a powerful smartphone that prioritizes speed and endurance, housing the latest Qualcomm chip and a large 7300mAh battery....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;2025 at Google&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/look-back-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/EOY_2025_Header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about Google’s launches, milestones and more from 2025....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;The Google guide for holiday help&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/holiday-planning-ai-gemini-tips/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Holiday_Collection_header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about using Google products like Gemini, Search, Shopping...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Investing in America 2025&quot;, &quot;link&quot;: &quot;https://blog.google/company-news/inside-google/company-announcements/investing-in-america-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/InvestinginAmerica_CollectionHe.max-600x600.format-webp.webp\&quot; /&gt;Google’s deep investments in American technical infrastructure...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }
+                    
+                    <strong>デザインAIプロンプト:</strong>
+                    
+    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
+    
+    ===== 🧬 進化のコンテキスト =====
+    
+    【現在の世代】Generation #12
+    【今日のムード】Convergence
+    【これまでのアーカイブ数】11件
+    
+    【前回のデザイン参考（先頭5000文字）】
+    ```html
+    &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;MorphoNews Gen #11 | Pragmatic Engineering&lt;/title&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&amp;family=Plus+Jakarta+Sans:wght@300;400;600;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        :root {
+            /* Pragmatic Palette - High Contrast &amp; Tech Focus */
+            --bg: #ffffff;
+            --bg-canvas: #f1f5f9;
+            --surface: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-dim: #94a3b8;
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.1);
+            --border: #e2e8f0;
+            --border-strong: #cbd5e1;
+            
+            /* Typography */
+            --font-display: &#x27;Space Grotesk&#x27;, sans-serif;
+            --font-body: &#x27;Plus Jakarta Sans&#x27;, sans-serif;
+            --font-mono: &#x27;JetBrains Mono&#x27;, monospace;
+
+            /* Spacing */
+            --gutter: 2rem;
+            --radius-sm: 4px;
+            --radius-md: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation: Minimal Utility Bar --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--gutter);
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .gen-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            background: var(--text-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* --- Main Layout --- */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--gutter);
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gutter);
+        }
+
+        /* --- Daily Summary: Hero Section --- */
+        .hero {
+            grid-column: span 12;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: &#x27;&#x27;;
+            position: absolute;
+            top: 0; right: 0;
+            width: 40%; height: 100%;
+            background: radial-gradient(circle at 70% 30%, var(--accent-glow), transparent);
+            pointer-events: none;
+        }
+
+        .hero-meta {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--acce
+    ```
+    
+    ===== 🎯 進化の指令 =====
+    
+    【1. 前回からの進化（最重要）】
+    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+    
+    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
+    
+    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
+      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
+    
+    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
+      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
+       CSS Grid の subgrid、container queries、scroll-driven animations など）
+    
+    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+    
+    【2. デザインの方向性】
+    **明るいライトモードのデザイン**を基本としつつ、今日のムード「Convergence」を反映：
+    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
+    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
+    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
+    - 余白とリズム: 心地よい視覚的リズムを意識
+    
+    【3. 必須コンポーネント】
+    
+    A) ナビゲーションバー:
+       - [&lt;&lt; Prev Update] ボタン → リンク先 &quot;./2026-01-09_0140.html&quot; (prev_linkが &quot;#&quot; なら非表示/無効化)
+       - [Archive List] ボタン → リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-09 11:21 (JST)
+       - 世代表示: 「Generation #12」をどこかに
+
+    B) メインコンテンツ:
+       - 今日のトレンド要約を魅力的に表示
+       - 注目ニュース10件をカード/リスト/タイムラインなど自由な形式で
+       - 各ニュースのリンクは必ずクリック可能に
+
+    C) システム情報フッター:
+       - 取得日時(JST): 2026-01-09 11:21:06 JST
+       - 収集記事数: 63
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=8436, 出力=1548, 合計=11096
+       - 要約生成時間: 18.2秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    D) プロンプト開示セクション:
+       `&lt;details&gt;` タグで折りたたみ表示：
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    E) 進化ログセクション（推奨）:
+       今回のデザインで試した新しいアプローチを簡潔に記述
+       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
+
+    【4. 出力形式】
+    - HTMLのみを出力。`&lt;!DOCTYPE html&gt;` から開始
+    - 外部CSSは使用せず、&lt;style&gt;タグ内に全て記述
+    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
+    
+    ===== 📰 ニュースデータ =====
+    {&quot;daily_summary&quot;: &quot;2026年が幕を開け、ラスベガスで開催中のCES 2026を筆頭に、テクノロジー界は「AIの社会実装と物理世界への浸透」という新たなフェーズに突入しています。NVIDIAは次世代スパコン「Vera Rubin」と自動運転AI「Alpamayo」を発表し、デジタル空間に留まらない「フィジカルAI」のビジョンを鮮明にしました。これに呼応するように、Metaのスマートグラスへの手書き入力機能や、Lumusの広視野角導波路など、ウェアラブルデバイスを通じたAI体験の深化も加速しています。\n\nソフトウェア面では、GoogleがGmailに「Gemini 3」を統合。単なる要約に留まらず、ユーザーの文体を学習する機能や重要メールの自動抽出など、AIが能動的なエージェントとして振る舞い始めています。Microsoftも「Copilot Checkout」により、AIとの会話だけで決済まで完結するエージェント型コマースを打ち出しました。\n\nしかし、技術の進展に伴い影の部分も顕在化しています。X（旧Twitter）におけるAI生成の不適切画像の氾濫や、イランでの政府によるネット遮断、医療データの安全な取り扱いといった課題に対し、法規制と技術的保護の両面で議論が急務となっています。AIが「生活の一部」から「物理的な実体」へと進化する中、私たちはその利便性と責任を同時に背負う転換点に立っています。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;Gmailに「Gemini 3」搭載の大型アップデート、情報の要約や「AI Inbox」が登場&quot;, &quot;description&quot;: &quot;Googleは、Gmailに「Gemini 3」を導入。受信トレイ全体の情報を探し出す「AI Overview」や、重要メールを自動抽出する「AI Inbox」などの新機能を発表しました。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news066.html&quot;}, {&quot;title&quot;: &quot;NVIDIAのビジョン、自動運転とロボットの「フィジカルAI」へ突き進む&quot;, &quot;description&quot;: &quot;CES 2026にてジェンスン・フアンCEOが登壇。次世代AIスパコン「Vera Rubin」と、思考を語ることができる自動運転AI「Alpamayo」を発表し、AIの物理世界進出を強調しました。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news065.html&quot;}, {&quot;title&quot;: &quot;Microsoft、Copilot内で決済まで完結する「Copilot Checkout」発表&quot;, &quot;description&quot;: &quot;PayPalやShopifyと提携し、外部サイトへ遷移せずチャット上で商品購入を完了させる新機能を導入。エージェンティックコマースの普及を目指します。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news067.html&quot;}, {&quot;title&quot;: &quot;OpenAI、医療機関向け「OpenAI for Healthcare」発表&quot;, &quot;description&quot;: &quot;HIPAA準拠の環境で、病院などの組織が安全にAIを運用できる専用製品を提供。機密性の高い患者情報の取り扱いを強化します。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news071.html&quot;}, {&quot;title&quot;: &quot;イラン全土でインターネットが使用不可能に、抗議デモへの政府妨害か&quot;, &quot;description&quot;: &quot;2026年1月8日夜からイラン全土で通信トラフィックが激減。通貨暴落に伴うデモへの対策として政府が遮断した可能性が指摘されています。&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-iran-digital-blackout/&quot;}, {&quot;title&quot;: &quot;Meta Ray-Banスマートグラス、手書きでのメッセージ送信に対応&quot;, &quot;description&quot;: &quot;空中で文字をなぞることでメッセージを送信できる新機能を展開。ウェアラブルデバイスにおける新しい入力インターフェースを提案しています。&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/handwriting-is-my-new-favorite-way-to-text-with-the-meta-ray-ban-display-glasses-213744708.html?src=rss&quot;}, {&quot;title&quot;: &quot;宇宙誕生時の光に「ワームホール」の証拠発見か、アインシュタインの新理論再検討&quot;, &quot;description&quot;: &quot;ポーツマス大学の研究チームが、90年前に予見された「アインシュタイン＝ローゼン橋」を新理論で再検証し、宇宙最古の光からその証拠を探る報告を行いました。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news039.html&quot;}, {&quot;title&quot;: &quot;XのGrok AIによる不適切画像の氾濫に対し、各国政府が対応を強化&quot;, &quot;description&quot;: &quot;AIが生成した非同意の性的画像がX上に溢れている問題に対し、AppleやGoogleのアプリストア対応を含めた法規制の議論が世界的に加速しています。&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/governments-grapple-with-the-flood-of-non-consensual-nudity-on-x/&quot;}, {&quot;title&quot;: &quot;Databricksの「Instructed Retriever」、RAGのデータ取得精度を70%向上&quot;, &quot;description&quot;: &quot;エンタープライズ向けのメタデータを活用することで、従来の検索手法を大幅に上回る高精度のAI回答生成を実現する技術を発表しました。&quot;, &quot;link&quot;: &quot;https://venturebeat.com/data/databricks-instructed-retriever-beats-traditional-rag-data-retrieval-by-70&quot;}, {&quot;title&quot;: &quot;生分解性の「紙バッテリー」が実用化、Flintが量産開始を確認&quot;, &quot;description&quot;: &quot;環境負荷を抑えたサステナブルな電源として、土に還る紙製バッテリーの生産が正式に開始されました。IoTデバイス等への活用が期待されます。&quot;, &quot;link&quot;: &quot;https://audioxpress.com/news/flint-confirms-biodegradable-paper-batteries-are-now-in-production&quot;}], &quot;mood_keyword&quot;: &quot;Convergence&quot;}
+    
+                </div>
+            </details>
+            <div style="margin-top: 2rem; font-size: 0.6rem; color: var(--text-muted); font-family: var(--font-mono); text-align: center;">
+                Generated at: 2026-01-09 11:21:06 JST | DESIGN_TOKENS: 入力=3986, 出力=5744, 合計=10552 | TOTAL_TIME: 62.82s
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

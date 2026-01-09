@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #13 | Evolutionary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Evolutionary Palette: Structured, High-Contrast, Professional */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-strong: #0f172a;
+            --text-main: #334155;
+            --text-dim: #64748b;
+            --accent: #4f46e5; /* Indigo */
+            --accent-soft: #eef2ff;
+            --accent-evolution: #10b981; /* Emerald for growth */
+            --border: #e2e8f0;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            /* Background Pattern: Subtle Evolutionary Mesh */
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* --- Navigation: Structured Control Bar --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-zone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-strong);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gen-indicator {
+            background: var(--text-strong);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            animation: pulse-evolution 4s infinite;
+        }
+
+        @keyframes pulse-evolution {
+            0%, 100% { background: var(--text-strong); }
+            50% { background: var(--accent); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-prev { background: var(--bg-secondary); color: var(--text-main); border: 1px solid var(--border); }
+        .btn-prev:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+        .btn-archive { background: var(--text-strong); color: white; }
+        .btn-archive:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .timestamp-box {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            padding-left: 1rem;
+            border-left: 1px solid var(--border);
+        }
+
+        /* --- Hero: The Core Summary --- */
+        .hero {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .hero { grid-template-columns: 1fr; gap: 2rem; margin: 2rem auto; }
+        }
+
+        .hero-title-area h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--text-strong);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-title-area h1 span {
+            color: var(--accent);
+            display: block;
+        }
+
+        .summary-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::before {
+            content: "SUMMARY";
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--accent-evolution);
+            letter-spacing: 0.2em;
+        }
+
+        .summary-text {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 400;
+        }
+
+        /* --- News Bento Grid --- */
+        .content-grid {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            grid-column: span 4;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: grid;
+            grid-template-rows: auto 1fr auto; /* Using subgrid concept metaphorically */
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media (max-width: 1100px) { .news-card { grid-column: span 6; } }
+        @media (max-width: 650px) { .news-card { grid-column: span 12; } }
+
+        /* Highlight some cards */
+        .news-card.featured { grid-column: span 8; background: var(--bg-secondary); border-left: 4px solid var(--accent); }
+        @media (max-width: 1100px) { .news-card.featured { grid-column: span 12; } }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .news-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .news-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-strong);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .news-card p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+        }
+
+        .news-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .read-more {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-strong);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* --- Footer & System Info --- */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 4rem 1.5rem;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .system-specs h4, .evolution-log h4 {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            color: var(--text-strong);
+        }
+
+        .spec-list {
+            list-style: none;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .spec-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spec-list span { color: var(--text-dim); }
+        .spec-list b { color: var(--text-strong); font-weight: 500; }
+
+        .evolution-log {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .evolution-log p {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        details {
+            margin-top: 2rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--bg-secondary);
+            user-select: none;
+        }
+
+        .prompt-content {
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            white-space: pre-wrap;
+            background: #fafafa;
+            color: var(--text-dim);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="brand-zone">
+                <a href="#" class="brand-logo">
+                    <i data-lucide="Dna"></i>
+                    MorphoNews
+                </a>
+                <span class="gen-indicator">Gen #13</span>
+            </div>
+            <div class="nav-links">
+                <a href="./2026-01-09_1121.html" class="btn btn-prev">
+                    <i data-lucide="arrow-left" size="14"></i> Prev Update
+                </a>
+                <a href="../history.html" class="btn btn-archive">
+                    <i data-lucide="layers" size="14"></i> Archive
+                </a>
+                <div class="timestamp-box">
+                    2026-01-09 17:40 (JST)
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-title-area">
+                <h1>
+                    <span>Evolutionary</span>
+                    Intelligence
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--text-dim);">
+                    Exploring the threshold where hardware meets artificial consciousness.
+                </p>
+            </div>
+            <div class="summary-card">
+                <p class="summary-text">
+                    2026年の幕開けとともに、テクノロジー界はCES 2026を中心としたハードウェアの革新と、生成AIの実用化フェーズへの完全移行に沸いています。特にCygamesのAI特化子会社設立や、DatabricksのRAGを超える新技術は、AIを基盤へと進化させる動きを象徴しています。ウェアラブル分野ではスマートグラスが視覚体験を向上させ、ポスト・スマートフォンの足音が聞こえ始めています。一方、サイバー攻撃の巧妙化や在庫不足など、社会実装に伴う歪みも顕在化しています。
+                </p>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <!-- News Item 1 (Featured) -->
+            <a href="https://www.itmedia.co.jp/aiplus/articles/2601/09/news080.html" class="news-card featured">
+                <div class="news-tag"><i data-lucide="zap" size="12"></i> Top Story</div>
+                <h3>Cygamesが「AI特化」子会社を設立、クリエイター支援と安全性を両立へ</h3>
+                <p>ゲーム制作の知見を活かし、クリエイターが安心・安全に利用できるツールの開発とスペシャリストの採用を強化します。</p>
+                <div class="news-footer">
+                    <span class="read-more">Learn more <i data-lucide="arrow-up-right" size="14"></i></span>
+                    <span style="font-size: 0.65rem; color: var(--text-dim);">ITmedia AI+</span>
+                </div>
+            </a>
+
+            <!-- News Item 2 -->
+            <a href="https://www.engadget.com/wearables/handwriting-is-my-new-favorite-way-to-text-with-the-meta-ray-ban-display-glasses-213744708.html?src=rss" class="news-card">
+                <div class="news-tag"><i data-lucide="glasses" size="12"></i> Wearables</div>
+                <h3>CES 2026：Meta Ray-Banに手書き入力機能が追加</h3>
+                <p>空中での手書き文字入力機能が追加。スマートグラスの実用性が飛躍的に向上しました。</p>
+                <div class="news-footer">
+                    <span class="read-more">Details <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 3 -->
+            <a href="https://arstechnica.com/space/2026/01/in-a-first-nasa-orders-astronauts-home-after-unspecified-medical-issue/" class="news-card">
+                <div class="news-tag"><i data-lucide="rocket" size="12"></i> Space</div>
+                <h3>NASA、ISSから初の「制御された医療搬送」を命令</h3>
+                <p>宇宙飛行士に不特定の医療問題が発生し、急遽地上への帰還命令が出されました。</p>
+                <div class="news-footer">
+                    <span class="read-more">Report <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 4 -->
+            <a href="https://thehackernews.com/2026/01/fbi-warns-north-korean-hackers-using.html" class="news-card">
+                <div class="news-tag"><i data-lucide="shield-alert" size="12"></i> Security</div>
+                <h3>北朝鮮ハッカー集団が「悪質なQRコード」を使用</h3>
+                <p>スピアフィッシング攻撃にQRコードを組み込む手法を多用。FBIが警戒を呼びかけています。</p>
+                <div class="news-footer">
+                    <span class="read-more">Alert <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 5 (Featured) -->
+            <a href="https://venturebeat.com/data/databricks-instructed-retriever-beats-traditional-rag-data-retrieval-by-70" class="news-card featured">
+                <div class="news-tag"><i data-lucide="database" size="12"></i> AI Research</div>
+                <h3>Databricks、従来型RAGを70%上回る「Instructed Retriever」発表</h3>
+                <p>メタデータを活用することで、従来の検索拡張生成（RAG）の精度を大幅に超える新しいデータ取得技術が登場。エンタープライズAIの実効性を大きく高めるブレイクスルーとなります。</p>
+                <div class="news-footer">
+                    <span class="read-more">Technical Analysis <i data-lucide="arrow-up-right" size="14"></i></span>
+                    <span style="font-size: 0.65rem; color: var(--text-dim);">VentureBeat</span>
+                </div>
+            </a>
+
+            <!-- News Item 6 -->
+            <a href="https://www.itmedia.co.jp/news/articles/2601/09/news102.html" class="news-card">
+                <div class="news-tag"><i data-lucide="monitor" size="12"></i> Market</div>
+                <h3>ソフマップ、ゲーミングPCの深刻な在庫不足を報告</h3>
+                <p>新品・中古ともに在庫が極めて逼迫。「売ってほしい」という悲鳴に近い声が上がっています。</p>
+                <div class="news-footer">
+                    <span class="read-more">Market View <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 7 -->
+            <a href="https://www.watch.impress.co.jp/docs/news/2076885.html" class="news-card">
+                <div class="news-tag"><i data-lucide="home" size="12"></i> Smart Home</div>
+                <h3>SwitchBot、AI搭載の次世代ロボット群をCESで発表</h3>
+                <p>自動調理や家事支援ロボット「onero H1」などを発表。家庭内オートメーションが次次元へ。</p>
+                <div class="news-footer">
+                    <span class="read-more">Specs <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 8 -->
+            <a href="https://arstechnica.com/tech-policy/2026/01/fcc-to-authorize-more-powerful-wireless-devices-in-6-ghz-wi-fi-band/" class="news-card">
+                <div class="news-tag"><i data-lucide="wifi" size="12"></i> Infra</div>
+                <h3>FCC、Wi-Fi 6GHz帯での高出力デバイス利用を承認へ</h3>
+                <p>屋外利用やカバレッジ向上が見込まれ、次世代通信環境の整備に追い風となります。</p>
+                <div class="news-footer">
+                    <span class="read-more">Policy <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 9 -->
+            <a href="https://www.itmedia.co.jp/news/articles/2601/09/news097.html" class="news-card">
+                <div class="news-tag"><i data-lucide="users" size="12"></i> Business</div>
+                <h3>ガンホー、創業者の森下CEOが会長兼CDOへ</h3>
+                <p>開発の総責任者に就くことで、変化の激しい業界でのコンテンツ創出力強化を図ります。</p>
+                <div class="news-footer">
+                    <span class="read-more">Leadership <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+
+            <!-- News Item 10 -->
+            <a href="https://gigazine.net/news/20260109-cubeauthn/" class="news-card">
+                <div class="news-tag"><i data-lucide="box" size="12"></i> Innovation</div>
+                <h3>ルービックキューブを「物理的なパスキー」に変える認証技術</h3>
+                <p>「CubeAuthn」が登場。パズル操作でデジタル署名を生成するWebAuthn対応の新しい鍵です。</p>
+                <div class="news-footer">
+                    <span class="read-more">Showcase <i data-lucide="arrow-up-right" size="14"></i></span>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="system-specs">
+                <h4>System Information</h4>
+                <ul class="spec-list">
+                    <li><span>Timestamp:</span> <b>2026-01-09 17:40:22 JST</b></li>
+                    <li><span>Articles Collected:</span> <b>63</b></li>
+                    <li><span>Model:</span> <b>gemini-3-flash-preview</b></li>
+                    <li><span>Summary Tokens:</span> <b>In: 8047 / Out: 1587</b></li>
+                    <li><span>Processing Time:</span> <b>16.42s (Summary)</b></li>
+                </ul>
+            </div>
+            
+            <div class="evolution-log">
+                <h4>Evolution Log: Generation #13</h4>
+                <p><strong>Experiment:</strong> Structural Bento Grid Layout</p>
+                <p><strong>Focus:</strong> "Evolutionary" mood through disciplined geometry and high-contrast typography.</p>
+                <p><strong>New Implementation:</strong> Grid-based information hierarchy where the summary acts as a structural anchor.</p>
+                <p><strong>Design DNA:</strong> Departure from Gen #12's fluid asymmetry towards a more "Systematic" and "Built" feel.</p>
+            </div>
+        </div>
+
+        <details>
+            <summary>View AI Prompts & Technical Data</summary>
+            <div class="prompt-content">
+<strong>Summary AI Prompt:</strong>
+ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;ソフマップ「ゲーミングPC売って」「中古も本当に在庫ない」&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news102.html&quot;, &quot;summary&quot;: &quot;「ゲーミングPC、中古も本当に在庫なくて今これ」...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ガンホー、森下CEOが異動へ　代表権なしの会長＆最高開発責任者に　報酬制度も大幅見直し&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news097.html&quot;, &quot;summary&quot;: &quot;ガンホー・オンライン・エンターテイメントは、代表取締役の異動を発表した。現CEOの森下一喜氏が取締役会長兼最高開発責任者に異動する。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;大学受験生を狙った痴漢煽るSNS投稿、松本文科相「許されない」　被害遭ったら追試救済&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news096.html&quot;, &quot;summary&quot;: &quot;松本洋平文部科学相は1月9日の定例記者会見で、17～18日の日程で行われる大学入学共通テストの受験生を標的にした痴漢をあおる投稿がSNSに見受けられるとして「試験会場に急ぐ受験生を不安にさせる投稿自体、許されない」と厳しく批判した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Cygames、画像生成AIのスペシャリストを募集　「サイゲのゲームをやりこんだ人物」など歓迎&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news101.html&quot;, &quot;summary&quot;: &quot;Cygamesは、「AIスペシャリスト（画像生成）」の採用活動を始めた。AIサービスやツールを開発する子会社・Cygames AI Studioの正社員として募集している。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Cygames、“AI特化”の子会社設立　「クリエイターが安心・安全に利用できるAI技術」の開発目指す&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news080.html&quot;, &quot;summary&quot;: &quot;Cygamesは、AIを活用したサービスやツールを開発する子会社Cygames AI Studio（東京都渋谷区）を設立したと発表した。Cygamesがゲーム制作で培った知見をもとに、「クリエイターが安心・安全に利用できるAI技術」の開発を目指す。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;生成AIと社内データをつなぐ「RAG」、関心はあれど普及していない現実&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2601/09/news062.html&quot;, &quot;summary&quot;: &quot;Digeonは、「RAG」の認知・導入実態調査の結果を発表した。RAG導入済みの層が一部にとどまっている実態が浮き彫りになった。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;意外と知られていないログインの裏側 - Webアプリケーションの認証の仕組み&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/855524191d08f73a6748?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n自分でホームページを作ってログイン機能を実装しようとした時、こんな疑問に直面したことはありませんか？\n\nパスワードをそのまま保存していいの？\nログイン後、URLを直打ちしたらログインせずに入れてしまうのでは？\nそもそも「ログインしている状態」ってどうやって維持さ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;情報はどうやって海を越えるのか？IPアドレスとDNSの関係性について&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/a3e91b89b5ed9b266e91?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;DNSは何をしているのか\nDNSは、URLに出てくる example.com みたいな名前を、通信に使えるIPアドレスに変換する仕組みです。\nインターネットの通信は最終的に「IPアドレスのどこに送るか」で動きます。でも人間は 203.0.113.10 みたいな数字を覚えに......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;インターネットは軍事目的で始まった？歴史をざっくりと学ぶ&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/1403f6be43bad5d085b3?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;インターネットが開発されてからWebサイトができるまで\nインターネットの始まりは1969年。\n米国防総省のARPA（高等研究計画局）という機関が4台のコンピュータを繋いだのがはじまりです。3つの大学と、スタンフォード研究所（SRI）などの研究機関で繋がれており、ARPAN......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;テックブログのネタ探し入門&quot;, &quot;link&quot;: &quot;https://zenn.dev/kakakakakku/books/tech-blog-ideas&quot;, &quot;summary&quot;: &quot;📕 この Zenn Book について\nテックブログって最高ですよね❗️この Zenn Book では、テックブログを継続的に書きたいという気持ちはありつつも「ネタが見つからないから書けない」という悩みにフォーカスして、私自身が普段からやっていることをまとめたネタ探しの入門書です。何か1つでも \&quot;楽しく\&quot; そして \&quot;継続的に\&quot; テックブログを書くための発見があれば嬉しいです😀 Happy Blog...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Claude Code on the Webでghコマンドを使う&quot;, &quot;link&quot;: &quot;https://zenn.dev/oikon/articles/claude-code-web-gh-cli&quot;, &quot;summary&quot;: &quot;!\nClaude Code on the Web の仕様は2026年1月8日時点です。今後ghコマンドがデフォルトでインストールされるといくつかの設定が不要になります。\n\nOikonです。普段はAIツール、特にClaude Codeで遊んでいます。\n以前、Claude Code on the Webの仕様を徹底解剖という記事を書きました。その中でghコマンドが禁止されていることを紹介しましたが、最...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;LLMアプリケーションのセキュリティ実践：脆弱性の発見からガードレール実装まで&quot;, &quot;link&quot;: &quot;https://zenn.dev/acompany/articles/c642c09bd167a6&quot;, &quot;summary&quot;: &quot;はじめに\n株式会社Acompany プラットフォーム部エンジニアの平岡です。\n生成AIが急速に普及する中、社内チャットボットやカスタマーサポートなど、LLMを組み込んだアプリケーションが増えてきました。ただ、これらのアプリケーションには従来のWebアプリとは異なる脆弱性が潜んでいます。「悪意あるプロンプトでシステムプロンプトが漏洩した」「チャットボットが誤った情報を回答してしまった」といった事例を...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;キノコ＆牛肉＆たっぷりソースなバーガーキングの傑作バーガー「ウィンタースペシャル マッシュルームワッパー」試食レビュー&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-burgerking-mushroom-whopper-winter/&quot;, &quot;summary&quot;: &quot;バーガーキングのマッシュルームワッパーシリーズは4種のキノコと直火焼きビーフパティのジューシーさが特徴です。新たに、特製サワークリームオニオンソースを使った「ウィンタースペシャル マッシュルームワッパー」が2026年1月9日(金)に登場したので、実際に食べて味を確かめてみました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;burger...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ありとあらゆる方法で予定を柔軟に表示し自分に最適な使い方ができるスケジュール・タスク管理アプリ「ScheduleNote」実際に使ってみたよレビュー、写真・画像・ボイスメモも日付へ簡単に紐付け可能&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-schedulenote/&quot;, &quot;summary&quot;: &quot;予定やタスクの登録・確認だけでなく、写真やスクリーンショット、ボイスメモを日付やイベントと紐付けて閲覧することができるスケジュール管理アプリ「SchduleNote」を使ってみました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;schedulenote/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ルービックキューブをパスキーのようなデジタル認証用の物理鍵に変換する「CubeAuthn」&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-cubeauthn/&quot;, &quot;summary&quot;: &quot;Bluetooth対応のルービックキューブを使用して、パスキーの公開鍵と秘密鍵を生成することで、ルービックキューブをWebAuthn対応の物理鍵に変換する「CubeAuthn」が登場しました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;cubeauthn/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;プログラミングに適したフォントまとめ／GoogleがすべてのサービスにMCPサーバ／リーナス氏「あなたが修正するのは自分だけのバグではない」ほか、2025年12月の人気記事&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/googlemcp202512.html&quot;, &quot;summary&quot;: &quot;読者の皆様、年明けはいかがお過ごしでしょうか。年末年始の長い休み明けにフルで1週間働くのはなかなかつらいですね。 とはいえ2026年は年明けからすぐに、昨年ハマったアニメ「ミルキー★サブウェイ」の劇場版が公開されるので、これを楽しみに頑張っ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;モダンになった「Pebble Round 2」と現代版Blackberry「Clicks Communicator」が発表されました&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/android-weekly-topics-260108?utm_source=feed&quot;, &quot;summary&quot;: &quot;新年早々に発表されたPebble Round 2とClicks Communicator...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;AI時代の想像力を育むためのLEGOの挑戦 ――LEGO Press Conferenceより&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/lego-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;今回はCES 2026の2日目、LEGO初のCES Press Conference。スピーチの細部やデモで示されたことを網羅的にまとめるのではなく、筆者が気になった点にフォーカスしてレポートしてみます。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;第894回　デスクトップ環境の2025-2026年&quot;, &quot;link&quot;: &quot;https://gihyo.jp/admin/serial/01/ubuntu-recipe/0894?utm_source=feed&quot;, &quot;summary&quot;: &quot;新しい年の始めに、Ubuntuで使用できるさまざまなデスクトップ環境について2025年に起こったことと2026年に起こりそうなことを紹介します。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;Rust製組み込みSQLデータベース「Stoolap 0.2」リリース&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22949&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Vercel、Bash実行エンジン「bash-tool」をオープンソース化&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22950&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;AWS、「Quickstart設定」で、Client VPNオンボーディングを簡素化&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22951&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;SwitchBot、家事を自動化するロボット「onero H1」などAI製品群&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076885.html&quot;, &quot;summary&quot;: &quot;SwitchBotは米国ラスベガスで開催中のCES 2026において、次世代AIロボット技術を搭載した製品ラインナップを発表した。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;ユニクロ、ディズニーデザインの刺繍サービス&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076857.html&quot;, &quot;summary&quot;: &quot;ユニクロは、リペア・リメイクサービス「RE.UNIQLO STUDIO」において、ディズニーのキャラクターデザインを取り入れた刺繍サービスを1月9日に開始する。価格は刺繍1つにつき1,000円。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;FIFA、TikTokを初の「優先プラットフォーム」に　W杯2026の配信強化&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076827.html&quot;, &quot;summary&quot;: &quot;FIFAは、TikTokと初の「優先プラットフォーム」契約を締結した。FIFAワールドカップ2026の放送強化を目的とし、TikTokは大会の包括的な配信やオリジナルコンテンツの拡充などを行なう。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;CES 2026: Everything revealed, from Nvidia’s debuts to AMD’s new chips to Razer’s AI oddities&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/ces-2026-everything-revealed-from-nvidias-debuts-to-amds-new-chips-to-razers-ai-oddities/&quot;, &quot;summary&quot;: &quot;CES 2026 is in full swing in Las Vegas, with the show floor open to the public after a packed couple of days occupied by press conferences from the likes of Nvidia, Sony, and AMD and previews from Sun...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Data security startup Cyera hits $9B valuation six months after being valued at $6B&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/data-security-startup-cyera-hits-9b-valuation-six-months-after-being-valued-at-6b/&quot;, &quot;summary&quot;: &quot;Cyera raised another $400 million just six months after its last huge round....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Governments grapple with the flood of non-consensual nudity on X&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/08/governments-grapple-with-the-flood-of-non-consensual-nudity-on-x/&quot;, &quot;summary&quot;: &quot;For the past two weeks, X has been flooded with AI-manipulated nude images, created by the Grok AI chatbot — and governments around the world are promising to take action....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;FBI Warns North Korean Hackers Using Malicious QR Codes in Spear-Phishing&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/fbi-warns-north-korean-hackers-using.html&quot;, &quot;summary&quot;: &quot;The U.S. Federal Bureau of Investigation (FBI) on Thursday released an advisory warning of North Korean state-sponsored threat actors leveraging malicious QR codes in spear-phishing campaigns targetin...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;WhatsApp Worm Spreads Astaroth Banking Trojan Across Brazil via Contact Auto-Messaging&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/whatsapp-worm-spreads-astaroth-banking.html&quot;, &quot;summary&quot;: &quot;Cybersecurity researchers have disclosed details of a new campaign that uses WhatsApp as a distribution vector for a Windows banking trojan called Astaroth in attacks targeting Brazil.\nThe campaign ha...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;China-Linked UAT-7290 Targets Telecoms with Linux Malware and ORB Nodes&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/china-linked-uat-7290-targets-telecoms.html&quot;, &quot;summary&quot;: &quot;A China-nexus threat actor known as UAT-7290 has been attributed to espionage-focused intrusions against entities in South Asia and Southeastern Europe.\nThe activity cluster, which has been active sin...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Xbox’s Towerborne is switching from a free-to-play game to a paid one&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/859176/towerborne-launch-release-date-paid-offline&quot;, &quot;summary&quot;: &quot;Towerborne, a side-scrolling action RPG published by Xbox Game Studios that has been available in early access, will officially launch on February 26th. But instead of launching as a free-to-play, alw...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;The best Apple Watch to buy&quot;, &quot;link&quot;: &quot;https://www.theverge.com/23037217/best-apple-watch-series-se-ultra&quot;, &quot;summary&quot;: &quot;If you have an iPhone, the Apple Watch is the best smartwatch for you. But there was only one Apple Watch when the smartwatch launched in 2015. A decade later, you’ve got three flavors to choose from:...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Pioneer Sphera is bringing Dolby Atmos in cars to the people&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/858858/pioneer-sphera-ces-2026&quot;, &quot;summary&quot;: &quot;I fully believe that once someone hears Dolby Atmos music in their car, they won&#x27;t want anything else. The sonic envelopment turns your car cabin into an immersive, engaging experience. Every time I h...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;NASA orders “controlled medical evacuation” from the International Space Station&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/in-a-first-nasa-orders-astronauts-home-after-unspecified-medical-issue/&quot;, &quot;summary&quot;: &quot;\&quot;The crew is highly trained, and they came to the aid of their colleague right away.\&quot;...&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Michigan man learns the hard way that “catch a cheater” spyware apps aren’t legal&quot;, &quot;link&quot;: &quot;https://arstechnica.com/security/2026/01/michigan-man-learns-the-hard-way-that-catch-a-cheater-spyware-apps-arent-legal/&quot;, &quot;summary&quot;: &quot;Spying doesn&#x27;t become legal just because \&quot;cheaters\&quot; are the targets....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Wi-Fi advocates get win from FCC with vote to allow higher-power devices&quot;, &quot;link&quot;: &quot;https://arstechnica.com/tech-policy/2026/01/fcc-to-authorize-more-powerful-wireless-devices-in-6-ghz-wi-fi-band/&quot;, &quot;summary&quot;: &quot;FCC says new category of devices \&quot;can operate outdoors and at higher power.\&quot;...&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;The Oceans Just Keep Getting Hotter&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/the-oceans-just-keep-getting-hotter/&quot;, &quot;summary&quot;: &quot;For the eighth year in a row, the world’s oceans absorbed a record-breaking amount of heat in 2025. It was equivalent to the energy it would take to boil 2 billion Olympic swimming pools....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;NZXT Discount Codes: 50% Off in January 2026&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/nzxt-discount-code/&quot;, &quot;summary&quot;: &quot;Save 50%, plus up to $250 with NZXT promo codes and discounts....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Skullcandy Discount Codes and Deals: Up to 47% Off Top Products&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/skullcandy-discount-code/&quot;, &quot;summary&quot;: &quot;Save on Skullcandy audio with 47% off Crusher Evo headphones, 36% off Crusher ANC 2 noise-canceling headphones, and more with top deals....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Ultimate Camouflage Tech Mimics Octopus In Scientific First&quot;, &quot;link&quot;: &quot;https://science.slashdot.org/story/26/01/09/0312218/ultimate-camouflage-tech-mimics-octopus-in-scientific-first?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Researchers at Stanford University have created a programmable synthetic \&quot;skin\&quot; that can independently change color and texture, \&quot;a feat previously only available within the animal kingdom,\&quot; reports t...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Some Super-Smart Dogs Can Learn New Words Just By Eavesdropping&quot;, &quot;link&quot;: &quot;https://science.slashdot.org/story/26/01/08/2249216/some-super-smart-dogs-can-learn-new-words-just-by-eavesdropping?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;An anonymous reader quotes a report from NPR: [I]t turns out that some genius dogs can learn a brand new word, like the name of an unfamiliar toy, by just overhearing brief interactions between two pe...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;YouTube Will Now Let You Filter Shorts Out of Search Results&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/08/2238227/youtube-will-now-let-you-filter-shorts-out-of-search-results?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;YouTube is updating search filters so users can explicitly choose between Shorts and long-form videos. The change also replaces view-count sorting with a new \&quot;Popularity\&quot; filter and removes underperfo...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Israel tells Doctors Without Borders to end its work in Gaza&quot;, &quot;link&quot;: &quot;https://www.nytimes.com/2026/01/06/world/middleeast/israel-bars-doctors-without-borders-gaza.html&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://www.nytimes.com/2026/01/06/world/middleeast/israel-bars-doctors-without-borders-gaza.html\&quot;&gt;https://www.nytimes.com/2026/01/06/world/middleeast/israel-bars-doctors-with...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;What Happened to WebAssembly&quot;, &quot;link&quot;: &quot;https://emnudge.dev/blog/what-happened-to-webassembly/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://emnudge.dev/blog/what-happened-to-webassembly/\&quot;&gt;https://emnudge.dev/blog/what-happened-to-webassembly/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/i...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;European Commission issues call for evidence on open source&quot;, &quot;link&quot;: &quot;https://lwn.net/Articles/1053107/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://lwn.net/Articles/1053107/\&quot;&gt;https://lwn.net/Articles/1053107/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46550912\&quot;&gt;https://news.ycombinator....&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Lumus brought a massively wider FOV to smartglasses at CES 2026&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/lumus-brought-a-massively-wider-fov-to-smartglasses-at-ces-2026-233245949.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Lumus got a major boost in brand recognition when one of its waveguides was selected for use in the &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/wearables/meta-ray-ban-display-review-chunky-frame...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Handwriting is my new favorite way to text with the Meta Ray-Ban Display glasses&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/handwriting-is-my-new-favorite-way-to-text-with-the-meta-ray-ban-display-glasses-213744708.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;When Meta first announced its display-enabled smart glasses last year, it teased a handwriting feature that allows users to send messages by tracing letters with their hands. Now, the company is st...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;IXI’s autofocusing lenses are almost ready to replace multifocal glasses&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/ixis-autofocusing-lenses-multifocal-glasses-ces-2026-212608427.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;While wave upon wave of smartglasses and face-based wearables crash on the shores of CES, traditional glasses really haven’t changed much over the hundreds of years we’ve been using them. The last ...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Claude Code 2.1.0 arrives with smoother workflows and smarter agents&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/claude-code-2-1-0-arrives-with-smoother-workflows-and-smarter-agents&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Anthropic has &lt;a href=\&quot;https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md\&quot;&gt;released Claude Code v2.1.0&lt;/a&gt;, a notable update to its &amp;quot;vibe coding&amp;quot; development environment for...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Why AI feels generic: Replit CEO on slop, toys, and the missing ingredient of taste&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/why-ai-feels-generic-replit-ceo-on-slop-toys-and-the-missing-ingredient-of&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Right now in the AI world, there are a lot of percolating ideas and experimentation. But as far as Replit CEO Amjad Masad is concerned, they&amp;#x27;re just &amp;quot;toys&amp;quot;: unreliable, marginally ef...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Databricks&#x27; Instructed Retriever beats traditional RAG data retrieval by 70% — enterprise metadata was the missing link&quot;, &quot;link&quot;: &quot;https://venturebeat.com/data/databricks-instructed-retriever-beats-traditional-rag-data-retrieval-by-70&quot;, &quot;summary&quot;: &quot;&lt;p&gt;A core element of any data retrieval operation is the use of a component known as a retriever. Its job is to retrieve the relevant content for a given query. &lt;/p&gt;&lt;p&gt;In the AI era, retrievers have b...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Finally, I found a room-filling soundbar that makes a subwoofer unnecessary for me&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/bluesound-pulse-cinema-review/&quot;, &quot;summary&quot;: &quot;To fill your TV room with big, bold sound, you need a soundbar akin to the Bluesound Pulse Cinema....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;The coolest audio gear I listened to at CES 2026 (including brain-reading headphones)&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/best-audio-ces-2026/&quot;, &quot;summary&quot;: &quot;I spent a week at CES finding the best audio products. These ones stood out the most....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;We saw dozens of TVs at CES 2026: Keep these 5 models on your radar this year&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/best-tvs-ces-2026/&quot;, &quot;summary&quot;: &quot;At the Las Vegas trade show, we&#x27;re seeing several unique and premium offerings from the world&#x27;s leading TV manufacturers....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;2025 at Google&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/look-back-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/EOY_2025_Header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about Google’s launches, milestones and more from 2025....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;The Google guide for holiday help&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/holiday-planning-ai-gemini-tips/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Holiday_Collection_header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about using Google products like Gemini, Search, Shopping...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Investing in America 2025&quot;, &quot;link&quot;: &quot;https://blog.google/company-news/inside-google/company-announcements/investing-in-america-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/InvestinginAmerica_CollectionHe.max-600x600.format-webp.webp\&quot; /&gt;Google’s deep investments in American technical infrastructure...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }
+
+<strong>Design AI Prompt:</strong>
+
+    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
+    
+    ===== 🧬 進化のコンテキスト =====
+    
+    【現在の世代】Generation #13
+    【今日のムード】Evolutionary
+    【これまでのアーカイブ数】12件
+    
+    【前回のデザイン参考（先頭5000文字）】
+    ```html
+    &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;MorphoNews Gen #12 | Convergence&lt;/title&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&amp;family=Inter:wght@300;400;600&amp;family=Fira+Code:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        :root {
+            /* Convergence Palette: Bright, Fluid, Ethereal */
+            --bg: #fdfdff;
+            --surface-glass: rgba(255, 255, 255, 0.7);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #06b6d4; /* Cyan */
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --border-soft: rgba(226, 232, 240, 0.8);
+            
+            --font-display: &#x27;Outfit&#x27;, sans-serif;
+            --font-body: &#x27;Inter&#x27;, sans-serif;
+            --font-mono: &#x27;Fira Code&#x27;, monospace;
+
+            --transition-fluid: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+            word-break: break-word;
+        }
+
+        /* --- Animated Background Elements --- */
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            background: var(--accent-gradient);
+            filter: blur(120px);
+            opacity: 0.03;
+            z-index: -1;
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* --- Navigation: Floating Convergence Bar --- */
+        nav {
+            position: sticky;
+            top: 1rem;
+            z-index: 1000;
+            margin: 0 1rem;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft);
+            border-radius: 100px;
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .gen-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: var(--transition-fluid);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-nav:hover {
+            background: rgba(0,0,0,0.03);
+            color: var(--accent-primary);
+        }
+
+        .btn-nav.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* --- Main Layout: Asymmetric Flow --- */
+        main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 900px) {
+            main { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        /* --- Hero: Convergent Summary --- */
+        .hero-section {
+            grid-column: 1 / -1;
+            position: relative;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .hero-title {
+            font-family: var
+    ```
+    
+    ===== 🎯 進化の指令 =====
+    
+    【1. 前回からの進化（最重要）】
+    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+    
+    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
+    
+    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
+      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
+    
+    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
+      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
+       CSS Grid の subgrid、container queries、scroll-driven animations など）
+    
+    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+    
+    【2. デザインの方向性】
+    **明るいライトモードのデザイン**を基本としつつ、今日のムード「Evolutionary」を反映：
+    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
+    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
+    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
+    - 余白とリズム: 心地よい視覚的リズムを意識
+    
+    【3. 必須コンポーネント】
+    
+    A) ナビゲーションバー:
+       - [&lt;&lt; Prev Update] ボタン → リンク先 &quot;./2026-01-09_1121.html&quot; (prev_linkが &quot;#&quot; なら非表示/無効化)
+       - [Archive List] ボタン → リンク先 &quot;../history.html&quot;
+       - 現在の日時表示: 2026-01-09 17:40 (JST)
+       - 世代表示: 「Generation #13」をどこかに
+
+    B) メインコンテンツ:
+       - 今日のトレンド要約を魅力的に表示
+       - 注目ニュース10件をカード/リスト/タイムラインなど自由な形式で
+       - 各ニュースのリンクは必ずクリック可能に
+
+    C) システム情報フッター:
+       - 取得日時(JST): 2026-01-09 17:40:22 JST
+       - 収集記事数: 63
+       - 使用モデル: gemini-3-flash-preview
+       - 要約AIトークン: 入力=8047, 出力=1587, 合計=10563
+       - 要約生成時間: 16.42秒
+       - デザインAIトークン: {{ DESIGN_TOKENS }} (後で置換)
+       - デザイン生成時間: {{ DESIGN_TIME }}秒 (後で置換)
+       - 全体処理時間: {{ TOTAL_TIME }}秒 (後で置換)
+
+    D) プロンプト開示セクション:
+       `&lt;details&gt;` タグで折りたたみ表示：
+       - 「要約AIプロンプト」: {{ SUMMARY_PROMPT }}
+       - 「デザインAIプロンプト」: {{ DESIGN_PROMPT }}
+
+    E) 進化ログセクション（推奨）:
+       今回のデザインで試した新しいアプローチを簡潔に記述
+       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
+
+    【4. 出力形式】
+    - HTMLのみを出力。`&lt;!DOCTYPE html&gt;` から開始
+    - 外部CSSは使用せず、&lt;style&gt;タグ内に全て記述
+    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
+    
+    ===== 📰 ニュースデータ =====
+    {&quot;daily_summary&quot;: &quot;2026年の幕開けとともに、テクノロジー界はCES 2026を中心としたハードウェアの革新と、生成AIの実用化フェーズへの完全移行に沸いています。特に、CygamesによるAI特化子会社の設立や、Databricksが発表したRAG（検索拡張生成）を超える新技術は、AIを「単なるツール」から「高精度なクリエイティブ・業務基盤」へと進化させる動きを象徴しています。ウェアラブル分野では、MetaやLumusがスマートグラスの視覚体験や操作性を劇的に向上させ、ポスト・スマートフォンの足音が聞こえ始めています。しかし、技術の進歩は新たな課題も生んでいます。X（旧Twitter）でのAI生成画像の拡散や、北朝鮮によるQRコードを用いた巧妙なフィッシング詐欺、さらには中古市場にまで及ぶゲーミングPCの深刻な在庫不足など、社会インフラとしてのテックが直面する歪みも無視できません。NASAによるISSからの異例の医療搬送命令など、フロンティアでの緊迫したニュースも飛び込んでおり、2026年は技術の社会実装とリスク管理の両面で大きな転換点を迎えています。&quot;, &quot;top_news&quot;: [{&quot;title&quot;: &quot;Cygamesが「AI特化」子会社を設立、クリエイター支援と安全性を両立へ&quot;, &quot;description&quot;: &quot;CygamesがAI技術開発の新会社『Cygames AI Studio』を設立。ゲーム制作の知見を活かし、クリエイターが安心・安全に利用できるツールの開発とスペシャリストの採用を強化します。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news080.html&quot;}, {&quot;title&quot;: &quot;CES 2026：スマートグラスが進化、Meta Ray-Banに手書き入力機能が追加&quot;, &quot;description&quot;: &quot;スマートグラス市場が活況。Meta Ray-Ban Displayグラスに空中での手書き文字入力機能が追加されたほか、Lumusは視野角を大幅に広げた導波路技術を発表し、実用性が飛躍的に向上しました。&quot;, &quot;link&quot;: &quot;https://www.engadget.com/wearables/handwriting-is-my-new-favorite-way-to-text-with-the-meta-ray-ban-display-glasses-213744708.html?src=rss&quot;}, {&quot;title&quot;: &quot;NASA、国際宇宙ステーション（ISS）から初の「制御された医療搬送」を命令&quot;, &quot;description&quot;: &quot;ISSの宇宙飛行士に不特定の医療問題が発生し、NASAは急遽地上への帰還命令を出しました。クルーは高度な訓練を受けており、同僚の救護にあたっているとのことです。&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/in-a-first-nasa-orders-astronauts-home-after-unspecified-medical-issue/&quot;}, {&quot;title&quot;: &quot;FBIが警告、北朝鮮のハッカー集団がフィッシング詐欺に「悪質なQRコード」を使用&quot;, &quot;description&quot;: &quot;北朝鮮の国家支援を受けるサイバー攻撃者が、スピアフィッシング攻撃に悪質なQRコードを組み込む手法を多用しています。視覚的に判別が難しい巧妙な罠に警戒が呼びかけられています。&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/fbi-warns-north-korean-hackers-using.html&quot;}, {&quot;title&quot;: &quot;Databricks、従来型RAGを70%上回る精度を実現する「Instructed Retriever」発表&quot;, &quot;description&quot;: &quot;企業のメタデータを活用することで、従来の検索拡張生成（RAG）の精度を大幅に超える新しいデータ取得技術が登場。エンタープライズAIの実効性を大きく高めるブレイクスルーとなります。&quot;, &quot;link&quot;: &quot;https://venturebeat.com/data/databricks-instructed-retriever-beats-traditional-rag-data-retrieval-by-70&quot;}, {&quot;title&quot;: &quot;ソフマップ、ゲーミングPCの深刻な在庫不足を報告「中古も本当にない」&quot;, &quot;description&quot;: &quot;PCゲーム需要の拡大に対し、新品・中古ともにゲーミングPCの在庫が極めて逼迫している実態が明らかになりました。店頭からは「売ってほしい」という悲鳴に近い声が上がっています。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news102.html&quot;}, {&quot;title&quot;: &quot;SwitchBot、AI搭載の次世代ロボット群をCES 2026で一挙発表&quot;, &quot;description&quot;: &quot;スマートホームのSwitchBotが、最新のAI技術を搭載した自動調理や家事支援ロボット「onero H1」などを発表。家庭内オートメーションの次元が一つ上がろうとしています。&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076885.html&quot;}, {&quot;title&quot;: &quot;FCC、Wi-Fi 6GHz帯での高出力デバイス利用を承認へ&quot;, &quot;description&quot;: &quot;米連邦通信委員会（FCC）が、より強力な無線通信を可能にする規則改正を決定。屋外利用やカバレッジ向上が見込まれ、次世代通信環境の整備に追い風となります。&quot;, &quot;link&quot;: &quot;https://arstechnica.com/tech-policy/2026/01/fcc-to-authorize-more-powerful-wireless-devices-in-6-ghz-wi-fi-band/&quot;}, {&quot;title&quot;: &quot;ガンホー、創業者の森下CEOが会長兼CDOへ異動　開発に専念する新体制へ&quot;, &quot;description&quot;: &quot;ガンホー・オンライン・エンターテイメントは代表取締役の異動を発表。森下氏が開発の総責任者に就くことで、変化の激しいゲーム業界でのコンテンツ創出力強化を図ります。&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news097.html&quot;}, {&quot;title&quot;: &quot;ルービックキューブを「物理的なパスキー」に変える革新的な認証技術「CubeAuthn」&quot;, &quot;description&quot;: &quot;Bluetooth対応のルービックキューブを操作することでデジタル署名を生成する技術が登場。物理的なパズルをWebAuthn対応のセキュアな鍵として活用する新しい試みです。&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-cubeauthn/&quot;}], &quot;mood_keyword&quot;: &quot;Evolutionary&quot;}
+    
+
+<strong>Design Metrics:</strong>
+Tokens: 入力=4116, 出力=6292, 合計=11305
+Time: 37.14s
+Total: 63.44s
+            </div>
+        </details>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

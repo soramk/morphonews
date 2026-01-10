@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #XX | {MOOD_KEYWORD}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Base Styles (Common across all archives) -->
+    <link rel="stylesheet" href="../styles/archive-base.css">
+    
+    <!-- Per-Archive Custom Styles (Optional) -->
+    <!-- <link rel="stylesheet" href="../styles/archives/YYYY-MM-DD_HHMM.css"> -->
+    
+    <style>
+        /* Optional: Mood-specific color overrides */
+        /* This can be dynamically generated or loaded from a per-archive CSS file */
+        :root {
+            /* Example: Override accent colors for specific mood */
+            /* --accent-primary: #10b981; */
+            /* --accent-secondary: #34d399; */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="../history.html" class="nav-brand">
+            <h1>MorphoNews</h1>
+            <span class="gen-badge">Gen #{GENERATION_NUMBER}</span>
+        </a>
+        <div class="nav-controls">
+            <!-- Previous article link - generator should replace {PREV_ARTICLE_LINK} with:
+                 - Full <a> tag if previous article exists
+                 - Empty string if this is the first article -->
+            {PREV_ARTICLE_LINK}
+            <a href="../history.html" class="nav-link primary">
+                <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                Archive List
+            </a>
+            <time class="nav-link">{DISPLAY_DATE}</time>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>{MOOD_KEYWORD}</h2>
+            <div class="hero-meta">
+                <span>
+                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                    {FETCH_TIME_JST}
+                </span>
+                <span>
+                    <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                    {ARTICLE_COUNT} articles
+                </span>
+                <span>
+                    <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
+                    {MODEL_NAME}
+                </span>
+            </div>
+        </section>
+
+        <!-- Daily Summary -->
+        <section class="summary-section">
+            <h3>
+                <i data-lucide="sparkles" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;"></i>
+                Today's Tech Trend Summary
+            </h3>
+            <p>{DAILY_SUMMARY}</p>
+        </section>
+
+        <!-- Top News Grid -->
+        <section class="news-grid" id="news-grid">
+            <!-- News cards will be rendered here via JavaScript -->
+        </section>
+
+        <!-- System Details -->
+        <section class="system-details">
+            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">
+                <i data-lucide="settings" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;"></i>
+                System Information
+            </h3>
+            
+            <details>
+                <summary>Summary AI Prompt</summary>
+                <div class="details-content">{SUMMARY_PROMPT}</div>
+            </details>
+            
+            <details>
+                <summary>Design AI Prompt</summary>
+                <div class="details-content">{DESIGN_PROMPT}</div>
+            </details>
+        </section>
+    </main>
+
+    <!-- Footer with Statistics -->
+    <footer>
+        <div class="footer-stats">
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="bar-chart" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Generation Stats
+                </h4>
+                <ul>
+                    <li><span>Model:</span> <span>{MODEL_NAME}</span></li>
+                    <li><span>Articles:</span> <span>{ARTICLE_COUNT}</span></li>
+                    <li><span>Summary Time:</span> <span>{SUMMARY_TIME}s</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="hash" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Token Metrics
+                </h4>
+                <ul>
+                    <li><span>Input Tokens:</span> <span>{SUMMARY_INPUT_TOKENS}</span></li>
+                    <li><span>Output Tokens:</span> <span>{SUMMARY_OUTPUT_TOKENS}</span></li>
+                    <li><span>Total Tokens:</span> <span>{SUMMARY_TOTAL_TOKENS}</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="palette" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Design Stats
+                </h4>
+                <ul>
+                    <li><span>Design Tokens:</span> <span>{DESIGN_TOTAL_TOKENS}</span></li>
+                    <li><span>Design Time:</span> <span>{DESIGN_TIME}s</span></li>
+                    <li><span>Total Process:</span> <span>{TOTAL_PROCESSING_TIME}s</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="calendar" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Timestamp
+                </h4>
+                <ul>
+                    <li>{FETCH_TIME_JST}</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-credit">
+            <i data-lucide="sparkles" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;"></i>
+            MorphoNews - AI-driven self-evolving news site
+        </div>
+    </footer>
+
+    <!-- Base JavaScript (Common functionality) -->
+    <script src="../js/archive-base.js"></script>
+    
+    <!-- Page-Specific Data and Rendering -->
+    <script>
+        // SECURITY: Loading from external JSON is more secure than embedding
+        // Recommended approach:
+        fetch('../data/{ARTICLE_ID}.json')
+            .then(response => response.json())
+            .then(newsData => {
+                if (window.MorphoNewsArchive && newsData && newsData.top_news) {
+                    window.MorphoNewsArchive.renderNewsCards(newsData.top_news, 'news-grid');
+                }
+            })
+            .catch(error => console.error('Failed to load news data:', error));
+        
+        // Alternative: If embedding is necessary, use proper JSON encoding on server side
+        // DO NOT manually construct JSON strings - use json.dumps() with proper parameters
+        // const newsData = JSON.parse('{NEWS_DATA_JSON_ESCAPED}');
+    </script>
+</body>
+</html>

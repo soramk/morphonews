@@ -3,13 +3,22 @@ name: Evolve MorphoNews
 on:
   schedule:
     # 8時間ごとに実行 (UTC 0:00, 8:00, 16:00)
-    - cron: '0 */8 * * *'
+    - cron: "0 */8 * * *"
   workflow_dispatch: # 手動実行ボタン
+    inputs:
+      generation_mode:
+        description: "生成モード"
+        required: false
+        default: "modular"
+        type: choice
+        options:
+          - modular
+          - ai
 
 permissions:
-  contents: write    # リポジトリへの書き込み権限
-  pages: write       # GitHub Pagesへのデプロイ権限
-  id-token: write    # OIDCトークン発行権限
+  contents: write # リポジトリへの書き込み権限
+  pages: write # GitHub Pagesへのデプロイ権限
+  id-token: write # OIDCトークン発行権限
 
 concurrency:
   group: "pages"
@@ -24,7 +33,7 @@ jobs:
     # ▲▲▲【ここまで】▲▲▲
 
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,7 +41,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
@@ -41,6 +50,7 @@ jobs:
       - name: Run Generator Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GENERATION_MODE: ${{ github.event.inputs.generation_mode || 'modular' }}
         run: |
           python scripts/generator.py
 
@@ -68,11 +78,11 @@ jobs:
       # GitHub Pagesへのデプロイ処理
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'public'
+          path: "public"
 
       - name: Deploy to GitHub Pages
         id: deployment

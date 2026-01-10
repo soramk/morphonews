@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews Gen #XX | Materialization</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Base Styles (Common across all archives) -->
+    <link rel="stylesheet" href="../styles/archive-base.css">
+    
+    <!-- Per-Archive Custom Styles (Optional) -->
+    <!-- <link rel="stylesheet" href="../styles/archives/YYYY-MM-DD_HHMM.css"> -->
+    
+    <style>
+        /* Optional: Mood-specific color overrides */
+        /* This can be dynamically generated or loaded from a per-archive CSS file */
+        :root {
+            /* Example: Override accent colors for specific mood */
+            /* --accent-primary: #10b981; */
+            /* --accent-secondary: #34d399; */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="../history.html" class="nav-brand">
+            <h1>MorphoNews</h1>
+            <span class="gen-badge">Gen #20</span>
+        </a>
+        <div class="nav-controls">
+            <!-- Previous article link - generator should replace <a href="./2026-01-10_1446.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                Prev
+            </a> with:
+                 - Full <a> tag if previous article exists
+                 - Empty string if this is the first article -->
+            <a href="./2026-01-10_1446.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                Prev
+            </a>
+            <a href="../history.html" class="nav-link primary">
+                <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                Archive List
+            </a>
+            <time class="nav-link">2026-01-10 17:35</time>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>Materialization</h2>
+            <div class="hero-meta">
+                <span>
+                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                    2026-01-10 17:35:28 JST
+                </span>
+                <span>
+                    <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                    63 articles
+                </span>
+                <span>
+                    <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
+                    gemini-3-flash-preview
+                </span>
+            </div>
+        </section>
+
+        <!-- Daily Summary -->
+        <section class="summary-section">
+            <h3>
+                <i data-lucide="sparkles" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;"></i>
+                Today's Tech Trend Summary
+            </h3>
+            <p>2026年の幕開けを飾るテック業界は、単なるソフトウェアの進化を超え、物理世界への本格的な進出とそれを支える重厚な基盤整備へと舵を切っています。ラスベガスで開催されたCES 2026では「フィジカルAI」が主役に躍り出ました。Boston Dynamicsをはじめとするロボット技術の進化や、Samsungの「Gemini冷蔵庫」に代表される家電へのAI統合は、AIがいよいよ私たちの生活空間に実体を持って浸透し始めたことを象徴しています。一方で、この巨大な知能を維持するためのエネルギー確保も喫緊の課題となっており、Metaが原子力発電企業3社と計6GWを超える大規模な供給契約を締結したニュースは、AI競争が「知能の質」から「計算資源と電力の確保」というインフラ戦に移行したことを物語っています。
+
+日本市場に目を向けると、ガートナーの調査によって「データ活用で全社的な成果を出せている企業はわずか2.4％」という厳しい現実が浮き彫りになりました。技術導入が先行し、人的投資が追いついていない現状は、AI活用においても大きな障壁となるでしょう。その一方で、カシオのG-SHOCKがAIをフレーム設計に採用するなど、具体的な製品開発プロセスへのAI導入も着実に進んでいます。また、セキュリティ分野では、AI生成コンテンツによる「信頼の崩壊」が改めて警告されるなど、技術の「社会実装」に伴う課題が山積していることを示唆する一日となりました。</p>
+        </section>
+
+        <!-- Top News Grid -->
+        <section class="news-grid" id="news-grid">
+            <!-- News cards will be rendered here via JavaScript -->
+        </section>
+
+        <!-- System Details -->
+        <section class="system-details">
+            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">
+                <i data-lucide="settings" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;"></i>
+                System Information
+            </h3>
+            
+            <details>
+                <summary>Summary AI Prompt</summary>
+                <div class="details-content">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;“デジカメ老人会”世代が推す「復活してほしいコンデジ」あれこれ&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/10/news021.html&quot;, &quot;summary&quot;: &quot;昨年から、にわかにコンパクトデジカメについて聞かれることが増えた。どうやら、我々「デジカメ老人会」世代には懐かしいコンデジも、「初めて使ったカメラがスマートフォンだった」という世代にはすごく新鮮なようだ。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;都会のたぬきは人間がいるとき、うんちを我慢しているかもしれない　東京農工大&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news106.html&quot;, &quot;summary&quot;: &quot;都会のたぬきは、人間がいる場所や時間帯では排せつを我慢しているかもしれない──東京農工大学が、こんな可能性を示唆する調査結果を発表した。同大によれば「都市において、野生動物の匂いによる個体間コミュニケーションがどのように維持されているのか理解する上で重要な一歩」という。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ソフマップ「ゲーミングPC売って」「中古も本当に在庫ない」&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/09/news102.html&quot;, &quot;summary&quot;: &quot;「ゲーミングPC、中古も本当に在庫なくて今これ」...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;データ活用「全社で成果」はわずか2.4％　Gartnerが明かす日本企業の現実&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/enterprise/articles/2601/10/news010.html&quot;, &quot;summary&quot;: &quot;Gartnerの調査で、データ活用により全社的に十分な成果を得ている日本企業は2.4％にとどまることが分かった。約7割が何らかの成果を認識しているが、ツール導入が先行し人的投資が後回しになる傾向が強い。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「Grok、この女性をビキニにして」無料ユーザーは不可能に　X、AI画像編集を一部有料化&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news105.html&quot;, &quot;summary&quot;: &quot;「Grok 女性をビキニにして」などの指示が物議を醸す、XのAI画像生成・編集機能。これまで全ユーザーに開放されていた同機能が、有料会員しか使えなくなっていることが、1月9日分かった。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Cygames、画像生成AIのスペシャリストを募集　「サイゲのゲームをやりこんだ人物」など歓迎&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/09/news101.html&quot;, &quot;summary&quot;: &quot;Cygamesは、「AIスペシャリスト（画像生成）」の採用活動を始めた。AIサービスやツールを開発する子会社・Cygames AI Studioの正社員として募集している。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;意外と知られていないログインの裏側 - Webアプリケーションの認証の仕組み&quot;, &quot;link&quot;: &quot;https://qiita.com/shibata1111/items/855524191d08f73a6748?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n自分でホームページを作ってログイン機能を実装しようとした時、こんな疑問に直面したことはありませんか？\n\nパスワードをそのまま保存していいの？\nログイン後、URLを直打ちしたらログインせずに入れてしまうのでは？\nそもそも「ログインしている状態」ってどうやって維持さ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Obsidian の個人的に便利だと思う使い方&quot;, &quot;link&quot;: &quot;https://qiita.com/CookieBox26/items/82c606539cc4fe31e2b9?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;最近 Obsidian を使い始めたので、個人的に便利だと思った使い方や Tips をメモします。\n\nそもそも Obsidian とは\nMarkdown ファイル群を閲覧・編集できるデスクトップアプリケーションです。\nスマホアプリもあります (iOS/Android)。\nO......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;「Googleでの14年間で学んだ21の教訓」を 個人的な解釈でまとめてみた&quot;, &quot;link&quot;: &quot;https://qiita.com/Sakai_path/items/8ae1e34e012a53aa8d1b?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\nGoogleで長年 Chrome に携わり、現在は Google Cloud AI でディレクターを務める  Addy Osmani（アディ・オスマニ）氏が、14年間の経験から学んだ教訓をまとめた 『21 Lessons From 14 Years at Goo......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;年間500万円以上のコスト削減を実現したのに、どこかむなしいのはなぜか&quot;, &quot;link&quot;: &quot;https://zenn.dev/zenn_mita/articles/bd54d81c4dab31&quot;, &quot;summary&quot;: &quot;目次\n\n初めに\nやったことと結果\nSHAP値処理の改修\n背景\n課題1：for文の中でlambda式を使用\n課題2：intをstrに変更している\n解決策\n実行時間\n回避コスト算出\nモデル作成における前処理スキップ\n背景\n解決策\n削減コスト算出\nなぜむなしいのか\n感想\n\n\n 初めに\nSHAP値処理を最適化することで99.99%以上の処理時間削減およびAWSコンピュートコストを年間440万円以上抑制する...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;AI時代にORMなんて必要なんですかね？&quot;, &quot;link&quot;: &quot;https://zenn.dev/terurou/articles/55ffe7c6e5c96e&quot;, &quot;summary&quot;: &quot;新規で構築するシステムの設計を考えていて、 「今の時代にORMなんているんか？？？」 という思いに至ったので、これを書いてます。\n\n ORMなしでAIにDBアクセスコードを生成する\nAIでコードを生成する前提として、\n\nAIは生SQLを書くのが得意\nオブジェクトマッピングみたいなボイラープレートをAIに生成させるコストは極小（人間が手で書くとめちゃくちゃ時間がかかる）\n\nという点が挙げられます。\n...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Attention再入門 is all you need&quot;, &quot;link&quot;: &quot;https://zenn.dev/mkj/articles/re-entry-attention_20251209&quot;, &quot;summary&quot;: &quot;Attention再入門 is all you need\n松尾研究所の尾崎です．25卒でデータサイエンティストをやっています．\nAttention機構は，\&quot;Attention is all you need\&quot;論文で一気に脚光を浴びて以来，昨今のAIブームを支えるLLM(transformer)の根幹的技術です．今回はそんなAttention機構が登場以来，どういう方向で進化してきたのかを整理して，...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;運と度胸で決断を迫られる運試しカードゲーム「フリップ7」プレイレビュー&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260110-flip-7-review/&quot;, &quot;summary&quot;: &quot;2025年度ドイツ年間ゲーム大賞の大賞部門にノミネートされた「フリップ7」の日本語版が2025年12月19日に発売されました。非常にシンプルなルールでありながら、プレイヤーの運と度胸を試せるカードゲームになっているとのことで、GIGAZINE冬のプレゼント企画に実物を提供してもらったので実際に遊んでみました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/2026...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ありとあらゆる方法で予定を柔軟に表示し自分に最適な使い方ができるスケジュール・タスク管理アプリ「ScheduleNote」実際に使ってみたよレビュー、写真・画像・ボイスメモも日付へ簡単に紐付け可能&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260109-schedulenote/&quot;, &quot;summary&quot;: &quot;予定やタスクの登録・確認だけでなく、写真やスクリーンショット、ボイスメモを日付やイベントと紐付けて閲覧することができるスケジュール管理アプリ「SchduleNote」を使ってみました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260109&amp;#45;schedulenote/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;「ロボット幼稚園」でAI搭載ロボットを進化させる&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260110-preschool-for-robots/&quot;, &quot;summary&quot;: &quot;探索・失敗・継続的な改善を通して行動学習する「汎用(はんよう)知能ロボット」の開発を目指す企業のPantographが、「ロボットのための幼稚園」の構想を明らかにしました。仮想上のトレーニングだけではなくロボットが現実世界のさまざまな環境に触れて学習していくことで、AIのトレーニングに利用するデータが枯渇してしまう問題を解消し、モデルの改良が続けられるようになります。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;プログラミングに適したフォントまとめ／GoogleがすべてのサービスにMCPサーバ／リーナス氏「あなたが修正するのは自分だけのバグではない」ほか、2025年12月の人気記事&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/googlemcp202512.html&quot;, &quot;summary&quot;: &quot;読者の皆様、年明けはいかがお過ごしでしょうか。年末年始の長い休み明けにフルで1週間働くのはなかなかつらいですね。 とはいえ2026年は年明けからすぐに、昨年ハマったアニメ「ミルキー★サブウェイ」の劇場版が公開されるので、これを楽しみに頑張っ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html&quot;, &quot;summary&quot;: &quot;さくらインターネットは、生成AI向の推論APIを提供するサービス「さくらのAI Engine」のPlaygroundが、GitHub IDによるログインで手軽に試せるようになったことを発表しました。 さくらのAI Engineは国内に設置さ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;50種類以上の商用JavaScript UIコンポーネントがオープンソースに、React、Angular、Blazor、Web Components対応。インフラジスティックスが公開&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/50javascript_uireactangularblazorweb_components.html&quot;, &quot;summary&quot;: &quot;ビジネス向けUIライブラリを提供しているインフラジスティックスは、同社が提供しているUIライブラリ「Ignite UI」の一部を、オープンソース版として無償提供を開始したと発表しました。 Webアプリケーション向け有償UIライブラリ「Ign......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;AI時代到来で新たな革新を起こし始めたBoston Dynamics――2026年は本格的なロボット・ショーとしてのCESの幕開けとなるか&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/boston-dynamics-ces?utm_source=feed&quot;, &quot;summary&quot;: &quot;筆者の年代にとってBoston Dynamicsは、長年「胸熱」な企業の1つでしょう。2025年末、そのBoston DynamicsがCES 2026のHyundaiのプレスカンファレンスに登壇すると知り、大変に興味を惹かれました。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;Linus、「AIツールはただのツール」とあらためて強調&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/daily-linux-260109?utm_source=feed&quot;, &quot;summary&quot;: &quot;AIツールによるコーディング支援がひろく普及したことで、LinuxカーネルコミュニティでもAIツールが生成したコードをどう扱うべきかについての議論が続いている。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;モダンになった「Pebble Round 2」と現代版Blackberry「Clicks Communicator」が発表されました&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/android-weekly-topics-260108?utm_source=feed&quot;, &quot;summary&quot;: &quot;新年早々に発表されたPebble Round 2とClicks Communicator...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;「みらい議会」ウェブサイトに自動ふりがな機能「ルビフルボタン」を導入&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22953&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Google Chrome、Push APIメッセージのレート制限を導入へ&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22954&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;さくらインターネット、「さくらのAI Engine」の「Playground」機能を手軽な認証のみで利用可能に&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22948&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;G-SHOCK MT-G、新型にメタル+カーボンのブレスレット版&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2076845.html&quot;, &quot;summary&quot;: &quot;カシオ計算機は、G-SHOCKのMT-Gシリーズの新作として、AIをフレーム設計に活用したMTG-B4000に、メタルとカーボンを組み合わせたブレスレットを採用するバリエーション「MTG-B4000D」を1月に発売する。Bluetooth電波ソーラーの腕時計で、価格は187,000円。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;ワークマンのリカバリーウェアで、冬の朝もサクッと起きられる!?【ミニレビュー】&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/review/minireview/2076784.html&quot;, &quot;summary&quot;: &quot;子供の頃、寝る時にパジャマを着ていた記憶がある。親元を離れてからは、生来のだらしない性格を発揮。パジャマを着るどころか、風呂上がりに着たパンツとTシャツの姿でごろりとベッドに横になると、そのまま眠っているという日がほとんどだ。結婚してからも、妻からのクレームにもめげずに、そんな格好で眠り続けてきた。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Gemini冷蔵庫が面白い　サムスンがCESで提案したAIライフパートナー【Watch+】&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/topic/2076902.html&quot;, &quot;summary&quot;: &quot;年始の大規模テクノロジーイベント「CES 2026」が1月9日に閉幕しました。Watchシリーズ各誌でもレポートしていますが、NVIDIAのフィジカルAI関連やCESにあわせたPCメーカーの多くの発表が目を引く一方、かつてのような「家電」の話題はそこまで多くなく、「テクノロジーショー」となったCESとして見どころが多いものになったようです。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;I met a lot of weird robots at CES — here are the most memorable&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/i-met-a-lot-of-weird-robots-at-ces-here-are-the-most-memorable/&quot;, &quot;summary&quot;: &quot;If the robots don&#x27;t always give a totally accurate representation of where commercial deployment is at the moment, they do give visitors a peek at where their parent companies might be headed....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Google moonshot spinout SandboxAQ claims an ex-exec is attempting ‘extortion’&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/google-moonshot-spinout-sandboxaq-claims-an-ex-exec-is-attempting-extortion/&quot;, &quot;summary&quot;: &quot;A former SandboxAQ executive filed a wrongful termination lawsuit filled with shocking allegations. The company is fighting back, hard....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;CES 2026: Everything revealed, from Nvidia’s debuts to AMD’s new chips to Razer’s AI oddities&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/09/ces-2026-everything-revealed-from-nvidias-debuts-to-amds-new-chips-to-razers-ai-oddities/&quot;, &quot;summary&quot;: &quot;CES 2026 is in full swing in Las Vegas, with the show floor open to the public after a packed couple of days occupied by press conferences from the likes of Nvidia, Sony, and AMD and previews from Sun...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;China-Linked Hackers Exploit VMware ESXi Zero-Days to Escape Virtual Machines&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/chinese-linked-hackers-exploit-vmware.html&quot;, &quot;summary&quot;: &quot;Chinese-speaking threat actors are suspected to have leveraged a compromised SonicWall VPN appliance as an initial access vector to deploy a VMware ESXi exploit that may have been developed as far bac...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Russian APT28 Runs Credential-Stealing Campaign Targeting Energy and Policy Organizations&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/russian-apt28-runs-credential-stealing.html&quot;, &quot;summary&quot;: &quot;Russian state-sponsored threat actors have been linked to a fresh set of credential harvesting attacks targeting individuals associated with a Turkish energy and nuclear research agency, as well as st...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Cybersecurity Predictions 2026: The Hype We Can Ignore (And the Risks We Can&#x27;t)&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/cybersecurity-predictions-2026-hype-we.html&quot;, &quot;summary&quot;: &quot;As organizations plan for 2026, cybersecurity predictions are everywhere. Yet many strategies are still shaped by headlines and speculation rather than evidence. The real challenge isn’t a lack of for...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Betterment&amp;#8217;s financial app sends customers a $10,000 crypto scam message&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/860106/betterment-crypto-scam-notification&quot;, &quot;summary&quot;: &quot;Betterment, a financial app, sent a sketchy-looking notification on Friday asking users to send $10,000 to Bitcoin and Ethereum crypto wallets and promising to \&quot;triple your crypto,\&quot; according to a thr...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Amazon is planning a Super Amazon-mart store near Chicago&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/860058/amazon-chicago-supercenter-store-plans&quot;, &quot;summary&quot;: &quot;Amazon could be taking another, even bigger swing at physical stores, this time with a Walmart-like supercenter. On Tuesday, the Orland Park Plan Commission in the Chicago suburb Orland Park, Illinois...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;X accuses music publishers of &amp;#8216;weaponizing&amp;#8217; DMCA takedowns&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/860013/x-nmpa-music-publishers-dmca-antitrust-lawsuit&quot;, &quot;summary&quot;: &quot;X is suing music publishers and their trade group, the National Music Publishers&#x27; Association (NMPA), accusing them of attempted coercion in their ongoing battle over licensing, as reported earlier by...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;SpaceX gets FCC permission to launch another 7,500 Starlink satellites&quot;, &quot;link&quot;: &quot;https://arstechnica.com/tech-policy/2026/01/spacex-gets-fcc-permission-to-launch-another-7500-starlink-satellites/&quot;, &quot;summary&quot;: &quot;Including previous approvals, Starlink can now deploy 15,000 Gen2 satellites....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;ESA considers righting the wrongs of Ariane 6 by turning it into a Franken-rocket&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/esa-considers-righting-the-wrongs-of-ariane-6-by-turning-it-into-a-franken-rocket/&quot;, &quot;summary&quot;: &quot;ArianeGroup is still trying to catch up to where the bleeding edge of the launch industry was 15 years ago....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Measles continues raging in South Carolina; 99 new cases since Tuesday&quot;, &quot;link&quot;: &quot;https://arstechnica.com/health/2026/01/measles-continues-raging-in-south-carolina-99-new-cases-since-tuesday/&quot;, &quot;summary&quot;: &quot;With so many exposures sites, officials can&#x27;t figure out where people were infected....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Total Wireless Promo Codes &amp; Deals: 50% Off Select Plans&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/total-wireless-promo-code/&quot;, &quot;summary&quot;: &quot;Find great deals for Total Wireless, like 50% off select plans, and enjoy big savings....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;KitchenAid Promo Code: 50% Off This Month&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/exclusive-kitchenaid-promo-code/&quot;, &quot;summary&quot;: &quot;Save on every purchase with top KitchenAid coupons from WIRED, including up to 50% off select countertop appliances....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;OpenAI Is Asking Contractors to Upload Work From Past Jobs to Evaluate the Performance of AI Agents&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/openai-contractor-upload-real-work-documents-ai-agents/&quot;, &quot;summary&quot;: &quot;To prepare AI agents for office work, the company is asking contractors to upload projects from past jobs, leaving it to them to strip out confidential and personally identifiable information....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and asked a simple question: \&quot;What&#x27;s the best course on bui...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Top 10 AI Tools That Will Transform Your Content Creation in 2025&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html&quot;, &quot;summary&quot;: &quot;&lt;div style=\&quot;text-align: left;\&quot;&gt;&lt;a href=\&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEge5QgwLKWbavTUhIedQLI79z5BGD4h0ZoH4YMK6bGBL6fY4Je8R3GZurMZaJmtYirFS6pS-GgZD3xFAqfln8w8faEY2iDehndQNee...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;LimeWire AI Studio Review 2023: Details, Pricing &amp; Features&quot;, &quot;link&quot;: &quot;https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html&quot;, &quot;summary&quot;: &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-family: Oxygen;\&quot;&gt;In the rapidly advancing landscape of AI technology and...&quot;, &quot;source&quot;: &quot;Crunch Hype&quot;}, {&quot;title&quot;: &quot;Meta Signs Deals With Three Nuclear Companies For 6+ GW of Power&quot;, &quot;link&quot;: &quot;https://hardware.slashdot.org/story/26/01/09/2329256/meta-signs-deals-with-three-nuclear-companies-for-6-gw-of-power?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Meta has signed long-term nuclear power deals totaling more than 6 gigawatts to fuel its data centers: \&quot;one from a startup, one from a smaller energy company, and one from a larger company that alread...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;AI Models Are Starting To Learn By Asking Themselves Questions&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/09/2246235/ai-models-are-starting-to-learn-by-asking-themselves-questions?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;An anonymous reader quotes a report from Wired: [P]erhaps AI can, in fact, learn in a more human way -- by figuring out interesting questions to ask itself and attempting to find the right answer. A p...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;AI Is Intensifying a &#x27;Collapse&#x27; of Trust Online, Experts Say&quot;, &quot;link&quot;: &quot;https://news.slashdot.org/story/26/01/09/2237231/ai-is-intensifying-a-collapse-of-trust-online-experts-say?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Experts interviewed by NBC News warn that the rapid spread of AI-generated images and videos is accelerating an online trust breakdown, especially during fast-moving news events where context is scarc...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;CDC staff &#x27;blindsided&#x27; as child vaccine schedule unilaterally overhauled&quot;, &quot;link&quot;: &quot;https://www.unmc.edu/healthsecurity/transmission/2026/01/07/cdc-staff-blindsided-as-child-vaccine-schedule-unilaterally-overhauled/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://www.unmc.edu/healthsecurity/transmission/2026/01/07/cdc-staff-blindsided-as-child-vaccine-schedule-unilaterally-overhauled/\&quot;&gt;https://www.unmc.edu/healthsecurity/transm...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Oh My Zsh adds bloat&quot;, &quot;link&quot;: &quot;https://rushter.com/blog/zsh-shell/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://rushter.com/blog/zsh-shell/\&quot;&gt;https://rushter.com/blog/zsh-shell/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46562790\&quot;&gt;https://news.ycombina...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;OLED, Not for Me&quot;, &quot;link&quot;: &quot;https://nuxx.net/blog/2026/01/09/oled-not-for-me/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://nuxx.net/blog/2026/01/09/oled-not-for-me/\&quot;&gt;https://nuxx.net/blog/2026/01/09/oled-not-for-me/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=465...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Engadget&#x27;s best of CES 2026: All the new tech that caught our eye in Las Vegas&quot;, &quot;link&quot;: &quot;https://www.engadget.com/engadgets-best-of-ces-2026-all-the-new-tech-that-caught-our-eye-in-las-vegas-200057123.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Over 4,000 exhibitors flocked to Las Vegas, Nevada this week to showcase their wares at CES 2026. The Engadget team, as usual, &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/ces-2026-live-updates-a...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;It&#x27;s time for Apple to reinstate ICEBlock&quot;, &quot;link&quot;: &quot;https://www.engadget.com/big-tech/its-time-for-apple-to-reinstate-iceblock-220802356.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;In October, Apple caved to pressure from the Trump administration and &lt;a class=\&quot;link\&quot; href=\&quot;https://www.engadget.com/apps/apple-removes-iceblock-from-the-app-store-after-trump-administrations-deman...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Amazon is apparently planning a big box store in the Chicago suburbs&quot;, &quot;link&quot;: &quot;https://www.engadget.com/big-tech/amazon-is-apparently-planning-a-big-box-store-in-the-chicago-suburbs-213451978.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Amazon is making a return, of sorts, to physical retail via plans to build a big-box retail store in the Chicago suburbs, &lt;a class=\&quot;link rapid-with-clickid\&quot; href=\&quot;https://shopping.yahoo.com/rdlw?me...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Anthropic cracks down on unauthorized Claude usage by third-party harnesses and rivals&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/anthropic-cracks-down-on-unauthorized-claude-usage-by-third-party-harnesses&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Anthropic has confirmed the implementation of strict new technical safeguards preventing third-party applications from spoofing its official coding client, Claude Code, in order to access the under...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Orchestral replaces LangChain’s complexity with reproducible, provider-agnostic LLM orchestration&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/orchestral-replaces-langchains-complexity-with-reproducible-provider&quot;, &quot;summary&quot;: &quot;&lt;p&gt;A new framework from researchers Alexander and Jacob Roman rejects the complexity of current AI tools, offering a synchronous, type-safe alternative designed for reproducibility and cost-conscious ...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;The 11 runtime attacks breaking AI security — and how CISOs are stopping them&quot;, &quot;link&quot;: &quot;https://venturebeat.com/security/ciso-inference-security-platforms-11-runtime-attacks-2026&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Enterprise security teams are losing ground to AI-enabled attacks — not because defenses are weak, but because the threat model has shifted. As AI agents move into production, attackers are exploit...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;7 new Windows laptops that delighted and surprised us at CES&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/best-laptops-ces-2026/&quot;, &quot;summary&quot;: &quot;This year is shaping up to be an exciting one for PCs: Dell is reviving the XPS, while MSI has just announced a new series of ultra-thin laptops....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;Five CES 2026 products I&#x27;d buy as soon as they&#x27;d take my money&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/5-ces-2026-products-id-buy-asap/&quot;, &quot;summary&quot;: &quot;With the Las Vegas trade show coming to a close, here are the products that impressed me the most - enough to make me reach for my wallet....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;CES 2026: These 7 smart glasses caught our eye - and you can buy this pair now&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/best-smart-glasses-ces-2026/&quot;, &quot;summary&quot;: &quot;What&#x27;s more futuristic and innovative than technology you wear on your face? These are our top picks at this year&#x27;s show....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;2025 at Google&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/look-back-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/EOY_2025_Header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about Google’s launches, milestones and more from 2025....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;The Google guide for holiday help&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/ai/holiday-planning-ai-gemini-tips/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Holiday_Collection_header.max-600x600.format-webp.webp\&quot; /&gt;Learn more about using Google products like Gemini, Search, Shopping...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Investing in America 2025&quot;, &quot;link&quot;: &quot;https://blog.google/company-news/inside-google/company-announcements/investing-in-america-2025/&quot;, &quot;summary&quot;: &quot;&lt;img src=\&quot;https://storage.googleapis.com/gweb-uniblog-publish-prod/images/InvestinginAmerica_CollectionHe.max-600x600.format-webp.webp\&quot; /&gt;Google’s deep investments in American technical infrastructure...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</div>
+            </details>
+            
+            <details>
+                <summary>Design AI Prompt</summary>
+                <div class="details-content">Template-based generation (no design AI prompt)</div>
+            </details>
+        </section>
+    </main>
+
+    <!-- Footer with Statistics -->
+    <footer>
+        <div class="footer-stats">
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="bar-chart" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Generation Stats
+                </h4>
+                <ul>
+                    <li><span>Model:</span> <span>gemini-3-flash-preview</span></li>
+                    <li><span>Articles:</span> <span>63</span></li>
+                    <li><span>Summary Time:</span> <span>19.74s</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="hash" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Token Metrics
+                </h4>
+                <ul>
+                    <li><span>Input Tokens:</span> <span>8297</span></li>
+                    <li><span>Output Tokens:</span> <span>1608</span></li>
+                    <li><span>Total Tokens:</span> <span>11274</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="palette" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Design Stats
+                </h4>
+                <ul>
+                    <li><span>Design Tokens:</span> <span>N/A</span></li>
+                    <li><span>Design Time:</span> <span>0s</span></li>
+                    <li><span>Total Process:</span> <span>0s</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-group">
+                <h4>
+                    <i data-lucide="calendar" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                    Timestamp
+                </h4>
+                <ul>
+                    <li>2026-01-10 17:35:28 JST</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-credit">
+            <i data-lucide="sparkles" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;"></i>
+            MorphoNews - AI-driven self-evolving news site
+        </div>
+    </footer>
+
+    <!-- Base JavaScript (Common functionality) -->
+    <script src="../js/archive-base.js"></script>
+    
+    <!-- Page-Specific Data and Rendering -->
+    <script>
+        // SECURITY: Loading from external JSON is more secure than embedding
+        // Recommended approach:
+        fetch('../data/2026-01-10_1735.json')
+            .then(response => response.json())
+            .then(newsData => {
+                if (window.MorphoNewsArchive && newsData && newsData.top_news) {
+                    window.MorphoNewsArchive.renderNewsCards(newsData.top_news, 'news-grid');
+                }
+            })
+            .catch(error => console.error('Failed to load news data:', error));
+        
+        // Alternative: If embedding is necessary, use proper JSON encoding on server side
+        // DO NOT manually construct JSON strings - use json.dumps() with proper parameters
+        // const newsData = JSON.parse('{NEWS_DATA_JSON_ESCAPED}');
+    </script>
+</body>
+</html>

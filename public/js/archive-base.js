@@ -10,25 +10,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Utility function to render news items dynamically
+// Utility function to render news items dynamically using safer DOM methods
 function renderNewsCards(newsArray, containerId) {
     const container = document.getElementById(containerId);
     if (!container || !Array.isArray(newsArray)) return;
     
-    const newsHTML = newsArray.map(item => `
-        <article class="news-card">
-            <h3>${escapeHtml(item.title)}</h3>
-            <p>${escapeHtml(item.description)}</p>
-            <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">
-                Read full story
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-            </a>
-        </article>
-    `).join('');
+    // Clear existing content
+    container.innerHTML = '';
     
-    container.innerHTML = newsHTML;
+    // Create elements using DOM methods for better security
+    newsArray.forEach(item => {
+        const article = document.createElement('article');
+        article.className = 'news-card';
+        
+        // Title
+        const h3 = document.createElement('h3');
+        h3.textContent = item.title;
+        article.appendChild(h3);
+        
+        // Description
+        const p = document.createElement('p');
+        p.textContent = item.description;
+        article.appendChild(p);
+        
+        // Link
+        const a = document.createElement('a');
+        a.href = item.link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = 'Read full story ';
+        
+        // Arrow icon (SVG is safe as it's not user-generated)
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '16');
+        svg.setAttribute('height', '16');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('d', 'M14 5l7 7m0 0l-7 7m7-7H3');
+        svg.appendChild(path);
+        a.appendChild(svg);
+        
+        article.appendChild(a);
+        container.appendChild(article);
+    });
 }
 
 // HTML escaping utility - more efficient implementation with complete protection

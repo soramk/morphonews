@@ -145,7 +145,18 @@ def generate_archive_html_modular(news_data, current_id, prev_link, display_date
     html = html.replace('{MOOD_KEYWORD}', html_module.escape(news_data['mood_keyword']))
     html = html.replace('{GENERATION_NUMBER}', str(generation_count))
     html = html.replace('{DISPLAY_DATE}', html_module.escape(display_date))
-    html = html.replace('{PREV_ARTICLE_ID}', prev_link.split('/')[-1].replace('.html', '') if prev_link != '#' else '')
+    
+    # Previous article link handling
+    if prev_link and prev_link != '#':
+        prev_id = prev_link.split('/')[-1].replace('.html', '')
+        prev_link_html = f'''<a href="./{html_module.escape(prev_id)}.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                Prev
+            </a>'''
+    else:
+        prev_link_html = ''  # First article, no previous link
+    html = html.replace('{PREV_ARTICLE_LINK}', prev_link_html)
+    
     html = html.replace('{FETCH_TIME_JST}', html_module.escape(news_data['meta']['fetch_time_jst']))
     html = html.replace('{ARTICLE_COUNT}', str(news_data['meta']['article_count']))
     html = html.replace('{MODEL_NAME}', html_module.escape(news_data['meta']['model_name']))

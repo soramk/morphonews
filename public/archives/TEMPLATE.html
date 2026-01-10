@@ -37,8 +37,9 @@
             <span class="gen-badge">Gen #{GENERATION_NUMBER}</span>
         </a>
         <div class="nav-controls">
-            <!-- Previous article link - generator should set {PREV_ARTICLE_ID} to empty string if no previous article -->
-            <!-- If empty, the generator should remove this link or set href="#" with disabled styling -->
+            <!-- Previous article link - generator should replace {PREV_ARTICLE_LINK} with:
+                 - Full <a> tag if previous article exists
+                 - Empty string if this is the first article -->
             {PREV_ARTICLE_LINK}
             <a href="../history.html" class="nav-link primary">
                 <i data-lucide="archive" style="width: 18px; height: 18px;"></i>

@@ -33,9 +33,19 @@ function renderNewsCards(newsArray, containerId) {
         p.textContent = item.description;
         article.appendChild(p);
         
-        // Link
+        // Link with URL validation
         const a = document.createElement('a');
-        a.href = item.link;
+        // Validate URL is safe (http/https only)
+        try {
+            const url = new URL(item.link);
+            if (url.protocol === 'http:' || url.protocol === 'https:') {
+                a.href = item.link;
+            } else {
+                a.href = '#'; // Fallback for unsafe protocols
+            }
+        } catch (e) {
+            a.href = '#'; // Invalid URL fallback
+        }
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
         a.textContent = 'Read full story ';

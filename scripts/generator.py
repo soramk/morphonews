@@ -1,6 +1,7 @@
 import os
 import json
 import shutil
+import html as html_module
 import feedparser
 import google.generativeai as genai
 from datetime import datetime, timezone, timedelta
@@ -17,6 +18,10 @@ if API_KEY:
     genai.configure(api_key=API_KEY)
     
 MODEL_NAME = "gemini-3-flash-preview"
+
+# 生成モード設定: 'modular' (テンプレートベース) または 'ai' (AI生成HTML)
+# モジュラー構造を使用する場合は 'modular' に設定
+GENERATION_MODE = os.environ.get("GENERATION_MODE", "modular")  # デフォルトはmodular
 
 # ディレクトリ構成
 PUBLIC_DIR = "public"
@@ -192,8 +197,127 @@ def fetch_and_summarize_news(timestamp_id):
         
     return content_json
 
-# --- 2. デザイン生成 (デザイナーAI) ---
-def evolve_ui(news_data, prev_link, history):
+# --- 2a. モジュラー構造でHTML生成 (テンプレートベース) ---
+def generate_archive_html_modular(news_data, current_id, prev_link, display_date, generation_count):
+    """モジュラー構造でアーカイブHTMLを生成（セキュアなアプローチ）"""
+    
+    # テンプレートを読み込み
+    template_path = os.path.join('public', 'archives', 'TEMPLATE.html')
+    with open(template_path, 'r', encoding='utf-8') as f:
+        html_template = f.read()
+    
+    # プレースホルダーを置換
+    html = html_template
+    html = html.replace('{MOOD_KEYWORD}', html_module.escape(news_data['mood_keyword']))
+    html = html.replace('{GENERATION_NUMBER}', str(generation_count))
+    html = html.replace('{DISPLAY_DATE}', html_module.escape(display_date))
+    
+    # Previous article link handling with safe ID validation
+    if prev_link and prev_link != '#':
+        prev_id = prev_link.split('/')[-1].replace('.html', '')
+        # Validate prev_id contains only safe characters (YYYY-MM-DD_HHMM format)
+        # This should be alphanumeric, hyphens, and underscores only
+        if prev_id.replace('-', '').replace('_', '').isalnum():
+            prev_link_html = f'''<a href="./{prev_id}.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                Prev
+            </a>'''
+        else:
+            # Invalid ID format - skip previous link
+            prev_link_html = ''
+    else:
+        prev_link_html = ''  # First article, no previous link
+    html = html.replace('{PREV_ARTICLE_LINK}', prev_link_html)
+    
+    html = html.replace('{FETCH_TIME_JST}', html_module.escape(news_data['meta']['fetch_time_jst']))
+    html = html.replace('{ARTICLE_COUNT}', str(news_data['meta']['article_count']))
+    html = html.replace('{MODEL_NAME}', html_module.escape(news_data['meta']['model_name']))
+    html = html.replace('{DAILY_SUMMARY}', html_module.escape(news_data['daily_summary']))
+    
+    # ARTICLE_IDを埋め込み（fetch()でJSONを読み込むため）
+    # current_id should also be validated as it's used in JavaScript
+    if current_id.replace('-', '').replace('_', '').isalnum():
+        html = html.replace('{ARTICLE_ID}', current_id)
+    else:
+        raise ValueError(f"Invalid article ID format: {current_id}")
+    
+    # トークン情報
+    html = html.replace('{SUMMARY_INPUT_TOKENS}', str(news_data['meta']['summary_tokens']['input']))
+    html = html.replace('{SUMMARY_OUTPUT_TOKENS}', str(news_data['meta']['summary_tokens']['output']))
+    html = html.replace('{SUMMARY_TOTAL_TOKENS}', str(news_data['meta']['summary_tokens']['total']))
+    html = html.replace('{SUMMARY_TIME}', str(news_data['meta']['summary_generation_time_sec']))
+    
+    # デザイン情報（デフォルト値） - extract for readability
+    design_tokens = news_data['meta'].get('design_tokens', {})
+    design_total_tokens = design_tokens.get('total', 'N/A') if design_tokens else 'N/A'
+    design_time = news_data['meta'].get('design_generation_time_sec', 0)
+    total_processing_time = news_data['meta'].get('total_processing_time_sec', 0)
+    
+    html = html.replace('{DESIGN_TOTAL_TOKENS}', str(design_total_tokens))
+    html = html.replace('{DESIGN_TIME}', str(design_time))
+    html = html.replace('{TOTAL_PROCESSING_TIME}', str(total_processing_time))
+    
+    # プロンプトをエスケープして埋め込み
+    html = html.replace('{SUMMARY_PROMPT}', html_module.escape(news_data['meta']['summary_prompt']))
+    default_design_prompt = 'Template-based generation (no design AI prompt)'
+    html = html.replace('{DESIGN_PROMPT}', html_module.escape(news_data['meta'].get('design_prompt', default_design_prompt)))
+    
+    # 注意: JSONデータはdata/{current_id}.jsonに保存されており、
+    # テンプレート内のfetch()で読み込まれます
+    
+    return html
+
+# --- 2b. HTML生成の統合関数 (モード切り替え) ---
+def generate_archive_page(news_data, prev_link, history):
+    """
+    アーカイブページを生成（モードに応じて切り替え）
+    
+    Returns:
+        tuple: (html_string, updated_news_data)
+    """
+    current_id = news_data['meta']['id']
+    display_date = news_data['meta']['display_date']
+    generation_count = len(history.get('entries', [])) + 1
+    
+    if GENERATION_MODE == "modular":
+        print(f"Step 2: Generating archive page using modular template for {current_id}...")
+        
+        # モジュラー構造でHTML生成（処理時間を記録）
+        start_time = time.time()
+        html_output = generate_archive_html_modular(
+            news_data, 
+            current_id, 
+            prev_link, 
+            display_date, 
+            generation_count
+        )
+        processing_time = time.time() - start_time
+        
+        # メタデータを更新（デザイン生成はテンプレートベースなのでトークン使用なし）
+        news_data['meta']['design_prompt'] = 'Template-based generation (modular structure)'
+        news_data['meta']['design_tokens'] = {'input': 0, 'output': 0, 'total': 0}
+        news_data['meta']['design_generation_time_sec'] = round(processing_time, 2)
+        news_data['meta']['total_tokens'] = news_data['meta']['summary_tokens']['total']
+        # Total processing time should include summary generation time + template processing time
+        news_data['meta']['total_processing_time_sec'] = round(
+            news_data['meta']['summary_generation_time_sec'] + processing_time, 2
+        )
+        
+        # JSONデータを更新
+        json_path = os.path.join(DATA_DIR, f"{current_id}.json")
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(news_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"  ✓ Modular template applied in {processing_time:.2f}s")
+        return html_output, news_data
+    
+    else:
+        # AI-based generation (existing evolve_ui function)
+        return evolve_ui_ai(news_data, prev_link, history)
+
+# --- 2c. デザイン生成 (デザイナーAI) ---
+def evolve_ui_ai(news_data, prev_link, history):
+    """AI-based UI evolution (original evolve_ui function)"""
     current_id = news_data['meta']['id']
     display_date = news_data['meta']['display_date']
     print(f"Step 2: Evolving UI for {current_id}...")
@@ -322,9 +446,8 @@ def evolve_ui(news_data, prev_link, history):
     final_html = final_html.replace("{{TOTAL_TIME}}", f"{round(total_time, 2)}")
     
     # プロンプト置換（HTMLエスケープ）
-    import html
-    escaped_summary_prompt = html.escape(news_data['meta']['summary_prompt'])
-    escaped_design_prompt = html.escape(design_prompt)
+    escaped_summary_prompt = html_module.escape(news_data['meta']['summary_prompt'])
+    escaped_design_prompt = html_module.escape(design_prompt)
     final_html = final_html.replace("{{ SUMMARY_PROMPT }}", escaped_summary_prompt)
     final_html = final_html.replace("{{SUMMARY_PROMPT}}", escaped_summary_prompt)
     final_html = final_html.replace("{{ DESIGN_PROMPT }}", escaped_design_prompt)
@@ -343,6 +466,11 @@ def evolve_ui(news_data, prev_link, history):
         json.dump(news_data, f, ensure_ascii=False, indent=2)
     
     return final_html, news_data
+
+# Backward compatibility: keep old function name
+def evolve_ui(news_data, prev_link, history):
+    """Wrapper for backward compatibility - delegates to generate_archive_page"""
+    return generate_archive_page(news_data, prev_link, history)
 
 # --- 3. 履歴一覧ページ生成 ---
 def generate_history_page(history):
@@ -884,8 +1012,8 @@ if __name__ == "__main__":
         # 2. ニュース取得
         daily_content = fetch_and_summarize_news(timestamp_id)
         
-        # 3. HTML生成
-        new_html, updated_content = evolve_ui(daily_content, prev_link, history)
+        # 3. HTML生成（モード切り替え対応）
+        new_html, updated_content = generate_archive_page(daily_content, prev_link, history)
         
         # 4. 保存処理
         os.makedirs(ARCHIVE_DIR, exist_ok=True)

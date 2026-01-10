@@ -164,18 +164,20 @@
     
     <!-- Page-Specific Data and Rendering -->
     <script>
-        // News data should be properly sanitized on the server-side before embedding
-        // For security, consider loading from external JSON file instead:
-        // fetch('../data/{ARTICLE_ID}.json').then(r => r.json()).then(data => { ... })
+        // SECURITY: Loading from external JSON is more secure than embedding
+        // Recommended approach:
+        fetch('../data/{ARTICLE_ID}.json')
+            .then(response => response.json())
+            .then(newsData => {
+                if (window.MorphoNewsArchive && newsData && newsData.top_news) {
+                    window.MorphoNewsArchive.renderNewsCards(newsData.top_news, 'news-grid');
+                }
+            })
+            .catch(error => console.error('Failed to load news data:', error));
         
-        // If embedding directly, ensure data is properly JSON-encoded
-        const newsDataJson = '{NEWS_DATA_JSON_ESCAPED}'; // Server should JSON-encode this
-        const newsData = JSON.parse(newsDataJson);
-        
-        // Render news cards
-        if (window.MorphoNewsArchive && newsData && newsData.top_news) {
-            window.MorphoNewsArchive.renderNewsCards(newsData.top_news, 'news-grid');
-        }
+        // Alternative: If embedding is necessary, use proper JSON encoding on server side
+        // DO NOT manually construct JSON strings - use json.dumps() with proper parameters
+        // const newsData = JSON.parse('{NEWS_DATA_JSON_ESCAPED}');
     </script>
 </body>
 </html>

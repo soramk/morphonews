@@ -57,21 +57,22 @@ public/
 
 1. **テンプレートベース生成**:
    ```python
+   import json
+   import html
+   
    # TEMPLATE.htmlを読み込んでプレースホルダーを置換
-   with open('public/archives/TEMPLATE.html', 'r') as f:
+   with open('public/archives/TEMPLATE.html', 'r', encoding='utf-8') as f:
        template = f.read()
    
-   # データを埋め込み（HTMLエスケープ処理を忘れずに）
-   import html
-   html = template.replace('{MOOD_KEYWORD}', html.escape(news_data['mood_keyword']))
-   html = html.replace('{DAILY_SUMMARY}', html.escape(news_data['daily_summary']))
+   # データを埋め込み（HTMLエスケープ処理）
+   output = template.replace('{MOOD_KEYWORD}', html.escape(news_data['mood_keyword']))
+   output = output.replace('{DAILY_SUMMARY}', html.escape(news_data['daily_summary']))
    
-   # JSONデータは適切にエスケープ
-   import json
-   news_json = json.dumps(news_data, ensure_ascii=False)
-   # JSONを文字列として埋め込む場合はさらにエスケープ
-   news_json_escaped = news_json.replace('\\', '\\\\').replace("'", "\\'")
-   html = html.replace('{NEWS_DATA_JSON_ESCAPED}', news_json_escaped)
+   # ARTICLE_IDを埋め込み（外部JSONから読み込むため）
+   output = output.replace('{ARTICLE_ID}', current_id)
+   
+   # 注意: JSONデータを直接スクリプトに埋め込むのは非推奨
+   # テンプレートではfetch()を使用して外部JSONファイルから読み込む方式を採用
    ```
 
 2. **デザインAIの役割変更**:
@@ -79,16 +80,18 @@ public/
    - 生成されたCSSは `styles/archives/YYYY-MM-DD_HHMM.css` に保存
    - 基本デザインは `archive-base.css` を使用
 
-3. **セキュリティ考慮事項**:
-   - ユーザー入力や外部データは必ずエスケープ処理
-   - JSONデータを直接スクリプトに埋め込む際は適切にエンコード
-   - 可能であれば外部JSONファイルから読み込む方が安全
+3. **セキュリティベストプラクティス**:
+   - ✅ ユーザー入力や外部データは必ずエスケープ処理
+   - ✅ JSONデータはスクリプトに直接埋め込まず、fetch()で外部ファイルから読み込む
+   - ✅ 必要な場合のみPythonの`json.dumps()`を使用（手動での文字列構築は避ける）
+   - ✅ Content Security Policyの設定を検討
 
 4. **メリット**:
    - AIの出力が安定（HTMLよりCSSのみの方が予測可能）
    - 共通構造を保ちつつ、各ページの個性を維持
    - トークン使用量の削減
-   - セキュリティリスクの低減
+   - セキュリティリスクの大幅な低減
+   - データとプレゼンテーションの完全な分離
 
 ### オプション2: 過去アーカイブの移行スクリプト
 
@@ -127,27 +130,29 @@ for archive_file in archives:
 
 ```python
 def generate_archive_html_modular(news_data, current_id, prev_link, display_date, generation_count):
-    """モジュラー構造でアーカイブHTMLを生成"""
+    """モジュラー構造でアーカイブHTMLを生成（セキュアなアプローチ）"""
     
     # テンプレートを読み込み
     template_path = os.path.join('public', 'archives', 'TEMPLATE.html')
     with open(template_path, 'r', encoding='utf-8') as f:
         html_template = f.read()
     
-    # ニュースデータをJSON文字列に
-    news_json = json.dumps(news_data, ensure_ascii=False)
+    # HTMLエスケープが必要な値を処理
+    import html as html_module
     
     # プレースホルダーを置換
     html = html_template
-    html = html.replace('{MOOD_KEYWORD}', news_data['mood_keyword'])
+    html = html.replace('{MOOD_KEYWORD}', html_module.escape(news_data['mood_keyword']))
     html = html.replace('{GENERATION_NUMBER}', str(generation_count))
-    html = html.replace('{DISPLAY_DATE}', display_date)
+    html = html.replace('{DISPLAY_DATE}', html_module.escape(display_date))
     html = html.replace('{PREV_ARTICLE_ID}', prev_link.split('/')[-1].replace('.html', '') if prev_link != '#' else '')
-    html = html.replace('{FETCH_TIME_JST}', news_data['meta']['fetch_time_jst'])
+    html = html.replace('{FETCH_TIME_JST}', html_module.escape(news_data['meta']['fetch_time_jst']))
     html = html.replace('{ARTICLE_COUNT}', str(news_data['meta']['article_count']))
-    html = html.replace('{MODEL_NAME}', news_data['meta']['model_name'])
-    html = html.replace('{DAILY_SUMMARY}', news_data['daily_summary'])
-    html = html.replace('{NEWS_DATA_JSON}', news_json)
+    html = html.replace('{MODEL_NAME}', html_module.escape(news_data['meta']['model_name']))
+    html = html.replace('{DAILY_SUMMARY}', html_module.escape(news_data['daily_summary']))
+    
+    # ARTICLE_IDを埋め込み（fetch()でJSONを読み込むため）
+    html = html.replace('{ARTICLE_ID}', current_id)
     
     # トークン情報
     html = html.replace('{SUMMARY_INPUT_TOKENS}', str(news_data['meta']['summary_tokens']['input']))
@@ -156,9 +161,11 @@ def generate_archive_html_modular(news_data, current_id, prev_link, display_date
     html = html.replace('{SUMMARY_TIME}', str(news_data['meta']['summary_generation_time_sec']))
     
     # プロンプトをエスケープして埋め込み
-    import html as html_module
     html = html.replace('{SUMMARY_PROMPT}', html_module.escape(news_data['meta']['summary_prompt']))
     html = html.replace('{DESIGN_PROMPT}', html_module.escape(news_data['meta'].get('design_prompt', '')))
+    
+    # 注意: JSONデータはdata/{current_id}.jsonに保存されており、
+    # テンプレート内のfetch()で読み込まれます
     
     return html
 ```

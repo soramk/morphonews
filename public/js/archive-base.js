@@ -31,7 +31,7 @@ function renderNewsCards(newsArray, containerId) {
     container.innerHTML = newsHTML;
 }
 
-// HTML escaping utility - more efficient implementation
+// HTML escaping utility - more efficient implementation with complete protection
 function escapeHtml(text) {
     if (typeof text !== 'string') return '';
     return text
@@ -39,7 +39,8 @@ function escapeHtml(text) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#x27;');
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;');
 }
 
 // Smooth scroll to section

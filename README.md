@@ -34,20 +34,50 @@ GitHub Actionsで駆動する、AI主導の自己進化型Webページ。MorphoN
 morphonews/
 ├── .github/
 │   └── workflows/
-│       └── daily_update.yml    # GitHub Actions自動実行設定
+│       └── daily_update.yml      # GitHub Actions自動実行設定
 ├── public/
-│   ├── index.html              # リダイレクト用（最新版へ転送）
-│   ├── history.html            # 履歴一覧ページ
-│   ├── history.json            # 履歴データ（詳細メタデータ含む）
-│   ├── archives/               # 生成されたHTMLアーカイブ
-│   │   └── YYYY-MM-DD_HHMM.html
-│   └── data/                   # ニュースデータJSON
-│       └── YYYY-MM-DD_HHMM.json
+│   ├── index.html                # リダイレクト用（最新版へ転送）
+│   ├── history.html              # 履歴一覧ページ（外部CSS/JS使用）
+│   ├── history.json              # 履歴データ（詳細メタデータ含む）
+│   ├── styles/                   # CSSファイル
+│   │   ├── history.css          # history.html専用スタイル
+│   │   ├── archive-base.css     # アーカイブページ共通スタイル
+│   │   └── archives/            # アーカイブ個別スタイル（オプション）
+│   │       └── YYYY-MM-DD_HHMM.css
+│   ├── js/                       # JavaScriptファイル
+│   │   ├── history.js           # history.html専用スクリプト
+│   │   ├── archive-base.js      # アーカイブページ共通スクリプト
+│   │   └── archives/            # アーカイブ個別スクリプト（オプション）
+│   │       └── YYYY-MM-DD_HHMM.js
+│   ├── archives/                 # 生成されたHTMLアーカイブ
+│   │   ├── TEMPLATE.html        # 新規アーカイブ用テンプレート
+│   │   └── YYYY-MM-DD_HHMM.html # 各日のニュースページ
+│   ├── data/                     # ニュースデータJSON
+│   │   └── YYYY-MM-DD_HHMM.json # プロンプト・トークン情報含む
+│   └── assets/                   # 画像などのアセット
+│       └── icons/
 ├── scripts/
-│   ├── generator.py            # メイン生成スクリプト
-│   └── requirements.txt        # Python依存関係
+│   ├── generator.py              # メイン生成スクリプト
+│   ├── migrate_history.py        # 履歴移行スクリプト
+│   └── requirements.txt          # Python依存関係
 └── README.md
 ```
+
+### 🆕 新しいモジュラー構造
+
+最近のアップデートで、CSS と JavaScript が外部ファイルに分離されました：
+
+- **共通スタイル**: `styles/archive-base.css` - 全アーカイブページで共有
+- **共通スクリプト**: `js/archive-base.js` - ユーティリティ関数とLucideアイコン初期化
+- **個別カスタマイズ**: 必要に応じて `styles/archives/` と `js/archives/` に個別ファイルを配置可能
+- **メタデータ**: プロンプトとトークン情報は `data/` の JSON ファイルに保存
+- **テンプレート**: `archives/TEMPLATE.html` に新規ページ作成用の雛形を用意
+
+この構造により：
+- `history.html` のファイルサイズが大幅に削減
+- スタイルと機能の再利用が容易に
+- 過去のアーカイブに新しいスタイルを適用しやすく
+- メンテナンス性と拡張性が向上
 
 ## 🚀 セットアップ
 

@@ -1,6 +1,7 @@
 import os
 import json
 import shutil
+import html as html_module
 import feedparser
 import google.generativeai as genai
 from datetime import datetime, timezone, timedelta
@@ -205,22 +206,25 @@ def generate_archive_html_modular(news_data, current_id, prev_link, display_date
     with open(template_path, 'r', encoding='utf-8') as f:
         html_template = f.read()
     
-    # HTMLエスケープが必要な値を処理
-    import html as html_module
-    
     # プレースホルダーを置換
     html = html_template
     html = html.replace('{MOOD_KEYWORD}', html_module.escape(news_data['mood_keyword']))
     html = html.replace('{GENERATION_NUMBER}', str(generation_count))
     html = html.replace('{DISPLAY_DATE}', html_module.escape(display_date))
     
-    # Previous article link handling
+    # Previous article link handling with safe ID validation
     if prev_link and prev_link != '#':
         prev_id = prev_link.split('/')[-1].replace('.html', '')
-        prev_link_html = f'''<a href="./{html_module.escape(prev_id)}.html" class="nav-link">
+        # Validate prev_id contains only safe characters (YYYY-MM-DD_HHMM format)
+        # This should be alphanumeric, hyphens, and underscores only
+        if prev_id.replace('-', '').replace('_', '').isalnum():
+            prev_link_html = f'''<a href="./{prev_id}.html" class="nav-link">
                 <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
                 Prev
             </a>'''
+        else:
+            # Invalid ID format - skip previous link
+            prev_link_html = ''
     else:
         prev_link_html = ''  # First article, no previous link
     html = html.replace('{PREV_ARTICLE_LINK}', prev_link_html)
@@ -231,7 +235,11 @@ def generate_archive_html_modular(news_data, current_id, prev_link, display_date
     html = html.replace('{DAILY_SUMMARY}', html_module.escape(news_data['daily_summary']))
     
     # ARTICLE_IDを埋め込み（fetch()でJSONを読み込むため）
-    html = html.replace('{ARTICLE_ID}', current_id)
+    # current_id should also be validated as it's used in JavaScript
+    if current_id.replace('-', '').replace('_', '').isalnum():
+        html = html.replace('{ARTICLE_ID}', current_id)
+    else:
+        raise ValueError(f"Invalid article ID format: {current_id}")
     
     # トークン情報
     html = html.replace('{SUMMARY_INPUT_TOKENS}', str(news_data['meta']['summary_tokens']['input']))
@@ -239,14 +247,20 @@ def generate_archive_html_modular(news_data, current_id, prev_link, display_date
     html = html.replace('{SUMMARY_TOTAL_TOKENS}', str(news_data['meta']['summary_tokens']['total']))
     html = html.replace('{SUMMARY_TIME}', str(news_data['meta']['summary_generation_time_sec']))
     
-    # デザイン情報（デフォルト値）
-    html = html.replace('{DESIGN_TOTAL_TOKENS}', str(news_data['meta'].get('design_tokens', {}).get('total', 'N/A')))
-    html = html.replace('{DESIGN_TIME}', str(news_data['meta'].get('design_generation_time_sec', 0)))
-    html = html.replace('{TOTAL_PROCESSING_TIME}', str(news_data['meta'].get('total_processing_time_sec', 0)))
+    # デザイン情報（デフォルト値） - extract for readability
+    design_tokens = news_data['meta'].get('design_tokens', {})
+    design_total_tokens = design_tokens.get('total', 'N/A') if design_tokens else 'N/A'
+    design_time = news_data['meta'].get('design_generation_time_sec', 0)
+    total_processing_time = news_data['meta'].get('total_processing_time_sec', 0)
+    
+    html = html.replace('{DESIGN_TOTAL_TOKENS}', str(design_total_tokens))
+    html = html.replace('{DESIGN_TIME}', str(design_time))
+    html = html.replace('{TOTAL_PROCESSING_TIME}', str(total_processing_time))
     
     # プロンプトをエスケープして埋め込み
     html = html.replace('{SUMMARY_PROMPT}', html_module.escape(news_data['meta']['summary_prompt']))
-    html = html.replace('{DESIGN_PROMPT}', html_module.escape(news_data['meta'].get('design_prompt', 'Template-based generation (no design AI prompt)')))
+    default_design_prompt = 'Template-based generation (no design AI prompt)'
+    html = html.replace('{DESIGN_PROMPT}', html_module.escape(news_data['meta'].get('design_prompt', default_design_prompt)))
     
     # 注意: JSONデータはdata/{current_id}.jsonに保存されており、
     # テンプレート内のfetch()で読み込まれます
@@ -284,8 +298,9 @@ def generate_archive_page(news_data, prev_link, history):
         news_data['meta']['design_tokens'] = {'input': 0, 'output': 0, 'total': 0}
         news_data['meta']['design_generation_time_sec'] = round(processing_time, 2)
         news_data['meta']['total_tokens'] = news_data['meta']['summary_tokens']['total']
+        # Total processing time should include summary generation time + template processing time
         news_data['meta']['total_processing_time_sec'] = round(
-            news_data['meta']['total_fetch_time_sec'] + processing_time, 2
+            news_data['meta']['summary_generation_time_sec'] + processing_time, 2
         )
         
         # JSONデータを更新
@@ -431,9 +446,8 @@ def evolve_ui_ai(news_data, prev_link, history):
     final_html = final_html.replace("{{TOTAL_TIME}}", f"{round(total_time, 2)}")
     
     # プロンプト置換（HTMLエスケープ）
-    import html
-    escaped_summary_prompt = html.escape(news_data['meta']['summary_prompt'])
-    escaped_design_prompt = html.escape(design_prompt)
+    escaped_summary_prompt = html_module.escape(news_data['meta']['summary_prompt'])
+    escaped_design_prompt = html_module.escape(design_prompt)
     final_html = final_html.replace("{{ SUMMARY_PROMPT }}", escaped_summary_prompt)
     final_html = final_html.replace("{{SUMMARY_PROMPT}}", escaped_summary_prompt)
     final_html = final_html.replace("{{ DESIGN_PROMPT }}", escaped_design_prompt)

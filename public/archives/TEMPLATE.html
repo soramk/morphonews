@@ -164,8 +164,13 @@
     
     <!-- Page-Specific Data and Rendering -->
     <script>
-        // News data would be embedded here or loaded from external JSON
-        const newsData = {NEWS_DATA_JSON};
+        // News data should be properly sanitized on the server-side before embedding
+        // For security, consider loading from external JSON file instead:
+        // fetch('../data/{ARTICLE_ID}.json').then(r => r.json()).then(data => { ... })
+        
+        // If embedding directly, ensure data is properly JSON-encoded
+        const newsDataJson = '{NEWS_DATA_JSON_ESCAPED}'; // Server should JSON-encode this
+        const newsData = JSON.parse(newsDataJson);
         
         // Render news cards
         if (window.MorphoNewsArchive && newsData && newsData.top_news) {

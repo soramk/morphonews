@@ -31,11 +31,15 @@ function renderNewsCards(newsArray, containerId) {
     container.innerHTML = newsHTML;
 }
 
-// HTML escaping utility
+// HTML escaping utility - more efficient implementation
 function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    if (typeof text !== 'string') return '';
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
 }
 
 // Smooth scroll to section
@@ -46,17 +50,24 @@ function scrollToSection(sectionId) {
     }
 }
 
-// Format timestamp
+// Format timestamp with error handling
 function formatTimestamp(isoString) {
-    const date = new Date(isoString);
-    return date.toLocaleString('ja-JP', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZoneName: 'short'
-    });
+    try {
+        const date = new Date(isoString);
+        if (isNaN(date.getTime())) {
+            return isoString; // Return original if invalid
+        }
+        return date.toLocaleString('ja-JP', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZoneName: 'short'
+        });
+    } catch (e) {
+        return isoString; // Fallback to original string
+    }
 }
 
 // Export functions for use in individual archive pages

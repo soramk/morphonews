@@ -61,10 +61,17 @@ public/
    with open('public/archives/TEMPLATE.html', 'r') as f:
        template = f.read()
    
-   # データを埋め込み
-   html = template.replace('{MOOD_KEYWORD}', news_data['mood_keyword'])
-   html = html.replace('{DAILY_SUMMARY}', news_data['daily_summary'])
-   # ... その他のプレースホルダー
+   # データを埋め込み（HTMLエスケープ処理を忘れずに）
+   import html
+   html = template.replace('{MOOD_KEYWORD}', html.escape(news_data['mood_keyword']))
+   html = html.replace('{DAILY_SUMMARY}', html.escape(news_data['daily_summary']))
+   
+   # JSONデータは適切にエスケープ
+   import json
+   news_json = json.dumps(news_data, ensure_ascii=False)
+   # JSONを文字列として埋め込む場合はさらにエスケープ
+   news_json_escaped = news_json.replace('\\', '\\\\').replace("'", "\\'")
+   html = html.replace('{NEWS_DATA_JSON_ESCAPED}', news_json_escaped)
    ```
 
 2. **デザインAIの役割変更**:
@@ -72,10 +79,16 @@ public/
    - 生成されたCSSは `styles/archives/YYYY-MM-DD_HHMM.css` に保存
    - 基本デザインは `archive-base.css` を使用
 
-3. **メリット**:
+3. **セキュリティ考慮事項**:
+   - ユーザー入力や外部データは必ずエスケープ処理
+   - JSONデータを直接スクリプトに埋め込む際は適切にエンコード
+   - 可能であれば外部JSONファイルから読み込む方が安全
+
+4. **メリット**:
    - AIの出力が安定（HTMLよりCSSのみの方が予測可能）
    - 共通構造を保ちつつ、各ページの個性を維持
    - トークン使用量の削減
+   - セキュリティリスクの低減
 
 ### オプション2: 過去アーカイブの移行スクリプト
 

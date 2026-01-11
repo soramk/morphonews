@@ -24,6 +24,12 @@ function saveStylePreference(styleId) {
 }
 
 function applyStyle(styleId) {
+    // Validate styleId to prevent path traversal
+    if (styleId && !/^[a-z-]+$/.test(styleId)) {
+        console.warn('Invalid style ID:', styleId);
+        return;
+    }
+    
     // Remove any existing style overrides
     const existingLink = document.getElementById('dynamic-style');
     if (existingLink) {
@@ -69,6 +75,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize style selector if present
     initStyleSelector();
+    
+    // Initialize reading features
+    initReadingProgress();
+    initFontSizeControls();
 });
 
 // Utility function to render news items dynamically using safer DOM methods
@@ -270,8 +280,8 @@ function initFontSizeControls() {
     
     if (!increaseBtn || !decreaseBtn) return;
     
-    // Load saved font size
-    let fontSize = parseInt(localStorage.getItem(FONT_SIZE_KEY) || '100');
+    // Load saved font size with proper validation
+    let fontSize = parseInt(localStorage.getItem(FONT_SIZE_KEY) || '100') || 100;
     applyFontSize(fontSize);
     
     increaseBtn.addEventListener('click', () => {
@@ -298,9 +308,3 @@ function initFontSizeControls() {
 function applyFontSize(percentage) {
     document.documentElement.style.fontSize = percentage + '%';
 }
-
-// Initialize all features
-document.addEventListener('DOMContentLoaded', function() {
-    initReadingProgress();
-    initFontSizeControls();
-});

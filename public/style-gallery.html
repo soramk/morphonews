@@ -330,11 +330,24 @@
             }
         }
         
-        function saveStyleAndRedirect(styleId) {
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function saveStyleAndRedirect(styleId, styleName) {
+            // Validate styleId
+            if (!/^[a-z-]+$/.test(styleId)) {
+                alert('無効なスタイルIDです。');
+                return;
+            }
+            
             try {
                 localStorage.setItem(STYLE_STORAGE_KEY, styleId);
-                // Show confirmation and redirect to latest article
-                alert(`スタイル「${styleId}」を選択しました！\nアーカイブページで適用されます。`);
+                // Show confirmation using escaped values
+                const message = 'スタイル「' + escapeHtml(styleName) + '」を選択しました！\nアーカイブページで適用されます。';
+                alert(message);
                 window.location.href = './history.html';
             } catch (e) {
                 alert('設定の保存に失敗しました。');
@@ -355,20 +368,50 @@
                         card.classList.add('active');
                     }
                     
-                    card.innerHTML = `
-                        <div class="style-preview-large">
-                            <div class="preview-circle-large" style="background-color: ${style.preview_colors.primary}"></div>
-                            <div class="preview-circle-large" style="background-color: ${style.preview_colors.secondary}"></div>
-                        </div>
-                        <h3>${style.name}</h3>
-                        <p>${style.description}</p>
-                        <div class="style-meta">
-                            <span class="style-mood">${style.mood}</span>
-                            <button class="select-btn" onclick="saveStyleAndRedirect('${style.id}')">
-                                ${style.id === savedStyle ? '選択中 ✓' : '選択する'}
-                            </button>
-                        </div>
-                    `;
+                    // Create elements using DOM methods for better security
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'style-preview-large';
+                    
+                    const circle1 = document.createElement('div');
+                    circle1.className = 'preview-circle-large';
+                    circle1.style.backgroundColor = style.preview_colors.primary;
+                    
+                    const circle2 = document.createElement('div');
+                    circle2.className = 'preview-circle-large';
+                    circle2.style.backgroundColor = style.preview_colors.secondary;
+                    
+                    previewDiv.appendChild(circle1);
+                    previewDiv.appendChild(circle2);
+                    
+                    const h3 = document.createElement('h3');
+                    h3.textContent = style.name;
+                    
+                    const p = document.createElement('p');
+                    p.textContent = style.description;
+                    
+                    const metaDiv = document.createElement('div');
+                    metaDiv.className = 'style-meta';
+                    
+                    const moodSpan = document.createElement('span');
+                    moodSpan.className = 'style-mood';
+                    moodSpan.textContent = style.mood;
+                    
+                    const button = document.createElement('button');
+                    button.className = 'select-btn';
+                    button.textContent = style.id === savedStyle ? '選択中 ✓' : '選択する';
+                    
+                    // Use addEventListener instead of inline onclick
+                    button.addEventListener('click', function() {
+                        saveStyleAndRedirect(style.id, style.name);
+                    });
+                    
+                    metaDiv.appendChild(moodSpan);
+                    metaDiv.appendChild(button);
+                    
+                    card.appendChild(previewDiv);
+                    card.appendChild(h3);
+                    card.appendChild(p);
+                    card.appendChild(metaDiv);
                     
                     grid.appendChild(card);
                 });

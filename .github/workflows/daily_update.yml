@@ -2,18 +2,19 @@ name: Evolve MorphoNews
 
 on:
   schedule:
-    # 8時間ごとに実行 (UTC 0:00, 8:00, 16:00)
-    - cron: "0 */8 * * *"
+    # 1日3回実行 (UTC 0:00, 8:00, 16:00 = JST 9:00, 17:00, 1:00)
+    - cron: "0 0,8,16 * * *"
   workflow_dispatch: # 手動実行ボタン
     inputs:
       generation_mode:
         description: "生成モード"
         required: false
-        default: "modular"
+        default: "ai"
         type: choice
         options:
-          - modular
           - ai
+          - modular
+          - news-only
 
 permissions:
   contents: write # リポジトリへの書き込み権限
@@ -50,7 +51,7 @@ jobs:
       - name: Run Generator Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GENERATION_MODE: ${{ github.event.inputs.generation_mode || 'modular' }}
+          GENERATION_MODE: ${{ github.event.inputs.generation_mode || 'ai' }}
         run: |
           python scripts/generator.py
 

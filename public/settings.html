@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 | MorphoNews</title>
+    <meta name="description" content="MorphoNewsの機能とスタイルをカスタマイズ。お好みの設定で快適にニュースをお読みください。">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-success: #22c55e;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Noto Sans JP', 'Outfit', sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .settings-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .settings-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .settings-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-item:hover {
+            background: var(--bg-primary);
+        }
+
+        .feature-info {
+            flex: 1;
+        }
+
+        .feature-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            margin-left: 1rem;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--accent-success);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .style-card {
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .style-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .style-card.active {
+            border-color: var(--accent-success);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+        }
+
+        .style-preview {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .preview-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .style-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .style-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .save-button {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-md);
+        }
+
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .save-button:active {
+            transform: translateY(0);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent-success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 4rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            nav a {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .page-header h2 {
+                font-size: 2rem;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .settings-section {
+                padding: 1.5rem;
+            }
+
+            .style-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .feature-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .toggle-switch {
+                margin-left: 0;
+            }
+
+            .notification {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="./index.html" class="logo">
+                <h1>MorphoNews</h1>
+            </a>
+            <nav>
+                <a href="./index.html">
+                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                    ホーム
+                </a>
+                <a href="./history.html">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブ
+                </a>
+                <a href="./style-gallery.html">
+                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
+                    スタイル
+                </a>
+                <a href="./settings.html" class="active">
+                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                    設定
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h2>⚙️ 設定</h2>
+            <p>MorphoNewsの機能とスタイルをカスタマイズ</p>
+        </div>
+
+        <div class="settings-grid">
+            <!-- Features Section -->
+            <div class="settings-section">
+                <h3>
+                    <i data-lucide="toggle-left" style="width: 24px; height: 24px;"></i>
+                    機能の有効化/無効化
+                </h3>
+                <p>各機能を個別に有効化または無効化できます</p>
+                <div class="feature-list" id="features-list">
+                    <!-- Features will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Styles Section -->
+            <div class="settings-section" style="grid-column: span 1;">
+                <h3>
+                    <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+                    スタイル選択
+                </h3>
+                <p>お好みのスタイルを選択してください</p>
+                <div class="style-grid" id="styles-list">
+                    <!-- Styles will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <button class="save-button" id="save-button">
+            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+            設定を保存
+        </button>
+    </main>
+
+    <footer>
+        <p>
+            <i data-lucide="sparkles" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;"></i>
+            MorphoNews - AI駆動の自己進化型ニュースサイト
+        </p>
+    </footer>
+
+    <div class="notification" id="notification">
+        <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+        <span>設定を保存しました</span>
+    </div>
+
+    <script>
+        // Feature management
+        const FEATURE_PREFIX = 'morphonews_feature_';
+        const STYLE_STORAGE_KEY = 'morphonews_selected_style';
+        const DEFAULT_STYLE = 'default';
+
+        // Load features from features.json
+        async function loadFeatures() {
+            try {
+                const response = await fetch('./features.json');
+                const data = await response.json();
+                renderFeatures(data.features);
+            } catch (error) {
+                console.error('Failed to load features:', error);
+            }
+        }
+
+        function renderFeatures(features) {
+            const container = document.getElementById('features-list');
+            if (!container) return;
+
+            features.forEach(feature => {
+                const isEnabled = getFeatureState(feature.id);
+                
+                const item = document.createElement('div');
+                item.className = 'feature-item';
+                
+                const info = document.createElement('div');
+                info.className = 'feature-info';
+                
+                const name = document.createElement('div');
+                name.className = 'feature-name';
+                name.textContent = feature.name;
+                
+                const desc = document.createElement('div');
+                desc.className = 'feature-desc';
+                desc.textContent = feature.description;
+                
+                info.appendChild(name);
+                info.appendChild(desc);
+                
+                const toggle = document.createElement('label');
+                toggle.className = 'toggle-switch';
+                
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.checked = isEnabled;
+                input.dataset.featureId = feature.id;
+                
+                const slider = document.createElement('span');
+                slider.className = 'toggle-slider';
+                
+                toggle.appendChild(input);
+                toggle.appendChild(slider);
+                
+                item.appendChild(info);
+                item.appendChild(toggle);
+                container.appendChild(item);
+            });
+        }
+
+        function getFeatureState(featureId) {
+            try {
+                const state = localStorage.getItem(FEATURE_PREFIX + featureId);
+                // Default to enabled if not set
+                return state === null ? true : state === 'true';
+            } catch (e) {
+                return true;
+            }
+        }
+
+        function setFeatureState(featureId, enabled) {
+            try {
+                localStorage.setItem(FEATURE_PREFIX + featureId, enabled.toString());
+            } catch (e) {
+                console.error('Failed to save feature state:', e);
+            }
+        }
+
+        // Load styles from styles.json
+        async function loadStyles() {
+            try {
+                const response = await fetch('./styles/styles.json');
+                const data = await response.json();
+                renderStyles(data.styles);
+            } catch (error) {
+                console.error('Failed to load styles:', error);
+            }
+        }
+
+        function renderStyles(styles) {
+            const container = document.getElementById('styles-list');
+            if (!container) return;
+
+            const savedStyle = getSavedStyle();
+
+            styles.forEach(style => {
+                const card = document.createElement('div');
+                card.className = 'style-card';
+                card.dataset.styleId = style.id;
+                
+                if (style.id === savedStyle) {
+                    card.classList.add('active');
+                }
+
+                const preview = document.createElement('div');
+                preview.className = 'style-preview';
+
+                const circle1 = document.createElement('div');
+                circle1.className = 'preview-circle';
+                circle1.style.backgroundColor = style.preview_colors.primary;
+
+                const circle2 = document.createElement('div');
+                circle2.className = 'preview-circle';
+                circle2.style.backgroundColor = style.preview_colors.secondary;
+
+                preview.appendChild(circle1);
+                preview.appendChild(circle2);
+
+                const name = document.createElement('div');
+                name.className = 'style-name';
+                name.textContent = style.name;
+
+                const desc = document.createElement('div');
+                desc.className = 'style-desc';
+                desc.textContent = style.description;
+
+                card.appendChild(preview);
+                card.appendChild(name);
+                card.appendChild(desc);
+
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.style-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        function getSavedStyle() {
+            try {
+                return localStorage.getItem(STYLE_STORAGE_KEY) || DEFAULT_STYLE;
+            } catch (e) {
+                return DEFAULT_STYLE;
+            }
+        }
+
+        function saveSettings() {
+            // Save feature states
+            const featureToggles = document.querySelectorAll('input[data-feature-id]');
+            featureToggles.forEach(toggle => {
+                setFeatureState(toggle.dataset.featureId, toggle.checked);
+            });
+
+            // Save selected style
+            const activeStyle = document.querySelector('.style-card.active');
+            if (activeStyle) {
+                const styleId = activeStyle.dataset.styleId;
+                try {
+                    localStorage.setItem(STYLE_STORAGE_KEY, styleId);
+                } catch (e) {
+                    console.error('Failed to save style:', e);
+                }
+            }
+
+            // Show notification
+            showNotification();
+        }
+
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            loadFeatures();
+            loadStyles();
+
+            // Save button handler
+            document.getElementById('save-button').addEventListener('click', saveSettings);
+        });
+    </script>
+</body>
+</html>

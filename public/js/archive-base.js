@@ -3,9 +3,21 @@
  * Shared functionality across all archive pages
  */
 
-// Style Management - Load and apply saved style preference
+// Feature and Style Management
 const STYLE_STORAGE_KEY = 'morphonews_selected_style';
+const FEATURE_PREFIX = 'morphonews_feature_';
 const DEFAULT_STYLE = 'default';
+
+// Check if a feature is enabled
+function isFeatureEnabled(featureId) {
+    try {
+        const state = localStorage.getItem(FEATURE_PREFIX + featureId);
+        // Default to enabled if not set
+        return state === null ? true : state === 'true';
+    } catch (e) {
+        return true; // Default to enabled on error
+    }
+}
 
 function loadStylePreference() {
     try {
@@ -76,9 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize style selector if present
     initStyleSelector();
     
-    // Initialize reading features
-    initReadingProgress();
-    initFontSizeControls();
+    // Initialize reading features based on user preferences
+    if (isFeatureEnabled('reading-progress')) {
+        initReadingProgress();
+    }
+    if (isFeatureEnabled('font-size-control')) {
+        initFontSizeControls();
+    }
 });
 
 // Utility function to render news items dynamically using safer DOM methods
@@ -195,6 +211,18 @@ if (typeof window !== 'undefined') {
 
 // Style Selector Initialization
 function initStyleSelector() {
+    // Check if feature is enabled
+    if (!isFeatureEnabled('style-selector')) {
+        // Hide style selector if present
+        const stylePanel = document.getElementById('style-panel');
+        if (stylePanel) stylePanel.style.display = 'none';
+        return;
+    }
+    
+    // Show style panel if it exists
+    const stylePanel = document.getElementById('style-panel');
+    if (stylePanel) stylePanel.style.display = '';
+    
     // Fetch available styles
     fetch('../styles/styles.json')
         .then(response => response.json())
@@ -262,6 +290,13 @@ function initReadingProgress() {
     const progressBar = document.getElementById('reading-progress');
     if (!progressBar) return;
     
+    // Check if feature is enabled
+    if (!isFeatureEnabled('reading-progress')) {
+        progressBar.style.display = 'none';
+        return;
+    }
+    
+    progressBar.style.display = 'block';
     window.addEventListener('scroll', () => {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight - windowHeight;
@@ -279,6 +314,20 @@ function initFontSizeControls() {
     const resetBtn = document.getElementById('font-reset');
     
     if (!increaseBtn || !decreaseBtn) return;
+    
+    // Check if feature is enabled
+    if (!isFeatureEnabled('font-size-control')) {
+        if (increaseBtn) increaseBtn.style.display = 'none';
+        if (decreaseBtn) decreaseBtn.style.display = 'none';
+        if (resetBtn) resetBtn.style.display = 'none';
+        // Reset font size to default
+        document.documentElement.style.fontSize = '100%';
+        return;
+    }
+    
+    if (increaseBtn) increaseBtn.style.display = '';
+    if (decreaseBtn) decreaseBtn.style.display = '';
+    if (resetBtn) resetBtn.style.display = '';
     
     // Load saved font size with proper validation
     let fontSize = parseInt(localStorage.getItem(FONT_SIZE_KEY) || '100') || 100;

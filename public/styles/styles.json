@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-11",
+  "lastUpdated": "2026-01-12",
   "currentDefault": "default",
   "themes": [
     {
@@ -116,6 +116,21 @@
       "addedDate": "2026-01-11",
       "author": "ai",
       "mood": "Infrastructure"
+    },
+    {
+      "id": "regulating-growth",
+      "name": "レギュレーティング・グロース",
+      "description": "「制御された成長」を象徴するテーマ。安定感のあるスレートグレーの構造体と、そこから芽吹く鮮やかなエメラルドグリーンのコントラストが、規律ある進化を表現します。",
+      "file": "themes/regulating-growth.css",
+      "preview": {
+        "primary": "#10b981",
+        "secondary": "#334155",
+        "background": "#1e292b",
+        "text": "#e2e8f0"
+      },
+      "addedDate": "2026-01-12",
+      "author": "ai",
+      "mood": "RegulatingGrowth"
     }
   ]
 }

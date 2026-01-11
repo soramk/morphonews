@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: レギュレーティング・グロース
+ * Generated: 2026-01-12_0114
+ * Mood: RegulatingGrowth
+ * Description: 「制御された成長」を象徴するテーマ。安定感のあるスレートグレーの構造体と、そこから芽吹く鮮やかなエメラルドグリーンのコントラストが、規律ある進化を表現します。
+ */
+:root {
+    --morpho-bg-primary: #1e292b;
+    --morpho-bg-secondary: #2a383b;
+    --morpho-bg-card: #243133;
+    --morpho-text-primary: #e2e8f0;
+    --morpho-text-secondary: #94a3b8;
+    --morpho-accent-primary: #10b981;
+    --morpho-accent-secondary: #86efac;
+    --morpho-border-color: #334155;
+    --morpho-accent-gradient: linear-gradient(135deg, #10b981 0%, #064e3b 100%);
+}

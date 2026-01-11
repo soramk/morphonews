@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-11",
+  "lastUpdated": "2026-01-12",
   "features": [
     {
       "id": "news-renderer",
@@ -77,6 +77,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-01-11",
+      "author": "ai"
+    },
+    {
+      "id": "density-regulator",
+      "name": "情報密度レギュレーター",
+      "description": "「RegulatingGrowth」のムードに基づき、画面内の情報量を3段階で調整します。成長しすぎた情報を剪定し、ユーザーの認知負荷を最適化します。",
+      "file": "modules/density-regulator.js",
+      "enabled": true,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-12",
       "author": "ai"
     }
   ]

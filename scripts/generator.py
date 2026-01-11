@@ -12,7 +12,7 @@ API_KEY = os.environ.get("OPENAI_API_KEY")
 if API_KEY:
     genai.configure(api_key=API_KEY)
     
-MODEL_NAME = "gemini-2.0-flash"
+MODEL_NAME = "gemini-3-flash-preview"
 
 # 生成モード設定: 'ai' (AI生成), 'modular' (テンプレートベース), 'news-only' (ニュースのみ)
 GENERATION_MODE = os.environ.get("GENERATION_MODE", "ai")
@@ -260,7 +260,17 @@ MorphoNewsは「自己進化するWebページ」です。毎回の実行で新�
             generation_config={"response_mime_type": "application/json"}
         )
         response = model.generate_content(feature_prompt)
+        print(f"  [DEBUG] Feature response received, length: {len(response.text)}")
+        
         feature_data = json.loads(response.text)
+        
+        # 必須キーの確認
+        required_keys = ['id', 'name', 'description', 'code']
+        missing_keys = [k for k in required_keys if k not in feature_data]
+        if missing_keys:
+            print(f"  ⚠ Missing keys in response: {missing_keys}")
+            print(f"  [DEBUG] Response keys: {list(feature_data.keys())}")
+            return None
         
         # IDをサニタイズ
         feature_id = sanitize_id(feature_data['id'])
@@ -303,8 +313,14 @@ MorphoNewsは「自己進化するWebページ」です。毎回の実行で新�
         print(f"  ✓ Generated feature: {feature_data['name']} ({feature_id})")
         return new_feature
         
+    except json.JSONDecodeError as e:
+        print(f"  ⚠ Feature generation failed (JSON parse error): {e}")
+        print(f"  [DEBUG] Raw response: {response.text[:500]}...")
+        return None
     except Exception as e:
+        import traceback
         print(f"  ⚠ Feature generation failed: {e}")
+        traceback.print_exc()
         return None
 
 
@@ -380,7 +396,17 @@ CSSのみ。説明不要。
             generation_config={"response_mime_type": "application/json"}
         )
         response = model.generate_content(style_prompt)
+        print(f"  [DEBUG] Style response received, length: {len(response.text)}")
+        
         style_data = json.loads(response.text)
+        
+        # 必須キーの確認
+        required_keys = ['id', 'name', 'description', 'css']
+        missing_keys = [k for k in required_keys if k not in style_data]
+        if missing_keys:
+            print(f"  ⚠ Missing keys in response: {missing_keys}")
+            print(f"  [DEBUG] Response keys: {list(style_data.keys())}")
+            return None
         
         # IDをサニタイズ
         style_id = sanitize_id(style_data['id'])
@@ -423,8 +449,14 @@ CSSのみ。説明不要。
         print(f"  ✓ Generated style: {style_data['name']} ({style_id})")
         return new_style
         
+    except json.JSONDecodeError as e:
+        print(f"  ⚠ Style generation failed (JSON parse error): {e}")
+        print(f"  [DEBUG] Raw response: {response.text[:500]}...")
+        return None
     except Exception as e:
+        import traceback
         print(f"  ⚠ Style generation failed: {e}")
+        traceback.print_exc()
         return None
 
 

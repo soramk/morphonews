@@ -19,9 +19,9 @@ if API_KEY:
     
 MODEL_NAME = "gemini-3-flash-preview"
 
-# 生成モード設定: 'modular' (テンプレートベース) または 'ai' (AI生成HTML)
-# モジュラー構造を使用する場合は 'modular' に設定
-GENERATION_MODE = os.environ.get("GENERATION_MODE", "modular")  # デフォルトはmodular
+# 生成モード設定: 'ai' (AI生成HTML), 'modular' (テンプレートベース), 'news-only' (ニュースのみ取得)
+# デフォルトは 'ai' (AIモード: 新規機能の追加と新規スタイルの追加)
+GENERATION_MODE = os.environ.get("GENERATION_MODE", "ai")  # デフォルトはai
 
 # ディレクトリ構成
 PUBLIC_DIR = "public"
@@ -959,6 +959,10 @@ def generate_history_page(history):
                     <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
                     スタイル
                 </a>
+                <a href="./settings.html">
+                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                    設定
+                </a>
             </nav>
         </div>
     </header>
@@ -1037,20 +1041,38 @@ if __name__ == "__main__":
         daily_content = fetch_and_summarize_news(timestamp_id)
         
         # 3. HTML生成（モード切り替え対応）
-        new_html, updated_content = generate_archive_page(daily_content, prev_link, history)
+        if GENERATION_MODE == "news-only":
+            print("Running in news-only mode: skipping HTML generation")
+            # news-onlyモードの場合はHTML生成をスキップし、データのみ保存
+            new_html = None
+            updated_content = daily_content
+            # デザイン情報をスキップしたことを記録
+            updated_content['meta']['design_prompt'] = 'Skipped (news-only mode)'
+            updated_content['meta']['design_tokens'] = {'input': 0, 'output': 0, 'total': 0}
+            updated_content['meta']['design_generation_time_sec'] = 0
+            updated_content['meta']['total_tokens'] = updated_content['meta']['summary_tokens']['total']
+            updated_content['meta']['total_processing_time_sec'] = updated_content['meta']['total_fetch_time_sec']
+            
+            # JSONデータを保存
+            json_path = os.path.join(DATA_DIR, f"{timestamp_id}.json")
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(updated_content, f, ensure_ascii=False, indent=2)
+        else:
+            new_html, updated_content = generate_archive_page(daily_content, prev_link, history)
         
         # 4. 保存処理
         os.makedirs(ARCHIVE_DIR, exist_ok=True)
         
-        # A. アーカイブ保存 (ユニークなファイル名)
-        archive_filename = f"{timestamp_id}.html"
-        archive_path = os.path.join(ARCHIVE_DIR, archive_filename)
-        with open(archive_path, "w", encoding="utf-8") as f:
-            f.write(new_html)
-            
-        # B. index.html をリダイレクト用に更新
-        index_path = os.path.join(PUBLIC_DIR, "index.html")
-        redirect_html = f"""<!DOCTYPE html>
+        if GENERATION_MODE != "news-only":
+            # A. アーカイブ保存 (ユニークなファイル名)
+            archive_filename = f"{timestamp_id}.html"
+            archive_path = os.path.join(ARCHIVE_DIR, archive_filename)
+            with open(archive_path, "w", encoding="utf-8") as f:
+                f.write(new_html)
+                
+            # B. index.html をリダイレクト用に更新
+            index_path = os.path.join(PUBLIC_DIR, "index.html")
+            redirect_html = f"""<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -1063,26 +1085,30 @@ if __name__ == "__main__":
     <p><a href="./archives/{archive_filename}" style="color:#8b5cf6;">Click here if not redirected.</a></p>
 </body>
 </html>"""
-        with open(index_path, "w", encoding="utf-8") as f:
-            f.write(redirect_html)
-
-        # C. 履歴リスト更新（詳細データ含む）
-        entry_data = {
-            'id': timestamp_id,
-            'fetch_time_jst': updated_content['meta']['fetch_time_jst'],
-            'mood_keyword': updated_content.get('mood_keyword', 'Unknown'),
-            'daily_summary': updated_content.get('daily_summary', ''),
-            'model_name': updated_content['meta']['model_name'],
-            'total_tokens': updated_content['meta']['total_tokens'],
-            'total_processing_time_sec': updated_content['meta']['total_processing_time_sec']
-        }
-        history = add_history_entry(history, entry_data)
-        save_history(history)
-        
-        # D. 履歴一覧ページ生成
-        generate_history_page(history)
+            with open(index_path, "w", encoding="utf-8") as f:
+                f.write(redirect_html)
             
-        print(f"Success! Archived to {archive_path} (ID: {timestamp_id})")
+            print(f"Success! Archived to {archive_path} (ID: {timestamp_id})")
+        else:
+            print(f"Success! News data saved (news-only mode) (ID: {timestamp_id})")
+        
+        # C. 履歴リスト更新（詳細データ含む）
+        if GENERATION_MODE != "news-only":
+            entry_data = {
+                'id': timestamp_id,
+                'fetch_time_jst': updated_content['meta']['fetch_time_jst'],
+                'mood_keyword': updated_content.get('mood_keyword', 'Unknown'),
+                'daily_summary': updated_content.get('daily_summary', ''),
+                'model_name': updated_content['meta']['model_name'],
+                'total_tokens': updated_content['meta']['total_tokens'],
+                'total_processing_time_sec': updated_content['meta']['total_processing_time_sec']
+            }
+            history = add_history_entry(history, entry_data)
+            save_history(history)
+            
+            # D. 履歴一覧ページ生成
+            generate_history_page(history)
+        
         print(f"Total tokens used: {updated_content['meta']['total_tokens']}")
         print(f"Total processing time: {updated_content['meta']['total_processing_time_sec']}s")
 

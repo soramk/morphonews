@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エクスパンション・ネビュラ
+ * Generated: 2026-01-11_1632
+ * Mood: Expansion
+ * Description: 無限に広がる宇宙の星雲をイメージしたテーマ。深いパープルの背景に鮮烈なシアンのアクセントが、情報の広がりと進化を表現します。
+ */
+:root {
+  --morpho-bg-primary: #0a0118;
+  --morpho-bg-secondary: #160a2c;
+  --morpho-bg-card: #1c0e3a;
+  --morpho-text-primary: #ffffff;
+  --morpho-text-secondary: #c084fc;
+  --morpho-accent-primary: #a855f7;
+  --morpho-accent-secondary: #22d3ee;
+  --morpho-border-color: #3b2063;
+  --morpho-accent-gradient: linear-gradient(135deg, #a855f7 0%, #22d3ee 100%);
+}

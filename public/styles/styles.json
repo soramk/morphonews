@@ -86,6 +86,21 @@
       },
       "addedDate": "2026-01-11",
       "author": "system"
+    },
+    {
+      "id": "expansion-nebula",
+      "name": "エクスパンション・ネビュラ",
+      "description": "無限に広がる宇宙の星雲をイメージしたテーマ。深いパープルの背景に鮮烈なシアンのアクセントが、情報の広がりと進化を表現します。",
+      "file": "themes/expansion-nebula.css",
+      "preview": {
+        "primary": "#a855f7",
+        "secondary": "#22d3ee",
+        "background": "#0a0118",
+        "text": "#ffffff"
+      },
+      "addedDate": "2026-01-11",
+      "author": "ai",
+      "mood": "Expansion"
     }
   ]
 }

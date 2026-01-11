@@ -1,61 +1,72 @@
 {
-    "version": 1,
-    "lastUpdated": "2026-01-11",
-    "features": [
-        {
-            "id": "news-renderer",
-            "name": "ニュース表示",
-            "description": "ニュースデータをページに表示する基本機能",
-            "file": "core/news-renderer.js",
-            "enabled": true,
-            "required": true,
-            "category": "core",
-            "addedDate": "2026-01-11",
-            "author": "system"
-        },
-        {
-            "id": "reading-progress",
-            "name": "読書進捗バー",
-            "description": "ページ上部にスクロール進捗を表示",
-            "file": "modules/reading-progress.js",
-            "enabled": true,
-            "required": false,
-            "category": "ui",
-            "addedDate": "2026-01-11",
-            "author": "system"
-        },
-        {
-            "id": "font-resize",
-            "name": "文字サイズ調整",
-            "description": "A+/A-ボタンで文字サイズを調整",
-            "file": "modules/font-resize.js",
-            "enabled": true,
-            "required": false,
-            "category": "accessibility",
-            "addedDate": "2026-01-11",
-            "author": "system"
-        },
-        {
-            "id": "keyboard-nav",
-            "name": "キーボードナビ",
-            "description": "矢印キーで前後のアーカイブに移動",
-            "file": "modules/keyboard-nav.js",
-            "enabled": true,
-            "required": false,
-            "category": "navigation",
-            "addedDate": "2026-01-11",
-            "author": "system"
-        },
-        {
-            "id": "style-switcher",
-            "name": "スタイル切替",
-            "description": "テーマを自由に切り替え可能",
-            "file": "modules/style-switcher.js",
-            "enabled": true,
-            "required": false,
-            "category": "ui",
-            "addedDate": "2026-01-11",
-            "author": "system"
-        }
-    ]
+  "version": 1,
+  "lastUpdated": "2026-01-11",
+  "features": [
+    {
+      "id": "news-renderer",
+      "name": "ニュース表示",
+      "description": "ニュースデータをページに表示する基本機能",
+      "file": "core/news-renderer.js",
+      "enabled": true,
+      "required": true,
+      "category": "core",
+      "addedDate": "2026-01-11",
+      "author": "system"
+    },
+    {
+      "id": "reading-progress",
+      "name": "読書進捗バー",
+      "description": "ページ上部にスクロール進捗を表示",
+      "file": "modules/reading-progress.js",
+      "enabled": true,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-11",
+      "author": "system"
+    },
+    {
+      "id": "font-resize",
+      "name": "文字サイズ調整",
+      "description": "A+/A-ボタンで文字サイズを調整",
+      "file": "modules/font-resize.js",
+      "enabled": true,
+      "required": false,
+      "category": "accessibility",
+      "addedDate": "2026-01-11",
+      "author": "system"
+    },
+    {
+      "id": "keyboard-nav",
+      "name": "キーボードナビ",
+      "description": "矢印キーで前後のアーカイブに移動",
+      "file": "modules/keyboard-nav.js",
+      "enabled": true,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-11",
+      "author": "system"
+    },
+    {
+      "id": "style-switcher",
+      "name": "スタイル切替",
+      "description": "テーマを自由に切り替え可能",
+      "file": "modules/style-switcher.js",
+      "enabled": true,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-11",
+      "author": "system"
+    },
+    {
+      "id": "topic-explorer",
+      "name": "ダイナミック・トピック・エクスプローラー",
+      "description": "ページ内の記事から重要なキーワードを自動抽出し、インタラクティブなタグクラウドを生成します。特定のトピックをクリックすることで、関連するニュースへ瞬時にアクセスできます。",
+      "file": "modules/topic-explorer.js",
+      "enabled": true,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-11",
+      "author": "ai"
+    }
+  ]
 }

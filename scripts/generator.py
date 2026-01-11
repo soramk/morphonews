@@ -935,6 +935,10 @@ def generate_history_page(history):
                     <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
                     アーカイブ
                 </a>
+                <a href="./style-gallery.html">
+                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
+                    スタイル
+                </a>
             </nav>
         </div>
     </header>

@@ -1,0 +1,15 @@
+/* MorphoNews - Cherry Blossom Theme */
+/* Soft pink theme inspired by cherry blossoms */
+
+:root {
+    /* Color scheme */
+    --bg-base: #fef2f2;
+    --bg-surface: #fce7f3;
+    --text-primary: #881337;
+    --text-secondary: #be123c;
+    --text-tertiary: #fda4af;
+    --accent-primary: #ec4899; /* Pink */
+    --accent-secondary: #f472b6; /* Light pink */
+    --accent-muted: #fbcfe8;
+    --glass-border: rgba(252, 231, 243, 0.8);
+}

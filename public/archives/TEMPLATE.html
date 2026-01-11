@@ -159,11 +159,57 @@
         </div>
     </footer>
 
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress"></div>
+
+    <!-- Font Size Controls -->
+    <div id="font-controls">
+        <button id="font-increase" class="font-control-btn" title="文字を大きく" aria-label="Increase font size">
+            A+
+        </button>
+        <button id="font-decrease" class="font-control-btn" title="文字を小さく" aria-label="Decrease font size">
+            A-
+        </button>
+    </div>
+
+    <!-- Style Selector Toggle Button -->
+    <button id="style-selector-toggle" title="スタイルを変更" aria-label="Change style">
+        <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+    </button>
+
+    <!-- Style Selector Panel -->
+    <div id="style-selector-panel">
+        <div class="panel-header">
+            <h3>
+                <i data-lucide="palette" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle;"></i>
+                スタイル選択
+            </h3>
+        </div>
+        <div id="style-selector-grid">
+            <!-- Style options will be loaded here dynamically -->
+        </div>
+    </div>
+
     <!-- Base JavaScript (Common functionality) -->
     <script src="../js/archive-base.js"></script>
     
     <!-- Page-Specific Data and Rendering -->
     <script>
+        // Toggle style selector panel
+        document.getElementById('style-selector-toggle').addEventListener('click', function() {
+            const panel = document.getElementById('style-selector-panel');
+            panel.classList.toggle('active');
+        });
+        
+        // Close panel when clicking outside
+        document.addEventListener('click', function(e) {
+            const toggle = document.getElementById('style-selector-toggle');
+            const panel = document.getElementById('style-selector-panel');
+            if (!toggle.contains(e.target) && !panel.contains(e.target)) {
+                panel.classList.remove('active');
+            }
+        });
+        
         // SECURITY: Loading from external JSON is more secure than embedding
         // Recommended approach:
         fetch('../data/{ARTICLE_ID}.json')

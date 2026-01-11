@@ -14,21 +14,36 @@ GitHub Actionsで駆動する、AI主導の自己進化型Webページ。MorphoN
 
 ## 🆕 新機能 (2026-01-11)
 
-### 進化の哲学：「進化」と「変化」の2軸
+### 設定ページとカスタマイズ機能
 
-MorphoNewsは単なる「変化」ではなく、**明確な「進化」**を目指します：
+MorphoNewsは単なる「変化」ではなく、**明確な「進化」**とユーザー制御を目指します：
+
+#### ⚙️ 設定ページ (NEW!)
+- **機能の有効化/無効化**: 各機能を個別にオン/オフ可能
+- **スタイル選択**: 6つのテーマから好みのスタイルを選択
+- **設定の永続化**: すべての設定をlocalStorageに保存
+- **リアルタイムプレビュー**: 設定変更をすぐに確認可能
 
 #### 🚀 機能の進化 (Feature Evolution)
 - **🎨 スタイル選択**: 6つのテーマから選べる（デフォルト、オーシャン、フォレスト、サンセット、ミッドナイト、チェリーブロッサム）
-- **📊 読書進捗バー**: ページ上部に進捗を表示
-- **🔤 文字サイズ調整**: A+/A-ボタンで70%〜150%まで調整可能
+- **📊 読書進捗バー**: ページ上部に進捗を表示（設定で無効化可能）
+- **🔤 文字サイズ調整**: A+/A-ボタンで70%〜150%まで調整可能（設定で無効化可能）
 - **💾 設定の保存**: 選択したスタイルと文字サイズを自動保存
 - **🖼️ スタイルギャラリー**: 全スタイルをプレビュー付きで一覧表示
+- **📱 完全モバイル対応**: すべてのページがモバイルデバイスに最適化
 
 #### 🎭 スタイルの変化 (Style Variation)
 - 生成されたスタイルは保存され、いつでも選択可能
 - ユーザーが好みのスタイルを自由に選択できる
 - 過去のスタイルも利用可能
+
+#### 🔄 実行モード
+- **AIモード (デフォルト)**: 新規機能とスタイルをAIが生成
+- **モジュラーモード**: テンプレートベースで高速生成
+- **ニュースのみモード**: 機能/スタイル生成をスキップしてニュースのみ取得
+
+#### ⏰ 自動実行
+- GitHub Actionsが1日3回自動実行（JST 9:00, 17:00, 1:00）
 
 詳細は [FEATURES.md](./FEATURES.md) を参照してください。
 
@@ -54,21 +69,28 @@ MorphoNewsは単なる「変化」ではなく、**明確な「進化」**を目
 morphonews/
 ├── .github/
 │   └── workflows/
-│       └── daily_update.yml      # GitHub Actions自動実行設定
+│       └── daily_update.yml      # GitHub Actions自動実行設定（1日3回）
 ├── public/
 │   ├── index.html                # リダイレクト用（最新版へ転送）
 │   ├── history.html              # 履歴一覧ページ（外部CSS/JS使用）
+│   ├── settings.html             # 設定ページ（NEW!）
+│   ├── style-gallery.html        # スタイルギャラリーページ
 │   ├── history.json              # 履歴データ（詳細メタデータ含む）
+│   ├── features.json             # 機能一覧とメタデータ（NEW!）
 │   ├── styles/                   # CSSファイル
 │   │   ├── history.css          # history.html専用スタイル
 │   │   ├── archive-base.css     # アーカイブページ共通スタイル
-│   │   └── archives/            # アーカイブ個別スタイル（オプション）
-│   │       └── YYYY-MM-DD_HHMM.css
+│   │   ├── styles.json          # スタイルメタデータ（NEW!）
+│   │   └── archives/            # テーマ別CSSファイル
+│   │       ├── default.css
+│   │       ├── ocean.css
+│   │       ├── forest.css
+│   │       ├── sunset.css
+│   │       ├── midnight.css
+│   │       └── cherry.css
 │   ├── js/                       # JavaScriptファイル
 │   │   ├── history.js           # history.html専用スクリプト
-│   │   ├── archive-base.js      # アーカイブページ共通スクリプト
-│   │   └── archives/            # アーカイブ個別スクリプト（オプション）
-│   │       └── YYYY-MM-DD_HHMM.js
+│   │   └── archive-base.js      # アーカイブページ共通スクリプト（機能制御含む）
 │   ├── archives/                 # 生成されたHTMLアーカイブ
 │   │   ├── TEMPLATE.html        # 新規アーカイブ用テンプレート
 │   │   └── YYYY-MM-DD_HHMM.html # 各日のニュースページ
@@ -77,7 +99,7 @@ morphonews/
 │   └── assets/                   # 画像などのアセット
 │       └── icons/
 ├── scripts/
-│   ├── generator.py              # メイン生成スクリプト
+│   ├── generator.py              # メイン生成スクリプト（3モード対応）
 │   ├── migrate_history.py        # 履歴移行スクリプト
 │   └── requirements.txt          # Python依存関係
 └── README.md
@@ -115,8 +137,13 @@ pip install -r scripts/requirements.txt
 # 環境変数設定
 export OPENAI_API_KEY="your-gemini-api-key"
 
-# 実行
+# 実行（デフォルトはAIモード）
 python scripts/generator.py
+
+# 実行モード指定
+export GENERATION_MODE="ai"          # AIモード（新機能とスタイル生成）
+export GENERATION_MODE="modular"     # モジュラーモード（テンプレートベース）
+export GENERATION_MODE="news-only"   # ニュースのみモード
 ```
 
 ### GitHub Actions設定
@@ -125,9 +152,35 @@ python scripts/generator.py
 2. `OPENAI_API_KEY` にGemini APIキーを設定
 3. GitHub Pagesを有効化（Source: GitHub Actions）
 
+## 💡 使い方
+
+### 設定ページの使用
+
+1. ナビゲーションから「設定」をクリック
+2. **機能の有効化/無効化**: トグルスイッチで各機能をオン/オフ
+   - 読書進捗バー
+   - 文字サイズ調整
+   - スタイル選択機能
+   - など
+3. **スタイル選択**: お好みのテーマを選択
+   - デフォルト、オーシャン、フォレスト、サンセット、ミッドナイト、チェリーブロッサム
+4. 「設定を保存」ボタンをクリック
+
+設定はブラウザのlocalStorageに保存され、次回訪問時も適用されます。
+
+### 手動実行（GitHub Actions）
+
+1. リポジトリの「Actions」タブを開く
+2. 「Evolve MorphoNews」ワークフローを選択
+3. 「Run workflow」をクリック
+4. 生成モードを選択:
+   - **ai**: 新機能とスタイルをAI生成（デフォルト）
+   - **modular**: テンプレートベースで高速生成
+   - **news-only**: ニュースのみ取得（機能/スタイル生成なし）
+
 ## 📅 更新スケジュール
 
-毎日 日本時間 8:00 (UTC 23:00) に自動実行されます。
+1日3回、日本時間 9:00、17:00、1:00 (UTC 0:00、8:00、16:00) に自動実行されます。
 手動実行も可能（Actions → Run workflow）。
 
 ## 📜 ライセンス

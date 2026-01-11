@@ -1,0 +1,22 @@
+/**
+ * MorphoNews Ocean Theme
+ * 深い海のブルーをベースにした落ち着いたデザイン
+ */
+
+:root {
+    --morpho-bg-primary: #f0f9ff;
+    --morpho-bg-secondary: #ffffff;
+    --morpho-bg-card: #ffffff;
+    --morpho-text-primary: #0c4a6e;
+    --morpho-text-secondary: #0369a1;
+    --morpho-accent-primary: #0ea5e9;
+    --morpho-accent-secondary: #06b6d4;
+    --morpho-border-color: #bae6fd;
+    --morpho-accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #14b8a6 100%);
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+}

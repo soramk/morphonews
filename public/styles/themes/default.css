@@ -1,0 +1,16 @@
+/**
+ * MorphoNews Default Theme
+ * インディゴ＆パープルのグラデーション
+ */
+
+:root {
+    --morpho-bg-primary: #f8fafc;
+    --morpho-bg-secondary: #ffffff;
+    --morpho-bg-card: #ffffff;
+    --morpho-text-primary: #1e293b;
+    --morpho-text-secondary: #64748b;
+    --morpho-accent-primary: #6366f1;
+    --morpho-accent-secondary: #8b5cf6;
+    --morpho-border-color: #e2e8f0;
+    --morpho-accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+}

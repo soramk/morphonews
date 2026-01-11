@@ -1,233 +1,293 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MorphoNews Gen #XX | {MOOD_KEYWORD}</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <title>MorphoNews | {DISPLAY_DATE} - Generation #{GENERATION_NUMBER}</title>
+    <meta name="description" content="AIが自動生成する進化型テックニュース - {MOOD_KEYWORD}">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="/styles/base.css">
+
+    <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
+    <link id="morpho-theme-css" rel="stylesheet" href="/styles/themes/{THEME_ID}.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Base Styles (Common across all archives) -->
-    <link rel="stylesheet" href="../styles/archive-base.css">
-    
-    <!-- Per-Archive Custom Styles (Optional) -->
-    <!-- <link rel="stylesheet" href="../styles/archives/YYYY-MM-DD_HHMM.css"> -->
-    
+
     <style>
-        /* Optional: Mood-specific color overrides */
-        /* This can be dynamically generated or loaded from a per-archive CSS file */
-        :root {
-            /* Example: Override accent colors for specific mood */
-            /* --accent-primary: #10b981; */
-            /* --accent-secondary: #34d399; */
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--morpho-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--morpho-bg-secondary);
+            z-index: 999;
+            padding: 80px 24px 24px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--morpho-text-primary);
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--morpho-bg-primary);
+        }
+
+        .mobile-menu a.active {
+            background: var(--morpho-accent-gradient);
+            color: white;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .morpho-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .morpho-header-content {
+                flex-wrap: nowrap;
+            }
+
+            .morpho-logo span {
+                display: none;
+            }
         }
     </style>
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="../history.html" class="nav-brand">
-            <h1>MorphoNews</h1>
-            <span class="gen-badge">Gen #{GENERATION_NUMBER}</span>
-        </a>
-        <div class="nav-controls">
-            <!-- Previous article link - generator should replace {PREV_ARTICLE_LINK} with:
-                 - Full <a> tag if previous article exists
-                 - Empty string if this is the first article -->
-            {PREV_ARTICLE_LINK}
-            <a href="../history.html" class="nav-link primary">
-                <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
-                Archive List
-            </a>
-            <a href="../settings.html" class="nav-link">
-                <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
-                Settings
-            </a>
-            <time class="nav-link">{DISPLAY_DATE}</time>
+
+<body data-article-id="{ARTICLE_ID}" data-prev-link="{PREV_LINK}">
+
+    <!-- Header -->
+    <header class="morpho-header">
+        <div class="morpho-header-content">
+            <div class="morpho-logo">
+                <h1>🦋 MorphoNews</h1>
+                <span>Generation #{GENERATION_NUMBER} | {MOOD_KEYWORD}</span>
+            </div>
+            <nav class="morpho-nav">
+                {PREV_ARTICLE_LINK}
+                <a href="../history.html">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブ
+                </a>
+                <a href="../settings.html">
+                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                    設定
+                </a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">
+            <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+            最新のニュース
+        </a>
+        <a href="../history.html">
+            <i data-lucide="archive" style="width: 24px; height: 24px;"></i>
+            アーカイブ
+        </a>
+        <a href="../settings.html">
+            <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
+            設定
+        </a>
     </nav>
 
     <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <h2>{MOOD_KEYWORD}</h2>
-            <div class="hero-meta">
-                <span>
-                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
-                    {FETCH_TIME_JST}
-                </span>
-                <span>
-                    <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
-                    {ARTICLE_COUNT} articles
-                </span>
-                <span>
-                    <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
-                    {MODEL_NAME}
-                </span>
+    <main class="morpho-main">
+        <!-- Daily Summary -->
+        <section class="morpho-card morpho-animate-in" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--morpho-accent-primary);"></i>
+                今日のテックトレンド
+            </h2>
+            <p style="font-size: 1.05rem; line-height: 1.8;">{DAILY_SUMMARY}</p>
+        </section>
+
+        <!-- Top News -->
+        <section>
+            <h2 style="font-size: 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="newspaper" style="width: 22px; height: 22px; color: var(--morpho-accent-primary);"></i>
+                注目ニュース
+            </h2>
+            <div id="news-container">
+                <!-- news-renderer.js が動的に挿入 -->
             </div>
         </section>
 
-        <!-- Daily Summary -->
-        <section class="summary-section">
-            <h3>
-                <i data-lucide="sparkles" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;"></i>
-                Today's Tech Trend Summary
+        <!-- Meta Information -->
+        <section class="morpho-card" style="margin-top: 2rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="info" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                システム情報
             </h3>
-            <p>{DAILY_SUMMARY}</p>
+            <div class="morpho-meta">
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">取得日時</span>
+                    <span class="morpho-meta-value" id="meta-fetch-time">{FETCH_TIME_JST}</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">収集記事数</span>
+                    <span class="morpho-meta-value" id="meta-article-count">{ARTICLE_COUNT}</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">使用モデル</span>
+                    <span class="morpho-meta-value" id="meta-model">{MODEL_NAME}</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約トークン</span>
+                    <span class="morpho-meta-value" id="meta-summary-tokens">{SUMMARY_TOKENS}</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約時間</span>
+                    <span class="morpho-meta-value" id="meta-summary-time">{SUMMARY_TIME}秒</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">全体処理時間</span>
+                    <span class="morpho-meta-value" id="meta-total-time">{TOTAL_PROCESSING_TIME}秒</span>
+                </div>
+            </div>
+
+            <!-- Prompts (collapsible) -->
+            <details style="margin-top: 1rem;">
+                <summary>
+                    <i data-lucide="code" style="width: 16px; height: 16px;"></i>
+                    AIプロンプトを表示
+                </summary>
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">要約プロンプト</h4>
+                <pre>{SUMMARY_PROMPT}</pre>
+            </details>
         </section>
 
-        <!-- Top News Grid -->
-        <section class="news-grid" id="news-grid">
-            <!-- News cards will be rendered here via JavaScript -->
-        </section>
-
-        <!-- System Details -->
-        <section class="system-details">
-            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">
-                <i data-lucide="settings" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;"></i>
-                System Information
+        <!-- Evolution Log -->
+        <section class="morpho-card" style="margin-top: 1rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="git-branch" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                進化ログ
             </h3>
-            
-            <details>
-                <summary>Summary AI Prompt</summary>
-                <div class="details-content">{SUMMARY_PROMPT}</div>
-            </details>
-            
-            <details>
-                <summary>Design AI Prompt</summary>
-                <div class="details-content">{DESIGN_PROMPT}</div>
-            </details>
+            <p style="color: var(--morpho-text-secondary); font-size: 0.95rem;">
+                <strong>新機能:</strong> {NEW_FEATURE_NAME}<br>
+                <strong>新スタイル:</strong> {NEW_STYLE_NAME}<br>
+                <strong>ムード:</strong> {MOOD_KEYWORD}
+            </p>
         </section>
     </main>
 
-    <!-- Footer with Statistics -->
-    <footer>
-        <div class="footer-stats">
-            <div class="stat-group">
-                <h4>
-                    <i data-lucide="bar-chart" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
-                    Generation Stats
-                </h4>
-                <ul>
-                    <li><span>Model:</span> <span>{MODEL_NAME}</span></li>
-                    <li><span>Articles:</span> <span>{ARTICLE_COUNT}</span></li>
-                    <li><span>Summary Time:</span> <span>{SUMMARY_TIME}s</span></li>
-                </ul>
-            </div>
-            
-            <div class="stat-group">
-                <h4>
-                    <i data-lucide="hash" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
-                    Token Metrics
-                </h4>
-                <ul>
-                    <li><span>Input Tokens:</span> <span>{SUMMARY_INPUT_TOKENS}</span></li>
-                    <li><span>Output Tokens:</span> <span>{SUMMARY_OUTPUT_TOKENS}</span></li>
-                    <li><span>Total Tokens:</span> <span>{SUMMARY_TOTAL_TOKENS}</span></li>
-                </ul>
-            </div>
-            
-            <div class="stat-group">
-                <h4>
-                    <i data-lucide="palette" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
-                    Design Stats
-                </h4>
-                <ul>
-                    <li><span>Design Tokens:</span> <span>{DESIGN_TOTAL_TOKENS}</span></li>
-                    <li><span>Design Time:</span> <span>{DESIGN_TIME}s</span></li>
-                    <li><span>Total Process:</span> <span>{TOTAL_PROCESSING_TIME}s</span></li>
-                </ul>
-            </div>
-            
-            <div class="stat-group">
-                <h4>
-                    <i data-lucide="calendar" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
-                    Timestamp
-                </h4>
-                <ul>
-                    <li>{FETCH_TIME_JST}</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-credit">
-            <i data-lucide="sparkles" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;"></i>
-            MorphoNews - AI-driven self-evolving news site
+    <!-- Footer -->
+    <footer class="morpho-footer">
+        <div class="morpho-footer-content" style="text-align: center; color: var(--morpho-text-secondary);">
+            <p>🦋 MorphoNews - AIが進化させる自律型ニュースサイト</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Generation #{GENERATION_NUMBER} | {DISPLAY_DATE}
+            </p>
         </div>
     </footer>
 
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress"></div>
+    <!-- Core Scripts -->
+    <script src="/features/core/loader.js"></script>
+    <script src="/features/core/news-renderer.js"></script>
 
-    <!-- Font Size Controls -->
-    <div id="font-controls">
-        <button id="font-increase" class="font-control-btn" title="文字を大きく" aria-label="Increase font size">
-            A+
-        </button>
-        <button id="font-decrease" class="font-control-btn" title="文字を小さく" aria-label="Decrease font size">
-            A-
-        </button>
-    </div>
-
-    <!-- Style Selector Toggle Button -->
-    <button id="style-selector-toggle" title="スタイルを変更" aria-label="Change style">
-        <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
-    </button>
-
-    <!-- Style Selector Panel -->
-    <div id="style-selector-panel">
-        <div class="panel-header">
-            <h3>
-                <i data-lucide="palette" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle;"></i>
-                スタイル選択
-            </h3>
-        </div>
-        <div id="style-selector-grid">
-            <!-- Style options will be loaded here dynamically -->
-        </div>
-    </div>
-
-    <!-- Base JavaScript (Common functionality) -->
-    <script src="../js/archive-base.js"></script>
-    
-    <!-- Page-Specific Data and Rendering -->
+    <!-- Initialize -->
     <script>
-        // Toggle style selector panel
-        document.getElementById('style-selector-toggle').addEventListener('click', function() {
-            const panel = document.getElementById('style-selector-panel');
-            panel.classList.toggle('active');
-        });
-        
-        // Close panel when clicking outside
-        document.addEventListener('click', function(e) {
-            const toggle = document.getElementById('style-selector-toggle');
-            const panel = document.getElementById('style-selector-panel');
-            if (!toggle.contains(e.target) && !panel.contains(e.target)) {
-                panel.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide Icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Hamburger Menu
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('show');
+                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+
+            // Apply saved theme
+            const savedTheme = localStorage.getItem('morpho-theme');
+            if (savedTheme) {
+                const themeLink = document.getElementById('morpho-theme-css');
+                if (themeLink) {
+                    themeLink.href = `/styles/themes/${savedTheme}.css`;
+                }
             }
         });
-        
-        // SECURITY: Loading from external JSON is more secure than embedding
-        // Recommended approach:
-        fetch('../data/{ARTICLE_ID}.json')
-            .then(response => response.json())
-            .then(newsData => {
-                if (window.MorphoNewsArchive && newsData && newsData.top_news) {
-                    window.MorphoNewsArchive.renderNewsCards(newsData.top_news, 'news-grid');
-                }
-            })
-            .catch(error => console.error('Failed to load news data:', error));
-        
-        // Alternative: If embedding is necessary, use proper JSON encoding on server side
-        // DO NOT manually construct JSON strings - use json.dumps() with proper parameters
-        // const newsData = JSON.parse('{NEWS_DATA_JSON_ESCAPED}');
     </script>
 </body>
+
 </html>

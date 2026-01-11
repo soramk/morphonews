@@ -1,0 +1,22 @@
+/**
+ * MorphoNews Sunset Theme
+ * 夕焼けのオレンジとピンクのグラデーション
+ */
+
+:root {
+    --morpho-bg-primary: #fff7ed;
+    --morpho-bg-secondary: #ffffff;
+    --morpho-bg-card: #ffffff;
+    --morpho-text-primary: #7c2d12;
+    --morpho-text-secondary: #9a3412;
+    --morpho-accent-primary: #f97316;
+    --morpho-accent-secondary: #ec4899;
+    --morpho-border-color: #fed7aa;
+    --morpho-accent-gradient: linear-gradient(135deg, #f97316 0%, #f472b6 50%, #ec4899 100%);
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+}

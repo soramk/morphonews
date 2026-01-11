@@ -1,0 +1,22 @@
+/**
+ * MorphoNews Forest Theme
+ * 自然の緑をベースにした穏やかなデザイン
+ */
+
+:root {
+    --morpho-bg-primary: #f0fdf4;
+    --morpho-bg-secondary: #ffffff;
+    --morpho-bg-card: #ffffff;
+    --morpho-text-primary: #14532d;
+    --morpho-text-secondary: #166534;
+    --morpho-accent-primary: #22c55e;
+    --morpho-accent-secondary: #10b981;
+    --morpho-border-color: #bbf7d0;
+    --morpho-accent-gradient: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #14b8a6 100%);
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+}

@@ -1,96 +1,91 @@
 {
   "version": 1,
-  "styles": [
+  "lastUpdated": "2026-01-11",
+  "currentDefault": "default",
+  "themes": [
     {
       "id": "default",
       "name": "デフォルト",
-      "name_en": "Default",
-      "description": "明るいインディゴ/パープルテーマ",
-      "description_en": "Light indigo/purple theme",
-      "file": "archives/default.css",
-      "preview_colors": {
+      "description": "インディゴ＆パープルのグラデーション、モダンで洗練されたデザイン",
+      "file": "themes/default.css",
+      "preview": {
         "primary": "#6366f1",
         "secondary": "#8b5cf6",
-        "background": "#fdfdfd"
+        "background": "#f8fafc",
+        "text": "#1e293b"
       },
-      "mood": "neutral",
-      "created_at": "2026-01-11",
-      "is_default": true
+      "addedDate": "2026-01-11",
+      "author": "system"
     },
     {
       "id": "ocean",
       "name": "オーシャン",
-      "name_en": "Ocean",
-      "description": "爽やかな海のブルーテーマ",
-      "description_en": "Cool ocean blue theme",
-      "file": "archives/ocean.css",
-      "preview_colors": {
+      "description": "深い海のブルーをベースにした落ち着いたデザイン",
+      "file": "themes/ocean.css",
+      "preview": {
         "primary": "#0ea5e9",
         "secondary": "#06b6d4",
-        "background": "#f0f9ff"
+        "background": "#f0f9ff",
+        "text": "#0c4a6e"
       },
-      "mood": "calm",
-      "created_at": "2026-01-11"
+      "addedDate": "2026-01-11",
+      "author": "system"
     },
     {
       "id": "forest",
       "name": "フォレスト",
-      "name_en": "Forest",
-      "description": "自然なグリーンテーマ",
-      "description_en": "Natural green theme",
-      "file": "archives/forest.css",
-      "preview_colors": {
-        "primary": "#10b981",
-        "secondary": "#34d399",
-        "background": "#f0fdf4"
+      "description": "自然の緑をベースにした穏やかなデザイン",
+      "file": "themes/forest.css",
+      "preview": {
+        "primary": "#22c55e",
+        "secondary": "#10b981",
+        "background": "#f0fdf4",
+        "text": "#14532d"
       },
-      "mood": "fresh",
-      "created_at": "2026-01-11"
+      "addedDate": "2026-01-11",
+      "author": "system"
     },
     {
       "id": "sunset",
       "name": "サンセット",
-      "name_en": "Sunset",
-      "description": "温かみのあるオレンジテーマ",
-      "description_en": "Warm orange/sunset theme",
-      "file": "archives/sunset.css",
-      "preview_colors": {
+      "description": "夕焼けのオレンジとピンクのグラデーション",
+      "file": "themes/sunset.css",
+      "preview": {
         "primary": "#f97316",
-        "secondary": "#fb923c",
-        "background": "#fff7ed"
+        "secondary": "#ec4899",
+        "background": "#fff7ed",
+        "text": "#7c2d12"
       },
-      "mood": "warm",
-      "created_at": "2026-01-11"
+      "addedDate": "2026-01-11",
+      "author": "system"
     },
     {
       "id": "midnight",
       "name": "ミッドナイト",
-      "name_en": "Midnight",
-      "description": "夜間用のダークテーマ",
-      "description_en": "Dark theme for night reading",
-      "file": "archives/midnight.css",
-      "preview_colors": {
+      "description": "ダークモード、夜のインターフェース",
+      "file": "themes/midnight.css",
+      "preview": {
         "primary": "#a78bfa",
         "secondary": "#c084fc",
-        "background": "#0f0f1e"
+        "background": "#0f172a",
+        "text": "#e2e8f0"
       },
-      "mood": "dark",
-      "created_at": "2026-01-11"
+      "addedDate": "2026-01-11",
+      "author": "system"
     },
     {
       "id": "cherry",
       "name": "チェリーブロッサム",
-      "name_en": "Cherry Blossom",
-      "description": "桜のようなピンクテーマ",
-      "description_en": "Soft pink cherry blossom theme",
-      "file": "archives/cherry.css",
-      "preview_colors": {
+      "description": "桜をイメージしたピンクの優しいデザイン",
+      "file": "themes/cherry.css",
+      "preview": {
         "primary": "#ec4899",
         "secondary": "#f472b6",
-        "background": "#fef2f2"
+        "background": "#fdf2f8",
+        "text": "#831843"
       },
-      "mood": "romantic",
-      "created_at": "2026-01-11"
+      "addedDate": "2026-01-11",
+      "author": "system"
     }
   ]
 }

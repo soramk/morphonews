@@ -1,0 +1,54 @@
+/**
+ * MorphoNews Midnight Theme
+ * ダークモード、夜のインターフェース
+ */
+
+:root {
+    --morpho-bg-primary: #0f172a;
+    --morpho-bg-secondary: #1e293b;
+    --morpho-bg-card: #1e293b;
+    --morpho-text-primary: #e2e8f0;
+    --morpho-text-secondary: #94a3b8;
+    --morpho-accent-primary: #a78bfa;
+    --morpho-accent-secondary: #c084fc;
+    --morpho-border-color: #334155;
+    --morpho-accent-gradient: linear-gradient(135deg, #a78bfa 0%, #c084fc 50%, #e879f9 100%);
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.1) 0%, transparent 50%);
+}
+
+/* ダークモード用調整 */
+.morpho-card,
+.news-card {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+}
+
+details pre {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* スイッチャー・コントロールのダークモード対応 */
+#style-switcher,
+#font-resize-controls {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: #334155;
+}
+
+#style-switcher label {
+    color: #94a3b8;
+}
+
+#theme-select {
+    background: #0f172a;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+#font-size-display {
+    color: #94a3b8;
+}

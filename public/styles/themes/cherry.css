@@ -1,0 +1,35 @@
+/**
+ * MorphoNews Cherry Blossom Theme
+ * 桜をイメージしたピンクの優しいデザイン
+ */
+
+:root {
+    --morpho-bg-primary: #fdf2f8;
+    --morpho-bg-secondary: #ffffff;
+    --morpho-bg-card: #ffffff;
+    --morpho-text-primary: #831843;
+    --morpho-text-secondary: #9d174d;
+    --morpho-accent-primary: #ec4899;
+    --morpho-accent-secondary: #f472b6;
+    --morpho-border-color: #fbcfe8;
+    --morpho-accent-gradient: linear-gradient(135deg, #ec4899 0%, #f472b6 50%, #fb7185 100%);
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(244, 114, 182, 0.08) 0%, transparent 50%);
+}
+
+/* 桜の花びらのアニメーション（オプション） */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}

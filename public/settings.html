@@ -1,153 +1,79 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>設定 | MorphoNews</title>
-    <meta name="description" content="MorphoNewsの機能とスタイルをカスタマイズ。お好みの設定で快適にニュースをお読みください。">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <title>MorphoNews | 設定</title>
+    <meta name="description" content="MorphoNewsの設定ページ。機能のON/OFF、テーマ選択などをカスタマイズできます。">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="./styles/base.css">
+
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f1f5f9;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --accent-primary: #6366f1;
-            --accent-secondary: #8b5cf6;
-            --accent-success: #22c55e;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Noto Sans JP', 'Outfit', sans-serif;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        header {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        nav a:hover, nav a.active {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        main {
-            max-width: 1200px;
+        .settings-container {
+            max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        .page-header {
+        .page-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
-        .page-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .page-title h1 {
+            font-size: 2rem;
+            background: var(--morpho-accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .page-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+        .page-title p {
+            color: var(--morpho-text-secondary);
+            margin-top: 0.5rem;
         }
 
         .settings-section {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: var(--shadow-sm);
+            background: var(--morpho-bg-card);
+            border: 1px solid var(--morpho-border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .settings-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-primary);
-        }
-
-        .settings-section p {
-            color: var(--text-secondary);
+            gap: 0.75rem;
             margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--morpho-border-color);
         }
 
+        .section-header h2 {
+            font-size: 1.2rem;
+            color: var(--morpho-text-primary);
+        }
+
+        .section-header i {
+            color: var(--morpho-accent-primary);
+        }
+
+        /* Feature Toggle */
         .feature-list {
             display: flex;
             flex-direction: column;
@@ -156,16 +82,16 @@
 
         .feature-item {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             padding: 1rem;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
+            background: var(--morpho-bg-primary);
+            border-radius: 12px;
             transition: all 0.2s ease;
         }
 
         .feature-item:hover {
-            background: var(--bg-primary);
+            background: color-mix(in srgb, var(--morpho-accent-primary) 5%, var(--morpho-bg-primary));
         }
 
         .feature-info {
@@ -173,21 +99,34 @@
         }
 
         .feature-name {
+            font-weight: 600;
+            color: var(--morpho-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-name .badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            background: var(--morpho-accent-gradient);
+            color: white;
             font-weight: 500;
-            margin-bottom: 0.25rem;
-            color: var(--text-primary);
         }
 
-        .feature-desc {
+        .feature-description {
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: var(--morpho-text-secondary);
+            margin-top: 0.25rem;
         }
 
+        /* Toggle Switch */
         .toggle-switch {
             position: relative;
-            width: 50px;
-            height: 26px;
-            margin-left: 1rem;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
         }
 
         .toggle-switch input {
@@ -203,467 +142,636 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #cbd5e1;
+            background: var(--morpho-border-color);
             transition: 0.3s;
-            border-radius: 26px;
+            border-radius: 28px;
         }
 
-        .toggle-slider:before {
+        .toggle-slider::before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
+            height: 22px;
+            width: 22px;
             left: 3px;
             bottom: 3px;
-            background-color: white;
+            background: white;
             transition: 0.3s;
             border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .toggle-switch input:checked + .toggle-slider {
-            background-color: var(--accent-success);
+        .toggle-switch input:checked+.toggle-slider {
+            background: var(--morpho-accent-gradient);
         }
 
-        .toggle-switch input:checked + .toggle-slider:before {
+        .toggle-switch input:checked+.toggle-slider::before {
             transform: translateX(24px);
         }
 
-        .style-grid {
+        .toggle-switch input:disabled+.toggle-slider {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Theme Grid */
+        .theme-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 1rem;
         }
 
-        .style-card {
-            background: var(--bg-tertiary);
-            border: 2px solid transparent;
-            border-radius: 10px;
+        .theme-card {
+            border: 2px solid var(--morpho-border-color);
+            border-radius: 12px;
             padding: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-align: center;
         }
 
-        .style-card:hover {
-            border-color: var(--accent-primary);
+        .theme-card:hover {
+            border-color: var(--morpho-accent-primary);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
         }
 
-        .style-card.active {
-            border-color: var(--accent-success);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+        .theme-card.active {
+            border-color: var(--morpho-accent-primary);
+            background: color-mix(in srgb, var(--morpho-accent-primary) 5%, var(--morpho-bg-card));
         }
 
-        .style-preview {
+        .theme-preview {
             display: flex;
-            gap: 0.5rem;
+            gap: 4px;
             justify-content: center;
             margin-bottom: 0.75rem;
         }
 
-        .preview-circle {
-            width: 32px;
-            height: 32px;
+        .theme-color {
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             border: 2px solid white;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        .style-name {
+        .theme-name {
             font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--text-primary);
+            font-size: 0.9rem;
+            color: var(--morpho-text-primary);
         }
 
-        .style-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .theme-description {
+            font-size: 0.75rem;
+            color: var(--morpho-text-secondary);
+            margin-top: 0.25rem;
         }
 
-        .save-button {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        /* Save Button */
+        .save-section {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-save {
+            background: var(--morpho-accent-gradient);
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin: 2rem auto;
-            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
         }
 
-        .save-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        .btn-save:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--morpho-accent-primary) 30%, transparent);
         }
 
-        .save-button:active {
-            transform: translateY(0);
+        .btn-reset {
+            background: transparent;
+            color: var(--morpho-text-secondary);
+            border: 1px solid var(--morpho-border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .notification {
+        .btn-reset:hover {
+            background: var(--morpho-bg-primary);
+            color: var(--morpho-text-primary);
+        }
+
+        /* Toast Notification */
+        .toast {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--accent-success);
-            color: white;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--morpho-text-primary);
+            color: var(--morpho-bg-primary);
             padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
             z-index: 1000;
         }
 
-        .notification.show {
-            opacity: 1;
-            transform: translateY(0);
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
         }
 
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem;
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: var(--morpho-bg-primary);
+            border-radius: 12px;
+            padding: 1rem;
             text-align: center;
-            color: var(--text-secondary);
-            margin-top: 4rem;
         }
 
-        /* Mobile Responsive */
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--morpho-accent-primary);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--morpho-text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--morpho-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--morpho-bg-secondary);
+            z-index: 999;
+            padding: 80px 24px 24px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--morpho-text-primary);
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--morpho-bg-primary);
+        }
+
+        .mobile-menu a.active {
+            background: var(--morpho-accent-gradient);
+            color: white;
+        }
+
         @media (max-width: 768px) {
-            header {
+            .settings-container {
                 padding: 1rem;
             }
 
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
+            .morpho-nav {
+                display: none;
             }
 
-            nav {
-                width: 100%;
-                justify-content: space-between;
+            .hamburger {
+                display: flex;
             }
 
-            nav a {
-                padding: 0.5rem;
-                font-size: 0.85rem;
-            }
-
-            main {
-                padding: 1rem;
-            }
-
-            .page-header h2 {
-                font-size: 2rem;
-            }
-
-            .settings-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .settings-section {
-                padding: 1.5rem;
-            }
-
-            .style-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 0.75rem;
+            .theme-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .feature-item {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.75rem;
+                gap: 1rem;
             }
 
             .toggle-switch {
-                margin-left: 0;
-            }
-
-            .notification {
-                bottom: 1rem;
-                right: 1rem;
-                left: 1rem;
+                align-self: flex-end;
             }
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <div class="header-content">
-            <a href="./index.html" class="logo">
-                <h1>MorphoNews</h1>
-            </a>
-            <nav>
+    <!-- Header -->
+    <header class="morpho-header">
+        <div class="morpho-header-content">
+            <div class="morpho-logo">
+                <h1>🦋 MorphoNews</h1>
+                <span>Settings</span>
+            </div>
+            <nav class="morpho-nav">
                 <a href="./index.html">
                     <i data-lucide="home" style="width: 18px; height: 18px;"></i>
-                    ホーム
+                    最新
                 </a>
                 <a href="./history.html">
                     <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
                     アーカイブ
                 </a>
-                <a href="./style-gallery.html">
-                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
-                    スタイル
-                </a>
-                <a href="./settings.html" class="active">
+                <a href="./settings.html" class="active"
+                    style="background: var(--morpho-accent-gradient); color: white;">
                     <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
                     設定
                 </a>
             </nav>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
-    <main>
-        <div class="page-header">
-            <h2>⚙️ 設定</h2>
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="./index.html">
+            <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+            最新のニュース
+        </a>
+        <a href="./history.html">
+            <i data-lucide="archive" style="width: 24px; height: 24px;"></i>
+            アーカイブ
+        </a>
+        <a href="./settings.html" class="active">
+            <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
+            設定
+        </a>
+    </nav>
+
+    <main class="settings-container">
+        <div class="page-title">
+            <h1>
+                <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                設定
+            </h1>
             <p>MorphoNewsの機能とスタイルをカスタマイズ</p>
         </div>
 
-        <div class="settings-grid">
-            <!-- Features Section -->
-            <div class="settings-section">
-                <h3>
-                    <i data-lucide="toggle-left" style="width: 24px; height: 24px;"></i>
-                    機能の有効化/無効化
-                </h3>
-                <p>各機能を個別に有効化または無効化できます</p>
-                <div class="feature-list" id="features-list">
-                    <!-- Features will be loaded here -->
+        <!-- Features Section -->
+        <section class="settings-section">
+            <div class="section-header">
+                <i data-lucide="puzzle" style="width: 24px; height: 24px;"></i>
+                <h2>機能の有効化/無効化</h2>
+            </div>
+            <div class="feature-list" id="featureList">
+                <!-- JavaScript で動的に生成 -->
+                <div style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary);">
+                    <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                    <p>機能を読み込み中...</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Styles Section -->
-            <div class="settings-section" style="grid-column: span 1;">
-                <h3>
-                    <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
-                    スタイル選択
-                </h3>
-                <p>お好みのスタイルを選択してください</p>
-                <div class="style-grid" id="styles-list">
-                    <!-- Styles will be loaded here -->
+        <!-- Theme Section -->
+        <section class="settings-section">
+            <div class="section-header">
+                <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+                <h2>テーマを選択</h2>
+            </div>
+            <div class="theme-grid" id="themeGrid">
+                <!-- JavaScript で動的に生成 -->
+                <div
+                    style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary); grid-column: 1 / -1;">
+                    <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                    <p>テーマを読み込み中...</p>
                 </div>
             </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="settings-section">
+            <div class="section-header">
+                <i data-lucide="bar-chart-2" style="width: 24px; height: 24px;"></i>
+                <h2>統計情報</h2>
+            </div>
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-value" id="statFeatures">-</div>
+                    <div class="stat-label">登録機能</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statThemes">-</div>
+                    <div class="stat-label">テーマ</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statArchives">-</div>
+                    <div class="stat-label">アーカイブ</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Save Section -->
+        <div class="save-section">
+            <button class="btn-reset" id="btnReset">
+                <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;"></i>
+                リセット
+            </button>
+            <button class="btn-save" id="btnSave">
+                <i data-lucide="save" style="width: 18px; height: 18px;"></i>
+                設定を保存
+            </button>
         </div>
-
-        <button class="save-button" id="save-button">
-            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-            設定を保存
-        </button>
     </main>
 
-    <footer>
-        <p>
-            <i data-lucide="sparkles" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;"></i>
-            MorphoNews - AI駆動の自己進化型ニュースサイト
-        </p>
-    </footer>
-
-    <div class="notification" id="notification">
+    <!-- Toast -->
+    <div class="toast" id="toast">
         <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
-        <span>設定を保存しました</span>
+        <span id="toastMessage">設定を保存しました</span>
     </div>
 
     <script>
-        // Feature management
-        const FEATURE_PREFIX = 'morphonews_feature_';
-        const STYLE_STORAGE_KEY = 'morphonews_selected_style';
-        const DEFAULT_STYLE = 'default';
-
-        // Load features from features.json
-        async function loadFeatures() {
-            try {
-                const response = await fetch('./features.json');
-                const data = await response.json();
-                renderFeatures(data.features);
-            } catch (error) {
-                console.error('Failed to load features:', error);
+        // Settings Manager
+        class SettingsManager {
+            constructor() {
+                this.features = [];
+                this.themes = [];
+                this.settings = this.loadSettings();
+                this.currentTheme = this.settings.theme || 'default';
             }
-        }
 
-        function renderFeatures(features) {
-            const container = document.getElementById('features-list');
-            if (!container) return;
-
-            features.forEach(feature => {
-                const isEnabled = getFeatureState(feature.id);
-                
-                const item = document.createElement('div');
-                item.className = 'feature-item';
-                
-                const info = document.createElement('div');
-                info.className = 'feature-info';
-                
-                const name = document.createElement('div');
-                name.className = 'feature-name';
-                name.textContent = feature.name;
-                
-                const desc = document.createElement('div');
-                desc.className = 'feature-desc';
-                desc.textContent = feature.description;
-                
-                info.appendChild(name);
-                info.appendChild(desc);
-                
-                const toggle = document.createElement('label');
-                toggle.className = 'toggle-switch';
-                
-                const input = document.createElement('input');
-                input.type = 'checkbox';
-                input.checked = isEnabled;
-                input.dataset.featureId = feature.id;
-                
-                const slider = document.createElement('span');
-                slider.className = 'toggle-slider';
-                
-                toggle.appendChild(input);
-                toggle.appendChild(slider);
-                
-                item.appendChild(info);
-                item.appendChild(toggle);
-                container.appendChild(item);
-            });
-        }
-
-        function getFeatureState(featureId) {
-            try {
-                const state = localStorage.getItem(FEATURE_PREFIX + featureId);
-                // Default to enabled if not set
-                return state === null ? true : state === 'true';
-            } catch (e) {
-                return true;
+            loadSettings() {
+                try {
+                    const saved = localStorage.getItem('morpho-settings');
+                    return saved ? JSON.parse(saved) : { features: {}, theme: 'default' };
+                } catch {
+                    return { features: {}, theme: 'default' };
+                }
             }
-        }
 
-        function setFeatureState(featureId, enabled) {
-            try {
-                localStorage.setItem(FEATURE_PREFIX + featureId, enabled.toString());
-            } catch (e) {
-                console.error('Failed to save feature state:', e);
+            saveSettings() {
+                localStorage.setItem('morpho-settings', JSON.stringify(this.settings));
+                localStorage.setItem('morpho-theme', this.currentTheme);
             }
-        }
 
-        // Load styles from styles.json
-        async function loadStyles() {
-            try {
-                const response = await fetch('./styles/styles.json');
-                const data = await response.json();
-                renderStyles(data.styles);
-            } catch (error) {
-                console.error('Failed to load styles:', error);
+            async init() {
+                await this.loadFeatures();
+                await this.loadThemes();
+                await this.loadStats();
+                this.renderFeatures();
+                this.renderThemes();
+                this.applyTheme(this.currentTheme);
+                this.bindEvents();
             }
-        }
 
-        function renderStyles(styles) {
-            const container = document.getElementById('styles-list');
-            if (!container) return;
+            async loadFeatures() {
+                try {
+                    const response = await fetch('./features/features.json');
+                    const data = await response.json();
+                    this.features = data.features || [];
+                } catch (error) {
+                    console.error('Failed to load features:', error);
+                    this.features = [];
+                }
+            }
 
-            const savedStyle = getSavedStyle();
+            async loadThemes() {
+                try {
+                    const response = await fetch('./styles/styles.json');
+                    const data = await response.json();
+                    this.themes = data.themes || [];
+                } catch (error) {
+                    console.error('Failed to load themes:', error);
+                    this.themes = [];
+                }
+            }
 
-            styles.forEach(style => {
-                const card = document.createElement('div');
-                card.className = 'style-card';
-                card.dataset.styleId = style.id;
-                
-                if (style.id === savedStyle) {
-                    card.classList.add('active');
+            async loadStats() {
+                try {
+                    const response = await fetch('./history.json');
+                    const data = await response.json();
+                    document.getElementById('statArchives').textContent = (data.entries || []).length;
+                } catch {
+                    document.getElementById('statArchives').textContent = '-';
                 }
 
-                const preview = document.createElement('div');
-                preview.className = 'style-preview';
+                document.getElementById('statFeatures').textContent = this.features.length;
+                document.getElementById('statThemes').textContent = this.themes.length;
+            }
 
-                const circle1 = document.createElement('div');
-                circle1.className = 'preview-circle';
-                circle1.style.backgroundColor = style.preview_colors.primary;
+            renderFeatures() {
+                const container = document.getElementById('featureList');
 
-                const circle2 = document.createElement('div');
-                circle2.className = 'preview-circle';
-                circle2.style.backgroundColor = style.preview_colors.secondary;
+                if (this.features.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--morpho-text-secondary);">機能が見つかりませんでした</p>';
+                    return;
+                }
 
-                preview.appendChild(circle1);
-                preview.appendChild(circle2);
+                container.innerHTML = this.features.map(feature => {
+                    const isEnabled = this.isFeatureEnabled(feature);
+                    const isRequired = feature.required;
 
-                const name = document.createElement('div');
-                name.className = 'style-name';
-                name.textContent = style.name;
+                    return `
+            <div class="feature-item" data-feature-id="${feature.id}">
+              <div class="feature-info">
+                <div class="feature-name">
+                  ${feature.name}
+                  ${isRequired ? '<span class="badge">必須</span>' : ''}
+                  ${feature.author === 'ai' ? '<span class="badge" style="background: linear-gradient(135deg, #22c55e, #10b981);">AI生成</span>' : ''}
+                </div>
+                <div class="feature-description">${feature.description}</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" 
+                       data-feature-id="${feature.id}" 
+                       ${isEnabled ? 'checked' : ''} 
+                       ${isRequired ? 'disabled' : ''}>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          `;
+                }).join('');
+            }
 
-                const desc = document.createElement('div');
-                desc.className = 'style-desc';
-                desc.textContent = style.description;
+            renderThemes() {
+                const container = document.getElementById('themeGrid');
 
-                card.appendChild(preview);
-                card.appendChild(name);
-                card.appendChild(desc);
+                if (this.themes.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--morpho-text-secondary); grid-column: 1 / -1;">テーマが見つかりませんでした</p>';
+                    return;
+                }
 
-                card.addEventListener('click', () => {
-                    document.querySelectorAll('.style-card').forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
+                container.innerHTML = this.themes.map(theme => {
+                    const isActive = theme.id === this.currentTheme;
+                    const preview = theme.preview || {};
+
+                    return `
+            <div class="theme-card ${isActive ? 'active' : ''}" data-theme-id="${theme.id}">
+              <div class="theme-preview">
+                <div class="theme-color" style="background: ${preview.primary || '#6366f1'}"></div>
+                <div class="theme-color" style="background: ${preview.secondary || '#8b5cf6'}"></div>
+                <div class="theme-color" style="background: ${preview.background || '#f8fafc'}"></div>
+              </div>
+              <div class="theme-name">${theme.name}</div>
+              <div class="theme-description">${theme.description?.substring(0, 30) || ''}...</div>
+            </div>
+          `;
+                }).join('');
+            }
+
+            isFeatureEnabled(feature) {
+                if (feature.required) return true;
+                const setting = this.settings.features?.[feature.id];
+                return setting !== undefined ? setting : feature.enabled;
+            }
+
+            applyTheme(themeId) {
+                const existing = document.querySelector('link[href*="/styles/themes/"]');
+                if (existing) {
+                    existing.href = `./styles/themes/${themeId}.css`;
+                }
+
+                // Update active state
+                document.querySelectorAll('.theme-card').forEach(card => {
+                    card.classList.toggle('active', card.dataset.themeId === themeId);
+                });
+            }
+
+            bindEvents() {
+                // Theme selection
+                document.getElementById('themeGrid').addEventListener('click', (e) => {
+                    const card = e.target.closest('.theme-card');
+                    if (card) {
+                        this.currentTheme = card.dataset.themeId;
+                        this.applyTheme(this.currentTheme);
+                    }
                 });
 
-                container.appendChild(card);
-            });
-        }
+                // Feature toggles
+                document.getElementById('featureList').addEventListener('change', (e) => {
+                    if (e.target.type === 'checkbox') {
+                        const featureId = e.target.dataset.featureId;
+                        if (!this.settings.features) this.settings.features = {};
+                        this.settings.features[featureId] = e.target.checked;
+                    }
+                });
 
-        function getSavedStyle() {
-            try {
-                return localStorage.getItem(STYLE_STORAGE_KEY) || DEFAULT_STYLE;
-            } catch (e) {
-                return DEFAULT_STYLE;
+                // Save button
+                document.getElementById('btnSave').addEventListener('click', () => {
+                    this.settings.theme = this.currentTheme;
+                    this.saveSettings();
+                    this.showToast('設定を保存しました');
+                });
+
+                // Reset button
+                document.getElementById('btnReset').addEventListener('click', () => {
+                    if (confirm('設定をリセットしますか？')) {
+                        localStorage.removeItem('morpho-settings');
+                        localStorage.removeItem('morpho-theme');
+                        this.settings = { features: {}, theme: 'default' };
+                        this.currentTheme = 'default';
+                        this.applyTheme('default');
+                        this.renderFeatures();
+                        this.renderThemes();
+                        this.showToast('設定をリセットしました');
+                    }
+                });
+
+                // Hamburger menu
+                const hamburger = document.getElementById('hamburger');
+                const mobileMenu = document.getElementById('mobileMenu');
+
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('show');
+                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+
+            showToast(message) {
+                const toast = document.getElementById('toast');
+                document.getElementById('toastMessage').textContent = message;
+                toast.classList.add('show');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
             }
         }
 
-        function saveSettings() {
-            // Save feature states
-            const featureToggles = document.querySelectorAll('input[data-feature-id]');
-            featureToggles.forEach(toggle => {
-                setFeatureState(toggle.dataset.featureId, toggle.checked);
-            });
-
-            // Save selected style
-            const activeStyle = document.querySelector('.style-card.active');
-            if (activeStyle) {
-                const styleId = activeStyle.dataset.styleId;
-                try {
-                    localStorage.setItem(STYLE_STORAGE_KEY, styleId);
-                } catch (e) {
-                    console.error('Failed to save style:', e);
-                }
-            }
-
-            // Show notification
-            showNotification();
-        }
-
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
+        // Spin animation
+        const style = document.createElement('style');
+        style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            loadFeatures();
-            loadStyles();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
 
-            // Save button handler
-            document.getElementById('save-button').addEventListener('click', saveSettings);
+            const settings = new SettingsManager();
+            settings.init();
         });
     </script>
 </body>
+
 </html>

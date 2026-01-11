@@ -1,122 +1,127 @@
 import os
 import json
-import shutil
 import html as html_module
 import feedparser
 import google.generativeai as genai
 from datetime import datetime, timezone, timedelta
 import time
+import re
 
 # --- 設定 ---
 API_KEY = os.environ.get("OPENAI_API_KEY")
-if not API_KEY:
-    # 開発環境などでキーがない場合の安全策（Github ActionsではSecrets必須）
-    pass 
-
-# Geminiの設定
 if API_KEY:
     genai.configure(api_key=API_KEY)
     
-MODEL_NAME = "gemini-3-flash-preview"
+MODEL_NAME = "gemini-2.0-flash"
 
-# 生成モード設定: 'ai' (AI生成HTML), 'modular' (テンプレートベース), 'news-only' (ニュースのみ取得)
-# デフォルトは 'ai' (AIモード: 新規機能の追加と新規スタイルの追加)
-GENERATION_MODE = os.environ.get("GENERATION_MODE", "ai")  # デフォルトはai
+# 生成モード設定: 'ai' (AI生成), 'modular' (テンプレートベース), 'news-only' (ニュースのみ)
+GENERATION_MODE = os.environ.get("GENERATION_MODE", "ai")
 
 # ディレクトリ構成
 PUBLIC_DIR = "public"
-ARCHIVE_DIR = os.path.join(PUBLIC_DIR, "archives") # HTML保管場所
-DATA_DIR = os.path.join(PUBLIC_DIR, "data")       # JSON保管場所
+ARCHIVE_DIR = os.path.join(PUBLIC_DIR, "archives")
+DATA_DIR = os.path.join(PUBLIC_DIR, "data")
+FEATURES_DIR = os.path.join(PUBLIC_DIR, "features")
+STYLES_DIR = os.path.join(PUBLIC_DIR, "styles")
 HISTORY_FILE = os.path.join(PUBLIC_DIR, "history.json")
+FEATURES_FILE = os.path.join(FEATURES_DIR, "features.json")
+STYLES_FILE = os.path.join(STYLES_DIR, "styles.json")
 
 # JST タイムゾーン
 JST = timezone(timedelta(hours=9))
 
-# RSSフィードリスト（日本・海外の主要テック/ITニュースソース）
+# RSSフィードリスト
 RSS_FEEDS = [
-    # --- 日本のテック/ITニュース ---
-    "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",      # ITmedia NEWS
-    "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml",           # ITmedia AI+
-    "https://qiita.com/popular-items/feed",                    # Qiita 人気記事
-    "https://zenn.dev/feed",                                   # Zenn
-    "https://gigazine.net/news/rss_2.0/",                      # GIGAZINE
-    "https://www.publickey1.jp/atom.xml",                      # Publickey
-    "https://gihyo.jp/feed/rss2",                              # gihyo.jp
-    "https://jp.techcrunch.com/feed/",                         # TechCrunch Japan
-    "https://codezine.jp/rss/new/20/index.xml",               # CodeZine
-    "https://www.watch.impress.co.jp/data/rss/1.0/ipw/feed.rdf",  # Impress Watch
-    
-    # --- 海外のテック/ITニュース ---
-    "https://techcrunch.com/feed/",                            # TechCrunch
-    "https://feeds.feedburner.com/TheHackersNews",             # The Hacker News
-    "https://www.theverge.com/rss/index.xml",                  # The Verge
-    "https://feeds.arstechnica.com/arstechnica/index",         # Ars Technica
-    "https://www.wired.com/feed/rss",                          # WIRED
-    "https://feeds.feedburner.com/TechCrunch/",                # TechCrunch (backup)
-    "https://rss.slashdot.org/Slashdot/slashdotMain",          # Slashdot
-    "https://hnrss.org/frontpage",                             # Hacker News
-    "https://www.engadget.com/rss.xml",                        # Engadget
-    "https://feeds.feedburner.com/venturebeat/SZYF",           # VentureBeat
-    "https://www.zdnet.com/news/rss.xml",                      # ZDNet
-    "https://www.infoworld.com/index.rss",                     # InfoWorld
-    
-    # --- AI/ML専門 ---
-    "https://openai.com/blog/rss/",                            # OpenAI Blog
-    "https://blog.google/technology/ai/rss/",                  # Google AI Blog
-    "https://ai.meta.com/blog/rss/",                           # Meta AI Blog
+    # 日本のテック/ITニュース
+    "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml",
+    "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml",
+    "https://qiita.com/popular-items/feed",
+    "https://zenn.dev/feed",
+    "https://gigazine.net/news/rss_2.0/",
+    "https://www.publickey1.jp/atom.xml",
+    "https://gihyo.jp/feed/rss2",
+    "https://jp.techcrunch.com/feed/",
+    "https://codezine.jp/rss/new/20/index.xml",
+    "https://www.watch.impress.co.jp/data/rss/1.0/ipw/feed.rdf",
+    # 海外のテック/ITニュース
+    "https://techcrunch.com/feed/",
+    "https://feeds.feedburner.com/TheHackersNews",
+    "https://www.theverge.com/rss/index.xml",
+    "https://feeds.arstechnica.com/arstechnica/index",
+    "https://www.wired.com/feed/rss",
+    "https://rss.slashdot.org/Slashdot/slashdotMain",
+    "https://hnrss.org/frontpage",
+    "https://www.engadget.com/rss.xml",
+    "https://feeds.feedburner.com/venturebeat/SZYF",
+    "https://www.zdnet.com/news/rss.xml",
+    # AI/ML専門
+    "https://openai.com/blog/rss/",
+    "https://blog.google/technology/ai/rss/",
+    "https://ai.meta.com/blog/rss/",
 ]
 
-# 各フィードから取得する最大記事数
 ARTICLES_PER_FEED = 3
-
-# AIが選ぶ注目ニュースの数
 TOP_NEWS_COUNT = 10
 
-# --- ヘルパー関数: 履歴管理 ---
-def load_history():
-    """履歴JSONを読み込む（新形式に対応）"""
-    if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, 'r', encoding='utf-8') as f:
+
+# =============================================================================
+# ヘルパー関数
+# =============================================================================
+
+def load_json(filepath, default=None):
+    """JSONファイルを読み込む"""
+    if os.path.exists(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
             try:
-                data = json.load(f)
-                # 新形式（辞書型）と旧形式（リスト型）の両方に対応
-                if isinstance(data, dict):
-                    return data
-                elif isinstance(data, list):
-                    # 旧形式をマイグレーション
-                    return {"entries": [{"id": h} for h in data], "version": 2}
+                return json.load(f)
             except:
-                return {"entries": [], "version": 2}
-    return {"entries": [], "version": 2}
+                pass
+    return default if default is not None else {}
+
+def save_json(filepath, data):
+    """JSONファイルを保存"""
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def load_history():
+    """履歴を読み込む"""
+    data = load_json(HISTORY_FILE, {"entries": [], "version": 2})
+    if isinstance(data, list):
+        return {"entries": [{"id": h} for h in data], "version": 2}
+    return data
 
 def save_history(history):
-    """履歴JSONを保存"""
-    with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
-        json.dump(history, f, ensure_ascii=False, indent=2)
+    """履歴を保存"""
+    save_json(HISTORY_FILE, history)
 
 def add_history_entry(history, entry_data):
     """履歴にエントリを追加"""
-    # 既存エントリを確認
     existing_ids = {e['id'] for e in history['entries']}
     if entry_data['id'] not in existing_ids:
         history['entries'].append(entry_data)
-        # IDでソート
         history['entries'] = sorted(history['entries'], key=lambda x: x['id'])
     return history
 
 def get_prev_link(current_id, history):
-    """履歴リストから、今回(current_id)の一つ前のIDを探してリンクを返す"""
+    """前のアーカイブリンクを取得"""
     sorted_entries = sorted(history['entries'], key=lambda x: x['id'])
     past_ids = [e['id'] for e in sorted_entries if e['id'] < current_id]
-    
     if past_ids:
-        prev_id = past_ids[-1]
-        return f"./{prev_id}.html"
-    
+        return f"./{past_ids[-1]}.html"
     return "#"
 
-# --- 1. ニュース収集 (編集者AI) ---
+def sanitize_id(text):
+    """IDを安全な形式に変換"""
+    return re.sub(r'[^a-zA-Z0-9_-]', '_', text.lower())
+
+
+# =============================================================================
+# 1. ニュース収集
+# =============================================================================
+
 def fetch_and_summarize_news(timestamp_id):
+    """RSSフィードからニュースを取得し、AIで要約"""
     print("Step 1: Fetching news...")
     start_time = datetime.now(JST)
     fetch_start = time.time()
@@ -128,7 +133,6 @@ def fetch_and_summarize_news(timestamp_id):
         try:
             feed = feedparser.parse(url)
             source_urls.append(url)
-            # 各フィードから最新記事を取得
             for entry in feed.entries[:ARTICLES_PER_FEED]:
                 articles.append({
                     "title": entry.title,
@@ -169,7 +173,7 @@ def fetch_and_summarize_news(timestamp_id):
     
     content_json = json.loads(response.text)
     
-    # メタデータ (IDとしてtimestamp_idを使用)
+    # メタデータ
     content_json['meta'] = {
         'id': timestamp_id,
         'display_date': start_time.strftime('%Y-%m-%d %H:%M'),
@@ -192,310 +196,313 @@ def fetch_and_summarize_news(timestamp_id):
     # JSONデータの保存
     os.makedirs(DATA_DIR, exist_ok=True)
     json_path = os.path.join(DATA_DIR, f"{timestamp_id}.json")
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(content_json, f, ensure_ascii=False, indent=2)
+    save_json(json_path, content_json)
         
     return content_json
 
-# --- 2a. モジュラー構造でHTML生成 (テンプレートベース) ---
-def generate_archive_html_modular(news_data, current_id, prev_link, display_date, generation_count):
-    """モジュラー構造でアーカイブHTMLを生成（セキュアなアプローチ）"""
+
+# =============================================================================
+# 2. 機能生成 (AIモード)
+# =============================================================================
+
+def load_features():
+    """features.jsonを読み込む"""
+    return load_json(FEATURES_FILE, {"version": 1, "features": []})
+
+def save_features(features_data):
+    """features.jsonを保存"""
+    features_data['lastUpdated'] = datetime.now(JST).strftime('%Y-%m-%d')
+    save_json(FEATURES_FILE, features_data)
+
+def get_existing_feature_ids():
+    """既存の機能IDリストを取得"""
+    features = load_features()
+    return [f['id'] for f in features.get('features', [])]
+
+def generate_new_feature(mood_keyword, timestamp_id):
+    """AIに新しい機能を生成させる"""
+    print("Step 2a: Generating new feature...")
+    
+    existing_ids = get_existing_feature_ids()
+    
+    feature_prompt = f"""
+あなたはWebフロントエンド開発者です。MorphoNewsという進化型ニュースサイトに新しい機能を追加してください。
+
+【プロジェクト概要】
+MorphoNewsは「自己進化するWebページ」です。毎回の実行で新しい機能が追加されます。
+
+【今日のムード】{mood_keyword}
+
+【既存の機能】
+{json.dumps(existing_ids, ensure_ascii=False)}
+
+【要件】
+1. 既存の機能と重複しない、新しいユーザー体験を提供する機能を1つ考案
+2. JavaScriptで完結する機能（外部APIは使用しない）
+3. 即座に自己実行関数(IIFE)で動作すること
+4. CSSは自分でstyleタグとして追加すること
+
+【出力形式】JSON
+{{
+    "id": "機能ID（英数字とハイフンのみ）",
+    "name": "機能名（日本語）",
+    "description": "機能の説明（日本語）",
+    "category": "ui/accessibility/navigation/analytics/entertainment のいずれか",
+    "code": "JavaScriptコード全文（即座実行関数形式）"
+}}
+
+コードのみ。説明不要。
+"""
+
+    try:
+        model = genai.GenerativeModel(
+            model_name=MODEL_NAME,
+            generation_config={"response_mime_type": "application/json"}
+        )
+        response = model.generate_content(feature_prompt)
+        feature_data = json.loads(response.text)
+        
+        # IDをサニタイズ
+        feature_id = sanitize_id(feature_data['id'])
+        
+        # 重複チェック
+        if feature_id in existing_ids:
+            feature_id = f"{feature_id}-{timestamp_id[:10]}"
+        
+        # JSファイルとして保存
+        js_filename = f"{feature_id}.js"
+        js_path = os.path.join(FEATURES_DIR, "modules", js_filename)
+        os.makedirs(os.path.dirname(js_path), exist_ok=True)
+        
+        js_content = f"""/**
+ * MorphoNews Feature: {feature_data['name']}
+ * Generated: {timestamp_id}
+ * Description: {feature_data['description']}
+ */
+{feature_data['code']}
+"""
+        with open(js_path, 'w', encoding='utf-8') as f:
+            f.write(js_content)
+        
+        # features.jsonに登録
+        features = load_features()
+        new_feature = {
+            "id": feature_id,
+            "name": feature_data['name'],
+            "description": feature_data['description'],
+            "file": f"modules/{js_filename}",
+            "enabled": True,
+            "required": False,
+            "category": feature_data.get('category', 'ui'),
+            "addedDate": datetime.now(JST).strftime('%Y-%m-%d'),
+            "author": "ai"
+        }
+        features['features'].append(new_feature)
+        save_features(features)
+        
+        print(f"  ✓ Generated feature: {feature_data['name']} ({feature_id})")
+        return new_feature
+        
+    except Exception as e:
+        print(f"  ⚠ Feature generation failed: {e}")
+        return None
+
+
+# =============================================================================
+# 3. スタイル生成 (AIモード)
+# =============================================================================
+
+def load_styles():
+    """styles.jsonを読み込む"""
+    return load_json(STYLES_FILE, {"version": 1, "themes": []})
+
+def save_styles(styles_data):
+    """styles.jsonを保存"""
+    styles_data['lastUpdated'] = datetime.now(JST).strftime('%Y-%m-%d')
+    save_json(STYLES_FILE, styles_data)
+
+def get_existing_style_ids():
+    """既存のスタイルIDリストを取得"""
+    styles = load_styles()
+    return [s['id'] for s in styles.get('themes', [])]
+
+def generate_new_style(mood_keyword, timestamp_id):
+    """AIに新しいスタイル（テーマ）を生成させる"""
+    print("Step 2b: Generating new style...")
+    
+    existing_ids = get_existing_style_ids()
+    
+    style_prompt = f"""
+あなたはWebデザイナーです。MorphoNewsという進化型ニュースサイトに新しいカラーテーマを作成してください。
+
+【今日のムード】{mood_keyword}
+
+【既存のテーマ】
+{json.dumps(existing_ids, ensure_ascii=False)}
+
+【要件】
+1. 今日のムードを反映した、新しいカラーテーマを作成
+2. 既存のテーマと明確に異なる配色
+3. CSS Variablesを使用（:root内で定義）
+4. 可読性を確保（コントラスト比に注意）
+
+【必須CSS Variables】
+--morpho-bg-primary: 背景色（メイン）
+--morpho-bg-secondary: 背景色（サブ）
+--morpho-bg-card: カード背景色
+--morpho-text-primary: テキスト色（メイン）
+--morpho-text-secondary: テキスト色（サブ）
+--morpho-accent-primary: アクセント色（メイン）
+--morpho-accent-secondary: アクセント色（サブ）
+--morpho-border-color: ボーダー色
+--morpho-accent-gradient: グラデーション
+
+【出力形式】JSON
+{{
+    "id": "テーマID（英数字とハイフンのみ）",
+    "name": "テーマ名（日本語）",
+    "description": "テーマの説明（日本語）",
+    "preview": {{
+        "primary": "#hex色",
+        "secondary": "#hex色",
+        "background": "#hex色",
+        "text": "#hex色"
+    }},
+    "css": "CSSコード全文（:root {{ ... }} 形式）"
+}}
+
+CSSのみ。説明不要。
+"""
+
+    try:
+        model = genai.GenerativeModel(
+            model_name=MODEL_NAME,
+            generation_config={"response_mime_type": "application/json"}
+        )
+        response = model.generate_content(style_prompt)
+        style_data = json.loads(response.text)
+        
+        # IDをサニタイズ
+        style_id = sanitize_id(style_data['id'])
+        
+        # 重複チェック
+        if style_id in existing_ids:
+            style_id = f"{style_id}-{timestamp_id[:10]}"
+        
+        # CSSファイルとして保存
+        css_filename = f"{style_id}.css"
+        css_path = os.path.join(STYLES_DIR, "themes", css_filename)
+        os.makedirs(os.path.dirname(css_path), exist_ok=True)
+        
+        css_content = f"""/**
+ * MorphoNews Theme: {style_data['name']}
+ * Generated: {timestamp_id}
+ * Mood: {mood_keyword}
+ * Description: {style_data['description']}
+ */
+{style_data['css']}
+"""
+        with open(css_path, 'w', encoding='utf-8') as f:
+            f.write(css_content)
+        
+        # styles.jsonに登録
+        styles = load_styles()
+        new_style = {
+            "id": style_id,
+            "name": style_data['name'],
+            "description": style_data['description'],
+            "file": f"themes/{css_filename}",
+            "preview": style_data.get('preview', {}),
+            "addedDate": datetime.now(JST).strftime('%Y-%m-%d'),
+            "author": "ai",
+            "mood": mood_keyword
+        }
+        styles['themes'].append(new_style)
+        save_styles(styles)
+        
+        print(f"  ✓ Generated style: {style_data['name']} ({style_id})")
+        return new_style
+        
+    except Exception as e:
+        print(f"  ⚠ Style generation failed: {e}")
+        return None
+
+
+# =============================================================================
+# 4. HTML生成
+# =============================================================================
+
+def generate_archive_html(news_data, current_id, prev_link, generation_count, new_feature=None, new_style=None):
+    """テンプレートからアーカイブHTMLを生成"""
+    print("Step 3: Generating archive HTML...")
     
     # テンプレートを読み込み
-    template_path = os.path.join('public', 'archives', 'TEMPLATE.html')
+    template_path = os.path.join(ARCHIVE_DIR, 'TEMPLATE.html')
     with open(template_path, 'r', encoding='utf-8') as f:
         html_template = f.read()
     
+    display_date = news_data['meta']['display_date']
+    mood_keyword = news_data.get('mood_keyword', 'neutral')
+    
+    # 新しいスタイルがあればそれを使用、なければdefault
+    theme_id = new_style['id'] if new_style else 'default'
+    
     # プレースホルダーを置換
     html = html_template
-    html = html.replace('{MOOD_KEYWORD}', html_module.escape(news_data['mood_keyword']))
-    html = html.replace('{GENERATION_NUMBER}', str(generation_count))
+    html = html.replace('{ARTICLE_ID}', current_id)
     html = html.replace('{DISPLAY_DATE}', html_module.escape(display_date))
+    html = html.replace('{GENERATION_NUMBER}', str(generation_count))
+    html = html.replace('{MOOD_KEYWORD}', html_module.escape(mood_keyword))
+    html = html.replace('{THEME_ID}', html_module.escape(theme_id))
+    html = html.replace('{DAILY_SUMMARY}', html_module.escape(news_data.get('daily_summary', '')))
     
-    # Previous article link handling with safe ID validation
+    # Previous link
     if prev_link and prev_link != '#':
         prev_id = prev_link.split('/')[-1].replace('.html', '')
-        # Validate prev_id contains only safe characters (YYYY-MM-DD_HHMM format)
-        # This should be alphanumeric, hyphens, and underscores only
         if prev_id.replace('-', '').replace('_', '').isalnum():
             prev_link_html = f'''<a href="./{prev_id}.html" class="nav-link">
                 <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
-                Prev
+                前のニュース
             </a>'''
         else:
-            # Invalid ID format - skip previous link
             prev_link_html = ''
     else:
-        prev_link_html = ''  # First article, no previous link
+        prev_link_html = ''
     html = html.replace('{PREV_ARTICLE_LINK}', prev_link_html)
+    html = html.replace('{PREV_LINK}', prev_link if prev_link else '#')
     
-    html = html.replace('{FETCH_TIME_JST}', html_module.escape(news_data['meta']['fetch_time_jst']))
-    html = html.replace('{ARTICLE_COUNT}', str(news_data['meta']['article_count']))
-    html = html.replace('{MODEL_NAME}', html_module.escape(news_data['meta']['model_name']))
-    html = html.replace('{DAILY_SUMMARY}', html_module.escape(news_data['daily_summary']))
+    # メタ情報
+    meta = news_data['meta']
+    html = html.replace('{FETCH_TIME_JST}', html_module.escape(meta.get('fetch_time_jst', '')))
+    html = html.replace('{ARTICLE_COUNT}', str(meta.get('article_count', 0)))
+    html = html.replace('{MODEL_NAME}', html_module.escape(meta.get('model_name', '')))
     
-    # ARTICLE_IDを埋め込み（fetch()でJSONを読み込むため）
-    # current_id should also be validated as it's used in JavaScript
-    if current_id.replace('-', '').replace('_', '').isalnum():
-        html = html.replace('{ARTICLE_ID}', current_id)
-    else:
-        raise ValueError(f"Invalid article ID format: {current_id}")
+    summary_tokens = meta.get('summary_tokens', {})
+    html = html.replace('{SUMMARY_TOKENS}', 
+        f"入力={summary_tokens.get('input', 0)}, 出力={summary_tokens.get('output', 0)}, 合計={summary_tokens.get('total', 0)}")
+    html = html.replace('{SUMMARY_TIME}', str(meta.get('summary_generation_time_sec', 0)))
+    html = html.replace('{TOTAL_PROCESSING_TIME}', str(meta.get('total_processing_time_sec', 0)))
     
-    # トークン情報
-    html = html.replace('{SUMMARY_INPUT_TOKENS}', str(news_data['meta']['summary_tokens']['input']))
-    html = html.replace('{SUMMARY_OUTPUT_TOKENS}', str(news_data['meta']['summary_tokens']['output']))
-    html = html.replace('{SUMMARY_TOTAL_TOKENS}', str(news_data['meta']['summary_tokens']['total']))
-    html = html.replace('{SUMMARY_TIME}', str(news_data['meta']['summary_generation_time_sec']))
+    # プロンプト
+    html = html.replace('{SUMMARY_PROMPT}', html_module.escape(meta.get('summary_prompt', '')))
     
-    # デザイン情報（デフォルト値） - extract for readability
-    design_tokens = news_data['meta'].get('design_tokens', {})
-    design_total_tokens = design_tokens.get('total', 'N/A') if design_tokens else 'N/A'
-    design_time = news_data['meta'].get('design_generation_time_sec', 0)
-    total_processing_time = news_data['meta'].get('total_processing_time_sec', 0)
+    # 進化ログ
+    new_feature_name = new_feature['name'] if new_feature else 'なし（既存機能を使用）'
+    new_style_name = new_style['name'] if new_style else 'デフォルト'
+    html = html.replace('{NEW_FEATURE_NAME}', html_module.escape(new_feature_name))
+    html = html.replace('{NEW_STYLE_NAME}', html_module.escape(new_style_name))
     
-    html = html.replace('{DESIGN_TOTAL_TOKENS}', str(design_total_tokens))
-    html = html.replace('{DESIGN_TIME}', str(design_time))
-    html = html.replace('{TOTAL_PROCESSING_TIME}', str(total_processing_time))
-    
-    # プロンプトをエスケープして埋め込み
-    html = html.replace('{SUMMARY_PROMPT}', html_module.escape(news_data['meta']['summary_prompt']))
-    default_design_prompt = 'Template-based generation (no design AI prompt)'
-    html = html.replace('{DESIGN_PROMPT}', html_module.escape(news_data['meta'].get('design_prompt', default_design_prompt)))
-    
-    # 注意: JSONデータはdata/{current_id}.jsonに保存されており、
-    # テンプレート内のfetch()で読み込まれます
-    
+    print(f"  ✓ Archive HTML generated")
     return html
 
-# --- 2b. HTML生成の統合関数 (モード切り替え) ---
-def generate_archive_page(news_data, prev_link, history):
-    """
-    アーカイブページを生成（モードに応じて切り替え）
-    
-    Returns:
-        tuple: (html_string, updated_news_data)
-    """
-    current_id = news_data['meta']['id']
-    display_date = news_data['meta']['display_date']
-    generation_count = len(history.get('entries', [])) + 1
-    
-    if GENERATION_MODE == "modular":
-        print(f"Step 2: Generating archive page using modular template for {current_id}...")
-        
-        # モジュラー構造でHTML生成（処理時間を記録）
-        start_time = time.time()
-        html_output = generate_archive_html_modular(
-            news_data, 
-            current_id, 
-            prev_link, 
-            display_date, 
-            generation_count
-        )
-        processing_time = time.time() - start_time
-        
-        # メタデータを更新（デザイン生成はテンプレートベースなのでトークン使用なし）
-        news_data['meta']['design_prompt'] = 'Template-based generation (modular structure)'
-        news_data['meta']['design_tokens'] = {'input': 0, 'output': 0, 'total': 0}
-        news_data['meta']['design_generation_time_sec'] = round(processing_time, 2)
-        news_data['meta']['total_tokens'] = news_data['meta']['summary_tokens']['total']
-        # Total processing time should include summary generation time + template processing time
-        news_data['meta']['total_processing_time_sec'] = round(
-            news_data['meta']['summary_generation_time_sec'] + processing_time, 2
-        )
-        
-        # JSONデータを更新
-        json_path = os.path.join(DATA_DIR, f"{current_id}.json")
-        with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(news_data, f, ensure_ascii=False, indent=2)
-        
-        print(f"  ✓ Modular template applied in {processing_time:.2f}s")
-        return html_output, news_data
-    
-    else:
-        # AI-based generation (existing evolve_ui function)
-        return evolve_ui_ai(news_data, prev_link, history)
 
-# --- 2c. デザイン生成 (デザイナーAI) ---
-def evolve_ui_ai(news_data, prev_link, history):
-    """
-    AI-based UI evolution (original evolve_ui function)
-    
-    Evolution Philosophy Update (2026-01-11):
-    ==========================================
-    MorphoNews now follows a two-track evolution approach:
-    
-    1. FEATURE EVOLUTION (進化 - Shinka):
-       - Progressive enhancement of user experience
-       - New features added: style selector, reading progress, font controls
-       - Features tracked in public/features.json
-       - Each generation should add or improve functionality
-    
-    2. STYLE VARIATION (変化 - Henka):
-       - Visual design variations through AI or templates
-       - Styles saved in styles/archives/ for reuse
-       - Users can select their preferred style anytime
-       - Style metadata tracked in styles/styles.json
-    
-    This ensures visible "evolution" rather than just "change".
-    """
-    current_id = news_data['meta']['id']
-    display_date = news_data['meta']['display_date']
-    print(f"Step 2: Evolving UI for {current_id}...")
-    
-    design_start = time.time()
-    
-    # 最新のアーカイブがあれば参考にする（なければ空）
-    reference_html = ""
-    try:
-        archives = sorted(os.listdir(ARCHIVE_DIR))
-        if archives:
-            latest_archive = archives[-1]
-            with open(os.path.join(ARCHIVE_DIR, latest_archive), "r", encoding="utf-8") as f:
-                reference_html = f.read()[:5000]  # トークン節約のため先頭5000文字のみ
-    except:
-        pass
-    
-    # 進化の世代数を計算
-    generation_count = len(history.get('entries', [])) + 1
-    
-    design_prompt = f"""
-    あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
-    MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
-    あなたの役割は、毎回のデザインでWebデザインの新しい可能性を探求し、進化を続けることです。
-    
-    ===== 🧬 進化のコンテキスト =====
-    
-    【現在の世代】Generation #{generation_count}
-    【今日のムード】{news_data['mood_keyword']}
-    【これまでのアーカイブ数】{len(history.get('entries', []))}件
-    
-    【前回のデザイン参考（先頭5000文字）】
-    ```html
-    {reference_html if reference_html else '（初回生成のため参考なし）'}
-    ```
-    
-    ===== 🎯 進化の指令 =====
-    
-    【1. 前回からの進化（最重要）】
-    前回のデザインを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
-    
-    - **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
-      （例：1カラム→2カラム、カード型→リスト型、縦スクロール→横スクロールセクション）
-    
-    - **タイポグラフィ**: 異なるフォントファミリーや文字サイズの比率を実験
-      （Google Fontsから: Inter, Outfit, Poppins, Space Grotesk, Plus Jakarta Sans など）
-    
-    - **ビジュアル表現**: 新しいCSS技法を1つ以上取り入れる
-      （グラスモーフィズム、ニューモーフィズム、グラデーションメッシュ、SVGパターン、
-       CSS Grid の subgrid、container queries、scroll-driven animations など）
-    
-    - **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
-    
-    【2. デザインの方向性】
-    **明るいライトモードのデザイン**を基本としつつ、今日のムード「{news_data['mood_keyword']}」を反映：
-    - 背景: 白 (#ffffff) または明るいグレー (#f8fafc, #f1f5f9) を基調
-    - テキスト: 濃いグレー (#1e293b, #334155) で高い可読性
-    - アクセント: ムードに合わせた配色（基本はインディゴ〜パープル系）
-    - 余白とリズム: 心地よい視覚的リズムを意識
-    
-    【3. 必須コンポーネント】
-    
-    A) ナビゲーションバー:
-       - [<< Prev Update] ボタン → リンク先 "{prev_link}" (prev_linkが "#" なら非表示/無効化)
-       - [Archive List] ボタン → リンク先 "../history.html"
-       - 現在の日時表示: {display_date} (JST)
-       - 世代表示: 「Generation #{generation_count}」をどこかに
+# =============================================================================
+# 5. 履歴ページ生成
+# =============================================================================
 
-    B) メインコンテンツ:
-       - 今日のトレンド要約を魅力的に表示
-       - 注目ニュース{TOP_NEWS_COUNT}件をカード/リスト/タイムラインなど自由な形式で
-       - 各ニュースのリンクは必ずクリック可能に
-
-    C) システム情報フッター:
-       - 取得日時(JST): {news_data['meta']['fetch_time_jst']}
-       - 収集記事数: {news_data['meta']['article_count']}
-       - 使用モデル: {news_data['meta']['model_name']}
-       - 要約AIトークン: 入力={news_data['meta']['summary_tokens']['input']}, 出力={news_data['meta']['summary_tokens']['output']}, 合計={news_data['meta']['summary_tokens']['total']}
-       - 要約生成時間: {news_data['meta']['summary_generation_time_sec']}秒
-       - デザインAIトークン: {{{{ DESIGN_TOKENS }}}} (後で置換)
-       - デザイン生成時間: {{{{ DESIGN_TIME }}}}秒 (後で置換)
-       - 全体処理時間: {{{{ TOTAL_TIME }}}}秒 (後で置換)
-
-    D) プロンプト開示セクション:
-       `<details>` タグで折りたたみ表示：
-       - 「要約AIプロンプト」: {{{{ SUMMARY_PROMPT }}}}
-       - 「デザインAIプロンプト」: {{{{ DESIGN_PROMPT }}}}
-
-    E) 進化ログセクション（推奨）:
-       今回のデザインで試した新しいアプローチを簡潔に記述
-       （例：「今回の実験: CSS Grid subgrid + グラスモーフィズムカード」）
-
-    【4. 出力形式】
-    - HTMLのみを出力。`<!DOCTYPE html>` から開始
-    - 外部CSSは使用せず、<style>タグ内に全て記述
-    - 外部JSライブラリは最小限に（アイコンにLucideを使う場合のみ許可）
-    
-    ===== 📰 ニュースデータ =====
-    {json.dumps({k: v for k, v in news_data.items() if k != 'meta'}, ensure_ascii=False)}
-    """
-
-    model = genai.GenerativeModel(MODEL_NAME)
-    response = model.generate_content(design_prompt)
-    design_gen_time = time.time() - design_start
-    
-    clean_html = response.text.replace("```html", "").replace("```", "").strip()
-
-    # トークン情報
-    design_tokens = {
-        'input': response.usage_metadata.prompt_token_count,
-        'output': response.usage_metadata.candidates_token_count,
-        'total': response.usage_metadata.total_token_count
-    }
-    
-    total_summary_tokens = news_data['meta']['summary_tokens']['total']
-    total_all_tokens = total_summary_tokens + design_tokens['total']
-    total_time = news_data['meta']['total_fetch_time_sec'] + design_gen_time
-    
-    # プレースホルダー置換
-    final_html = clean_html
-    final_html = final_html.replace("{{ DESIGN_TOKENS }}", f"入力={design_tokens['input']}, 出力={design_tokens['output']}, 合計={design_tokens['total']}")
-    final_html = final_html.replace("{{DESIGN_TOKENS}}", f"入力={design_tokens['input']}, 出力={design_tokens['output']}, 合計={design_tokens['total']}")
-    final_html = final_html.replace("{{ DESIGN_TIME }}", f"{round(design_gen_time, 2)}")
-    final_html = final_html.replace("{{DESIGN_TIME}}", f"{round(design_gen_time, 2)}")
-    final_html = final_html.replace("{{ TOTAL_TIME }}", f"{round(total_time, 2)}")
-    final_html = final_html.replace("{{TOTAL_TIME}}", f"{round(total_time, 2)}")
-    
-    # プロンプト置換（HTMLエスケープ）
-    escaped_summary_prompt = html_module.escape(news_data['meta']['summary_prompt'])
-    escaped_design_prompt = html_module.escape(design_prompt)
-    final_html = final_html.replace("{{ SUMMARY_PROMPT }}", escaped_summary_prompt)
-    final_html = final_html.replace("{{SUMMARY_PROMPT}}", escaped_summary_prompt)
-    final_html = final_html.replace("{{ DESIGN_PROMPT }}", escaped_design_prompt)
-    final_html = final_html.replace("{{DESIGN_PROMPT}}", escaped_design_prompt)
-    
-    # メタデータにデザイン情報を追加
-    news_data['meta']['design_prompt'] = design_prompt.strip()
-    news_data['meta']['design_tokens'] = design_tokens
-    news_data['meta']['design_generation_time_sec'] = round(design_gen_time, 2)
-    news_data['meta']['total_tokens'] = total_all_tokens
-    news_data['meta']['total_processing_time_sec'] = round(total_time, 2)
-    
-    # JSONデータを更新
-    json_path = os.path.join(DATA_DIR, f"{current_id}.json")
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(news_data, f, ensure_ascii=False, indent=2)
-    
-    return final_html, news_data
-
-# Backward compatibility: keep old function name
-def evolve_ui(news_data, prev_link, history):
-    """Wrapper for backward compatibility - delegates to generate_archive_page"""
-    return generate_archive_page(news_data, prev_link, history)
-
-# --- 3. 履歴一覧ページ生成 ---
 def generate_history_page(history):
-    """履歴一覧HTMLを生成（ライトモード・Lucideアイコン使用）"""
-    print("Step 3: Generating history page...")
+    """履歴一覧HTMLを生成"""
+    print("Step 4: Generating history page...")
     
     entries_html = ""
     sorted_entries = sorted(history['entries'], key=lambda x: x['id'], reverse=True)
@@ -548,416 +555,141 @@ def generate_history_page(history):
     <title>MorphoNews Archive | 進化するニュースの記録</title>
     <meta name="description" content="MorphoNewsの過去のニュースアーカイブ一覧。AIが自動生成した日々のテックニュースを振り返ることができます。">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/base.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {{
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --accent-primary: #6366f1;
-            --accent-secondary: #8b5cf6;
-            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-            --border-color: #e2e8f0;
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }}
-
-        * {{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }}
-
-        body {{
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Noto Sans JP', sans-serif;
-            min-height: 100vh;
-            line-height: 1.6;
-        }}
-
-        body::before {{
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-        }}
-
-        header {{
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-        }}
-
-        .header-content {{
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }}
-
-        .logo {{
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }}
-
-        .logo-icon {{
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            overflow: hidden;
-        }}
-
-        .logo-icon img {{
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }}
-
-        .logo h1 {{
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }}
-
-        .logo span {{
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            display: block;
-        }}
-
-        nav {{
-            display: flex;
-            gap: 0.5rem;
-        }}
-
-        nav a {{
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }}
-
-        nav a:hover {{
-            background: var(--bg-primary);
-            color: var(--text-primary);
-        }}
-
-        nav a.active {{
-            background: var(--accent-gradient);
-            color: white;
-        }}
-
-        main {{
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }}
-
-        .page-title {{
-            text-align: center;
-            margin-bottom: 2rem;
-        }}
-
-        .page-title h2 {{
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }}
-
-        .page-title p {{
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }}
-
-        .stats-bar {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }}
-
-        .stat-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
-            text-align: center;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
-        }}
-
-        .stat-card:hover {{
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }}
-
-        .stat-icon {{
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.75rem;
-            color: var(--accent-primary);
-        }}
-
-        .stat-value {{
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }}
-
-        .stat-label {{
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-        }}
-
         .history-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }}
-
         .history-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background: var(--morpho-bg-card);
+            border: 1px solid var(--morpho-border-color);
             border-radius: 16px;
             padding: 1.5rem;
             transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
         }}
-
-        .history-card::before {{
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-gradient);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }}
-
         .history-card:hover {{
             transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--morpho-shadow-lg);
         }}
-
-        .history-card:hover::before {{
-            opacity: 1;
-        }}
-
         .card-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }}
-
         .card-date {{
-            font-family: 'Fira Code', monospace;
+            font-family: var(--morpho-font-mono);
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: var(--morpho-text-secondary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }}
-
         .card-mood {{
-            background: var(--accent-gradient);
+            background: var(--morpho-accent-gradient);
             color: white;
             padding: 0.25rem 0.75rem;
-            border-radius: 20px;
+            border-radius: 999px;
             font-size: 0.75rem;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }}
-
         .card-summary {{
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            line-height: 1.7;
+            color: var(--morpho-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
             margin-bottom: 1rem;
         }}
-
         .card-meta {{
             display: flex;
             gap: 1rem;
             margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }}
-
-        .meta-item {{
             font-size: 0.8rem;
-            color: var(--text-secondary);
+            color: var(--morpho-text-secondary);
+        }}
+        .meta-item {{
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.25rem;
         }}
-
         .card-actions {{
             display: flex;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }}
-
-        .card-actions a {{
+        .btn-view, .btn-data {{
             flex: 1;
-            text-align: center;
-            padding: 0.75rem 1rem;
+            padding: 0.5rem;
             border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            text-align: center;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            transition: all 0.2s ease;
         }}
-
         .btn-view {{
-            background: var(--accent-gradient);
+            background: var(--morpho-accent-gradient);
             color: white;
         }}
-
         .btn-view:hover {{
             transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }}
-
         .btn-data {{
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
+            background: var(--morpho-bg-primary);
+            color: var(--morpho-text-primary);
+            border: 1px solid var(--morpho-border-color);
         }}
-
         .btn-data:hover {{
-            border-color: var(--accent-primary);
-            color: var(--text-primary);
+            border-color: var(--morpho-accent-primary);
         }}
-
-        footer {{
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
+        .page-header {{
+            text-align: center;
             padding: 2rem;
-            margin-top: 3rem;
+        }}
+        .page-header h1 {{
+            font-size: 2rem;
+            background: var(--morpho-accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }}
+        .stats {{
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }}
+        .stat {{
             text-align: center;
         }}
-
-        .footer-content {{
-            max-width: 1200px;
-            margin: 0 auto;
+        .stat-value {{
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--morpho-accent-primary);
         }}
-
-        .footer-text {{
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }}
-
-        .empty-state {{
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-secondary);
-        }}
-
-        .empty-state-icon {{
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: var(--accent-primary);
-        }}
-
-        @media (max-width: 768px) {{
-            header {{
-                padding: 1rem;
-            }}
-            
-            .header-content {{
-                flex-direction: column;
-                text-align: center;
-            }}
-            
-            main {{
-                padding: 1rem;
-            }}
-            
-            .history-grid {{
-                grid-template-columns: 1fr;
-            }}
+        .stat-label {{
+            font-size: 0.8rem;
+            color: var(--morpho-text-secondary);
         }}
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <img src="./assets/icons/icon_butterfly_morphing.png" alt="MorphoNews Logo">
-                </div>
-                <div>
-                    <h1>MorphoNews</h1>
-                    <span>Archive Collection</span>
-                </div>
+    <header class="morpho-header">
+        <div class="morpho-header-content">
+            <div class="morpho-logo">
+                <h1>🦋 MorphoNews</h1>
+                <span>Archive</span>
             </div>
-            <nav>
-                <a href="./archives/{sorted_entries[0]['id'] if sorted_entries else ''}.html">
+            <nav class="morpho-nav">
+                <a href="./index.html">
                     <i data-lucide="home" style="width: 18px; height: 18px;"></i>
-                    最新版
-                </a>
-                <a href="./history.html" class="active">
-                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
-                    アーカイブ
-                </a>
-                <a href="./style-gallery.html">
-                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
-                    スタイル
+                    最新
                 </a>
                 <a href="./settings.html">
                     <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
@@ -966,111 +698,91 @@ def generate_history_page(history):
             </nav>
         </div>
     </header>
-
-    <main>
-        <div class="page-title">
-            <h2>ニュースアーカイブ</h2>
-            <p>AIが毎日生成したテックニュースの記録</p>
-        </div>
-
-        <div class="stats-bar">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
-                </div>
+    
+    <div class="page-header">
+        <h1>📚 ニュースアーカイブ</h1>
+        <p style="color: var(--morpho-text-secondary); margin-top: 0.5rem;">
+            AIが進化させてきたニュースの記録
+        </p>
+        <div class="stats">
+            <div class="stat">
                 <div class="stat-value">{len(sorted_entries)}</div>
-                <div class="stat-label">総アーカイブ数</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i data-lucide="calendar" style="width: 20px; height: 20px;"></i>
-                </div>
-                <div class="stat-value">{sorted_entries[0]['id'][:10] if sorted_entries else 'N/A'}</div>
-                <div class="stat-label">最新更新日</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i data-lucide="flag" style="width: 20px; height: 20px;"></i>
-                </div>
-                <div class="stat-value">{sorted_entries[-1]['id'][:10] if sorted_entries else 'N/A'}</div>
-                <div class="stat-label">初回生成日</div>
+                <div class="stat-label">アーカイブ数</div>
             </div>
         </div>
-
-        <section class="history-grid">
-            {entries_html if entries_html else '<div class="empty-state"><div class="empty-state-icon"><i data-lucide="inbox" style="width: 40px; height: 40px;"></i></div><p>まだアーカイブがありません</p></div>'}
-        </section>
+    </div>
+    
+    <main class="history-grid">
+        {entries_html}
     </main>
-
-    <footer>
-        <div class="footer-content">
-            <p class="footer-text">
-                <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
-                MorphoNews - AI駆動の自己進化型ニュースサイト
-            </p>
-        </div>
-    </footer>
-
+    
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {{
+            if (typeof lucide !== 'undefined') {{
+                lucide.createIcons();
+            }}
+        }});
     </script>
 </body>
 </html>"""
-    
-    history_page_path = os.path.join(PUBLIC_DIR, "history.html")
-    with open(history_page_path, 'w', encoding='utf-8') as f:
+
+    history_path = os.path.join(PUBLIC_DIR, "history.html")
+    with open(history_path, 'w', encoding='utf-8') as f:
         f.write(history_html)
     
-    print(f"History page generated: {history_page_path}")
+    print(f"  ✓ History page generated")
 
-# --- メイン処理 ---
+
+# =============================================================================
+# メイン処理
+# =============================================================================
+
 if __name__ == "__main__":
-    if not API_KEY:
-        print("Error: OPENAI_API_KEY not found.")
-        exit(1)
-
     try:
-        # 実行IDとして「年月日時分」を使用 (例: 2026-01-08_0930)
-        timestamp_id = datetime.now(JST).strftime('%Y-%m-%d_%H%M')
+        print(f"=== MorphoNews Generator ===")
+        print(f"Mode: {GENERATION_MODE}")
+        print(f"Model: {MODEL_NAME}")
+        print()
+        
+        # タイムスタンプID
+        timestamp_id = datetime.now(JST).strftime("%Y-%m-%d_%H%M")
         
         # 1. 履歴のロードと前のリンク取得
         history = load_history()
         prev_link = get_prev_link(timestamp_id, history)
+        generation_count = len(history.get('entries', [])) + 1
         
         # 2. ニュース取得
         daily_content = fetch_and_summarize_news(timestamp_id)
+        mood_keyword = daily_content.get('mood_keyword', 'neutral')
         
-        # 3. HTML生成（モード切り替え対応）
-        if GENERATION_MODE == "news-only":
-            print("Running in news-only mode: skipping HTML generation")
-            # news-onlyモードの場合はHTML生成をスキップし、データのみ保存
-            new_html = None
-            updated_content = daily_content
-            # デザイン情報をスキップしたことを記録
-            updated_content['meta']['design_prompt'] = 'Skipped (news-only mode)'
-            updated_content['meta']['design_tokens'] = {'input': 0, 'output': 0, 'total': 0}
-            updated_content['meta']['design_generation_time_sec'] = 0
-            updated_content['meta']['total_tokens'] = updated_content['meta']['summary_tokens']['total']
-            updated_content['meta']['total_processing_time_sec'] = updated_content['meta']['total_fetch_time_sec']
-            
-            # JSONデータを保存
-            json_path = os.path.join(DATA_DIR, f"{timestamp_id}.json")
-            with open(json_path, 'w', encoding='utf-8') as f:
-                json.dump(updated_content, f, ensure_ascii=False, indent=2)
-        else:
-            new_html, updated_content = generate_archive_page(daily_content, prev_link, history)
+        # 3. AIモードの場合、新機能と新スタイルを生成
+        new_feature = None
+        new_style = None
         
-        # 4. 保存処理
-        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        if GENERATION_MODE == "ai":
+            new_feature = generate_new_feature(mood_keyword, timestamp_id)
+            new_style = generate_new_style(mood_keyword, timestamp_id)
         
+        # 4. HTML生成
         if GENERATION_MODE != "news-only":
-            # A. アーカイブ保存 (ユニークなファイル名)
+            html_output = generate_archive_html(
+                daily_content, 
+                timestamp_id, 
+                prev_link, 
+                generation_count,
+                new_feature,
+                new_style
+            )
+            
+            # アーカイブ保存
+            os.makedirs(ARCHIVE_DIR, exist_ok=True)
             archive_filename = f"{timestamp_id}.html"
             archive_path = os.path.join(ARCHIVE_DIR, archive_filename)
             with open(archive_path, "w", encoding="utf-8") as f:
-                f.write(new_html)
-                
-            # B. index.html をリダイレクト用に更新
+                f.write(html_output)
+            
+            # index.html リダイレクト
             index_path = os.path.join(PUBLIC_DIR, "index.html")
             redirect_html = f"""<!DOCTYPE html>
 <html>
@@ -1078,7 +790,7 @@ if __name__ == "__main__":
     <meta charset="utf-8">
     <title>Redirecting to MorphoNews...</title>
     <meta http-equiv="refresh" content="0; url=./archives/{archive_filename}">
-    <style>body{{background:#0a0a0f;color:#6366f1;font-family:system-ui;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;flex-direction:column;gap:1rem;}}</style>
+    <style>body{{background:#f8fafc;color:#6366f1;font-family:system-ui;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;flex-direction:column;gap:1rem;}}</style>
 </head>
 <body>
     <p>🦋 Loading MorphoNews ({timestamp_id})...</p>
@@ -1088,29 +800,46 @@ if __name__ == "__main__":
             with open(index_path, "w", encoding="utf-8") as f:
                 f.write(redirect_html)
             
-            print(f"Success! Archived to {archive_path} (ID: {timestamp_id})")
+            print(f"\n✅ Success! Archived to {archive_path}")
         else:
-            print(f"Success! News data saved (news-only mode) (ID: {timestamp_id})")
+            print(f"\n✅ Success! News data saved (news-only mode)")
         
-        # C. 履歴リスト更新（詳細データ含む）
+        # 5. 履歴更新
         if GENERATION_MODE != "news-only":
+            # メタデータを更新
+            daily_content['meta']['total_processing_time_sec'] = round(
+                daily_content['meta']['total_fetch_time_sec'] + 
+                daily_content['meta']['summary_generation_time_sec'], 2
+            )
+            daily_content['meta']['total_tokens'] = daily_content['meta']['summary_tokens']['total']
+            
             entry_data = {
                 'id': timestamp_id,
-                'fetch_time_jst': updated_content['meta']['fetch_time_jst'],
-                'mood_keyword': updated_content.get('mood_keyword', 'Unknown'),
-                'daily_summary': updated_content.get('daily_summary', ''),
-                'model_name': updated_content['meta']['model_name'],
-                'total_tokens': updated_content['meta']['total_tokens'],
-                'total_processing_time_sec': updated_content['meta']['total_processing_time_sec']
+                'fetch_time_jst': daily_content['meta']['fetch_time_jst'],
+                'mood_keyword': daily_content.get('mood_keyword', 'Unknown'),
+                'daily_summary': daily_content.get('daily_summary', ''),
+                'model_name': daily_content['meta']['model_name'],
+                'total_tokens': daily_content['meta']['total_tokens'],
+                'total_processing_time_sec': daily_content['meta']['total_processing_time_sec'],
+                'new_feature': new_feature['id'] if new_feature else None,
+                'new_style': new_style['id'] if new_style else None
             }
             history = add_history_entry(history, entry_data)
             save_history(history)
             
-            # D. 履歴一覧ページ生成
+            # 履歴ページ生成
             generate_history_page(history)
+            
+            # JSONデータを更新
+            save_json(os.path.join(DATA_DIR, f"{timestamp_id}.json"), daily_content)
         
-        print(f"Total tokens used: {updated_content['meta']['total_tokens']}")
-        print(f"Total processing time: {updated_content['meta']['total_processing_time_sec']}s")
+        print(f"\n📊 Summary:")
+        print(f"  - Total tokens: {daily_content['meta'].get('total_tokens', 'N/A')}")
+        print(f"  - Processing time: {daily_content['meta'].get('total_processing_time_sec', 'N/A')}s")
+        if new_feature:
+            print(f"  - New feature: {new_feature['name']}")
+        if new_style:
+            print(f"  - New style: {new_style['name']}")
 
     except Exception as e:
         import traceback

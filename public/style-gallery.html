@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スタイルギャラリー | MorphoNews</title>
+    <meta name="description" content="MorphoNewsのスタイルを選択してカスタマイズ。お好みのテーマで快適にニュースをお読みください。">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Noto Sans JP', 'Outfit', sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .style-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .style-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .style-card.active {
+            border-color: var(--accent-primary);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+        }
+
+        .style-preview-large {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .preview-circle-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .style-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .style-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .style-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .style-mood {
+            background: var(--bg-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .select-btn {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .select-btn:hover {
+            background: var(--accent-secondary);
+            transform: scale(1.05);
+        }
+
+        .features-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .features-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+
+        .feature-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h2 {
+                font-size: 2rem;
+            }
+
+            .styles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="./history.html" class="logo">
+                <h1>MorphoNews</h1>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">Style Gallery</span>
+            </a>
+            <nav>
+                <a href="./history.html">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブに戻る
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h2>
+                <i data-lucide="palette" style="width: 32px; height: 32px; display: inline-block; vertical-align: middle;"></i>
+                スタイルギャラリー
+            </h2>
+            <p>お好みのスタイルを選んで、快適にニュースをお読みください</p>
+        </div>
+
+        <div class="styles-grid" id="styles-grid">
+            <!-- Styles will be loaded here -->
+        </div>
+
+        <div class="features-section">
+            <h3>
+                <i data-lucide="sparkles" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;"></i>
+                新機能
+            </h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="palette" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <h4>スタイル選択</h4>
+                    <p>6つのテーマから選択可能。お好みのスタイルでニュースを読めます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="type" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <h4>文字サイズ調整</h4>
+                    <p>読みやすい文字サイズに調整できます（70%〜150%）。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="activity" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <h4>読書進捗表示</h4>
+                    <p>ページ上部に進捗バーを表示。読み進めた位置が一目で分かります。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="save" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <h4>設定の保存</h4>
+                    <p>選択したスタイルと文字サイズは自動的に保存され、次回も適用されます。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const STYLE_STORAGE_KEY = 'morphonews_selected_style';
+        
+        function getSavedStyle() {
+            try {
+                return localStorage.getItem(STYLE_STORAGE_KEY) || 'default';
+            } catch (e) {
+                return 'default';
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function saveStyleAndRedirect(styleId, styleName) {
+            // Validate styleId
+            if (!/^[a-z-]+$/.test(styleId)) {
+                alert('無効なスタイルIDです。');
+                return;
+            }
+            
+            try {
+                localStorage.setItem(STYLE_STORAGE_KEY, styleId);
+                // Show confirmation using escaped values
+                const message = 'スタイル「' + escapeHtml(styleName) + '」を選択しました！\nアーカイブページで適用されます。';
+                alert(message);
+                window.location.href = './history.html';
+            } catch (e) {
+                alert('設定の保存に失敗しました。');
+            }
+        }
+        
+        // Load and display styles
+        fetch('./styles/styles.json')
+            .then(response => response.json())
+            .then(data => {
+                const grid = document.getElementById('styles-grid');
+                const savedStyle = getSavedStyle();
+                
+                data.styles.forEach(style => {
+                    const card = document.createElement('div');
+                    card.className = 'style-card';
+                    if (style.id === savedStyle) {
+                        card.classList.add('active');
+                    }
+                    
+                    // Create elements using DOM methods for better security
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'style-preview-large';
+                    
+                    const circle1 = document.createElement('div');
+                    circle1.className = 'preview-circle-large';
+                    circle1.style.backgroundColor = style.preview_colors.primary;
+                    
+                    const circle2 = document.createElement('div');
+                    circle2.className = 'preview-circle-large';
+                    circle2.style.backgroundColor = style.preview_colors.secondary;
+                    
+                    previewDiv.appendChild(circle1);
+                    previewDiv.appendChild(circle2);
+                    
+                    const h3 = document.createElement('h3');
+                    h3.textContent = style.name;
+                    
+                    const p = document.createElement('p');
+                    p.textContent = style.description;
+                    
+                    const metaDiv = document.createElement('div');
+                    metaDiv.className = 'style-meta';
+                    
+                    const moodSpan = document.createElement('span');
+                    moodSpan.className = 'style-mood';
+                    moodSpan.textContent = style.mood;
+                    
+                    const button = document.createElement('button');
+                    button.className = 'select-btn';
+                    button.textContent = style.id === savedStyle ? '選択中 ✓' : '選択する';
+                    
+                    // Use addEventListener instead of inline onclick
+                    button.addEventListener('click', function() {
+                        saveStyleAndRedirect(style.id, style.name);
+                    });
+                    
+                    metaDiv.appendChild(moodSpan);
+                    metaDiv.appendChild(button);
+                    
+                    card.appendChild(previewDiv);
+                    card.appendChild(h3);
+                    card.appendChild(p);
+                    card.appendChild(metaDiv);
+                    
+                    grid.appendChild(card);
+                });
+                
+                // Initialize icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            })
+            .catch(error => {
+                console.error('Failed to load styles:', error);
+                document.getElementById('styles-grid').innerHTML = '<p>スタイルの読み込みに失敗しました。</p>';
+            });
+    </script>
+</body>
+</html>

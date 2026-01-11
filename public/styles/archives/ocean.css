@@ -1,0 +1,15 @@
+/* MorphoNews - Ocean Theme */
+/* Cool ocean blue theme with cyan accents */
+
+:root {
+    /* Color scheme */
+    --bg-base: #f0f9ff;
+    --bg-surface: #e0f2fe;
+    --text-primary: #0c4a6e;
+    --text-secondary: #0369a1;
+    --text-tertiary: #7dd3fc;
+    --accent-primary: #0ea5e9; /* Sky blue */
+    --accent-secondary: #06b6d4; /* Cyan */
+    --accent-muted: #bae6fd;
+    --glass-border: rgba(224, 242, 254, 0.8);
+}

@@ -3,11 +3,82 @@
  * Shared functionality across all archive pages
  */
 
-// Initialize Lucide icons when the page loads
+// Style Management - Load and apply saved style preference
+const STYLE_STORAGE_KEY = 'morphonews_selected_style';
+const DEFAULT_STYLE = 'default';
+
+function loadStylePreference() {
+    try {
+        return localStorage.getItem(STYLE_STORAGE_KEY) || DEFAULT_STYLE;
+    } catch (e) {
+        return DEFAULT_STYLE;
+    }
+}
+
+function saveStylePreference(styleId) {
+    try {
+        localStorage.setItem(STYLE_STORAGE_KEY, styleId);
+    } catch (e) {
+        console.warn('Failed to save style preference:', e);
+    }
+}
+
+function applyStyle(styleId) {
+    // Validate styleId to prevent path traversal
+    if (styleId && !/^[a-z-]+$/.test(styleId)) {
+        console.warn('Invalid style ID:', styleId);
+        return;
+    }
+    
+    // Remove any existing style overrides
+    const existingLink = document.getElementById('dynamic-style');
+    if (existingLink) {
+        existingLink.remove();
+    }
+    
+    // Apply new style if not default
+    if (styleId && styleId !== DEFAULT_STYLE) {
+        const link = document.createElement('link');
+        link.id = 'dynamic-style';
+        link.rel = 'stylesheet';
+        link.href = `../styles/archives/${styleId}.css`;
+        document.head.appendChild(link);
+    }
+    
+    // Save preference
+    saveStylePreference(styleId);
+    
+    // Update active state in style selector if it exists
+    updateStyleSelectorUI(styleId);
+}
+
+function updateStyleSelectorUI(activeStyleId) {
+    const buttons = document.querySelectorAll('.style-option');
+    buttons.forEach(btn => {
+        if (btn.dataset.style === activeStyleId) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+// Initialize Lucide icons and apply saved style when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
+    
+    // Apply saved style preference
+    const savedStyle = loadStylePreference();
+    applyStyle(savedStyle);
+    
+    // Initialize style selector if present
+    initStyleSelector();
+    
+    // Initialize reading features
+    initReadingProgress();
+    initFontSizeControls();
 });
 
 // Utility function to render news items dynamically using safer DOM methods
@@ -116,6 +187,124 @@ if (typeof window !== 'undefined') {
         renderNewsCards,
         scrollToSection,
         formatTimestamp,
-        escapeHtml
+        escapeHtml,
+        applyStyle,
+        loadStylePreference
     };
+}
+
+// Style Selector Initialization
+function initStyleSelector() {
+    // Fetch available styles
+    fetch('../styles/styles.json')
+        .then(response => response.json())
+        .then(data => {
+            renderStyleSelector(data.styles);
+        })
+        .catch(error => {
+            console.warn('Failed to load styles:', error);
+        });
+}
+
+function renderStyleSelector(styles) {
+    const container = document.getElementById('style-selector-grid');
+    if (!container) return;
+    
+    const savedStyle = loadStylePreference();
+    
+    styles.forEach(style => {
+        const button = document.createElement('button');
+        button.className = 'style-option';
+        button.dataset.style = style.id;
+        if (style.id === savedStyle) {
+            button.classList.add('active');
+        }
+        
+        // Create preview circles
+        const preview = document.createElement('div');
+        preview.className = 'style-preview';
+        
+        const circle1 = document.createElement('div');
+        circle1.className = 'preview-circle';
+        circle1.style.backgroundColor = style.preview_colors.primary;
+        
+        const circle2 = document.createElement('div');
+        circle2.className = 'preview-circle';
+        circle2.style.backgroundColor = style.preview_colors.secondary;
+        
+        preview.appendChild(circle1);
+        preview.appendChild(circle2);
+        
+        // Create text content
+        const name = document.createElement('div');
+        name.className = 'style-name';
+        name.textContent = style.name;
+        
+        const desc = document.createElement('div');
+        desc.className = 'style-desc';
+        desc.textContent = style.description;
+        
+        button.appendChild(preview);
+        button.appendChild(name);
+        button.appendChild(desc);
+        
+        // Add click handler
+        button.addEventListener('click', () => {
+            applyStyle(style.id);
+        });
+        
+        container.appendChild(button);
+    });
+}
+
+// Reading Progress Indicator
+function initReadingProgress() {
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.scrollY;
+        const progress = (scrolled / documentHeight) * 100;
+        progressBar.style.width = Math.min(progress, 100) + '%';
+    });
+}
+
+// Font Size Adjustment
+function initFontSizeControls() {
+    const FONT_SIZE_KEY = 'morphonews_font_size';
+    const increaseBtn = document.getElementById('font-increase');
+    const decreaseBtn = document.getElementById('font-decrease');
+    const resetBtn = document.getElementById('font-reset');
+    
+    if (!increaseBtn || !decreaseBtn) return;
+    
+    // Load saved font size with proper validation
+    let fontSize = parseInt(localStorage.getItem(FONT_SIZE_KEY) || '100') || 100;
+    applyFontSize(fontSize);
+    
+    increaseBtn.addEventListener('click', () => {
+        fontSize = Math.min(fontSize + 10, 150);
+        applyFontSize(fontSize);
+        localStorage.setItem(FONT_SIZE_KEY, fontSize.toString());
+    });
+    
+    decreaseBtn.addEventListener('click', () => {
+        fontSize = Math.max(fontSize - 10, 70);
+        applyFontSize(fontSize);
+        localStorage.setItem(FONT_SIZE_KEY, fontSize.toString());
+    });
+    
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            fontSize = 100;
+            applyFontSize(fontSize);
+            localStorage.setItem(FONT_SIZE_KEY, fontSize.toString());
+        });
+    }
+}
+
+function applyFontSize(percentage) {
+    document.documentElement.style.fontSize = percentage + '%';
 }

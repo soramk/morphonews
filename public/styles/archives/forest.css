@@ -1,0 +1,15 @@
+/* MorphoNews - Forest Theme */
+/* Natural green theme with emerald accents */
+
+:root {
+    /* Color scheme */
+    --bg-base: #f0fdf4;
+    --bg-surface: #dcfce7;
+    --text-primary: #14532d;
+    --text-secondary: #166534;
+    --text-tertiary: #86efac;
+    --accent-primary: #10b981; /* Emerald */
+    --accent-secondary: #34d399; /* Green */
+    --accent-muted: #bbf7d0;
+    --glass-border: rgba(220, 252, 231, 0.8);
+}

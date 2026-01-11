@@ -317,7 +317,27 @@ def generate_archive_page(news_data, prev_link, history):
 
 # --- 2c. デザイン生成 (デザイナーAI) ---
 def evolve_ui_ai(news_data, prev_link, history):
-    """AI-based UI evolution (original evolve_ui function)"""
+    """
+    AI-based UI evolution (original evolve_ui function)
+    
+    Evolution Philosophy Update (2026-01-11):
+    ==========================================
+    MorphoNews now follows a two-track evolution approach:
+    
+    1. FEATURE EVOLUTION (進化 - Shinka):
+       - Progressive enhancement of user experience
+       - New features added: style selector, reading progress, font controls
+       - Features tracked in public/features.json
+       - Each generation should add or improve functionality
+    
+    2. STYLE VARIATION (変化 - Henka):
+       - Visual design variations through AI or templates
+       - Styles saved in styles/archives/ for reuse
+       - Users can select their preferred style anytime
+       - Style metadata tracked in styles/styles.json
+    
+    This ensures visible "evolution" rather than just "change".
+    """
     current_id = news_data['meta']['id']
     display_date = news_data['meta']['display_date']
     print(f"Step 2: Evolving UI for {current_id}...")
@@ -934,6 +954,10 @@ def generate_history_page(history):
                 <a href="./history.html" class="active">
                     <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
                     アーカイブ
+                </a>
+                <a href="./style-gallery.html">
+                    <i data-lucide="palette" style="width: 18px; height: 18px;"></i>
+                    スタイル
                 </a>
             </nav>
         </div>

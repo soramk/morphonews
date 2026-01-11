@@ -1,0 +1,15 @@
+/* MorphoNews - Sunset Theme */
+/* Warm orange/red theme with sunset colors */
+
+:root {
+    /* Color scheme */
+    --bg-base: #fff7ed;
+    --bg-surface: #ffedd5;
+    --text-primary: #7c2d12;
+    --text-secondary: #c2410c;
+    --text-tertiary: #fdba74;
+    --accent-primary: #f97316; /* Orange */
+    --accent-secondary: #fb923c; /* Light orange */
+    --accent-muted: #fed7aa;
+    --glass-border: rgba(255, 237, 213, 0.8);
+}

@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "features": [
+    {
+      "id": "style-selector",
+      "name": "スタイル選択機能",
+      "name_en": "Style Selector",
+      "description": "6つのテーマから好みのスタイルを選択可能",
+      "added_date": "2026-01-11",
+      "category": "customization",
+      "status": "active"
+    },
+    {
+      "id": "reading-progress",
+      "name": "読書進捗インジケーター",
+      "name_en": "Reading Progress Indicator",
+      "description": "ページ上部に読書進捗バーを表示",
+      "added_date": "2026-01-11",
+      "category": "ux",
+      "status": "active"
+    },
+    {
+      "id": "font-size-control",
+      "name": "文字サイズ調整",
+      "name_en": "Font Size Control",
+      "description": "文字サイズを70%〜150%の範囲で調整可能",
+      "added_date": "2026-01-11",
+      "category": "accessibility",
+      "status": "active"
+    },
+    {
+      "id": "style-persistence",
+      "name": "設定の永続化",
+      "name_en": "Settings Persistence",
+      "description": "選択したスタイルと文字サイズをlocalStorageに保存",
+      "added_date": "2026-01-11",
+      "category": "ux",
+      "status": "active"
+    },
+    {
+      "id": "style-gallery",
+      "name": "スタイルギャラリーページ",
+      "name_en": "Style Gallery Page",
+      "description": "全スタイルをプレビュー付きで一覧表示",
+      "added_date": "2026-01-11",
+      "category": "navigation",
+      "status": "active"
+    },
+    {
+      "id": "modular-css",
+      "name": "モジュラーCSS構造",
+      "name_en": "Modular CSS Structure",
+      "description": "ベースCSSと個別テーマを分離した構造",
+      "added_date": "2026-01-11",
+      "category": "architecture",
+      "status": "active"
+    }
+  ],
+  "evolution_log": [
+    {
+      "date": "2026-01-11",
+      "generation": "Gen #22+",
+      "changes": [
+        "スタイル管理システムの追加",
+        "6つのテーマ（デフォルト、オーシャン、フォレスト、サンセット、ミッドナイト、チェリーブロッサム）",
+        "読書進捗インジケーター",
+        "文字サイズ調整機能（A+/A-ボタン）",
+        "スタイルギャラリーページ",
+        "ユーザー設定の永続化"
+      ],
+      "type": "feature_addition",
+      "impact": "major"
+    }
+  ]
+}

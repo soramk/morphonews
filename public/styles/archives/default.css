@@ -1,0 +1,15 @@
+/* MorphoNews - Default Theme */
+/* This is the default light theme with indigo/purple accents */
+
+:root {
+    /* Color scheme */
+    --bg-base: #fdfdfd;
+    --bg-surface: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #94a3b8;
+    --accent-primary: #6366f1; /* Indigo */
+    --accent-secondary: #8b5cf6; /* Violet */
+    --accent-muted: #e2e8f0;
+    --glass-border: rgba(255, 255, 255, 0.6);
+}

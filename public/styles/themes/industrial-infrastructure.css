@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: インダストリアル・インフラ
+ * Generated: 2026-01-11_1716
+ * Mood: Infrastructure
+ * Description: 都市の基盤を支える鉄骨、コンクリート、そして警告灯の視認性をイメージした、堅牢で信頼感のある工業的テーマ。
+ */
+:root {
+  --morpho-bg-primary: #2b2d31;
+  --morpho-bg-secondary: #1e1f22;
+  --morpho-bg-card: #383a40;
+  --morpho-text-primary: #f2f3f5;
+  --morpho-text-secondary: #b5bac1;
+  --morpho-accent-primary: #f08a18;
+  --morpho-accent-secondary: #ffcc00;
+  --morpho-border-color: #4e5058;
+  --morpho-accent-gradient: linear-gradient(135deg, #f08a18 0%, #ffcc00 100%);
+}

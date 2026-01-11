@@ -101,6 +101,21 @@
       "addedDate": "2026-01-11",
       "author": "ai",
       "mood": "Expansion"
+    },
+    {
+      "id": "industrial-infrastructure",
+      "name": "インダストリアル・インフラ",
+      "description": "都市の基盤を支える鉄骨、コンクリート、そして警告灯の視認性をイメージした、堅牢で信頼感のある工業的テーマ。",
+      "file": "themes/industrial-infrastructure.css",
+      "preview": {
+        "primary": "#f08a18",
+        "secondary": "#ffcc00",
+        "background": "#2b2d31",
+        "text": "#f2f3f5"
+      },
+      "addedDate": "2026-01-11",
+      "author": "ai",
+      "mood": "Infrastructure"
     }
   ]
 }

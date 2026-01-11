@@ -67,6 +67,17 @@
       "category": "navigation",
       "addedDate": "2026-01-11",
       "author": "ai"
+    },
+    {
+      "id": "infra-health-monitor",
+      "name": "インフラ・ヘルスモニター",
+      "description": "サイトのシステムリソース、稼働時間、およびDOM負荷をリアルタイムで監視するインフラストラクチャ・ダッシュボード機能です。",
+      "file": "modules/infra-health-monitor.js",
+      "enabled": true,
+      "required": false,
+      "category": "analytics",
+      "addedDate": "2026-01-11",
+      "author": "ai"
     }
   ]
 }

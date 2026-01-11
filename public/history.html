@@ -1,185 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MorphoNews Archive | 進化するニュースの記録</title>
     <meta name="description" content="MorphoNewsの過去のニュースアーカイブ一覧。AIが自動生成した日々のテックニュースを振り返ることができます。">
-
-    <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet">
-
-    <!-- Base Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/base.css">
-
-    <!-- Theme (ユーザー選択に応じて変更) -->
-    <link id="morpho-theme-css" rel="stylesheet" href="./styles/themes/default.css">
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            padding: 2rem 1rem;
-            background: var(--morpho-bg-secondary);
-            border-bottom: 1px solid var(--morpho-border-color);
-        }
-
-        .page-header h1 {
-            font-size: 2rem;
-            background: var(--morpho-accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .page-header p {
-            color: var(--morpho-text-secondary);
-            margin-top: 0.5rem;
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 0.5rem 1rem;
-        }
-
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--morpho-accent-primary);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--morpho-text-secondary);
-            margin-top: 0.25rem;
-        }
-
-        /* Filter Bar */
-        .filter-bar {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .filter-bar input[type="search"] {
-            flex: 1;
-            min-width: 200px;
-            max-width: 400px;
-            padding: 0.75rem 1rem;
-            padding-left: 2.5rem;
-            border: 1px solid var(--morpho-border-color);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            background: var(--morpho-bg-card);
-            color: var(--morpho-text-primary);
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .filter-bar input[type="search"]:focus {
-            border-color: var(--morpho-accent-primary);
-            box-shadow: 0 0 0 3px color-mix(in srgb, var(--morpho-accent-primary) 10%, transparent);
-        }
-
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-            min-width: 200px;
-            max-width: 400px;
-        }
-
-        .search-wrapper i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--morpho-text-secondary);
-        }
-
-        .sort-select {
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--morpho-border-color);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            background: var(--morpho-bg-card);
-            color: var(--morpho-text-primary);
-            cursor: pointer;
-            outline: none;
-        }
-
-        /* History Grid */
         .history-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .history-card {
             background: var(--morpho-bg-card);
             border: 1px solid var(--morpho-border-color);
             border-radius: 16px;
             padding: 1.5rem;
             transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
         }
-
-        .history-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--morpho-accent-gradient);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
         .history-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--morpho-shadow-lg);
-            border-color: var(--morpho-accent-primary);
         }
-
-        .history-card:hover::before {
-            opacity: 1;
-        }
-
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
-
         .card-date {
             font-family: var(--morpho-font-mono);
             font-size: 0.85rem;
@@ -188,7 +42,6 @@
             align-items: center;
             gap: 0.5rem;
         }
-
         .card-mood {
             background: var(--morpho-accent-gradient);
             color: white;
@@ -197,42 +50,31 @@
             font-size: 0.75rem;
             font-weight: 500;
         }
-
         .card-summary {
             color: var(--morpho-text-secondary);
             font-size: 0.9rem;
             line-height: 1.6;
             margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
-
         .card-meta {
             display: flex;
             gap: 1rem;
             margin-bottom: 1rem;
             font-size: 0.8rem;
             color: var(--morpho-text-secondary);
-            flex-wrap: wrap;
         }
-
         .meta-item {
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
-
         .card-actions {
             display: flex;
             gap: 0.5rem;
         }
-
-        .btn-view,
-        .btn-data {
+        .btn-view, .btn-data {
             flex: 1;
-            padding: 0.6rem 0.75rem;
+            padding: 0.5rem;
             border-radius: 8px;
             text-align: center;
             font-size: 0.85rem;
@@ -241,216 +83,54 @@
             justify-content: center;
             gap: 0.5rem;
             transition: all 0.2s ease;
-            text-decoration: none;
         }
-
         .btn-view {
             background: var(--morpho-accent-gradient);
             color: white;
         }
-
         .btn-view:hover {
             transform: scale(1.02);
-            color: white;
         }
-
         .btn-data {
             background: var(--morpho-bg-primary);
             color: var(--morpho-text-primary);
             border: 1px solid var(--morpho-border-color);
         }
-
         .btn-data:hover {
             border-color: var(--morpho-accent-primary);
-            color: var(--morpho-accent-primary);
         }
-
-        /* Empty State */
-        .empty-state {
+        .page-header {
             text-align: center;
-            padding: 4rem 2rem;
-            color: var(--morpho-text-secondary);
-            grid-column: 1 / -1;
+            padding: 2rem;
         }
-
-        .empty-state i {
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            padding: 8px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--morpho-text-primary);
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--morpho-bg-secondary);
-            z-index: 999;
-            padding: 80px 24px 24px;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .mobile-menu.show {
-            display: flex;
-        }
-
-        .mobile-menu a {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: 12px;
-            color: var(--morpho-text-primary);
-            font-size: 1.1rem;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .mobile-menu a:hover {
-            background: var(--morpho-bg-primary);
-        }
-
-        .mobile-menu a.active {
+        .page-header h1 {
+            font-size: 2rem;
             background: var(--morpho-accent-gradient);
-            color: white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        /* Loading Spinner */
-        .loading {
+        .stats {
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 4rem;
-            grid-column: 1 / -1;
+            gap: 2rem;
+            margin-top: 1rem;
         }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--morpho-border-color);
-            border-top-color: var(--morpho-accent-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .stat {
+            text-align: center;
         }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--morpho-accent-primary);
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .morpho-nav {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .page-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .stats-bar {
-                gap: 1rem;
-            }
-
-            .stat-value {
-                font-size: 1.5rem;
-            }
-
-            .filter-bar {
-                padding: 1rem;
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-wrapper {
-                max-width: none;
-            }
-
-            .history-grid {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .history-card {
-                padding: 1.25rem;
-            }
-
-            .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .card-actions {
-                flex-direction: column;
-            }
-
-            .btn-view,
-            .btn-data {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-header {
-                padding: 1.5rem 1rem;
-            }
-
-            .stats-bar {
-                flex-direction: row;
-                justify-content: space-around;
-            }
-
-            .stat {
-                padding: 0.5rem;
-            }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--morpho-text-secondary);
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
     <header class="morpho-header">
         <div class="morpho-header-content">
             <div class="morpho-logo">
@@ -462,265 +142,812 @@
                     <i data-lucide="home" style="width: 18px; height: 18px;"></i>
                     最新
                 </a>
-                <a href="./history.html" class="active"
-                    style="background: var(--morpho-accent-gradient); color: white;">
-                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
-                    アーカイブ
-                </a>
                 <a href="./settings.html">
                     <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
                     設定
                 </a>
             </nav>
-            <button class="hamburger" id="hamburger" aria-label="メニュー">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </header>
-
-    <!-- Mobile Menu -->
-    <nav class="mobile-menu" id="mobileMenu">
-        <a href="./index.html">
-            <i data-lucide="home" style="width: 24px; height: 24px;"></i>
-            最新のニュース
-        </a>
-        <a href="./history.html" class="active">
-            <i data-lucide="archive" style="width: 24px; height: 24px;"></i>
-            アーカイブ
-        </a>
-        <a href="./settings.html">
-            <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
-            設定
-        </a>
-    </nav>
-
-    <!-- Page Header -->
+    
     <div class="page-header">
-        <h1>
-            <i data-lucide="archive" style="width: 32px; height: 32px;"></i>
-            ニュースアーカイブ
-        </h1>
-        <p>AIが進化させてきたニュースの記録</p>
-        <div class="stats-bar">
+        <h1>📚 ニュースアーカイブ</h1>
+        <p style="color: var(--morpho-text-secondary); margin-top: 0.5rem;">
+            AIが進化させてきたニュースの記録
+        </p>
+        <div class="stats">
             <div class="stat">
-                <div class="stat-value" id="statTotal">-</div>
-                <div class="stat-label">総アーカイブ</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="statThisMonth">-</div>
-                <div class="stat-label">今月</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="statToday">-</div>
-                <div class="stat-label">今日</div>
+                <div class="stat-value">25</div>
+                <div class="stat-label">アーカイブ数</div>
             </div>
         </div>
     </div>
-
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-        <div class="search-wrapper">
-            <i data-lucide="search" style="width: 18px; height: 18px;"></i>
-            <input type="search" id="searchInput" placeholder="キーワードで検索...">
-        </div>
-        <select class="sort-select" id="sortSelect">
-            <option value="newest">新しい順</option>
-            <option value="oldest">古い順</option>
-        </select>
-    </div>
-
-    <!-- History Grid -->
-    <main class="history-grid" id="historyGrid">
-        <div class="loading">
-            <div class="spinner"></div>
-        </div>
-    </main>
-
-    <script>
-        class HistoryPage {
-            constructor() {
-                this.entries = [];
-                this.filteredEntries = [];
-            }
-
-            async init() {
-                await this.loadHistory();
-                this.applyTheme();
-                this.render();
-                this.updateStats();
-                this.bindEvents();
-            }
-
-            async loadHistory() {
-                try {
-                    const response = await fetch('./history.json');
-                    const data = await response.json();
-                    this.entries = data.entries || [];
-                    this.filteredEntries = [...this.entries];
-                    this.sortEntries('newest');
-                } catch (error) {
-                    console.error('Failed to load history:', error);
-                    this.entries = [];
-                    this.filteredEntries = [];
-                }
-            }
-
-            applyTheme() {
-                const savedTheme = localStorage.getItem('morpho-theme') || 'default';
-                const themeLink = document.getElementById('morpho-theme-css');
-                if (themeLink) {
-                    themeLink.href = `./styles/themes/${savedTheme}.css`;
-                }
-            }
-
-            render() {
-                const container = document.getElementById('historyGrid');
-
-                if (this.filteredEntries.length === 0) {
-                    container.innerHTML = `
-            <div class="empty-state">
-              <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
-              <h3>アーカイブが見つかりません</h3>
-              <p>検索条件を変更してお試しください</p>
-            </div>
-          `;
-                    lucide.createIcons();
-                    return;
-                }
-
-                container.innerHTML = this.filteredEntries.map(entry => {
-                    const mood = entry.mood_keyword || 'Unknown';
-                    const summary = entry.daily_summary
-                        ? (entry.daily_summary.length > 120 ? entry.daily_summary.substring(0, 120) + '...' : entry.daily_summary)
-                        : '';
-                    const fetchTime = entry.fetch_time_jst || entry.id || 'Unknown';
-                    const tokens = entry.total_tokens || 'N/A';
-                    const model = entry.model_name || 'N/A';
-
-                    return `
-            <article class="history-card" data-id="${entry.id}">
-              <div class="card-header">
-                <time class="card-date">
-                  <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
-                  ${fetchTime}
-                </time>
-                <span class="card-mood">${mood}</span>
-              </div>
-              <p class="card-summary">${this.escapeHtml(summary)}</p>
-              <div class="card-meta">
-                <span class="meta-item">
-                  <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
-                  ${model}
-                </span>
-                <span class="meta-item">
-                  <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
-                  ${tokens} tokens
-                </span>
-              </div>
-              <div class="card-actions">
-                <a href="./archives/${entry.id}.html" class="btn-view">
-                  <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
-                  記事を見る
-                </a>
-                <a href="./data/${entry.id}.json" class="btn-data">
-                  <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
-                  JSON
-                </a>
-              </div>
+    
+    <main class="history-grid">
+        
+            <article class="history-card" data-mood="progress">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-11 16:22:29 JST
+                    </time>
+                    <span class="card-mood">Progress</span>
+                </div>
+                <p class="card-summary">今日のテック業界は、AIの進化と社会への浸透、そしてセキュリティの重要性が際立つ一日となりました。OpenAIとソフトバンクGによるAI拠点建設への巨額投資は、AI技術のさらなる発展を予感させます。一方で、AI生成画像に関する倫理的な問題や、データ活用における企業の課題も浮き彫りになっています。セキ...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-2.0-flash
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        9175 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-11_1622.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-11_1622.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
             </article>
-          `;
-                }).join('');
-
-                lucide.createIcons();
-            }
-
-            updateStats() {
-                const total = this.entries.length;
-                const today = new Date().toISOString().split('T')[0];
-                const thisMonth = today.substring(0, 7);
-
-                const todayCount = this.entries.filter(e => e.id.startsWith(today)).length;
-                const thisMonthCount = this.entries.filter(e => e.id.startsWith(thisMonth)).length;
-
-                document.getElementById('statTotal').textContent = total;
-                document.getElementById('statThisMonth').textContent = thisMonthCount;
-                document.getElementById('statToday').textContent = todayCount;
-            }
-
-            sortEntries(order) {
-                this.filteredEntries.sort((a, b) => {
-                    return order === 'newest'
-                        ? b.id.localeCompare(a.id)
-                        : a.id.localeCompare(b.id);
-                });
-            }
-
-            filterEntries(query) {
-                if (!query) {
-                    this.filteredEntries = [...this.entries];
-                } else {
-                    const lowerQuery = query.toLowerCase();
-                    this.filteredEntries = this.entries.filter(entry => {
-                        return (entry.daily_summary || '').toLowerCase().includes(lowerQuery) ||
-                            (entry.mood_keyword || '').toLowerCase().includes(lowerQuery) ||
-                            (entry.id || '').toLowerCase().includes(lowerQuery);
-                    });
-                }
-
-                // Re-apply sort
-                const sortSelect = document.getElementById('sortSelect');
-                this.sortEntries(sortSelect.value);
-            }
-
-            bindEvents() {
-                // Search
-                const searchInput = document.getElementById('searchInput');
-                let searchTimeout;
-                searchInput.addEventListener('input', (e) => {
-                    clearTimeout(searchTimeout);
-                    searchTimeout = setTimeout(() => {
-                        this.filterEntries(e.target.value);
-                        this.render();
-                    }, 300);
-                });
-
-                // Sort
-                const sortSelect = document.getElementById('sortSelect');
-                sortSelect.addEventListener('change', (e) => {
-                    this.sortEntries(e.target.value);
-                    this.render();
-                });
-
-                // Hamburger menu
-                const hamburger = document.getElementById('hamburger');
-                const mobileMenu = document.getElementById('mobileMenu');
-
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    mobileMenu.classList.toggle('show');
-                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
-                });
-            }
-
-            escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
-        }
-
-        // Initialize
+        
+            <article class="history-card" data-mood="infrastructure-heavy">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-11 14:03:58 JST
+                    </time>
+                    <span class="card-mood">Infrastructure-Heavy</span>
+                </div>
+                <p class="card-summary">今日のテックトレンドは、AIインフラの巨大化と、その活用に伴う社会的・技術的課題への直面という二極化が鮮明になっています。OpenAIとソフトバンクによる10億ドルの共同出資による1.2GW級AI拠点建設の動きは、AI競争の主戦場が電力とデータセンターという物理的資本に移ったことを象徴しています。一...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21907 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-11_1403.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-11_1403.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="scaling">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-11 11:31:32 JST
+                    </time>
+                    <span class="card-mood">Scaling</span>
+                </div>
+                <p class="card-summary">本日のテックトレンドは「AIインフラの巨大化」と「社会実装における摩擦」の二極化が鮮明となっています。OpenAIとソフトバンクグループによる1.2GW級データセンターへの巨額投資は、AIがもはや単なるソフトウェアではなく、国家レベルの電力・物理インフラへと変貌を遂げていることを象徴しています。一方...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        10669 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-11_1131.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-11_1131.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="regulation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-11 10:48:17 JST
+                    </time>
+                    <span class="card-mood">Regulation</span>
+                </div>
+                <p class="card-summary">今日のテックトレンドは、AIの「物理的スケールアップ」と「社会的・倫理的制約」の二極化が鮮明に現れています。まず、OpenAIとソフトバンクグループによるSB Energyへの10億ドル出資は、テキサスでの1.2GW級巨大データセンター建設という形で、AIインフラの新たな標準モデル構築を加速させます...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21115 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-11_1048.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-11_1048.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="pragmatism">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-11 01:33:44 JST
+                    </time>
+                    <span class="card-mood">Pragmatism</span>
+                </div>
+                <p class="card-summary">2026年初頭のテック業界は、CES 2026でのロボティクスとハードウェアの進化、そして実用フェーズへ移行したAI活用が主軸となっています。ボストン・ダイナミクスやLGが披露した家事支援ロボットは、高度なAIの統合により、単なる展示から家庭内の実用的なパートナーへと進化を遂げつつあります。ハードウ...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        10950 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-11_0133.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-11_0133.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="materialization">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 17:35:28 JST
+                    </time>
+                    <span class="card-mood">Materialization</span>
+                </div>
+                <p class="card-summary">2026年の幕開けを飾るテック業界は、単なるソフトウェアの進化を超え、物理世界への本格的な進出とそれを支える重厚な基盤整備へと舵を切っています。ラスベガスで開催されたCES 2026では「フィジカルAI」が主役に躍り出ました。Boston Dynamicsをはじめとするロボット技術の進化や、Sams...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        11274 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_1735.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_1735.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="transition">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 14:46:27 JST
+                    </time>
+                    <span class="card-mood">Transition</span>
+                </div>
+                <p class="card-summary">CES 2026の閉幕を受け、テクノロジーの焦点は「フィジカルAI（物理的AI）」へと大きくシフトしています。ボストン・ダイナミクスやヒョンデが示すロボティクスの進化、そしてサムスンのAI連携家電に見られるように、AIは画面の中を飛び出し、現実世界での実用フェーズに突入しました。ハードウェア面では、...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        23151 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_1446.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_1446.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="convergence">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 14:24:46 JST
+                    </time>
+                    <span class="card-mood">Convergence</span>
+                </div>
+                <p class="card-summary">2026年の幕開けとともに開催されたCES 2026は、AIが単なる「概念」から、ロボット、家電、ウェアラブルといった物理デバイスへ完全に融合する「実用フェーズ」に入ったことを象徴しています。Boston Dynamicsによる人型ロボットの進化やSamsungのAIライフパートナーとしての冷蔵庫、...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        10772 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_1424.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_1424.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="consolidation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 11:17:32 JST
+                    </time>
+                    <span class="card-mood">Consolidation</span>
+                </div>
+                <p class="card-summary">今日のテック界隈は、ラスベガスで開催された「CES 2026」の閉幕に伴う総括と、AI技術の社会実装における光と影が交錯する一日となりました。ハードウェア面では、NVIDIAやAMDの新型チップに加え、AIをフレーム設計に活用したカシオのG-SHOCKや、スマートグラス、さらには生成AIを統合した家...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21581 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_1117.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_1117.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="ambivalence">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 11:10:55 JST
+                    </time>
+                    <span class="card-mood">Ambivalence</span>
+                </div>
+                <p class="card-summary">2026年の幕開けと共に開催されたCES 2026を軸に、テック業界は「AIの実装」と「その反動」という二面性に直面しています。サムスンのGemini搭載冷蔵庫やAI設計のG-SHOCK、さらには新型スマートグラスなど、生活のあらゆる場面にAIが溶け込み始めた一方で、XのGrokによる画像生成の悪用...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        22125 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_1110.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_1110.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="implementation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 11:07:51 JST
+                    </time>
+                    <span class="card-mood">Implementation</span>
+                </div>
+                <p class="card-summary">CES 2026の閉幕を受け、テクノロジーのトレンドは「AIの社会実装と成熟」という新たなフェーズへと移行しています。NVIDIAやAMDによるハードウェアの進化に加え、サムスンのAI冷蔵庫やカシオのAI設計G-SHOCKなど、AIが実体を持つプロダクトへと統合される「フィジカルAI」の流れが加速し...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21656 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_1107.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_1107.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="maturation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-10 01:38:22 JST
+                    </time>
+                    <span class="card-mood">Maturation</span>
+                </div>
+                <p class="card-summary">2026年の年明け、テック業界はCES 2026の開催によりハードウェアの熱狂に沸く一方、AI技術の実用化と規律という「成熟期」への移行を鮮明にしています。AI分野では、OpenAIが医療機関向け特化型ソリューション「OpenAI for Healthcare」を始動し、Anthropicが大手企業...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21376 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-10_0138.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-10_0138.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="evolutionary">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-09 17:40:22 JST
+                    </time>
+                    <span class="card-mood">Evolutionary</span>
+                </div>
+                <p class="card-summary">2026年の幕開けとともに、テクノロジー界はCES 2026を中心としたハードウェアの革新と、生成AIの実用化フェーズへの完全移行に沸いています。特に、CygamesによるAI特化子会社の設立や、Databricksが発表したRAG（検索拡張生成）を超える新技術は、AIを「単なるツール」から「高精度...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21868 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-09_1740.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-09_1740.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="convergence">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-09 11:21:06 JST
+                    </time>
+                    <span class="card-mood">Convergence</span>
+                </div>
+                <p class="card-summary">2026年が幕を開け、ラスベガスで開催中のCES 2026を筆頭に、テクノロジー界は「AIの社会実装と物理世界への浸透」という新たなフェーズに突入しています。NVIDIAは次世代スパコン「Vera Rubin」と自動運転AI「Alpamayo」を発表し、デジタル空間に留まらない「フィジカルAI」のビ...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21648 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-09_1121.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-09_1121.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="pragmatic">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-09 01:40:00 JST
+                    </time>
+                    <span class="card-mood">Pragmatic</span>
+                </div>
+                <p class="card-summary">2026年の幕開けと共に、テック業界は「実用化」と「ハードウェアの多様性」を軸に大きく動いています。AI分野では、GoogleがGmailへの「AI Inbox」機能を一般開放するなど、生成AIが個人の日常業務に深く浸透し始めています。一方で、開発者コミュニティではAIコーディングアシスタントの性能...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21380 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-09_0140.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-09_0140.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="pragmatic-innovation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-08 17:40:13 JST
+                    </time>
+                    <span class="card-mood">Pragmatic-Innovation</span>
+                </div>
+                <p class="card-summary">今日のテックトレンドは、生成AIの高度な専門化とビジネスの持続性を問う再編が交差する、極めて「実務的」な局面を迎えています。OpenAIが健康データに特化した「ChatGPT Health」を打ち出し、AIが生活の深層へ踏み込む一方で、その安全性や倫理に関する訴訟や警告も後を絶ちません。ハードウェア...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        21040 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-08_1740.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-08_1740.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="transformation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-08 08:18:31 JST
+                    </time>
+                    <span class="card-mood">Transformation</span>
+                </div>
+                <p class="card-summary">2026年幕開けのテック業界は、CES 2026の開催に伴うハードウェアの進化と、AIの社会実装が一段と深化するフェーズに突入しています。OpenAIが発表した「ChatGPT Health」は、Appleのヘルスケアデータと連携し、AIが個人の健康管理における「専門的な助言者」となる未来を提示しま...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        20946 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-08_0818.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-08_0818.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="actualization">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 23:46:24 JST
+                    </time>
+                    <span class="card-mood">Actualization</span>
+                </div>
+                <p class="card-summary">CES 2026の開幕とともに、テクノロジーの主戦場は「AIの社会実装」へと完全にシフトしています。かつて研究段階だった技術が、今や実用的なソリューションとして私たちの生活に浸透しつつあります。Boston Dynamicsの人型ロボット「Atlas」の商用化や、イーロン・マスク率いるNeurali...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        20906 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2346.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2346.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="acceleration">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 23:41:07 JST
+                    </time>
+                    <span class="card-mood">Acceleration</span>
+                </div>
+                <p class="card-summary">2026年幕開けと共に開催されたCES 2026を中心に、テクノロジーの進化が「理論」から「完全な実用」へとシフトした一日でした。特に注目すべきは、LenovoとMotorolaが発表した共通AI基盤「Qira」やペンダント型端末「Project Maxwell」に見られる、PCやスマホの垣根を超え...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        20900 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2341.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2341.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="deployment">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 23:30:07 JST
+                    </time>
+                    <span class="card-mood">Deployment</span>
+                </div>
+                <p class="card-summary">2026年の幕開けと共に開催されたCES 2026を中心として、テクノロジーの社会実装が新たなフェーズに突入しています。特に注目すべきは、Boston Dynamicsの人型ロボット「Atlas」の商用化や、Neuralinkによる脳インターフェース（BCI）の量産予告です。これらは「未来の技術」が...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        18154 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2330.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2330.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="materialization">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 23:27:41 JST
+                    </time>
+                    <span class="card-mood">Materialization</span>
+                </div>
+                <p class="card-summary">2026年の幕開けと共に、テクノロジーは「実装と商用化」の新たなフェーズに突入しています。CES 2026の開催に合わせ、長年研究段階にあった技術が一気に現実社会へ解き放たれようとしています。その象徴が、Boston Dynamicsの人型ロボット『Atlas』の商用化と、イーロン・マスク率いるNe...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        17734 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2327.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2327.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="convergence">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 23:15:21 JST
+                    </time>
+                    <span class="card-mood">Convergence</span>
+                </div>
+                <p class="card-summary">2026年の幕開けと共に開催されているCES 2026を中心に、テック業界は「実社会へのAI・ロボティクスの実装」という新たなフェーズに突入しています。注目すべきはBoston Dynamicsの「Atlas」商用化発表です。長年研究対象だった二足歩行ロボットが、ついに自動車工場などの現場へ投入され...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        18151 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2315.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2315.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="integration">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 22:59:08 JST
+                    </time>
+                    <span class="card-mood">Integration</span>
+                </div>
+                <p class="card-summary">2026年初頭、テクノロジーの潮流は「AIの日常化」から「AIの物理的・社会的な実実装」へと明確にシフトしています。CES 2026の熱狂の中、LenovoやMotorolaが発表した『Qira』は、PCからスマホまで個人の文脈を共有するシームレスなAI体験を提示しました。特筆すべきは、Boston...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        18870 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2259.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2259.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="transformative">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 22:36:03 JST
+                    </time>
+                    <span class="card-mood">Transformative</span>
+                </div>
+                <p class="card-summary">今日のテック業界では、長年親しまれてきた紙媒体の終焉と、AI技術の更なる高度化・実用化という対照的な動きが見られます。32年の歴史を持つ雑誌「Mac Fan」の定期刊行終了は、デジタルシフトの波がメディア界にいかに深く浸透したかを象徴しています。一方で、AI分野ではIntel発のスタートアップArt...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        9472 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_2236.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_2236.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+            <article class="history-card" data-mood="transformation">
+                <div class="card-header">
+                    <time class="card-date">
+                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                        2026-01-07 13:15:27 JST
+                    </time>
+                    <span class="card-mood">Transformation</span>
+                </div>
+                <p class="card-summary">今日のテックトレンドは、メディアの構造変化とAIによる創造性の自動化、そして深刻なセキュリティリスクの三点が焦点です。創刊32年の「Mac Fan」が定期刊行を終了するというニュースは、紙媒体からデジタルへの情報伝達の変遷を象徴しています。一方で、ClaudeとNano Bananaを組み合わせた漫...</p>
+                <div class="card-meta">
+                    <span class="meta-item">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        gemini-3-flash-preview
+                    </span>
+                    <span class="meta-item">
+                        <i data-lucide="hash" style="width: 14px; height: 14px;"></i>
+                        3670 tokens
+                    </span>
+                </div>
+                <div class="card-actions">
+                    <a href="./archives/2026-01-07_1315.html" class="btn-view">
+                        <i data-lucide="newspaper" style="width: 16px; height: 16px;"></i>
+                        記事を見る
+                    </a>
+                    <a href="./data/2026-01-07_1315.json" class="btn-data">
+                        <i data-lucide="file-json" style="width: 16px; height: 16px;"></i>
+                        JSONデータ
+                    </a>
+                </div>
+            </article>
+        
+    </main>
+    
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
-
-            const historyPage = new HistoryPage();
-            historyPage.init();
         });
     </script>
 </body>
-
 </html>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-12",
+  "lastUpdated": "2026-01-13",
   "currentDefault": "default",
   "themes": [
     {
@@ -174,6 +174,21 @@
         "text": "#f0f4f8"
       },
       "addedDate": "2026-01-12",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-velocity",
+      "name": "エージェンティック・ヴェロシティ",
+      "description": "主体的な意思決定と迅速なアクションを促す、高コントラストでエネルギッシュなプロフェッショナルテーマ。目的意識を持ったナビゲーションをサポートします。",
+      "file": "themes/agentic-velocity.css",
+      "preview": {
+        "primary": "#bef264",
+        "secondary": "#3b82f6",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-13",
       "author": "ai",
       "mood": "Agentic"
     }

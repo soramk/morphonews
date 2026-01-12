@@ -301,7 +301,7 @@ MorphoNewsは「自己進化するWebページ」です。毎回の実行で新�
             "name": feature_data['name'],
             "description": feature_data['description'],
             "file": f"modules/{js_filename}",
-            "enabled": True,
+            "enabled": False,
             "required": False,
             "category": feature_data.get('category', 'ui'),
             "addedDate": datetime.now(JST).strftime('%Y-%m-%d'),

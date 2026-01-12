@@ -89,6 +89,17 @@
       "category": "ui",
       "addedDate": "2026-01-12",
       "author": "ai"
+    },
+    {
+      "id": "content-outliner",
+      "name": "コンテンツ・アウトライナー",
+      "description": "ページ内の見出しをリアルタイムでスキャンし、インタラクティブな目次を自動生成します。長いニュースフィード内での迅速な移動を可能にします。",
+      "file": "modules/content-outliner.js",
+      "enabled": true,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-12",
+      "author": "ai"
     }
   ]
 }

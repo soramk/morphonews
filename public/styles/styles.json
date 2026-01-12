@@ -131,6 +131,21 @@
       "addedDate": "2026-01-12",
       "author": "ai",
       "mood": "RegulatingGrowth"
+    },
+    {
+      "id": "pragmatic-logic",
+      "name": "プラグマティック・ロジック",
+      "description": "実用性と論理的効率を追求したデザイン。視認性の高いスレートグレーと誠実なブルーを基調とし、情報の伝達を最優先に設計されています。",
+      "file": "themes/pragmatic-logic.css",
+      "preview": {
+        "primary": "#2d3748",
+        "secondary": "#4a90e2",
+        "background": "#f4f5f7",
+        "text": "#1a202c"
+      },
+      "addedDate": "2026-01-12",
+      "author": "ai",
+      "mood": "Pragmatism"
     }
   ]
 }

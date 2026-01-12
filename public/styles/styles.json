@@ -146,6 +146,21 @@
       "addedDate": "2026-01-12",
       "author": "ai",
       "mood": "Pragmatism"
+    },
+    {
+      "id": "autonomous-system",
+      "name": "オートノマス・システム",
+      "description": "自律的な意思を持つAIを彷彿とさせる、洗練されたダークインターフェース。深みのあるスレートと鋭いシアンのアクセントが、高度な知性と独立性を演出します。",
+      "file": "themes/autonomous-system.css",
+      "preview": {
+        "primary": "#22d3ee",
+        "secondary": "#818cf8",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-12",
+      "author": "ai",
+      "mood": "Autonomous"
     }
   ]
 }

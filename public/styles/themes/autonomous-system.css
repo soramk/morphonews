@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: オートノマス・システム
+ * Generated: 2026-01-12_1417
+ * Mood: Autonomous
+ * Description: 自律的な意思を持つAIを彷彿とさせる、洗練されたダークインターフェース。深みのあるスレートと鋭いシアンのアクセントが、高度な知性と独立性を演出します。
+ */
+:root {
+  --morpho-bg-primary: #0f172a;
+  --morpho-bg-secondary: #1e293b;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #22d3ee;
+  --morpho-accent-secondary: #818cf8;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #22d3ee 0%, #818cf8 100%);
+}

@@ -13,10 +13,10 @@
         rel="stylesheet">
 
     <!-- Base Styles -->
-    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="../styles/base.css">
 
     <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
-    <link id="morpho-theme-css" rel="stylesheet" href="/styles/themes/expansion-nebula.css">
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/expansion-nebula.css">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -185,7 +185,125 @@
                 注目ニュース
             </h2>
             <div id="news-container">
-                <!-- news-renderer.js が動的に挿入 -->
+                <article class="news-card" data-index="0">
+          <div class="news-number">01</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/news/articles/2601/11/news014.html" target="_blank" rel="noopener noreferrer">
+                OpenAIとソフトバンクG、1.2GW級の巨大AI拠点を建設へ
+              </a>
+            </h3>
+            <p class="news-description">テキサス州のSB Energyへ10億ドルを共同出資。AI特化型の次世代インフラの標準モデル構築を目指します。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="1">
+          <div class="news-number">02</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://techcrunch.com/2026/01/10/indonesia-blocks-grok-over-non-consensual-sexualized-deepfakes/" target="_blank" rel="noopener noreferrer">
+                インドネシア政府、XのAI「Grok」を一時遮断　ディープフェイクを問題視
+              </a>
+            </h3>
+            <p class="news-description">非合意の性的な加工画像の生成が容易であることを理由に、アクセス規制が発動。AIガバナンスの国際的な波紋を広げています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="2">
+          <div class="news-number">03</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.engadget.com/cybersecurity/an-instagram-data-breach-reportedly-exposed-the-personal-info-of-175-million-users-192105616.html?src=rss" target="_blank" rel="noopener noreferrer">
+                Instagramで1,750万人分のデータ漏洩か　パスワードリセットが多発
+              </a>
+            </h3>
+            <p class="news-description">ユーザーの個人情報が流出し、悪意あるパスワードリセットリクエストが相次ぐ事態に発展。大規模なサイバーセキュリティ事案となっています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="3">
+          <div class="news-number">04</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.theverge.com/news/860210/fcc-spacex-7500-more-starlink-satellites" target="_blank" rel="noopener noreferrer">
+                SpaceX、Starlink衛星の追加打ち上げ承認を獲得　計1.5万基体制へ
+              </a>
+            </h3>
+            <p class="news-description">FCCが新たに7,500基の打ち上げを承認。宇宙ベースのグローバル通信インフラがさらに強固になります。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="4">
+          <div class="news-number">05</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/01/boston-dynamics-ces?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                CES 2026：Boston Dynamicsがロボット新時代の幕開けを宣言
+              </a>
+            </h3>
+            <p class="news-description">AIとロボティクスの融合が加速。物理的な作業を担う自律型ロボットの社会実装が主要テーマとなっています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="5">
+          <div class="news-number">06</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://venturebeat.com/technology/anthropic-cracks-down-on-unauthorized-claude-usage-by-third-party-harnesses" target="_blank" rel="noopener noreferrer">
+                Anthropic、非公式なClaude利用への規制を強化　「Claude Code」を保護
+              </a>
+            </h3>
+            <p class="news-description">サードパーティ製ツールによる不正なアクセスを遮断。AIプラットフォームのセキュリティと独自エコシステムの構築を優先。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="6">
+          <div class="news-number">07</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.theverge.com/news/860294/elon-musk-open-source-x-algorithm" target="_blank" rel="noopener noreferrer">
+                イーロン・マスク、Xの最新アルゴリズムを来週オープンソース化と発表
+              </a>
+            </h3>
+            <p class="news-description">タイムラインの推薦ロジックを公開予定。SNSの透明性向上を標榜する一方、過去の公開分との不整合も指摘されています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="7">
+          <div class="news-number">08</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/enterprise/articles/2601/10/news010.html" target="_blank" rel="noopener noreferrer">
+                日本企業のデータ活用「全社的な成果」はわずか2.4％、Gartner調査
+              </a>
+            </h3>
+            <p class="news-description">人的投資の遅れが障壁に。多くの企業がツール導入のみで足踏みしている現状が浮き彫りになりました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="8">
+          <div class="news-number">09</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://science.slashdot.org/story/26/01/10/0628251/nature-inspired-computers-are-shockingly-good-at-math?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" target="_blank" rel="noopener noreferrer">
+                脳を模した「ニューロモルフィック・コンピュータ」が数学の難問解決に驚異的な性能
+              </a>
+            </h3>
+            <p class="news-description">自然に着想を得た新アーキテクチャが、従来のスパコンを凌駕する計算効率を実証。AIの進化に新たな道筋。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="9">
+          <div class="news-number">10</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.wired.com/review/fujifilm-xe5-mirrorless-camera/" target="_blank" rel="noopener noreferrer">
+                富士フイルム「X-E5」レビュー：アナログ回帰と最新技術の融合
+              </a>
+            </h3>
+            <p class="news-description">スマホ時代に敢えて「操作する楽しさ」を追求するコンデジ・ミラーレス需要が増大。若年層の間でレトロハードがブームに。</p>
+          </div>
+        </article>
             </div>
         </section>
 
@@ -272,8 +390,8 @@
     </footer>
 
     <!-- Core Scripts -->
-    <script src="/features/core/loader.js"></script>
-    <script src="/features/core/news-renderer.js"></script>
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
 
     <!-- Initialize -->
     <script>
@@ -300,7 +418,7 @@
             if (savedTheme) {
                 const themeLink = document.getElementById('morpho-theme-css');
                 if (themeLink) {
-                    themeLink.href = `/styles/themes/${savedTheme}.css`;
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
                 }
             }
         });

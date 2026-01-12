@@ -13,10 +13,10 @@
         rel="stylesheet">
 
     <!-- Base Styles -->
-    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="../styles/base.css">
 
     <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
-    <link id="morpho-theme-css" rel="stylesheet" href="/styles/themes/{THEME_ID}.css">
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/{THEME_ID}.css">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -182,7 +182,7 @@
                 注目ニュース
             </h2>
             <div id="news-container">
-                <!-- news-renderer.js が動的に挿入 -->
+                {NEWS_CARDS}
             </div>
         </section>
 
@@ -255,8 +255,8 @@
     </footer>
 
     <!-- Core Scripts -->
-    <script src="/features/core/loader.js"></script>
-    <script src="/features/core/news-renderer.js"></script>
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
 
     <!-- Initialize -->
     <script>
@@ -283,7 +283,7 @@
             if (savedTheme) {
                 const themeLink = document.getElementById('morpho-theme-css');
                 if (themeLink) {
-                    themeLink.href = `/styles/themes/${savedTheme}.css`;
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
                 }
             }
         });

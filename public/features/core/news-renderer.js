@@ -34,7 +34,7 @@
          */
         async loadNewsData(articleId) {
             try {
-                const response = await fetch(`/data/${articleId}.json`);
+                const response = await fetch(`../data/${articleId}.json`);
                 if (!response.ok) throw new Error('Failed to load news data');
                 this.newsData = await response.json();
             } catch (error) {

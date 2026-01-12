@@ -13,10 +13,10 @@
         rel="stylesheet">
 
     <!-- Base Styles -->
-    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="../styles/base.css">
 
     <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
-    <link id="morpho-theme-css" rel="stylesheet" href="/styles/themes/regulating-growth.css">
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/regulating-growth.css">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -185,7 +185,125 @@
                 注目ニュース
             </h2>
             <div id="news-container">
-                <!-- news-renderer.js が動的に挿入 -->
+                <article class="news-card" data-index="0">
+          <div class="news-number">01</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/news/articles/2601/11/news014.html" target="_blank" rel="noopener noreferrer">
+                OpenAIとソフトバンクG、10億ドルを投じ1.2GW級のAIデータセンター建設へ
+              </a>
+            </h3>
+            <p class="news-description">テキサス州で巨大なAI特化型インフラを共同開発。SB Energyへの出資を通じて、増大するAI計算資源の電力需要に応える標準モデルの構築を目指す。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="1">
+          <div class="news-number">02</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://venturebeat.com/technology/anthropic-cracks-down-on-unauthorized-claude-usage-by-third-party-harnesses" target="_blank" rel="noopener noreferrer">
+                Anthropicが非公式なClaude利用への規制を強化、サードパーティ製ツールに影響
+              </a>
+            </h3>
+            <p class="news-description">公式ツール「Claude Code」を偽装したアクセスを遮断。セキュリティと収益保護のため、独自の技術的保護策を導入したことを確認。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="2">
+          <div class="news-number">03</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://techcrunch.com/2026/01/11/indonesia-blocks-grok-over-non-consensual-sexualized-deepfakes/" target="_blank" rel="noopener noreferrer">
+                XのAI「Grok」によるディープフェイク問題でインドネシア等がアクセス遮断
+              </a>
+            </h3>
+            <p class="news-description">性的コンテンツの生成が容易であることを受け、当局が一時的なアクセス制限を実施。X側は対策として画像編集機能の有料会員限定化を進める。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="3">
+          <div class="news-number">04</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/01/boston-dynamics-ces?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                Boston DynamicsがCES 2026に登壇へ、AI時代のロボティクス革新に期待
+              </a>
+            </h3>
+            <p class="news-description">現代自動車のプレスカンファレンスに参加。AIと高度な身体性を融合させた次世代ロボットが披露される見込みで、本格的な実用化への関心が集まる。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="4">
+          <div class="news-number">05</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gigazine.net/news/20260111-sponsor-tailwind-css/" target="_blank" rel="noopener noreferrer">
+                Google AI Studio、経営危機のTailwind CSSにスポンサーとして救済の手
+              </a>
+            </h3>
+            <p class="news-description">従業員の75%解雇に追い込まれた人気CSSフレームワークを支援。Web開発エコシステムの維持のため、Google等の複数組織が名乗りをあげた。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="5">
+          <div class="news-number">06</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gigazine.net/news/20260111-vibium/" target="_blank" rel="noopener noreferrer">
+                Selenium作者、AIエージェント向けブラウザ自動化ツール「Vibium」を公開
+              </a>
+            </h3>
+            <p class="news-description">AIが操作することを前提に設計された新しいブラウザ自動化ツール。従来のSelenium以上にAIエージェントとの高い親和性を実現する。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="6">
+          <div class="news-number">07</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://zenn.dev/kok1eeeee/articles/lfm25-local-llm-trial" target="_blank" rel="noopener noreferrer">
+                1.2Bの超小型日本語LLM「LFM 2.5-JP」登場、エッジAIの可能性拡大
+              </a>
+            </h3>
+            <p class="news-description">Liquid AIが開発した軽量かつ高性能な日本語モデル。低リソース環境での動作が可能で、デバイス上でのプライベートなAI処理への寄与が期待される。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="7">
+          <div class="news-number">08</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.engadget.com/cybersecurity/an-instagram-data-breach-reportedly-exposed-the-personal-info-of-175-million-users-192105616.html" target="_blank" rel="noopener noreferrer">
+                Instagramで1750万人規模の情報流出か、不審なパスワードリセットが多発
+              </a>
+            </h3>
+            <p class="news-description">大量のリセット要求メールがユーザーに届く事象が発生。Meta側は「アカウントは安全」としているが、大規模なデータ漏洩の可能性も報じられている。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="8">
+          <div class="news-number">09</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://techcrunch.com/2026/01/11/google-announces-a-new-protocol-to-facilitate-commerce-using-ai-agents/" target="_blank" rel="noopener noreferrer">
+                Google、AIエージェントを介したコマース促進のための新プロトコルを発表
+              </a>
+            </h3>
+            <p class="news-description">加盟店がAIの回答結果内で直接割引を提示できる仕組みを導入。AIチャットを通じた新たな買い物体験とマーケティング手法を確立する狙い。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="9">
+          <div class="news-number">10</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://tech.slashdot.org/story/26/01/11/0651219/that-bell-labs-unix-tape-from-1974-from-a-closet-to-computing-history?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" target="_blank" rel="noopener noreferrer">
+                1974年の「Unix」磁気テープが発見される、初期の計算機史を紐解く貴重な資料
+              </a>
+            </h3>
+            <p class="news-description">ユタ州で保管されていた最初期のUnix OSを含むテープが再発見。コンピュータ史を保存する取り組みの一環として、デジタル化と公開が検討されている。</p>
+          </div>
+        </article>
             </div>
         </section>
 
@@ -272,8 +390,8 @@
     </footer>
 
     <!-- Core Scripts -->
-    <script src="/features/core/loader.js"></script>
-    <script src="/features/core/news-renderer.js"></script>
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
 
     <!-- Initialize -->
     <script>
@@ -300,7 +418,7 @@
             if (savedTheme) {
                 const themeLink = document.getElementById('morpho-theme-css');
                 if (themeLink) {
-                    themeLink.href = `/styles/themes/${savedTheme}.css`;
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
                 }
             }
         });

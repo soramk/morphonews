@@ -13,10 +13,10 @@
         rel="stylesheet">
 
     <!-- Base Styles -->
-    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="../styles/base.css">
 
     <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
-    <link id="morpho-theme-css" rel="stylesheet" href="/styles/themes/industrial-infrastructure.css">
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/industrial-infrastructure.css">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -185,7 +185,125 @@
                 注目ニュース
             </h2>
             <div id="news-container">
-                <!-- news-renderer.js が動的に挿入 -->
+                <article class="news-card" data-index="0">
+          <div class="news-number">01</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/news/articles/2601/11/news014.html" target="_blank" rel="noopener noreferrer">
+                OpenAIとソフトバンクG、1.2GW級のAI拠点建設へ10億ドル共同出資
+              </a>
+            </h3>
+            <p class="news-description">テキサス州で巨大データセンターを建設し、AI特化型インフラの標準モデルを共同開発。エネルギー消費が課題となる中、SB Energyを通じて電力供給も確保します。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="1">
+          <div class="news-number">02</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://techcrunch.com/2026/01/10/spacex-gets-fcc-approval-to-launch-7500-more-starlink-satellites/" target="_blank" rel="noopener noreferrer">
+                SpaceX、Starlink衛星7,500基の追加打ち上げ許可をFCCから取得
+              </a>
+            </h3>
+            <p class="news-description">第2世代Starlinkの運用規模が倍増し、全世界で1万5,000基体制へ。低軌道衛星による通信網の独占状態と宇宙ゴミへの懸念がさらに高まっています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="2">
+          <div class="news-number">03</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://venturebeat.com/technology/anthropic-cracks-down-on-unauthorized-claude-usage-by-third-party-harnesses" target="_blank" rel="noopener noreferrer">
+                Anthropic、非公式サイト経由のClaude利用を制限　サードパーティ製ツールに打撃
+              </a>
+            </h3>
+            <p class="news-description">Claude Codeのなりすましを防ぐための技術的制限を導入。利便性を追求する開発者コミュニティと、自社プラットフォームの安全性を優先する企業姿勢が衝突しています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="3">
+          <div class="news-number">04</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.theverge.com/news/860294/elon-musk-open-source-x-algorithm" target="_blank" rel="noopener noreferrer">
+                イーロン・マスク氏、Xの最新アルゴリズムを来週オープンソース化すると発表
+              </a>
+            </h3>
+            <p class="news-description">おすすめフィードや広告の決定コードを公開予定。透明性をアピールする狙いがある一方、Grokの画像生成を巡る混乱や一部機能の有料化も進んでいます。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="4">
+          <div class="news-number">05</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/enterprise/articles/2601/10/news010.html" target="_blank" rel="noopener noreferrer">
+                日本企業のデータ活用、全社で成果が出ているのはわずか2.4％＝Gartner調査
+              </a>
+            </h3>
+            <p class="news-description">約7割が何らかの成果を認識するものの、多くが局所的な導入に留まっています。ツール導入が先行し、人的投資や組織文化の変革が追いつかない現状が浮き彫りとなりました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="5">
+          <div class="news-number">06</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.theverge.com/tech/860241/best-smart-home-devices-ces-2026-matter-ikea-aqara-amazon" target="_blank" rel="noopener noreferrer">
+                CES 2026：スマートホームと次世代ロボットが主役に
+              </a>
+            </h3>
+            <p class="news-description">Boston Dynamicsの最新動向や、EEG（脳波）を活用した睡眠用イヤフォンなど、AIとハードウェアが高度に融合したデバイスが多数発表されています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="6">
+          <div class="news-number">07</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.engadget.com/cybersecurity/an-instagram-data-breach-reportedly-exposed-the-personal-info-of-175-million-users-192105616.html" target="_blank" rel="noopener noreferrer">
+                Instagramで大規模データ漏洩の疑い、1,750万人の個人情報が露出か
+              </a>
+            </h3>
+            <p class="news-description">パスワードリセット要求の急増が報告されており、大規模な攻撃が行われた可能性があります。メタ社による公式発表が待たれる状況です。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="7">
+          <div class="news-number">08</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.wired.com/review/fujifilm-xe5-mirrorless-camera/" target="_blank" rel="noopener noreferrer">
+                富士フイルム「X-E5」発表、若年層で加速する「コンデジ・レトロ」ブーム
+              </a>
+            </h3>
+            <p class="news-description">スマホ世代にとって新鮮な物理ダイヤルと独自のカラーサイエンスを搭載。デジタルカメラが記録ツールから自己表現の趣味具として再評価されています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="8">
+          <div class="news-number">09</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/01/daily-linux-260109?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                リーナス・トーバルズ氏「AIツールはただのツール」と強調、過度な期待を牽制
+              </a>
+            </h3>
+            <p class="news-description">Linuxカーネル開発におけるAI生成コードの扱いに議論が及ぶ中、AIを魔法ではなく既存のツールセットの延長として冷静に捉えるべきだと主張しました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="9">
+          <div class="news-number">10</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://science.slashdot.org/story/26/01/10/0628251/nature-inspired-computers-are-shockingly-good-at-math" target="_blank" rel="noopener noreferrer">
+                脳を模した「ニューロモーフィック・コンピュータ」が複雑な計算で驚異的成果
+              </a>
+            </h3>
+            <p class="news-description">米エネルギー省の研究チームが、生物学的な脳の構造にヒントを得た計算機が数学的難問を極めて効率的に解くことを証明。AI計算の省電力化に道を開く可能性があります。</p>
+          </div>
+        </article>
             </div>
         </section>
 
@@ -272,8 +390,8 @@
     </footer>
 
     <!-- Core Scripts -->
-    <script src="/features/core/loader.js"></script>
-    <script src="/features/core/news-renderer.js"></script>
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
 
     <!-- Initialize -->
     <script>
@@ -300,7 +418,7 @@
             if (savedTheme) {
                 const themeLink = document.getElementById('morpho-theme-css');
                 if (themeLink) {
-                    themeLink.href = `/styles/themes/${savedTheme}.css`;
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
                 }
             }
         });

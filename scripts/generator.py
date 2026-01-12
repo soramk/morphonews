@@ -488,6 +488,24 @@ def generate_archive_html(news_data, current_id, prev_link, generation_count, ne
     html = html.replace('{THEME_ID}', html_module.escape(theme_id))
     html = html.replace('{DAILY_SUMMARY}', html_module.escape(news_data.get('daily_summary', '')))
     
+    # ニュースカードの静的生成
+    news_cards_html = ""
+    for index, news in enumerate(news_data.get('top_news', [])):
+        news_cards_html += f'''
+        <article class="news-card" data-index="{index}">
+          <div class="news-number">{str(index + 1).zfill(2)}</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="{html_module.escape(news.get('link', '#'))}" target="_blank" rel="noopener noreferrer">
+                {html_module.escape(news.get('title', ''))}
+              </a>
+            </h3>
+            <p class="news-description">{html_module.escape(news.get('description', ''))}</p>
+          </div>
+        </article>
+        '''
+    html = html.replace('{NEWS_CARDS}', news_cards_html)
+    
     # Previous link
     if prev_link and prev_link != '#':
         prev_id = prev_link.split('/')[-1].replace('.html', '')

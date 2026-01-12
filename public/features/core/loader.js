@@ -14,7 +14,7 @@ class MorphoLoader {
     async init() {
         try {
             // 1. features.json を読み込み
-            const response = await fetch('/features/features.json');
+            const response = await fetch('../features/features.json');
             if (!response.ok) {
                 console.error('Failed to load features.json');
                 return;
@@ -57,7 +57,7 @@ class MorphoLoader {
     async loadModule(feature) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = `/features/${feature.file}`;
+            script.src = `../features/${feature.file}`;
             script.async = true;
 
             script.onload = () => {

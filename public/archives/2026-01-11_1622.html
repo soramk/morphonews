@@ -13,10 +13,10 @@
         rel="stylesheet">
 
     <!-- Base Styles -->
-    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="../styles/base.css">
 
     <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
-    <link id="morpho-theme-css" rel="stylesheet" href="/styles/themes/default.css">
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/default.css">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -131,9 +131,9 @@
             </div>
             <nav class="morpho-nav">
                 <a href="./2026-01-11_1403.html" class="nav-link">
-                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
-                前のニュース
-            </a>
+                    <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                    前のニュース
+                </a>
                 <a href="../history.html">
                     <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
                     アーカイブ
@@ -175,7 +175,11 @@
                 <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--morpho-accent-primary);"></i>
                 今日のテックトレンド
             </h2>
-            <p style="font-size: 1.05rem; line-height: 1.8;">今日のテック業界は、AIの進化と社会への浸透、そしてセキュリティの重要性が際立つ一日となりました。OpenAIとソフトバンクGによるAI拠点建設への巨額投資は、AI技術のさらなる発展を予感させます。一方で、AI生成画像に関する倫理的な問題や、データ活用における企業の課題も浮き彫りになっています。セキュリティ面では、中国を拠点とするハッカー集団によるVMware ESXiの脆弱性悪用や、中東地域を標的としたスピアフィッシング攻撃など、サイバー脅威の高度化が懸念されます。また、Elon Musk氏がXのアルゴリズムをオープンソース化する意向を示すなど、透明性への動きも見られました。CES 2026では、スマートホームデバイスやロボット技術の進化が注目を集め、テクノロジーが私たちの生活をより豊かにする可能性を感じさせます。</p>
+            <p style="font-size: 1.05rem; line-height: 1.8;">
+                今日のテック業界は、AIの進化と社会への浸透、そしてセキュリティの重要性が際立つ一日となりました。OpenAIとソフトバンクGによるAI拠点建設への巨額投資は、AI技術のさらなる発展を予感させます。一方で、AI生成画像に関する倫理的な問題や、データ活用における企業の課題も浮き彫りになっています。セキュリティ面では、中国を拠点とするハッカー集団によるVMware
+                ESXiの脆弱性悪用や、中東地域を標的としたスピアフィッシング攻撃など、サイバー脅威の高度化が懸念されます。また、Elon
+                Musk氏がXのアルゴリズムをオープンソース化する意向を示すなど、透明性への動きも見られました。CES
+                2026では、スマートホームデバイスやロボット技術の進化が注目を集め、テクノロジーが私たちの生活をより豊かにする可能性を感じさせます。</p>
         </section>
 
         <!-- Top News -->
@@ -185,7 +189,128 @@
                 注目ニュース
             </h2>
             <div id="news-container">
-                <!-- news-renderer.js が動的に挿入 -->
+                <article class="news-card" data-index="0">
+                    <div class="news-number">01</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://www.itmedia.co.jp/news/articles/2601/11/news014.html" target="_blank"
+                                rel="noopener noreferrer">
+                                OpenAIとソフトバンクG、SB Energyに10億ドル共同出資　1.2GW級のAI拠点建設へ
+                            </a>
+                        </h3>
+                        <p class="news-description">OpenAIとソフトバンクグループが共同で10億ドルを出資し、テキサス州に大規模なAI特化型データセンターを建設。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="1">
+                    <div class="news-number">02</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://www.itmedia.co.jp/news/articles/2601/11/news008.html" target="_blank"
+                                rel="noopener noreferrer">
+                                写真が勝手に性的に加工される……Xの「Grok」巡る騒動にSNSをあまりしないマンガ家も抱いた素朴な疑問　「これ、予想できたよね？」
+                            </a>
+                        </h3>
+                        <p class="news-description">XのAI「Grok」が生成する画像に関する倫理的な問題が浮上。SNS利用者の間で議論を呼ぶ。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="2">
+                    <div class="news-number">03</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://www.itmedia.co.jp/enterprise/articles/2601/10/news010.html" target="_blank"
+                                rel="noopener noreferrer">
+                                データ活用「全社で成果」はわずか2.4％　Gartnerが明かす日本企業の現実
+                            </a>
+                        </h3>
+                        <p class="news-description">Gartnerの調査で、データ活用で全社的な成果を出せている日本企業はごくわずかであることが判明。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="3">
+                    <div class="news-number">04</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://thehackernews.com/2026/01/chinese-linked-hackers-exploit-vmware.html"
+                                target="_blank" rel="noopener noreferrer">
+                                China-Linked Hackers Exploit VMware ESXi Zero-Days to Escape Virtual Machines
+                            </a>
+                        </h3>
+                        <p class="news-description">中国を拠点とするハッカー集団が、VMware ESXiの脆弱性を悪用して仮想マシンから脱出する攻撃を確認。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="4">
+                    <div class="news-number">05</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://www.theverge.com/news/860294/elon-musk-open-source-x-algorithm"
+                                target="_blank" rel="noopener noreferrer">
+                                Musk says he&#8217;s going to open-source the new X algorithm next week
+                            </a>
+                        </h3>
+                        <p class="news-description">Elon Musk氏が、Xの新しいアルゴリズムを来週オープンソース化すると発表。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="5">
+                    <div class="news-number">06</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://techcrunch.com/2026/01/10/spacex-gets-fcc-approval-to-launch-7500-more-starlink-satellites/"
+                                target="_blank" rel="noopener noreferrer">
+                                SpaceX gets FCC approval to launch 7,500 more Starlink satellites
+                            </a>
+                        </h3>
+                        <p class="news-description">FCC（米連邦通信委員会）がSpaceXに対し、さらに7,500基のStarlink衛星打ち上げを承認。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="6">
+                    <div class="news-number">07</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://gihyo.jp/article/2026/01/boston-dynamics-ces?utm_source=feed"
+                                target="_blank" rel="noopener noreferrer">
+                                AI時代到来で新たな革新を起こし始めたBoston Dynamics――2026年は本格的なロボット・ショーとしてのCESの幕開けとなるか
+                            </a>
+                        </h3>
+                        <p class="news-description">CES 2026でBoston Dynamicsが紹介され、AI時代のロボット技術の革新が期待される。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="7">
+                    <div class="news-number">08</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://www.publickey1.jp/blog/26/webaiai_engine_playgroundgithub_id.html"
+                                target="_blank" rel="noopener noreferrer">
+                                Webブラウザから無料で生成AIの挙動を試せる「さくらのAI Engine 」のPlayground機能、GitHub IDだけで手軽に利用可能に
+                            </a>
+                        </h3>
+                        <p class="news-description">さくらインターネットが提供する「さくらのAI Engine」のPlayground機能が、GitHub
+                            IDだけで手軽に利用可能になった。</p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="8">
+                    <div class="news-number">09</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://gihyo.jp/article/2026/01/android-weekly-topics-260108?utm_source=feed"
+                                target="_blank" rel="noopener noreferrer">
+                                モダンになった「Pebble Round 2」と現代版Blackberry「Clicks Communicator」が発表されました
+                            </a>
+                        </h3>
+                        <p class="news-description">モダンにアップデートされた「Pebble Round 2」と、物理キーボード搭載の「Clicks Communicator」が発表。
+                        </p>
+                    </div>
+                </article>
+                <article class="news-card" data-index="9">
+                    <div class="news-number">10</div>
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="https://www.theverge.com/tech/860241/best-smart-home-devices-ces-2026-matter-ikea-aqara-amazon"
+                                target="_blank" rel="noopener noreferrer">
+                                These are the smart home gadgets that impressed me at CES 2026
+                            </a>
+                        </h3>
+                        <p class="news-description">CES 2026で印象的だったスマートホームガジェットが紹介される。</p>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -272,8 +397,8 @@
     </footer>
 
     <!-- Core Scripts -->
-    <script src="/features/core/loader.js"></script>
-    <script src="/features/core/news-renderer.js"></script>
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
 
     <!-- Initialize -->
     <script>
@@ -300,7 +425,7 @@
             if (savedTheme) {
                 const themeLink = document.getElementById('morpho-theme-css');
                 if (themeLink) {
-                    themeLink.href = `/styles/themes/${savedTheme}.css`;
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
                 }
             }
         });

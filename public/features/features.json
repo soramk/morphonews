@@ -111,6 +111,17 @@
       "category": "ui",
       "addedDate": "2026-01-12",
       "author": "ai"
+    },
+    {
+      "id": "context-task-agent",
+      "name": "コンテキスト適応型タスクエージェント",
+      "description": "閲覧中のコンテンツを自律的に解析し、数値の強調、重要語句の抽出、閲覧モードの切り替えなどの文脈に応じたタスクを提案するフローティングエージェントを追加します。",
+      "file": "modules/context-task-agent.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-12",
+      "author": "ai"
     }
   ]
 }

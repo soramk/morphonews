@@ -161,6 +161,21 @@
       "addedDate": "2026-01-12",
       "author": "ai",
       "mood": "Autonomous"
+    },
+    {
+      "id": "agentic-command",
+      "name": "エージェンティック・コマンド",
+      "description": "自律的な意思決定と行動を促す、鋭いコントラストと精密さを兼ね備えたタクティカル・テーマ。情報の優先順位を明確にし、迅速な判断をサポートします。",
+      "file": "themes/agentic-command.css",
+      "preview": {
+        "primary": "#00f5d4",
+        "secondary": "#0072ff",
+        "background": "#0a0f14",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-01-12",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

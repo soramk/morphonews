@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・コマンド
+ * Generated: 2026-01-12_1720
+ * Mood: Agentic
+ * Description: 自律的な意思決定と行動を促す、鋭いコントラストと精密さを兼ね備えたタクティカル・テーマ。情報の優先順位を明確にし、迅速な判断をサポートします。
+ */
+:root {
+  --morpho-bg-primary: #0a0f14;
+  --morpho-bg-secondary: #141b24;
+  --morpho-bg-card: #1c2530;
+  --morpho-text-primary: #f0f4f8;
+  --morpho-text-secondary: #8e9fb1;
+  --morpho-accent-primary: #00f5d4;
+  --morpho-accent-secondary: #0072ff;
+  --morpho-border-color: #2d3a4b;
+  --morpho-accent-gradient: linear-gradient(135deg, #00f5d4 0%, #0072ff 100%);
+}

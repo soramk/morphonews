@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-13",
+  "lastUpdated": "2026-01-14",
   "features": [
     {
       "id": "news-renderer",
@@ -154,6 +154,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-01-13",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-session-architect",
+      "name": "自律型セッション・アーキテクト",
+      "description": "ユーザーが設定した読解目標（キーワード）に基づき、ページ内の重要セクションを自律的に抽出し、最短の学習ロードマップを構築するエージェント機能。",
+      "file": "modules/agentic-session-architect.js",
+      "enabled": false,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-14",
       "author": "ai"
     }
   ]

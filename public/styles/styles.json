@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-13",
+  "lastUpdated": "2026-01-14",
   "currentDefault": "default",
   "themes": [
     {
@@ -219,6 +219,21 @@
         "text": "#f0f6fc"
       },
       "addedDate": "2026-01-13",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-tactical-focus",
+      "name": "アジェンティック・タクティカル・フォーカス",
+      "description": "目的指向の迅速なアクションを促す、高コントラストなタクティカルデザイン。視認性の高いエレクトリックライムが、自律的な意思決定をサポートします。",
+      "file": "themes/agentic-tactical-focus.css",
+      "preview": {
+        "primary": "#d4ff00",
+        "secondary": "#00f2ff",
+        "background": "#0b0e14",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-01-14",
       "author": "ai",
       "mood": "Agentic"
     }

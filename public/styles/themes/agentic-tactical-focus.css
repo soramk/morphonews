@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: アジェンティック・タクティカル・フォーカス
+ * Generated: 2026-01-14_0120
+ * Mood: Agentic
+ * Description: 目的指向の迅速なアクションを促す、高コントラストなタクティカルデザイン。視認性の高いエレクトリックライムが、自律的な意思決定をサポートします。
+ */
+:root {
+  --morpho-bg-primary: #0b0e14;
+  --morpho-bg-secondary: #141923;
+  --morpho-bg-card: #1c2331;
+  --morpho-text-primary: #f0f4f8;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #d4ff00;
+  --morpho-accent-secondary: #00f2ff;
+  --morpho-border-color: #2d3748;
+  --morpho-accent-gradient: linear-gradient(135deg, #d4ff00 0%, #00f2ff 100%);
+}

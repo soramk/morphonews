@@ -206,6 +206,21 @@
       "addedDate": "2026-01-13",
       "author": "ai",
       "mood": "Autonomous"
+    },
+    {
+      "id": "agentic-strategic-pulse",
+      "name": "エージェンティック・ストラテジー",
+      "description": "意思決定の迅速さとタクティカルな明晰さを表現した、高コントラストなプロフェッショナルテーマ。自律的な行動を促す鮮やかなシアンと、安定感のあるスレートブラックを組み合わせています。",
+      "file": "themes/agentic-strategic-pulse.css",
+      "preview": {
+        "primary": "#00ffcc",
+        "secondary": "#00a3ff",
+        "background": "#0a0e14",
+        "text": "#f0f6fc"
+      },
+      "addedDate": "2026-01-13",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

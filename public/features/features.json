@@ -144,6 +144,17 @@
       "category": "ui",
       "addedDate": "2026-01-13",
       "author": "ai"
+    },
+    {
+      "id": "agentic-curiosity-scout",
+      "name": "エージェンティック・キュリオシティ・スカウト",
+      "description": "ユーザーの読了状況とスクロール速度を自律的に監視し、次に興味を持つであろう関連セクションを動的に予測・提案するエージェントを配置します。",
+      "file": "modules/agentic-curiosity-scout.js",
+      "enabled": false,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-13",
+      "author": "ai"
     }
   ]
 }

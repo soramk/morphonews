@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・ストラテジー
+ * Generated: 2026-01-13_1719
+ * Mood: Agentic
+ * Description: 意思決定の迅速さとタクティカルな明晰さを表現した、高コントラストなプロフェッショナルテーマ。自律的な行動を促す鮮やかなシアンと、安定感のあるスレートブラックを組み合わせています。
+ */
+:root {
+  --morpho-bg-primary: #0a0e14;
+  --morpho-bg-secondary: #151b23;
+  --morpho-bg-card: #1c242f;
+  --morpho-text-primary: #f0f6fc;
+  --morpho-text-secondary: #8b949e;
+  --morpho-accent-primary: #00ffcc;
+  --morpho-accent-secondary: #00a3ff;
+  --morpho-border-color: #30363d;
+  --morpho-accent-gradient: linear-gradient(135deg, #00ffcc 0%, #00a3ff 100%);
+}

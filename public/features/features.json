@@ -133,6 +133,17 @@
       "category": "analytics",
       "addedDate": "2026-01-13",
       "author": "ai"
+    },
+    {
+      "id": "autonomous-attention-focalizer",
+      "name": "自律的アテンション・フォーカライザー",
+      "description": "ユーザーの視覚的停留時間とスクロール行動を学習し、関心が高いと思われるセクションを自動的に強調（ハイライト）し、周囲の視覚的ノイズを動的に低減する機能です。",
+      "file": "modules/autonomous-attention-focalizer.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-13",
+      "author": "ai"
     }
   ]
 }

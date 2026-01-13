@@ -191,6 +191,21 @@
       "addedDate": "2026-01-13",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "autonomous-evolution",
+      "name": "自律的進化 (Autonomous Evolution)",
+      "description": "システムの独立性と高度な意思決定を象徴する、深みのあるモノトーンに鮮烈なシアンが走るモダン・インテリジェンス・テーマ。",
+      "file": "themes/autonomous-evolution.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#7000ff",
+        "background": "#0a0c10",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-01-13",
+      "author": "ai",
+      "mood": "Autonomous"
     }
   ]
 }

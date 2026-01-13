@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 自律的進化 (Autonomous Evolution)
+ * Generated: 2026-01-13_0958
+ * Mood: Autonomous
+ * Description: システムの独立性と高度な意思決定を象徴する、深みのあるモノトーンに鮮烈なシアンが走るモダン・インテリジェンス・テーマ。
+ */
+:root {
+    --morpho-bg-primary: #0a0c10;
+    --morpho-bg-secondary: #141820;
+    --morpho-bg-card: #1c212b;
+    --morpho-text-primary: #f0f4f8;
+    --morpho-text-secondary: #94a3b8;
+    --morpho-accent-primary: #00f2ff;
+    --morpho-accent-secondary: #7000ff;
+    --morpho-border-color: #2d3748;
+    --morpho-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #7000ff 100%);
+}

@@ -1,0 +1,136 @@
+/**
+ * MorphoNews Layout: エージェント・ダイナミクス・グリッド
+ * Generated: 2026-01-15_0119
+ * Generation: #38
+ * Mood: Agentic
+ * Evolution: Scroll-driven animations + @starting-style + 3D Transform Micro-interactions + CSS Grid subgrid optimization
+ * Description: 前回の静的なリスト形式から進化し、自律的な意思決定を視覚化する「不等辺グリッド」を採用。スクロール駆動アニメーション（Scroll-driven Animations）と@starting-styleによる次世代の登場エフェクト、さらに3Dパースペクティブなホバー干渉を実装しました。
+ */
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(auto-fill, minmax(380px, 1fr));
+    --layout-card-gap: 2.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: agentic-reveal-motion;
+}
+
+/* Container Evolution: Dynamic Grid */
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    perspective: 1500px;
+    padding-top: 2rem;
+}
+
+/* Card Evolution: 3D Depth & Scroll Reveal */
+.news-card {
+    position: relative;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    padding: var(--morpho-spacing-xl);
+    background: var(--morpho-bg-secondary);
+    border: 1px solid var(--morpho-border-subtle);
+    border-radius: var(--morpho-radius-lg);
+    transition: 
+        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+        box-shadow 0.6s ease,
+        border-color 0.4s ease;
+    
+    /* Scroll-driven animation setup */
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    animation: layoutReveal linear both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 30%;
+}
+
+/* Asymmetric Spanning logic */
+@media (min-width: 1024px) {
+    .news-card:nth-child(4n+1) {
+        grid-row: span 2;
+        justify-content: center;
+    }
+}
+
+/* High-end Hover Interaction */
+.news-card:hover {
+    transform: translateY(-15px) rotateX(6deg) rotateY(-3deg) scale(1.02);
+    box-shadow: 0 40px 80px -20px var(--morpho-shadow-color);
+    border-color: var(--morpho-accent-primary);
+    z-index: 10;
+}
+
+/* Modern CSS Technique: @starting-style for initial load */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: scale(0.9) translateY(40px);
+    }
+}
+
+/* Dynamic Number Badge */
+.news-number {
+    position: absolute;
+    top: -1.2rem;
+    right: 2rem;
+    width: 4rem;
+    height: 3rem;
+    background: var(--morpho-accent-gradient);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--morpho-font-mono);
+    font-weight: 900;
+    font-size: 1.5rem;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    box-shadow: var(--morpho-shadow-md);
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover .news-number {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Content Structure */
+.news-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--morpho-spacing-md);
+    height: 100%;
+}
+
+.news-content h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+/* Scroll Animation Keyframes */
+@keyframes layoutReveal {
+    from {
+        opacity: 0;
+        transform: translateY(100px) rotateX(-15deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* Responsive Refinements */
+@media (max-width: 768px) {
+    :root {
+        --layout-card-gap: 1.5rem;
+    }
+    .news-card:nth-child(4n+1) {
+        grid-row: auto;
+    }
+    .news-number {
+        width: 3.5rem;
+        height: 2.5rem;
+        right: 1rem;
+    }
+}

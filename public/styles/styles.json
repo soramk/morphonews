@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-14",
+  "lastUpdated": "2026-01-15",
   "currentDefault": "default",
   "themes": [
     {
@@ -264,6 +264,21 @@
         "text": "#ffffff"
       },
       "addedDate": "2026-01-14",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-decisive-vector",
+      "name": "エージェンティック・ディサイシブ・ベクター",
+      "description": "目的達成への加速と自律的な意思決定を象徴する、高コントラストなサイバー・インディゴのテーマ。鋭いアクセントが迅速な行動力を想起させます。",
+      "file": "themes/agentic-decisive-vector.css",
+      "preview": {
+        "primary": "#8b5cf6",
+        "secondary": "#06b6d4",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-15",
       "author": "ai",
       "mood": "Agentic"
     }

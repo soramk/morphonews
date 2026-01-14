@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・ディサイシブ・ベクター
+ * Generated: 2026-01-15_0119
+ * Mood: Agentic
+ * Description: 目的達成への加速と自律的な意思決定を象徴する、高コントラストなサイバー・インディゴのテーマ。鋭いアクセントが迅速な行動力を想起させます。
+ */
+:root {
+  --morpho-bg-primary: #0f172a;
+  --morpho-bg-secondary: #1e293b;
+  --morpho-bg-card: #111827;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #8b5cf6;
+  --morpho-accent-secondary: #06b6d4;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+}

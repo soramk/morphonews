@@ -1,18 +1,34 @@
 {
-    "version": 1,
-    "lastUpdated": "2026-01-14",
-    "layouts": [
-        {
-            "id": "default",
-            "name": "クラシック",
-            "description": "シンプルで読みやすいリスト形式のレイアウト",
-            "file": "default.css",
-            "preview": {
-                "gridType": "list",
-                "cardStyle": "minimal"
-            },
-            "addedDate": "2026-01-14",
-            "author": "system"
-        }
-    ]
+  "version": 1,
+  "lastUpdated": "2026-01-15",
+  "layouts": [
+    {
+      "id": "default",
+      "name": "クラシック",
+      "description": "シンプルで読みやすいリスト形式のレイアウト",
+      "file": "default.css",
+      "preview": {
+        "gridType": "list",
+        "cardStyle": "minimal"
+      },
+      "addedDate": "2026-01-14",
+      "author": "system"
+    },
+    {
+      "id": "agentic-asymmetric-grid-v38",
+      "name": "エージェント・ダイナミクス・グリッド",
+      "description": "前回の静的なリスト形式から進化し、自律的な意思決定を視覚化する「不等辺グリッド」を採用。スクロール駆動アニメーション（Scroll-driven Animations）と@starting-styleによる次世代の登場エフェクト、さらに3Dパースペクティブなホバー干渉を実装しました。",
+      "file": "agentic-asymmetric-grid-v38.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven animations + @starting-style + 3D Transform Micro-interactions + CSS Grid subgrid optimization",
+      "addedDate": "2026-01-15",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 38
+    }
+  ]
 }

@@ -166,6 +166,17 @@
       "category": "navigation",
       "addedDate": "2026-01-14",
       "author": "ai"
+    },
+    {
+      "id": "agentic-data-extractor",
+      "name": "実用的データ抽出パネル",
+      "description": "記事内の数値、日付、固有名詞を自動抽出し、クイックリファレンスとしてサイドパネルに一覧表示します。ニュースの内容を定量的に素早く把握することを助けます。",
+      "file": "modules/agentic-data-extractor.js",
+      "enabled": false,
+      "required": false,
+      "category": "analytics",
+      "addedDate": "2026-01-14",
+      "author": "ai"
     }
   ]
 }

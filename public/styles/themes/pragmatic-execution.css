@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: 実利的な遂行
+ * Generated: 2026-01-14_1003
+ * Mood: Pragmatic
+ * Description: 効率性と実用性を追求した、合理的で冷静なインターフェース。情報の明瞭さを最優先し、意思決定をサポートする鋭いブルーをアクセントに採用しました。
+ */
+:root { --morpho-bg-primary: #1a1c1e; --morpho-bg-secondary: #25282c; --morpho-bg-card: #2d3136; --morpho-text-primary: #f0f2f5; --morpho-text-secondary: #a0a8b4; --morpho-accent-primary: #00d4ff; --morpho-accent-secondary: #7a8ba8; --morpho-border-color: #3f454d; --morpho-accent-gradient: linear-gradient(135deg, #00d4ff 0%, #0072ff 100%); }

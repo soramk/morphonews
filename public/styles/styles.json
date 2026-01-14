@@ -236,6 +236,21 @@
       "addedDate": "2026-01-14",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "pragmatic-execution",
+      "name": "実利的な遂行",
+      "description": "効率性と実用性を追求した、合理的で冷静なインターフェース。情報の明瞭さを最優先し、意思決定をサポートする鋭いブルーをアクセントに採用しました。",
+      "file": "themes/pragmatic-execution.css",
+      "preview": {
+        "primary": "#00d4ff",
+        "secondary": "#7a8ba8",
+        "background": "#1a1c1e",
+        "text": "#f0f2f5"
+      },
+      "addedDate": "2026-01-14",
+      "author": "ai",
+      "mood": "Pragmatic"
     }
   ]
 }

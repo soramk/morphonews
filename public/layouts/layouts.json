@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "lastUpdated": "2026-01-14",
+    "layouts": [
+        {
+            "id": "default",
+            "name": "クラシック",
+            "description": "シンプルで読みやすいリスト形式のレイアウト",
+            "file": "default.css",
+            "preview": {
+                "gridType": "list",
+                "cardStyle": "minimal"
+            },
+            "addedDate": "2026-01-14",
+            "author": "system"
+        }
+    ]
+}

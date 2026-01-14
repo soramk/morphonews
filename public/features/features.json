@@ -106,7 +106,7 @@
       "name": "自律型フォーカス・シールド",
       "description": "閲覧中のコンテンツを自律的に検知し、周囲のノイズを減光・ぼかし処理することで、現在のニュースへの没入感を最大化します。",
       "file": "modules/autonomous-focus-shield.js",
-      "enabled": true,
+      "enabled": false,
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-12",

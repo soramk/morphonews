@@ -1,0 +1,99 @@
+/**
+ * MorphoNews Layout: クラシック
+ * Generated: 2026-01-14
+ * Description: シンプルで読みやすいリスト形式のレイアウト
+ * 
+ * レイアウトCSSはページの構造・配置・アニメーションを定義します。
+ * カラーはテーマCSS（themes/*.css）で定義されるため、ここでは色は使用しません。
+ */
+
+/* ===== Layout Variables ===== */
+:root {
+    --layout-max-width: 1200px;
+    --layout-news-columns: 1;
+    --layout-card-gap: 1rem;
+    --layout-card-direction: row;
+    --layout-header-style: sticky;
+    --layout-animation-style: slide-up;
+}
+
+/* ===== News Container Layout ===== */
+#news-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-gap);
+}
+
+/* ===== News Card Structure ===== */
+.news-card {
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    gap: var(--morpho-spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===== Card Animation ===== */
+.news-card {
+    opacity: 0;
+    animation: layoutSlideUp 0.5s ease forwards;
+}
+
+.news-card:nth-child(1) { animation-delay: 0.05s; }
+.news-card:nth-child(2) { animation-delay: 0.1s; }
+.news-card:nth-child(3) { animation-delay: 0.15s; }
+.news-card:nth-child(4) { animation-delay: 0.2s; }
+.news-card:nth-child(5) { animation-delay: 0.25s; }
+.news-card:nth-child(6) { animation-delay: 0.3s; }
+.news-card:nth-child(7) { animation-delay: 0.35s; }
+.news-card:nth-child(8) { animation-delay: 0.4s; }
+.news-card:nth-child(9) { animation-delay: 0.45s; }
+.news-card:nth-child(10) { animation-delay: 0.5s; }
+
+@keyframes layoutSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Number Badge ===== */
+.news-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: var(--morpho-radius-md);
+    background: var(--morpho-bg-primary);
+    flex-shrink: 0;
+}
+
+/* ===== Content Flow ===== */
+.news-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--morpho-spacing-sm);
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+    :root {
+        --layout-card-direction: column;
+        --layout-card-gap: 0.75rem;
+    }
+    
+    .news-number {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        font-size: 1rem;
+    }
+}

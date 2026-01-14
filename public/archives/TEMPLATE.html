@@ -18,6 +18,9 @@
     <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
     <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/{THEME_ID}.css">
 
+    <!-- Layout (ページ構造・配置・アニメーション) -->
+    <link id="morpho-layout-css" rel="stylesheet" href="../layouts/{LAYOUT_ID}.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -239,6 +242,7 @@
             <p style="color: var(--morpho-text-secondary); font-size: 0.95rem;">
                 <strong>新機能:</strong> {NEW_FEATURE_NAME}<br>
                 <strong>新スタイル:</strong> {NEW_STYLE_NAME}<br>
+                <strong>新レイアウト:</strong> {NEW_LAYOUT_NAME}<br>
                 <strong>ムード:</strong> {MOOD_KEYWORD}
             </p>
         </section>
@@ -256,6 +260,7 @@
 
     <!-- Core Scripts -->
     <script src="../features/core/loader.js"></script>
+    <script src="../features/core/layout-loader.js"></script>
     <script src="../features/core/news-renderer.js"></script>
 
     <!-- Initialize -->

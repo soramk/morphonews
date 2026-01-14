@@ -251,6 +251,21 @@
       "addedDate": "2026-01-14",
       "author": "ai",
       "mood": "Pragmatic"
+    },
+    {
+      "id": "agentic-kinetic-dispatch",
+      "name": "エージェンティック・キネティック・ディスパッチ",
+      "description": "即応性と実行力を象徴する、高コントラストなテーマ。漆黒の背景に警告色を彷彿とさせる鮮やかなイエローを配し、重要な情報への迅速なアクセスと力強い意思決定を促します。",
+      "file": "themes/agentic-kinetic-dispatch.css",
+      "preview": {
+        "primary": "#fbbf24",
+        "secondary": "#f59e0b",
+        "background": "#121212",
+        "text": "#ffffff"
+      },
+      "addedDate": "2026-01-14",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

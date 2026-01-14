@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・キネティック・ディスパッチ
+ * Generated: 2026-01-14_1719
+ * Mood: Agentic
+ * Description: 即応性と実行力を象徴する、高コントラストなテーマ。漆黒の背景に警告色を彷彿とさせる鮮やかなイエローを配し、重要な情報への迅速なアクセスと力強い意思決定を促します。
+ */
+:root {
+  --morpho-bg-primary: #121212;
+  --morpho-bg-secondary: #1e1e1e;
+  --morpho-bg-card: #252525;
+  --morpho-text-primary: #ffffff;
+  --morpho-text-secondary: #a1a1aa;
+  --morpho-accent-primary: #fbbf24;
+  --morpho-accent-secondary: #f59e0b;
+  --morpho-border-color: #3f3f46;
+  --morpho-accent-gradient: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}

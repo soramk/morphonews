@@ -296,6 +296,21 @@
       "addedDate": "2026-01-15",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "agentic-reshuffle",
+      "name": "エージェンティック・リシャッフル",
+      "description": "「再編（Reshuffle）」をテーマに、情報の断片が再構築される瞬間を切り取った配色です。秩序あるグリッドと、そこに差し込まれる鮮やかなアクセントカラーが、新たな秩序への移行を表現しています。",
+      "file": "themes/agentic-reshuffle.css",
+      "preview": {
+        "primary": "#3B82F6",
+        "secondary": "#F59E0B",
+        "background": "#F8FAFC",
+        "text": "#0F172A"
+      },
+      "addedDate": "2026-01-15",
+      "author": "ai",
+      "mood": "Reshuffle"
     }
   ]
 }

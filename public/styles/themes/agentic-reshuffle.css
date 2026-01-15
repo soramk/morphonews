@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・リシャッフル
+ * Generated: 2026-01-15_1719
+ * Mood: Reshuffle
+ * Description: 「再編（Reshuffle）」をテーマに、情報の断片が再構築される瞬間を切り取った配色です。秩序あるグリッドと、そこに差し込まれる鮮やかなアクセントカラーが、新たな秩序への移行を表現しています。
+ */
+:root {
+  --morpho-bg-primary: #F8FAFC;
+  --morpho-bg-secondary: #E2E8F0;
+  --morpho-bg-card: #FFFFFF;
+  --morpho-text-primary: #0F172A;
+  --morpho-text-secondary: #475569;
+  --morpho-accent-primary: #3B82F6;
+  --morpho-accent-secondary: #F59E0B;
+  --morpho-border-color: #CBD5E1;
+  --morpho-accent-gradient: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #F59E0B 100%);
+}

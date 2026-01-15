@@ -1,0 +1,160 @@
+/**
+ * MorphoNews Layout: リシャッフル・アシンメトリック・オービット
+ * Generated: 2026-01-15_1719
+ * Generation: #40
+ * Mood: Reshuffle
+ * Evolution: 12カラム非対称グリッド + Scroll-driven Animations (View Timeline) + 3D Perspective Hover + 動的なZ-index制御
+ * Description: 前回の重層的なスタッキングから一転し、グリッドを解体・再構成する『非対称オービット』レイアウト。12カラムのグリッドシステム内でカードを不規則に配置し、Scroll-driven Animationsによって各要素がスクロール位置に応じて個別の深度（Z軸）と回転を持つことで、情報がダイナミックに再編（Reshuffle）される感覚を演出。Perspectiveを用いた3Dホバー効果により、情報の重要度を空間的な奥行きで表現しました。
+ */
+/**
+ * MorphoNews Layout: リシャッフル・アシンメトリック・オービット
+ * Generation: #40
+ * Mood: Reshuffle
+ * Evolution: 12カラム非対称グリッド、Scroll-driven Animationsによる要素の「飛来」と「回転」、3Dパースペクティブホバー。
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 2.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: orbital-reshuffle;
+}
+
+/* Container: Asymmetric Grid Construction */
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    padding: 0 2rem;
+    perspective: 2000px; /* Enable 3D space for the container */
+}
+
+/* Card: Asymmetric Sizing & 3D Evolution */
+.news-card {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    background: var(--morpho-bg-secondary);
+    border: 1px solid var(--morpho-border-subtle);
+    border-radius: var(--morpho-radius-lg);
+    position: relative;
+    overflow: visible;
+    transition: 
+        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.3s ease;
+    
+    /* Scroll-driven Entry Animation */
+    view-timeline: --card-view block;
+    animation: card-orbital-in linear both;
+    animation-timeline: --card-view;
+    animation-range: entry 0% cover 30%;
+}
+
+/* Variance in Grid Placement */
+.news-card:nth-child(3n+1) { grid-column: span 8; }
+.news-card:nth-child(3n+2) { grid-column: span 4; margin-top: 4rem; }
+.news-card:nth-child(3n) { grid-column: span 7; margin-top: -2rem; }
+
+@media (max-width: 1024px) {
+    .news-card, .news-card:nth-child(n) {
+        grid-column: span 12;
+        margin-top: 0;
+    }
+}
+
+/* Content Styling */
+.news-content {
+    padding: var(--morpho-spacing-xl);
+    z-index: 2;
+    background: var(--morpho-bg-secondary);
+    border-radius: inherit;
+}
+
+.news-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: var(--morpho-text-primary);
+    transition: color 0.3s ease;
+}
+
+/* Numbering: Orbital Badge */
+.news-number {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 50px;
+    height: 50px;
+    background: var(--morpho-bg-primary);
+    border: 2px solid var(--morpho-accent-primary);
+    color: var(--morpho-accent-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--morpho-font-mono);
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 10;
+    transform: rotate(-10deg);
+}
+
+/* Interactions: 3D Tilt */
+.news-card:hover {
+    transform: translateZ(30px) rotateX(4deg) rotateY(-2deg);
+    box-shadow: 
+        20px 20px 60px rgba(0,0,0,0.1),
+        -5px -5px 20px rgba(255,255,255,0.02);
+    border-color: var(--morpho-accent-primary);
+    z-index: 20;
+}
+
+.news-card:hover h3 {
+    color: var(--morpho-accent-primary);
+}
+
+/* Tags as Orbiting Elements */
+.news-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.news-tags span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border: 1px solid var(--morpho-border-subtle);
+    border-radius: 4px;
+    color: var(--morpho-text-secondary);
+}
+
+/* Scroll Animation Keyframes */
+@keyframes card-orbital-in {
+    from {
+        opacity: 0;
+        transform: translateY(100px) rotateX(-20deg) scale(0.9);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Visual Flourish: Glass Decoration */
+.news-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(var(--morpho-accent-primary-rgb), 0.03) 100%);
+    pointer-events: none;
+    border-radius: inherit;
+}

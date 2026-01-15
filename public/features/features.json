@@ -199,6 +199,17 @@
       "category": "navigation",
       "addedDate": "2026-01-15",
       "author": "ai"
+    },
+    {
+      "id": "agentic-layout-reshuffler",
+      "name": "エージェンティック・レイアウト・リシャッフラー",
+      "description": "「Reshuffle」のムードに基づき、ニュース項目の視覚的優先順位を物理的に並び替えることで、情報の定型化による認識のバイアスを打破し、新たな発見を促す空間再構成機能。",
+      "file": "modules/agentic-layout-reshuffler.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-15",
+      "author": "ai"
     }
   ]
 }

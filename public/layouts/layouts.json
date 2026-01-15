@@ -45,6 +45,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 39
+    },
+    {
+      "id": "reshuffle-asymmetric-orbit-v40",
+      "name": "リシャッフル・アシンメトリック・オービット",
+      "description": "前回の重層的なスタッキングから一転し、グリッドを解体・再構成する『非対称オービット』レイアウト。12カラムのグリッドシステム内でカードを不規則に配置し、Scroll-driven Animationsによって各要素がスクロール位置に応じて個別の深度（Z軸）と回転を持つことで、情報がダイナミックに再編（Reshuffle）される感覚を演出。Perspectiveを用いた3Dホバー効果により、情報の重要度を空間的な奥行きで表現しました。",
+      "file": "reshuffle-asymmetric-orbit-v40.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "12カラム非対称グリッド + Scroll-driven Animations (View Timeline) + 3D Perspective Hover + 動的なZ-index制御",
+      "addedDate": "2026-01-15",
+      "author": "ai",
+      "mood": "Reshuffle",
+      "generation": 40
     }
   ]
 }

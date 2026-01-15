@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-01-16",
   "currentDefault": "default",
   "themes": [
     {
@@ -311,6 +311,21 @@
       "addedDate": "2026-01-15",
       "author": "ai",
       "mood": "Reshuffle"
+    },
+    {
+      "id": "metamorphic-transition",
+      "name": "メタモルフィック・トランジション",
+      "description": "「TRANSFORMATION（変容）」をテーマに、静寂な深い藍色から生命感溢れる鮮やかなグラデーションへと進化する瞬間を表現しました。古い殻を脱ぎ捨て、新たなステージへと飛躍するエネルギーを視覚化しています。",
+      "file": "themes/metamorphic-transition.css",
+      "preview": {
+        "primary": "#8e2de2",
+        "secondary": "#00d2ff",
+        "background": "#0f0c29",
+        "text": "#f8f9fa"
+      },
+      "addedDate": "2026-01-16",
+      "author": "ai",
+      "mood": "TRANSFORMATION"
     }
   ]
 }

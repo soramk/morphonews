@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-01-16",
   "features": [
     {
       "id": "news-renderer",
@@ -209,6 +209,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-15",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-morphological-canvas",
+      "name": "アジェンティック・モーフォロジカル・キャンバス",
+      "description": "ニュース記事を単なるリストから脱却させ、ユーザーの意図や「トランスフォーメーション」のムードに合わせて幾何学的（円形、螺旋、波状）な空間配置へと再構成します。",
+      "file": "modules/agentic-morphological-canvas.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-16",
       "author": "ai"
     }
   ]

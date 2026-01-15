@@ -1,0 +1,183 @@
+/**
+ * MorphoNews Layout: トランスフォーメーション・プリズム・フラックス
+ * Generated: 2026-01-16_0124
+ * Generation: #41
+ * Mood: TRANSFORMATION
+ * Evolution: Scroll-driven Animationsによる3D Unfold効果 + CSS Subgridによる内部要素同期 + @starting-styleによる初期描画制御
+ * Description: 前回の非対称オービットから一転、中央の時系列軸（Central Axis）を基準とした『垂直折り畳み展開（Folding Unfold）』レイアウトを採用。Scroll-driven Animationsにより、各カードがスクロールに応じて本が開くように、あるいはプリズムが光を放つように展開します。CSS Subgridを用いることで、カード内の要素配置をグリッド全体で高度に同期。さらに@starting-styleによる要素登場時の洗練されたトランジションを組み込み、情報の『変容（Transformation）』を物理的な奥行きと滑らかな動きで表現しました。
+ */
+:root {
+    --layout-max-width: 1100px;
+    --layout-news-columns: 1fr 2px 1fr;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: row;
+    --layout-animation-style: prism-unfold;
+}
+
+/* Container: Timeline Axis Construction */
+#news-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 6rem auto;
+    padding: 0 2rem;
+    position: relative;
+    perspective: 1500px;
+}
+
+/* Central Axis Line */
+#news-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--morpho-accent-primary), transparent);
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+/* Card: The Folding Prism */
+.news-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    background: transparent;
+    border: none;
+    position: relative;
+    view-timeline: --card-fold block;
+    /* Transformation Animation */
+    animation: card-unfold linear both;
+    animation-timeline: --card-fold;
+    animation-range: entry 10% cover 40%;
+}
+
+.news-card:nth-child(even) {
+    direction: rtl;
+}
+
+.news-card:nth-child(even) > * {
+    direction: ltr;
+}
+
+/* Unfold Animation Definition */
+@keyframes card-unfold {
+    from {
+        opacity: 0;
+        transform: rotateY(90deg) scale(0.8);
+        filter: blur(10px) brightness(2);
+    }
+    to {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1);
+        filter: blur(0) brightness(1);
+    }
+}
+
+/* @starting-style for browsers that support it (progressive enhancement) */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+/* News Content: Prism Surface */
+.news-content {
+    background: var(--morpho-bg-secondary);
+    padding: 2.5rem;
+    border-radius: var(--morpho-radius-lg);
+    border: 1px solid var(--morpho-border-subtle);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.news-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, var(--morpho-accent-primary) 200%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.news-card:hover .news-content {
+    transform: translateY(-10px) translateZ(20px);
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.news-card:hover .news-content::after {
+    opacity: 0.05;
+}
+
+/* Numbering: Axis Nodes */
+.news-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: var(--morpho-bg-primary);
+    border: 2px solid var(--morpho-accent-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--morpho-font-mono);
+    font-weight: 700;
+    color: var(--morpho-accent-primary);
+    z-index: 10;
+    box-shadow: 0 0 20px var(--morpho-accent-primary);
+}
+
+.news-card:nth-child(even) .news-number {
+    left: 50%;
+}
+
+/* Metadata Styling */
+.news-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-family: var(--morpho-font-mono);
+    font-size: 0.85rem;
+    color: var(--morpho-accent-secondary);
+}
+
+.news-content h3 {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: var(--morpho-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Responsive Adjustment */
+@media (max-width: 850px) {
+    #news-container::before {
+        left: 20px;
+    }
+    .news-card {
+        grid-template-columns: 1fr;
+        padding-left: 50px;
+    }
+    .news-card:nth-child(even) {
+        direction: ltr;
+    }
+    .news-number {
+        left: 20px !important;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}

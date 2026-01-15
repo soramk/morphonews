@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: メタモルフィック・トランジション
+ * Generated: 2026-01-16_0124
+ * Mood: TRANSFORMATION
+ * Description: 「TRANSFORMATION（変容）」をテーマに、静寂な深い藍色から生命感溢れる鮮やかなグラデーションへと進化する瞬間を表現しました。古い殻を脱ぎ捨て、新たなステージへと飛躍するエネルギーを視覚化しています。
+ */
+:root {
+  --morpho-bg-primary: #0f0c29;
+  --morpho-bg-secondary: #1b1464;
+  --morpho-bg-card: rgba(36, 36, 62, 0.8);
+  --morpho-text-primary: #f8f9fa;
+  --morpho-text-secondary: #a29bfe;
+  --morpho-accent-primary: #8e2de2;
+  --morpho-accent-secondary: #00d2ff;
+  --morpho-border-color: #3a3a5a;
+  --morpho-accent-gradient: linear-gradient(135deg, #8e2de2 0%, #4a00e0 50%, #00d2ff 100%);
+}

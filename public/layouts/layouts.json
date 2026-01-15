@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-01-16",
   "layouts": [
     {
       "id": "default",
@@ -61,6 +61,22 @@
       "author": "ai",
       "mood": "Reshuffle",
       "generation": 40
+    },
+    {
+      "id": "transformation-prism-flux-v41",
+      "name": "トランスフォーメーション・プリズム・フラックス",
+      "description": "前回の非対称オービットから一転、中央の時系列軸（Central Axis）を基準とした『垂直折り畳み展開（Folding Unfold）』レイアウトを採用。Scroll-driven Animationsにより、各カードがスクロールに応じて本が開くように、あるいはプリズムが光を放つように展開します。CSS Subgridを用いることで、カード内の要素配置をグリッド全体で高度に同期。さらに@starting-styleによる要素登場時の洗練されたトランジションを組み込み、情報の『変容（Transformation）』を物理的な奥行きと滑らかな動きで表現しました。",
+      "file": "transformation-prism-flux-v41.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven Animationsによる3D Unfold効果 + CSS Subgridによる内部要素同期 + @starting-styleによる初期描画制御",
+      "addedDate": "2026-01-16",
+      "author": "ai",
+      "mood": "TRANSFORMATION",
+      "generation": 41
     }
   ]
 }

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: アジェンティック・ダイナミック・イニシアチブ
+ * Generated: 2026-01-15_1000
+ * Mood: Agentic
+ * Description: 迅速な意思決定と能動的な行動を促す、高コントラストで力強いダイナミックなテーマ。深みのあるダークベースに、行動を喚起するエレクトリックブルーとローズレッドを配しました。
+ */
+:root {
+    --morpho-bg-primary: #0a0c10;
+    --morpho-bg-secondary: #14181f;
+    --morpho-bg-card: #1c222b;
+    --morpho-text-primary: #f0f4f8;
+    --morpho-text-secondary: #94a3b8;
+    --morpho-accent-primary: #3b82f6;
+    --morpho-accent-secondary: #f43f5e;
+    --morpho-border-color: #2d3748;
+    --morpho-accent-gradient: linear-gradient(135deg, #3b82f6 0%, #f43f5e 100%);
+}

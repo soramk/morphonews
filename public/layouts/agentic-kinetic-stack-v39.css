@@ -1,0 +1,136 @@
+/**
+ * MorphoNews Layout: エージェント・キネティック・スタック
+ * Generated: 2026-01-15_1000
+ * Generation: #39
+ * Mood: Agentic
+ * Evolution: position: stickyによるスタッキング効果 + scroll-snap-typeによるページネーション的体験 + mask-imageを用いた深度グラデーション + clip-pathによる動的形状変化
+ * Description: 前回の3Dグリッドから一転し、情報の「密度」と「優先順位」を動的に制御するスタッキング・レイアウト。カードがスクロールに応じて重なり合い、最前面に来たエージェント（ニュース）が拡大・変形する「キネティック・スティッキー」技法を採用。情報の重なりを視覚化するmask-imageと、scroll-snapによる確実な意思決定（閲覧）を促すUIを構築しました。
+ */
+:root {
+    --layout-max-width: 1000px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: row;
+    --layout-animation-style: kinetic-stack-warp;
+}
+
+/* Container: Scroll Snap for Decisive Navigation */
+#news-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding-bottom: 20vh;
+    /* Scroll snap points for focus */
+    scroll-snap-type: y proximity;
+}
+
+/* Card: Sticky Stacking Evolution */
+.news-card {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    min-height: 450px;
+    background: var(--morpho-bg-secondary);
+    border: 2px solid var(--morpho-border-subtle);
+    border-radius: var(--morpho-radius-xl);
+    padding: 0;
+    overflow: hidden;
+    transition: 
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+        box-shadow 0.5s ease,
+        clip-path 0.5s ease;
+    
+    /* Depth Masking: Top cards create shadows on bottom */
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    box-shadow: 0 -20px 50px -10px rgba(0,0,0,0.3);
+    
+    /* Scroll-driven Scale & Opacity */
+    view-timeline-name: --stack-item;
+    animation: stack-shrink linear both;
+    animation-timeline: --stack-item;
+    animation-range: exit 0% exit 100%;
+}
+
+/* Responsive Layout shift */
+@media (max-width: 768px) {
+    .news-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+}
+
+/* Content Area Split */
+.news-content {
+    flex: 1;
+    padding: var(--morpho-spacing-2xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--morpho-spacing-lg);
+    z-index: 2;
+}
+
+.news-content h3 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: var(--morpho-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Visual Element: Dynamic Scanner Badge */
+.news-number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    background: var(--morpho-bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    font-family: var(--morpho-font-mono);
+    font-size: 1.2rem;
+    color: var(--morpho-accent-primary);
+    border-right: 1px solid var(--morpho-border-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+}
+
+/* Interaction: Kinetic Warp on Hover */
+.news-card:hover {
+    transform: scale(1.02) translateY(-5px);
+    border-color: var(--morpho-accent-primary);
+    clip-path: polygon(0 0, 100% 2%, 100% 98%, 0% 100%);
+    z-index: 100;
+}
+
+/* Staging entry effect */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: translateY(100px) scale(0.95);
+    }
+}
+
+/* Keyframes for stacking evolution */
+@keyframes stack-shrink {
+    to {
+        transform: scale(0.85) translateY(-50px);
+        opacity: 0.5;
+        filter: blur(4px);
+    }
+}
+
+/* Footer adjustment to prevent card clipping */
+.morpho-footer {
+    position: relative;
+    z-index: 200;
+    background: var(--morpho-bg-primary);
+}

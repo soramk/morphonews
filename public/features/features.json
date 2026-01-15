@@ -188,6 +188,17 @@
       "category": "navigation",
       "addedDate": "2026-01-15",
       "author": "ai"
+    },
+    {
+      "id": "agentic-curiosity-mapper",
+      "name": "エージェンティック・キュリオシティ・マッパー",
+      "description": "閲覧中のコンテンツから「未知の探求点」を自律的に抽出し、読者の思考を深めるための問いや関連トピックを地図状に視覚化します。ユーザーの滞留時間に応じて、エージェントが次に学ぶべきルートを提案します。",
+      "file": "modules/agentic-curiosity-mapper.js",
+      "enabled": false,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-15",
+      "author": "ai"
     }
   ]
 }

@@ -29,6 +29,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 38
+    },
+    {
+      "id": "agentic-kinetic-stack-v39",
+      "name": "エージェント・キネティック・スタック",
+      "description": "前回の3Dグリッドから一転し、情報の「密度」と「優先順位」を動的に制御するスタッキング・レイアウト。カードがスクロールに応じて重なり合い、最前面に来たエージェント（ニュース）が拡大・変形する「キネティック・スティッキー」技法を採用。情報の重なりを視覚化するmask-imageと、scroll-snapによる確実な意思決定（閲覧）を促すUIを構築しました。",
+      "file": "agentic-kinetic-stack-v39.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "expanded",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "position: stickyによるスタッキング効果 + scroll-snap-typeによるページネーション的体験 + mask-imageを用いた深度グラデーション + clip-pathによる動的形状変化",
+      "addedDate": "2026-01-15",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 39
     }
   ]
 }

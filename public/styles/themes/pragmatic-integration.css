@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: Pragmatic Integration（実利的統合）
+ * Generated: 2026-01-17_0118
+ * Mood: Pragmatic Integration
+ * Description: 実務的な効率性と複数の要素のシームレスな統合をイメージしたテーマ。深いスレートブルーを基調に、知的なティールと安定感のあるカッパーを配色し、視認性とプロフェッショナルな美しさを両立させています。
+ */
+:root {
+  --morpho-bg-primary: #1a202c;
+  --morpho-bg-secondary: #2d3748;
+  --morpho-bg-card: #232d3b;
+  --morpho-text-primary: #f7fafc;
+  --morpho-text-secondary: #a0aec0;
+  --morpho-accent-primary: #4fd1c5;
+  --morpho-accent-secondary: #ed8936;
+  --morpho-border-color: #4a5568;
+  --morpho-accent-gradient: linear-gradient(135deg, #4fd1c5 0%, #38b2ac 50%, #ed8936 100%);
+}

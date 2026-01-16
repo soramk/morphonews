@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-16",
+  "lastUpdated": "2026-01-17",
   "currentDefault": "default",
   "themes": [
     {
@@ -356,6 +356,21 @@
       "addedDate": "2026-01-16",
       "author": "ai",
       "mood": "Pragmatic"
+    },
+    {
+      "id": "pragmatic-integration",
+      "name": "Pragmatic Integration（実利的統合）",
+      "description": "実務的な効率性と複数の要素のシームレスな統合をイメージしたテーマ。深いスレートブルーを基調に、知的なティールと安定感のあるカッパーを配色し、視認性とプロフェッショナルな美しさを両立させています。",
+      "file": "themes/pragmatic-integration.css",
+      "preview": {
+        "primary": "#4fd1c5",
+        "secondary": "#ed8936",
+        "background": "#1a202c",
+        "text": "#f7fafc"
+      },
+      "addedDate": "2026-01-17",
+      "author": "ai",
+      "mood": "Pragmatic Integration"
     }
   ]
 }

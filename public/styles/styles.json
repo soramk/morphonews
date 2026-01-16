@@ -326,6 +326,21 @@
       "addedDate": "2026-01-16",
       "author": "ai",
       "mood": "TRANSFORMATION"
+    },
+    {
+      "id": "tensioned-integration",
+      "name": "テンションド・インテグレーション",
+      "description": "相反する要素が互いに引き合い、緊密なバランスで共存する状態を表現したテーマ。深いブラックを基調に、鋭いローズと冷徹なシアンのコントラストが情報の解像度を高めます。",
+      "file": "themes/tensioned-integration.css",
+      "preview": {
+        "primary": "#f43f5e",
+        "secondary": "#06b6d4",
+        "background": "#050505",
+        "text": "#f1f5f9"
+      },
+      "addedDate": "2026-01-16",
+      "author": "ai",
+      "mood": "Tensioned_Integration"
     }
   ]
 }

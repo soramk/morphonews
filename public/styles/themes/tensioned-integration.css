@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: テンションド・インテグレーション
+ * Generated: 2026-01-16_1002
+ * Mood: Tensioned_Integration
+ * Description: 相反する要素が互いに引き合い、緊密なバランスで共存する状態を表現したテーマ。深いブラックを基調に、鋭いローズと冷徹なシアンのコントラストが情報の解像度を高めます。
+ */
+:root { --morpho-bg-primary: #050505; --morpho-bg-secondary: #0f172a; --morpho-bg-card: #111111; --morpho-text-primary: #f1f5f9; --morpho-text-secondary: #94a3b8; --morpho-accent-primary: #f43f5e; --morpho-accent-secondary: #06b6d4; --morpho-border-color: #334155; --morpho-accent-gradient: linear-gradient(135deg, #f43f5e 0%, #06b6d4 100%); }

@@ -77,6 +77,22 @@
       "author": "ai",
       "mood": "TRANSFORMATION",
       "generation": 41
+    },
+    {
+      "id": "tensioned-integration-bento-v42",
+      "name": "テンションド・インテグレーション・ベントー",
+      "description": "前回の垂直タイムラインから一転、空間を高度に圧縮し統合する『不規則ベントー・グリッド（Asymmetric Bento Grid）』へ進化。今日のムードである『Tensioned_Integration』を、要素間の極めて狭いマージンと、スクロールに連動して『凝縮された状態から展開する』クリッピング・パス・アニメーションで表現しました。CSS Container Queriesを用いたカード内要素の動的再配置と、スクロール駆動によるスケーリングを組み合わせ、情報の密度と視覚的重力をコントロールしています。",
+      "file": "tensioned-integration-bento-v42.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Asymmetric Bento Grid + Scroll-driven Clip-path Reveal + Container Queries + CSS Variable Calc for Parallax",
+      "addedDate": "2026-01-16",
+      "author": "ai",
+      "mood": "Tensioned_Integration",
+      "generation": 42
     }
   ]
 }

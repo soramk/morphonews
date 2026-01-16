@@ -221,6 +221,17 @@
       "category": "ui",
       "addedDate": "2026-01-16",
       "author": "ai"
+    },
+    {
+      "id": "agentic-tension-stabilizer",
+      "name": "エージェンティック・テンション・スタビライザー",
+      "description": "ニュースカテゴリー間の関連性を物理的な張力（テンション）として可視化し、情報の統合度をユーザーが動的に操作できるインターフェース。ノードを近づけることで関連情報の密度を高め、遠ざけることで情報の独立性を確保します。",
+      "file": "modules/agentic-tension-stabilizer.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-16",
+      "author": "ai"
     }
   ]
 }

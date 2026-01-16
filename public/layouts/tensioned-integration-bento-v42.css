@@ -1,0 +1,163 @@
+/**
+ * MorphoNews Layout: テンションド・インテグレーション・ベントー
+ * Generated: 2026-01-16_1002
+ * Generation: #42
+ * Mood: Tensioned_Integration
+ * Evolution: Asymmetric Bento Grid + Scroll-driven Clip-path Reveal + Container Queries + CSS Variable Calc for Parallax
+ * Description: 前回の垂直タイムラインから一転、空間を高度に圧縮し統合する『不規則ベントー・グリッド（Asymmetric Bento Grid）』へ進化。今日のムードである『Tensioned_Integration』を、要素間の極めて狭いマージンと、スクロールに連動して『凝縮された状態から展開する』クリッピング・パス・アニメーションで表現しました。CSS Container Queriesを用いたカード内要素の動的再配置と、スクロール駆動によるスケーリングを組み合わせ、情報の密度と視覚的重力をコントロールしています。
+ */
+/**
+ * MorphoNews Layout: テンションド・インテグレーション・ベントー
+ * Generation: #42
+ * Mood: Tensioned_Integration
+ * Evolution: Bento Grid + Clip-path Scroll Animation + Container Queries
+ */
+
+:root {
+    --layout-max-width: 1300px;
+    --layout-news-columns: repeat(6, 1fr);
+    --layout-card-gap: 1rem;
+    --layout-card-direction: column;
+    --layout-animation-style: tension-reveal;
+}
+
+/* Container: Bento Grid Logic */
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    grid-auto-rows: minmax(200px, auto);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    perspective: 1000px;
+}
+
+/* News Card: Structural Integration */
+.news-card {
+    position: relative;
+    container-type: inline-size;
+    overflow: hidden;
+    border: 1px solid var(--morpho-border-subtle);
+    background: var(--morpho-bg-secondary);
+    transition: border-color 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Scroll-driven Reveal */
+    view-timeline: --card-view block;
+    animation: reveal-tension linear both;
+    animation-timeline: --card-view;
+    animation-range: entry 5% cover 35%;
+}
+
+/* Irregular Grid Assignment (Bento Style) */
+.news-card:nth-child(6n+1) { grid-column: span 4; grid-row: span 2; }
+.news-card:nth-child(6n+2) { grid-column: span 2; grid-row: span 1; }
+.news-card:nth-child(6n+3) { grid-column: span 2; grid-row: span 1; }
+.news-card:nth-child(6n+4) { grid-column: span 3; grid-row: span 1; }
+.news-card:nth-child(6n+5) { grid-column: span 3; grid-row: span 1; }
+
+@keyframes reveal-tension {
+    from {
+        clip-path: inset(20% 20% 20% 20%);
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+        filter: saturate(0);
+    }
+    to {
+        clip-path: inset(0% 0% 0% 0%);
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: saturate(1);
+    }
+}
+
+.news-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    z-index: 1;
+}
+
+/* Container Queries for Adaptive Content */
+@container (min-width: 500px) {
+    .news-content {
+        padding: 3rem;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: center;
+    }
+    .news-card-header {
+        flex: 1;
+    }
+    .news-card-body {
+        flex: 1.5;
+    }
+}
+
+/* Numbering Badge: Minimalist Tension */
+.news-card-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--morpho-text-muted);
+    opacity: 0.5;
+    mix-blend-mode: difference;
+}
+
+/* Micro-interactions */
+.news-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--morpho-accent-gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.news-card:hover {
+    transform: scale(0.98);
+    border-color: var(--morpho-accent-primary);
+    z-index: 10;
+}
+
+.news-card:hover .news-content {
+    color: var(--morpho-text-inverse, #fff);
+}
+
+.news-card:hover::before {
+    opacity: 0.05;
+}
+
+/* Title Styling */
+.news-title {
+    font-size: clamp(1.2rem, 4cqw, 2.2rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    #news-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .news-card:nth-child(n) {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 640px) {
+    #news-container {
+        grid-template-columns: 1fr;
+    }
+    .news-card:nth-child(n) {
+        grid-column: span 1;
+    }
+}

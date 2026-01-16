@@ -93,6 +93,22 @@
       "author": "ai",
       "mood": "Tensioned_Integration",
       "generation": 42
+    },
+    {
+      "id": "pragmatic-precision-subgrid-v43",
+      "name": "プラグマティック・プレシジョン・サブグリッド",
+      "description": "情報を最短でスキャンするための「実用主義（Pragmatic）」に基づいた設計。前回の複雑なベントー・グリッドから一転、情報の垂直方向の整列を極限まで追求した「精密リスト・レイアウト」へ進化しました。CSS Grid Subgridを用いることで、異なるカード間におけるタイトル、メタデータ、抜粋の垂直軸を完全に一致させ、読者の視線移動コストを最小化。さらに、Scroll-driven Animationsにより、閲覧中の要素が自動的に強調（フォーカス）され、前後の要素がパースを伴って減光・圧縮されるインタラクションを導入しています。",
+      "file": "pragmatic-precision-subgrid-v43.css",
+      "preview": {
+        "gridType": "list",
+        "cardStyle": "minimal",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Grid subgridによるコンポーネント間整列 + Scroll-driven focus scaling + Mask-image directional reveal",
+      "addedDate": "2026-01-16",
+      "author": "ai",
+      "mood": "Pragmatic",
+      "generation": 43
     }
   ]
 }

@@ -341,6 +341,21 @@
       "addedDate": "2026-01-16",
       "author": "ai",
       "mood": "Tensioned_Integration"
+    },
+    {
+      "id": "pragmatic-utility",
+      "name": "プラグマティック・ユーティリティ",
+      "description": "実用性と構造的視認性を最優先した実務向けテーマ。スレートグレーと静かなブルーを基調とし、情報の優先順位を論理的に整理します。",
+      "file": "themes/pragmatic-utility.css",
+      "preview": {
+        "primary": "#334155",
+        "secondary": "#64748b",
+        "background": "#f8fafc",
+        "text": "#0f172a"
+      },
+      "addedDate": "2026-01-16",
+      "author": "ai",
+      "mood": "Pragmatic"
     }
   ]
 }

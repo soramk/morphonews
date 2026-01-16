@@ -232,6 +232,17 @@
       "category": "ui",
       "addedDate": "2026-01-16",
       "author": "ai"
+    },
+    {
+      "id": "agentic-efficiency-balancer",
+      "name": "自律的効率バランサー",
+      "description": "ユーザーのスクロール速度と各セクションでの滞在時間をリアルタイム分析し、読解ペースに合わせてコンテンツの表示状態を最適化します。じっくり読んでいる箇所を強調し、速読している箇所を簡略化することで、情報の吸収効率を最大化します。",
+      "file": "modules/agentic-efficiency-balancer.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-16",
+      "author": "ai"
     }
   ]
 }

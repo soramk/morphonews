@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: プラグマティック・ユーティリティ
+ * Generated: 2026-01-16_1718
+ * Mood: Pragmatic
+ * Description: 実用性と構造的視認性を最優先した実務向けテーマ。スレートグレーと静かなブルーを基調とし、情報の優先順位を論理的に整理します。
+ */
+:root {
+  --morpho-bg-primary: #f8fafc;
+  --morpho-bg-secondary: #f1f5f9;
+  --morpho-bg-card: #ffffff;
+  --morpho-text-primary: #0f172a;
+  --morpho-text-secondary: #475569;
+  --morpho-accent-primary: #334155;
+  --morpho-accent-secondary: #475569;
+  --morpho-border-color: #cbd5e1;
+  --morpho-accent-gradient: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+}

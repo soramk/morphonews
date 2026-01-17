@@ -265,6 +265,17 @@
       "category": "ui",
       "addedDate": "2026-01-17",
       "author": "ai"
+    },
+    {
+      "id": "agentic-load-regulator",
+      "name": "エージェンティック・負荷レギュレーター",
+      "description": "ページの視覚的複雑性とDOM密度をリアルタイムで監視し、認知負荷が一定値を超えた場合に表示要素を自動的に整理・減衰させて「情報の規制」を行います。",
+      "file": "modules/agentic-load-regulator.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-17",
+      "author": "ai"
     }
   ]
 }

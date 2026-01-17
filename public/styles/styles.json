@@ -386,6 +386,21 @@
       "addedDate": "2026-01-17",
       "author": "ai",
       "mood": "Evolving"
+    },
+    {
+      "id": "systemic-regulation",
+      "name": "システム・レギュレーション",
+      "description": "規律と統制、明確な境界線を象徴するテーマ。秩序ある情報整理を促進するため、視認性の高いダークグレーを基調に、信頼と規範を感じさせるブルーのアクセントを配置しました。",
+      "file": "themes/systemic-regulation.css",
+      "preview": {
+        "primary": "#339af0",
+        "secondary": "#ffd43b",
+        "background": "#1a1c1e",
+        "text": "#f8f9fa"
+      },
+      "addedDate": "2026-01-17",
+      "author": "ai",
+      "mood": "Regulation"
     }
   ]
 }

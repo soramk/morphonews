@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: システム・レギュレーション
+ * Generated: 2026-01-17_1716
+ * Mood: Regulation
+ * Description: 規律と統制、明確な境界線を象徴するテーマ。秩序ある情報整理を促進するため、視認性の高いダークグレーを基調に、信頼と規範を感じさせるブルーのアクセントを配置しました。
+ */
+:root {
+  --morpho-bg-primary: #1a1c1e;
+  --morpho-bg-secondary: #24272b;
+  --morpho-bg-card: #2d3136;
+  --morpho-text-primary: #f8f9fa;
+  --morpho-text-secondary: #adb5bd;
+  --morpho-accent-primary: #339af0;
+  --morpho-accent-secondary: #ffd43b;
+  --morpho-border-color: #495057;
+  --morpho-accent-gradient: linear-gradient(135deg, #339af0 0%, #1c7ed6 100%);
+}

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews | 2026-01-17 17:16 - Generation #46</title>
+    <meta name="description" content="AIが自動生成する進化型テックニュース - Regulation">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../styles/base.css">
+
+    <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/systemic-regulation.css">
+
+    <!-- Layout (ページ構造・配置・アニメーション) -->
+    <link id="morpho-layout-css" rel="stylesheet" href="../layouts/regulated-modular-sector-v46.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--morpho-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--morpho-bg-secondary);
+            z-index: 999;
+            padding: 80px 24px 24px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--morpho-text-primary);
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--morpho-bg-primary);
+        }
+
+        .mobile-menu a.active {
+            background: var(--morpho-accent-gradient);
+            color: white;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .morpho-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .morpho-header-content {
+                flex-wrap: nowrap;
+            }
+
+            .morpho-logo span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body data-article-id="2026-01-17_1716" data-prev-link="./2026-01-17_0959.html">
+
+    <!-- Header -->
+    <header class="morpho-header">
+        <div class="morpho-header-content">
+            <div class="morpho-logo">
+                <h1>🦋 MorphoNews</h1>
+                <span>Generation #46 | Regulation</span>
+            </div>
+            <nav class="morpho-nav">
+                <a href="./2026-01-17_0959.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                前のニュース
+            </a>
+                <a href="../history.html">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブ
+                </a>
+                <a href="../settings.html">
+                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                    設定
+                </a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">
+            <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+            最新のニュース
+        </a>
+        <a href="../history.html">
+            <i data-lucide="archive" style="width: 24px; height: 24px;"></i>
+            アーカイブ
+        </a>
+        <a href="../settings.html">
+            <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
+            設定
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="morpho-main">
+        <!-- Daily Summary -->
+        <section class="morpho-card morpho-animate-in" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--morpho-accent-primary);"></i>
+                今日のテックトレンド
+            </h2>
+            <p style="font-size: 1.05rem; line-height: 1.8;">今日のテック界隈では、生成AIの収益化と実用化に向けた動きが一段と加速しています。OpenAIは広告モデルのテスト開始と共に、日本国内でも月額1500円という低価格な「ChatGPT Go」プランを投入し、一般ユーザーへの普及を狙っています。一方、開発者エコシステムではGitHub Copilotのメモリ機能や、Cursorによる自律型エージェントの実験結果が公開されるなど、AIが「対話」から「実務の自動化」へとステップアップしている様子が伺えます。一方で、イーロン・マスク氏率いるxAIへの性的ディープフェイクに関する法的措置や、AI利用によるデータ漏えいリスクの増大など、技術の急速な進歩に対する規制とセキュリティの重要性がかつてないほど高まっています。また、CSS Anchor Positioningの全ブラウザ対応といったWeb標準の進化も、フロントエンド開発において極めて大きなマイルストーンとなりました。イノベーションの熱狂が続く中で、いかに社会的責任を果たし、持続可能なビジネスモデルを構築するかが、2026年の中心的な問いとなっています。</p>
+        </section>
+
+        <!-- Top News -->
+        <section>
+            <h2 style="font-size: 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="newspaper" style="width: 22px; height: 22px; color: var(--morpho-accent-primary);"></i>
+                注目ニュース
+            </h2>
+            <div id="news-container">
+                
+        <article class="news-card" data-index="0">
+          <div class="news-number">01</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/aiplus/articles/2601/17/news031.html" target="_blank" rel="noopener noreferrer">
+                ChatGPTに月額1500円の新プラン「Go」登場、広告表示テストも開始
+              </a>
+            </h3>
+            <p class="news-description">OpenAIが「Plus」の半額で利用できる低価格プランを発表。同時に、無料版とGoプランを対象に文脈連動型広告のテストを開始し、サブスク外の収益源確保へ動き出しました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="1">
+          <div class="news-number">02</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://zenn.dev/ubie_dev/articles/anchor-positioning-popover" target="_blank" rel="noopener noreferrer">
+                CSS Anchor Positioningが全ブラウザ対応、ポップオーバー実装が容易に
+              </a>
+            </h3>
+            <p class="news-description">Firefox 147のリリースにより、主要ブラウザで「CSS Anchor Positioning」が利用可能に。JSなしで要素を基準としたポップオーバー表示が完結するようになります。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="2">
+          <div class="news-number">03</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gigazine.net/news/20260117-grok-still-allow-sexualised-images-cease-and-desist-order/" target="_blank" rel="noopener noreferrer">
+                カリフォルニア州、性的ディープフェイク問題でxAIに業務停止命令
+              </a>
+            </h3>
+            <p class="news-description">AI「Grok」で禁止されたはずの性的画像が依然として生成可能であるとの報道を受け、州司法長官事務所がイーロン・マスク氏のxAIに対し強力な是正措置を要求しました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="3">
+          <div class="news-number">04</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/01/copilot-memory-public-preview?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                GitHub Copilot Memoryがパブリックプレビュー開始、全有料プランで利用可能
+              </a>
+            </h3>
+            <p class="news-description">GitHubがAIエージェント用のメモリ機能を公開。過去のコンテキストを記憶させることで、より開発者の意図に沿ったパーソナライズされた支援が可能になります。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="4">
+          <div class="news-number">05</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/news/articles/2601/17/news005.html" target="_blank" rel="noopener noreferrer">
+                大学入学共通テスト、今年から問題のSNS投稿を禁止に。著作権保護を意識
+              </a>
+            </h3>
+            <p class="news-description">2026年度の試験から、問題文のSNS共有が明確に禁止されました。入試センターは「以前から認めていたわけではない」としつつ、主に著作権上の問題を理由に挙げています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="5">
+          <div class="news-number">06</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.theverge.com/news/863710/google-search-antitrust-monopoly-appeal" target="_blank" rel="noopener noreferrer">
+                Googleが検索独占判決を不服として控訴、ライバルとのデータ共有回避を狙う
+              </a>
+            </h3>
+            <p class="news-description">米連邦地裁が下した独占禁止法違反の判決に対し、Googleが正式に控訴。是正措置として求められているデータの強制共有を阻止する構えです。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="6">
+          <div class="news-number">07</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.publickey1.jp/blog/26/slackbotai.html" target="_blank" rel="noopener noreferrer">
+                SlackbotにAIエージェント機能が搭載、会議要約や調整もアシスタントが代行
+              </a>
+            </h3>
+            <p class="news-description">セールスフォースが新しいSlackbotを発表。チャット履歴からコンテキストを理解し、業務の要約やスケジュール調整を行うパーソナルアシスタント機能が統合されます。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="7">
+          <div class="news-number">08</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/enterprise/articles/2601/17/news014.html" target="_blank" rel="noopener noreferrer">
+                生成AI利用による情報漏えいリスクが2倍に、Netskopeが報告
+              </a>
+            </h3>
+            <p class="news-description">2025年の調査で生成AIの利用率が3倍に跳ね上がった一方、それに伴う漏えいリスクも2倍以上に増加。企業のセキュリティ対策の再構築が急務となっています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="8">
+          <div class="news-number">09</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/01/translategemma?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                Google、55言語対応のオープン翻訳モデル「TranslateGemma」をリリース
+              </a>
+            </h3>
+            <p class="news-description">Gemma 3ベースの高性能な翻訳モデルをApache 2.0ライセンスで公開。オープンソースコミュニティによる多言語AI開発の加速が期待されます。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="9">
+          <div class="news-number">10</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://codezine.jp/article/detail/22998" target="_blank" rel="noopener noreferrer">
+                Cursor、数百のエージェントが協調する自律型コーディングの実験結果を公開
+              </a>
+            </h3>
+            <p class="news-description">AIコードエディタのCursorが、大規模なエージェント群による自律的な開発プロセスの実験を公開。バグ検出エージェント「Bugbot」などの運用実績が注目を集めています。</p>
+          </div>
+        </article>
+        
+            </div>
+        </section>
+
+        <!-- Meta Information -->
+        <section class="morpho-card" style="margin-top: 2rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="info" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                システム情報
+            </h3>
+            <div class="morpho-meta">
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">取得日時</span>
+                    <span class="morpho-meta-value" id="meta-fetch-time">2026-01-17 17:16:28 JST</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">収集記事数</span>
+                    <span class="morpho-meta-value" id="meta-article-count">60</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">使用モデル</span>
+                    <span class="morpho-meta-value" id="meta-model">gemini-3-flash-preview</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約トークン</span>
+                    <span class="morpho-meta-value" id="meta-summary-tokens">入力=7631, 出力=1432, 合計=10153</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約時間</span>
+                    <span class="morpho-meta-value" id="meta-summary-time">15.86秒</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">全体処理時間</span>
+                    <span class="morpho-meta-value" id="meta-total-time">0秒</span>
+                </div>
+            </div>
+
+            <!-- Prompts (collapsible) -->
+            <details style="margin-top: 1rem;">
+                <summary>
+                    <i data-lucide="code" style="width: 16px; height: 16px;"></i>
+                    AIプロンプトを表示
+                </summary>
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">要約プロンプト</h4>
+                <pre>ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;大学入学共通テスト、今年から問題のSNS投稿禁止に　これまでも「認めていたわけではない」&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/17/news005.html&quot;, &quot;summary&quot;: &quot;2026年は1月17日～18日に実施予定の大学入学共通テスト（旧センター試験）。これまでは問題が即座にSNSで共有され、ユニークなものが話題になることもあったが、今年の試験では同様の行為が禁止に。試験を実施する大学入試センターの担当者によれば、主に著作権上の問題を意識した対応という。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Razer「Kiyo V2」はゲーム配信だけじゃなくてビジネスでも“使える”Webカムだった　“手元カメラ”という提案&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/17/news030.html&quot;, &quot;summary&quot;: &quot;ゲーム配信に便利なWebカメラとして登場したRazerの「Kiyo V2」。でも、実はビジネスシーンでも「これはいいな」と思わせる魅力がありました。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「マッキー」じゃなくて「マツキニ」？　ゼブラが模倣品に注意喚起、ネット通販サイトやフリマアプリで流通&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/16/news134.html&quot;, &quot;summary&quot;: &quot;ゼブラは16日、「インターネット通販サイトやフリマアプリ等において、弊社製品を模倣した製品が流通している」と注意喚起した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ChatGPTに月額1500円の「Go」プラン登場　広告表示テストも開始&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/17/news031.html&quot;, &quot;summary&quot;: &quot;OpenAIは、「ChatGPT」の新たな低価格プラン「Go」を日本を含む世界で提供開始した。日本では「Plus」の半額、月額1500円だ。同時に米国で、無料およびGoプランを対象とした文脈連動型広告のテストを開始し、サブスクに依存しない新たな収益源の構築を狙う。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;生成AI利用でデータ漏えいリスクは2倍に　企業に求められる進退&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/enterprise/articles/2601/17/news014.html&quot;, &quot;summary&quot;: &quot;Netskopeの報告書によると、2025年は生成AI利用率が前年と比べて3倍になった一方で、この利用による情報漏えいリスクは2倍以上に増加したという。セキュリティとデータ保護がますます複雑化する中、企業取るべき対策とは。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Googleの画像生成AI「Nano Banana」、名前の由来は？　公式が明かす&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/aiplus/articles/2601/17/news026.html&quot;, &quot;summary&quot;: &quot;米Googleは、画像生成AI「Nano Banana」の名前の由来を公式ブログで明かした。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;個人開発者として実際にアプリを運営していく中で感じた個人開発の現実を言語化したいと思います。&quot;, &quot;link&quot;: &quot;https://qiita.com/tatsuoNakano/items/5557800c41eb43b43f2f?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;序文\n個人開発者はプログラミングができることなど必要最低条件でしかないです。しかし世の中には、プログラミングは万能技能であり、プログラミングができれば人生逆転可能であるなどという言動が巷に溢れています。その現状を啓蒙したいという思いが少しあり、今回この記事を執筆するに至り......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Qiitaのいろいろランキング2025&quot;, &quot;link&quot;: &quot;https://qiita.com/Qiita/items/67f7fc1c79173c9a6c44?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n2025年のユーザーの皆さまの活動を、色々なカテゴリーでランキングにしました！\n今年も公式から提供していきます \n過去のランキングを公開ストックリストとしてまとめました。ぜひご覧ください\n\n1年間のサマリー\n最初はQiitaのContributionと記事......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Pythonの勉強を始めたところ標準ライブラリが強力すぎて（Javascript比較）驚きました。Pythonからプログラムの勉強を始めると多言語学習に苦労するのでは無いでしょうか？&quot;, &quot;link&quot;: &quot;https://qiita.com/t7u-ito/items/6a4e4d894dbfc79ce246?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;そういう驚きを感じられるのは、プログラマーとしてかなり有望だと思いますよ。その観点は忘れないでください。\n少なくとも 初期の頃のPythonは、標準パッケージで何でもできることをコンセプトの1つとしていました。 Pythonが生まれた頃はインターネットに転がっているライブラ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Anchor Positioningが全対応。HTML・CSSだけのポップオーバーが完全体に&quot;, &quot;link&quot;: &quot;https://zenn.dev/ubie_dev/articles/anchor-positioning-popover&quot;, &quot;summary&quot;: &quot;2026年1月13日に、Firefox 147がリリースされ、「CSS Anchor Positioning」が全ブラウザ対応しました。HTML・CSSだけでポップオーバー表現をしつつ、好きな要素を基準に、ポップオーバーを表示できるようになりました。\nたとえば、タスク管理のサブメニューを右側に表示する表現や、ヘッダーのユーザーアイコン下にドロップダウンメニューを表示できます。\n\nタスク管理のサブメ...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;iOS Safariでhaptic feedbackを自由に扱えるOSSを公開しました&quot;, &quot;link&quot;: &quot;https://zenn.dev/posaune0423/articles/4f963b89ca2fdf&quot;, &quot;summary&quot;: &quot;自己紹介\nはじめまして、DaikoAIというブロックチェーン × AIプロダクトを作っているasumaです。\n\n前置きはさておき、早速本題です。\nタイトルの通り、iOS Safariでhaptic feedbackを任意のタイミングでtriggerするuse-hapticというライブラリを公開しました。\nhttps://github.com/posaune0423/use-haptic\n⚠️ iP...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;日本語特化拡散言語モデル「ELYZA-LLM-Diffusion」の公開&quot;, &quot;link&quot;: &quot;https://zenn.dev/elyza/articles/f9dd010e895a34&quot;, &quot;summary&quot;: &quot;はじめに\nこんにちは、ELYZA Lab チームの Trisitichoke Tasavat です。本記事では、日本語性能に特化した拡散言語モデル (Diffusion LLM) ELYZA-Diffusion-Base-1.0-Dream-7B および ELYZA-Diffusion-Instruct-1.0-Dream-7B の2つのモデルを公開するとともに、その設計背景、学習方法、評価結果に...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;「ニキビパッチ」の歴史は実はかなり古い&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260117-acne-patch-history/&quot;, &quot;summary&quot;: &quot;ニキビを隠して目立たなくしたり、外部からの刺激から守ったり、あるいは塗布された薬剤で治療する「ニキビパッチ」は現代社会で広く使われています。こうしたニキビパッチの歴史は意外と古く、1600年代の文献には既に登場することが分かっています。こうしたニキビパッチの歴史について、歴史家のサラ・リード氏が解説しました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/2026...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;イーロン・マスクのGrokでは禁止されたはずの性的画像が依然生成可能との報道、カリフォルニア州司法長官はGrokのxAIに業務停止命令&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260117-grok-still-allow-sexualised-images-cease-and-desist-order/&quot;, &quot;summary&quot;: &quot;X上に投稿された女性や子どもの画像を、Grokを使って性的な画像に改変するという事例が多発し、世界中で問題となっています。これを受け、開発元のxAIはGrokで画像の被写体を水着化・下着化・ヌード化することを禁止したのですが、依然として性的ディープフェイクが作成できるとThe Guardianが報じました。Grokの性的ディープフェイク生成問題を受け、カリフォルニア州司法長官事務所はxAIに対する...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;アメリカの5兆ドル規模の医療制度のお金の流れをグラフ化するとこうなる&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260117-healthcare-system/&quot;, &quot;summary&quot;: &quot;アメリカの医療制度は年間約5兆ドル(約800兆円)という膨大な支出が複雑に絡み合う巨大なシステムとなっています。そのシステムの構造をコラムニストのアンドリュー・ツァン氏は「われわれが創り上げた『忌まわしい怪物』」と表現し、その全体像を可視化しようと試みています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260117&amp;#45;healthcare&amp;#45;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ITエンジニアが選んだ「ITエンジニア本大賞2026」発表。やさしいMCP入門、ことばの意味を計算するしくみ、エンジニアの持続的成長37のヒント、ゆるストイック、など&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/itit2026mcp37.html&quot;, &quot;summary&quot;: &quot;ITエンジニアが投票によって技術書やビジネス書を選ぶ「ITエンジニア本大賞 2026」の結果が発表されました。 「ITエンジニア本大賞」は、仕事の役に立った本、初学者におすすめの本、ずっと手元に置いておきたい本など、おすすめの本をITエンジ......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;SlackbotがAIエージェント機能を搭載。チャット履歴などからコンテキストを理解、議論の要約やスケジュール調整などパーソナルアシスタントに。セールスフォースが発表&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/slackbotai.html&quot;, &quot;summary&quot;: &quot;セールスフォースは、新たにAIエージェント機能を統合した新しいSlackbotの正式リリースを発表しました。 従来のSlackbotは文字通りSlack上のボットとして、Slackと連携先サービスとのやりとりなど主にSlackを用いた自動化......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;WebKitベースの新ブラウザ「Orion」。Mac対応の正式版に続き、Linux対応アルファ版を発表&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/webkitorionmaclinux.html&quot;, &quot;summary&quot;: &quot;検索エンジンなどを提供するKagiは、WebKitベースのWebブラウザ「Orion」のLinux対応版のアルファ版を発表しました。 To all Orion+ subscribers, you&#x27;re going to receiv......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;OpenAI、Responses APIを基盤としたオープンソース仕様「Open Responses」を公開&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/open-responses?utm_source=feed&quot;, &quot;summary&quot;: &quot;OpenAIは2026年1月15日、Responses APIを基盤とした、マルチプロバイダー対応かつ相互運用可能なLLMインターフェース構築のためのオープンソース仕様「Open Responses」を公開した。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;GitHub、Copilot Memoryをパブリックプレビューで提供開始 ——すべてのGitHub Copilot有料プランで有効可能に&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/copilot-memory-public-preview?utm_source=feed&quot;, &quot;summary&quot;: &quot;GitHubは2026年1月15日、GitHub Copilotの全有料プランを対象に、エージェント用のメモリ機能「Copilot Memory」のパブリックプレビューを開始した。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;Google、Gemma 3ベース、55言語を網羅したオープンな翻訳モデルTranslateGemmaをリリース&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/translategemma?utm_source=feed&quot;, &quot;summary&quot;: &quot;Googleは2026年1月15日、Gemma 3ベースの翻訳モデル「TranslateGemma」を、Apache 2.0ライセンスのもとオープンソースとしてリリースした。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;Kaggle、AIモデル評価用「Community Benchmarks」を公開&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22996&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Cursorがコードレビューエージェント「Bugbot」の運用実績を公開、積極的なバグ検出が可能に&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23008&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Cursor、数百エージェント協調による自律型コーディングの大規模実験結果を公開&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/22998&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;ChatGPT、「広告」開始へ　無料版と1500円の新プラン「ChatGPT Go」&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2078673.html&quot;, &quot;summary&quot;: &quot;OpenAIは17日、「ChatGPT」に低価格なサブスクリプションプラン「ChatGPT Go」を追加し、全世界展開を開始した。ChatGPT Goの月額料金は1,500円(米国では8ドル)。あわせて、ChatGPTの無料版とChatGPT Goにおいて、「広告」を開始すると発表した。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;【いつモノコト】“一線を越えた”美味しさ、タイガー“ハイブリッド抽出”コーヒーメーカー&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/series/itsmo/2077282.html&quot;, &quot;summary&quot;: &quot;毎朝、1日分のコーヒーをコーヒーメーカーで淹れるという生活を続けているのですが、毎日使うのでコーヒーメーカーへの負荷が高いのと、小さな不満も溜まると大きくなるので、結果的に2～3年で買い替えてしまっています。今回新たに購入したのは、タイガーの「ADF-A060」です。価格はAmazon.co.jpにて21,009円でした。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;ChatGPTに翻訳専用機能 「ChatGPT Translate」が密かに公開&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2078651.html&quot;, &quot;summary&quot;: &quot;OpenAIは、ChatGPTにおける翻訳機能「ChatGPT Translate」を公開している。翻訳専用の画面で50以上の言語が選択できる。OpenAIからの公式発表は無いが、14日頃から利用可能となっており、一般ユーザーを含めてテストを行なっているとみられる。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;AI cloud startup Runpod hits $120M in ARR — and it started with a Reddit post&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/16/ai-cloud-startup-runpod-hits-120m-in-arr-and-it-started-with-a-reddit-post/&quot;, &quot;summary&quot;: &quot;Their startup journey is a wild example of how if you build it well and the timing is lucky, they will definitely come....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;California AG sends Musk’s xAI a cease-and-desist order over sexual deepfakes&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/16/california-ag-sends-musks-xai-a-cease-and-desist-order-over-sexual-deepfakes/&quot;, &quot;summary&quot;: &quot;The flood of AI-generated sexual imagery has spurred concern from state and congressional officials alike....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Snowflake, Databricks challenger ClickHouse hits $15B valuation&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/16/snowflake-databricks-challenger-clickhouse-hits-15b-valuation/&quot;, &quot;summary&quot;: &quot;The $400 million round was led by Dragoneer....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;GootLoader Malware Uses 500–1,000 Concatenated ZIP Archives to Evade Detection&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/gootloader-malware-uses-5001000.html&quot;, &quot;summary&quot;: &quot;The JavaScript (aka JScript) malware loader called GootLoader has been observed using a malformed ZIP archive that&#x27;s designed to sidestep detection efforts by concatenating anywhere from 500 to 1,000 ...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Five Malicious Chrome Extensions Impersonate Workday and NetSuite to Hijack Accounts&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/five-malicious-chrome-extensions.html&quot;, &quot;summary&quot;: &quot;Cybersecurity researchers have discovered five new malicious Google Chrome web browser extensions that masquerade as human resources (HR) and enterprise resource planning (ERP) platforms like Workday,...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Your Digital Footprint Can Lead Right to Your Front Door&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/your-digital-footprint-can-lead-right.html&quot;, &quot;summary&quot;: &quot;You lock your doors at night. You avoid sketchy phone calls. You’re careful about what you post on social media.\nBut what about the information about you that’s already out there—without your permissi...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;The best deals on MacBooks right now&quot;, &quot;link&quot;: &quot;https://www.theverge.com/22399419/apple-macbook-air-pro-mac-mini-imac-deals&quot;, &quot;summary&quot;: &quot;Apple currently sells MacBooks equipped with its own M-series processors in a wide range of sizes and price points, all of which run the company’s newest operating system, macOS 26. Purchasing a new M...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Google is appealing a judge’s search monopoly ruling&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/863710/google-search-antitrust-monopoly-appeal&quot;, &quot;summary&quot;: &quot;Google is appealing a federal court&#x27;s decision ruling it an illegal online search monopolist. The company filed a notice to appeal on Friday, requesting a pause on the court-ordered remedies meant to ...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Trump and Mid-Atlantic governors want tech companies to pay for new power plants&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/863620/data-centers-ai-power-auction-trump&quot;, &quot;summary&quot;: &quot;The Trump administration and a bipartisan group of governors are pressuring the PJM Interconnection, the biggest electricity market in the US, to hold a power auction meant to spur a massive buildout ...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Managers on alert for “launch fever” as pressure builds for NASA’s Moon mission&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/managers-on-alert-for-launch-fever-as-pressure-builds-for-nasas-moon-mission/&quot;, &quot;summary&quot;: &quot;\&quot;I’ve got one job, and it’s the safe return of Reid, Victor, Christina, and Jeremy.\&quot;...&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Rackspace customers grapple with “devastating” email hosting price hike&quot;, &quot;link&quot;: &quot;https://arstechnica.com/information-technology/2026/01/rackspace-raises-email-hosting-prices-by-as-much-as-706-percent/&quot;, &quot;summary&quot;: &quot;Reseller says Rackspace plans to charge it 706 percent more....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Archaeologists find a supersized medieval shipwreck in Denmark&quot;, &quot;link&quot;: &quot;https://arstechnica.com/science/2026/01/archaeologists-find-a-supersized-medieval-shipwreck-in-denmark/&quot;, &quot;summary&quot;: &quot;The sunken ship reveals that the medieval European economy was growing fast....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Petlibro Discount Codes and Deals: Save Up to 50%&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/petlibro-discount-code/&quot;, &quot;summary&quot;: &quot;Save on Petlibro essentials, including automatic feeders, water fountains, and accessories to keep cats and dogs fed, hydrated, and comfortable every day....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Thinking Machines Cofounder’s Office Relationship Preceded His Termination&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/thinking-machines-lab-cofounder-office-relationship-firing-openai/&quot;, &quot;summary&quot;: &quot;Leaders at Mira Murati’s startup believe Barret Zoph engaged in an incident of “serious misconduct.” The details are now coming to light....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;The Campaign to Destroy Renee Good&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/the-campaign-to-destroy-renee-good/&quot;, &quot;summary&quot;: &quot;After an ICE agent shot and killed the Minneapolis mother, conservative media launched an all-out attack on her reputation. Her identity as a queer woman was central to it....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Biggest Offshore Wind Project In US To Resume Construction&quot;, &quot;link&quot;: &quot;https://hardware.slashdot.org/story/26/01/17/0417254/biggest-offshore-wind-project-in-us-to-resume-construction?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;A federal judge has temporarily lifted the Trump administration&#x27;s suspension of the Coastal Virginia Offshore Wind, allowing construction on the largest offshore wind project in the U.S. to resume. CN...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Pesticides May Drastically Shorten Fish Lifespans, Study Finds&quot;, &quot;link&quot;: &quot;https://science.slashdot.org/story/26/01/16/224252/pesticides-may-drastically-shorten-fish-lifespans-study-finds?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;An anonymous reader quotes a report from the Guardian: Even low levels of common agricultural pesticides can stunt the long-term lifespan of fish, according to research led by Jason Rohr, a biologist ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Judge Orders Anna&#x27;s Archive To Delete Scraped Data&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/16/2155232/judge-orders-annas-archive-to-delete-scraped-data?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Anna&#x27;s Archive has been hit with a U.S. federal court default judgment and permanent injunction over its scraping and distribution of OCLC&#x27;s WorldCat data, which occurred more than two years ago. Acco...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;The &#x27;untouchable hacker god&#x27; behind Finland&#x27;s biggest ever crime&quot;, &quot;link&quot;: &quot;https://www.theguardian.com/technology/2026/jan/17/vastaamo-hack-finland-therapy-notes&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://www.theguardian.com/technology/2026/jan/17/vastaamo-hack-finland-therapy-notes\&quot;&gt;https://www.theguardian.com/technology/2026/jan/17/vastaamo-hack-finland-therapy-notes&lt;...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Artisanal Code&quot;, &quot;link&quot;: &quot;https://sunnyamrat.com/posts/2026-01-17-artisanal-code/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://sunnyamrat.com/posts/2026-01-17-artisanal-code/\&quot;&gt;https://sunnyamrat.com/posts/2026-01-17-artisanal-code/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Drone Hacking Part 1: Dumping Firmware and Bruteforcing ECC&quot;, &quot;link&quot;: &quot;https://neodyme.io/en/blog/drone_hacking_part_1/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://neodyme.io/en/blog/drone_hacking_part_1/\&quot;&gt;https://neodyme.io/en/blog/drone_hacking_part_1/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46654...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;The best VPN service for 2026&quot;, &quot;link&quot;: &quot;https://www.engadget.com/cybersecurity/vpn/best-vpn-130004396.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;As frustrating as it is that governments and businesses are running roughshod over our online freedoms, at least we have plenty of good VPNs to choose from to keep us protected online. There are so...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;X is fully online after going down for most of the morning&quot;, &quot;link&quot;: &quot;https://www.engadget.com/social-media/x-is-fully-online-after-going-down-for-most-of-the-morning-171843711.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;X seems to be working again after struggling with an outage that took the service offline and made it slow to load for much of the morning. According to X’s developer platform &lt;a class=\&quot;link\&quot; href=...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Google is appealing the ruling from its search antitrust case to avoid sharing data with rivals&quot;, &quot;link&quot;: &quot;https://www.engadget.com/big-tech/google-is-appealing-the-ruling-from-its-search-antitrust-case-to-avoid-sharing-data-with-rivals-215107905.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Google &lt;a class=\&quot;link\&quot; href=\&quot;https://blog.google/company-news/outreach-and-initiatives/public-policy/why-were-appealing-the-doj-search-distribution-case/\&quot; target=\&quot;_blank\&quot;&gt;has filed its appeal&lt;/a&gt; t...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Black Forest Labs launches open source Flux.2 [klein] to generate AI images in less than a second&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/black-forest-labs-launches-open-source-flux-2-klein-to-generate-ai-images-in&quot;, &quot;summary&quot;: &quot;&lt;p&gt;The German AI startup Black Forest Labs (BFL), &lt;a href=\&quot;https://venturebeat.com/ai/stable-diffusion-creators-launch-black-forest-labs-secure-31m-for-flux-1-ai-image-generator\&quot;&gt;founded by former Sta...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;How Google’s &#x27;internal RL&#x27; could unlock long-horizon AI agents&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/how-googles-internal-rl-could-unlock-long-horizon-ai-agents&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Researchers at Google have developed a technique that makes it easier for AI models to learn complex reasoning tasks that usually cause LLMs to hallucinate or fall apart. Instead of training LLMs t...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Alfred Wahlforss was running out of options. His startup, &lt;a href=\&quot;https://listenlabs.ai/\&quot;&gt;Listen Labs&lt;/a&gt;, needed to hire over 100 engineers, but competing against Mark Zuckerberg&amp;#x27;s &lt;a href=\&quot;...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Save $3,000: Turn any TV into a piece of art with this free Roku feature&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/turn-roku-tv-into-frame-tv-art-free/&quot;, &quot;summary&quot;: &quot;Love the look of Samsung&#x27;s Frame TV? You can easily recreate that art gallery effect on your Roku TV. Here&#x27;s how....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;I compared the two best LG OLED TV models on the market right now - there&#x27;s a surprise winner&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/lg-g5-vs-lg-g4/&quot;, &quot;summary&quot;: &quot;Before the G6 releases later this year, we tested LG&#x27;s two latest flagship OLED TVs to see which is the better buy....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;7 ways to lock down your phone before heading to a protest&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/protect-privacy-safety-at-protests-disable-phone-biometrics-more-tips/&quot;, &quot;summary&quot;: &quot;Smartphones are powerful tools for demonstrators, but bringing yours along does come with risks. Here are our top tips for staying safe....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;How Nano Banana got its name&quot;, &quot;link&quot;: &quot;https://blog.google/products-and-platforms/products/gemini/how-nano-banana-got-its-name/&quot;, &quot;summary&quot;: &quot;A Nano Banana-generated image showing yellow bananas spelling out &#x27;Nano Banana&#x27; on a bed of additional yellow bananas...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Learners and educators are AI’s new “super users”&quot;, &quot;link&quot;: &quot;https://blog.google/products-and-platforms/products/education/our-life-with-ai-2025/&quot;, &quot;summary&quot;: &quot;Teacher using a computer with students...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Introducing Community Benchmarks on Kaggle&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/developers-tools/kaggle-community-benchmarks/&quot;, &quot;summary&quot;: &quot;A drawing of three people working on laptops, with one person&#x27;s screen showing \&quot;Kaggle Benchmark Results\&quot; with \&quot;Gemini XXXX\&quot; and a large \&quot;PASS\&quot; checkmark.1...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</pre>
+            </details>
+        </section>
+
+        <!-- Evolution Log -->
+        <section class="morpho-card" style="margin-top: 1rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="git-branch" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                進化ログ
+            </h3>
+            <p style="color: var(--morpho-text-secondary); font-size: 0.95rem;">
+                <strong>新機能:</strong> エージェンティック・負荷レギュレーター<br>
+                <strong>新スタイル:</strong> システム・レギュレーション<br>
+                <strong>新レイアウト:</strong> レギュレーテッド・モジュラー・セクター<br>
+                <strong>ムード:</strong> Regulation
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="morpho-footer">
+        <div class="morpho-footer-content" style="text-align: center; color: var(--morpho-text-secondary);">
+            <p>🦋 MorphoNews - AIが進化させる自律型ニュースサイト</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Generation #46 | 2026-01-17 17:16
+            </p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/layout-loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
+
+    <!-- Initialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide Icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Hamburger Menu
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('show');
+                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+
+            // Apply saved theme
+            const savedTheme = localStorage.getItem('morpho-theme');
+            if (savedTheme) {
+                const themeLink = document.getElementById('morpho-theme-css');
+                if (themeLink) {
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-16",
+  "lastUpdated": "2026-01-17",
   "layouts": [
     {
       "id": "default",
@@ -109,6 +109,22 @@
       "author": "ai",
       "mood": "Pragmatic",
       "generation": 43
+    },
+    {
+      "id": "regulated-modular-sector-v46",
+      "name": "レギュレーテッド・モジュラー・セクター",
+      "description": "「Regulation（規律）」のムードに基づき、情報を厳格な境界線と論理的なゾーニングで管理するレイアウト。前回の垂直方向に特化したリスト形式から一転、空間を機能的に分割する「多面的グリッド・セクター」へ進化。CSSの@starting-styleによる要素出現時の物理的な整列プロセス、コンテナクエリを用いたカード内情報の動的リサイズ、そしてホバー時の「デジタイズ・スキャン」エフェクトを導入。情報の視認性と、規律が生み出す美しさを両立させました。",
+      "file": "regulated-modular-sector-v46.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "stagger"
+      },
+      "evolution_note": "@starting-style + Container Queries + Scanline Clip-path Interactivity",
+      "addedDate": "2026-01-17",
+      "author": "ai",
+      "mood": "Regulation",
+      "generation": 46
     }
   ]
 }

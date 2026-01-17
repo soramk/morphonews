@@ -1,6 +1,6 @@
 # 🦋 MorphoNews
 
-**自己進化するAI駆動ニュースサイト**
+## 自己進化するAI駆動ニュースサイト
 
 [![GitHub Actions](https://img.shields.io/badge/Powered%20by-GitHub%20Actions-2088FF?logo=github-actions&logoColor=white)](https://github.com/features/actions)
 [![Gemini AI](https://img.shields.io/badge/AI-Gemini%202.0-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
@@ -9,7 +9,7 @@ MorphoNewsは、AIが毎回の実行で**新しい機能**、**新しいスタ�
 
 ## ✨ コンセプト：進化するWebサイト
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    🦋 Evolution Cycle                        │
 ├─────────────────────────────────────────────────────────────┤
@@ -89,7 +89,7 @@ morphonews/
 ## 🔄 生成モード
 
 | 機能 | `full-evolve` | `ai` モード | `modular` | `news-only` |
-|------|:-----------:|:-----------:|:-----------:|:-----------:|
+| --- | :---: | :---: | :---: | :---: |
 | ニュース取得・要約 | ✅ | ✅ | ✅ | ✅ |
 | 新機能生成（JS） | ❌ | ✅ | ❌ | ❌ |
 | 新スタイル生成（CSS） | ❌ | ✅ | ❌ | ❌ |

@@ -173,6 +173,22 @@
       "author": "ai",
       "mood": "Pivotal",
       "generation": 49
+    },
+    {
+      "id": "ortho-reg-bento-v51",
+      "name": "幾何学的規律：オルソゴナル・ベントー",
+      "description": "第51世代。前回の左右非対称なタイムラインによる「情報の流れ」から一転、情報の「秩序と密度」に焦点を当てた『Regulation（規律）』レイアウト。CSS Gridのオートプレースメントとスパン指定を駆使したベントー・ボックス・スタイルを採用。スクロールに応じて各カードがその場で圧縮・膨張する「メカニカル・コンパクション」エフェクトをscroll-driven animationで実装し、厳格なグリッド内での動的な視覚変化を追求しました。",
+      "file": "ortho-reg-bento-v51.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Bento Grid (Dynamic Span) + Scroll-driven Scale Compaction + @starting-style entry transitions",
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Regulation",
+      "generation": 50
     }
   ]
 }

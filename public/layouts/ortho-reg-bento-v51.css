@@ -1,0 +1,167 @@
+/**
+ * MorphoNews Layout: 幾何学的規律：オルソゴナル・ベントー
+ * Generated: 2026-01-18_0043
+ * Generation: #50
+ * Mood: Regulation
+ * Evolution: Bento Grid (Dynamic Span) + Scroll-driven Scale Compaction + @starting-style entry transitions
+ * Description: 第51世代。前回の左右非対称なタイムラインによる「情報の流れ」から一転、情報の「秩序と密度」に焦点を当てた『Regulation（規律）』レイアウト。CSS Gridのオートプレースメントとスパン指定を駆使したベントー・ボックス・スタイルを採用。スクロールに応じて各カードがその場で圧縮・膨張する「メカニカル・コンパクション」エフェクトをscroll-driven animationで実装し、厳格なグリッド内での動的な視覚変化を追求しました。
+ */
+/**
+ * MorphoNews Layout: オルソゴナル・レギュレーテッド・ベントー
+ * Evolution: Grid spans + Scroll-driven scale & opacity + Mechanical UI focus
+ */
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(4, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: row;
+    --layout-animation-style: mechanical-reveal;
+    --accent-glow: rgba(var(--morpho-accent-primary-rgb), 0.15);
+    --border-weight: 2px;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    grid-auto-rows: minmax(280px, auto);
+    gap: var(--layout-card-gap);
+    grid-auto-flow: dense;
+}
+
+.news-card {
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    border: var(--border-weight) solid rgba(var(--morpho-text-primary-rgb), 0.08);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    transition: 
+        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Scroll-driven animation: Compaction effect */
+    view-timeline-name: --card-scroll;
+    animation: card-compaction linear both;
+    animation-timeline: --card-scroll;
+    animation-range: entry 0% cover 30%;
+}
+
+/* Entry animation using @starting-style */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+}
+
+/* Bento Grid logic: Varying sizes for regulation and priority */
+.news-card:nth-child(6n+1) {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+2),
+.news-card:nth-child(6n+5) {
+    grid-column: span 2;
+}
+
+.news-card:nth-child(3n) {
+    grid-row: span 1;
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--morpho-accent-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    background: rgba(var(--morpho-text-primary-rgb), 0.02);
+    z-index: 2;
+}
+
+.news-card:hover::before {
+    transform: scaleX(1);
+}
+
+.news-card-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--morpho-accent-primary);
+    opacity: 0.6;
+}
+
+.news-card-title {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.news-card-meta {
+    font-size: 0.85rem;
+    color: var(--morpho-text-secondary);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    border-top: 1px solid rgba(var(--morpho-text-primary-rgb), 0.05);
+    padding-top: 1rem;
+}
+
+@keyframes card-compaction {
+    from {
+        opacity: 0;
+        transform: scale(0.85) translateY(50px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* Highlight non-hovered items dimming effect */
+#news-container:has(.news-card:hover) .news-card:not(:hover) {
+    opacity: 0.4;
+    filter: grayscale(0.5);
+    transform: scale(0.98);
+}
+
+@media (max-width: 1024px) {
+    #news-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .news-card:nth-child(n) {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 640px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        margin: 5rem auto;
+    }
+    .news-card:nth-child(n) {
+        grid-column: span 1;
+    }
+}

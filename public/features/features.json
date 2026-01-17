@@ -309,6 +309,17 @@
       "category": "ui",
       "addedDate": "2026-01-18",
       "author": "ai"
+    },
+    {
+      "id": "agentic-perceptual-load-regulator",
+      "name": "エージェンティック・知覚負荷レギュレーター",
+      "description": "ページ内の動的変化、要素密度、およびユーザーの操作速度をリアルタイムで分析。知覚負荷が規定値を超えた場合に、色彩の彩度抑制やアニメーションの減速を行い、情報の過負荷を物理的に「規制」します。",
+      "file": "modules/agentic-perceptual-load-regulator.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-18",
+      "author": "ai"
     }
   ]
 }

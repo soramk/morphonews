@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: ノーマティブ・フレームワーク
+ * Generated: 2026-01-18_0043
+ * Mood: Regulation
+ * Description: 規範と枠組みを重視した、規律あるデザイン。落ち着いたミッドナイトブルーと信頼性の高いスレートグレーを組み合わせ、情報の整合性を際立たせます。
+ */
+:root {
+  --morpho-bg-primary: #0f172a;
+  --morpho-bg-secondary: #1e293b;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #38bdf8;
+  --morpho-accent-secondary: #0ea5e9;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #38bdf8 0%, #1e40af 100%);
+}

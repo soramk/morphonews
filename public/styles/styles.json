@@ -446,6 +446,21 @@
       "addedDate": "2026-01-18",
       "author": "ai",
       "mood": "Pivotal"
+    },
+    {
+      "id": "normative-framework",
+      "name": "ノーマティブ・フレームワーク",
+      "description": "規範と枠組みを重視した、規律あるデザイン。落ち着いたミッドナイトブルーと信頼性の高いスレートグレーを組み合わせ、情報の整合性を際立たせます。",
+      "file": "themes/normative-framework.css",
+      "preview": {
+        "primary": "#38bdf8",
+        "secondary": "#0ea5e9",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Regulation"
     }
   ]
 }

@@ -1282,6 +1282,17 @@ if __name__ == "__main__":
             new_style = generate_new_style(mood_keyword, timestamp_id)
             new_layout = generate_new_layout(mood_keyword, timestamp_id, prev_link, generation_count)
             
+            # アーカイブHTML生成前にメタデータを追加
+            if new_feature:
+                daily_content['meta']['feature_prompt'] = new_feature.get('prompt', '')
+                daily_content['meta']['feature_tokens'] = f"入力={new_feature['tokens']['input']}, 出力={new_feature['tokens']['output']}, 合計={new_feature['tokens']['total']}"
+            if new_style:
+                daily_content['meta']['style_prompt'] = new_style.get('prompt', '')
+                daily_content['meta']['style_tokens'] = f"入力={new_style['tokens']['input']}, 出力={new_style['tokens']['output']}, 合計={new_style['tokens']['total']}"
+            if new_layout:
+                daily_content['meta']['layout_prompt'] = new_layout.get('prompt', '')
+                daily_content['meta']['layout_tokens'] = f"入力={new_layout['tokens']['input']}, 出力={new_layout['tokens']['output']}, 合計={new_layout['tokens']['total']}"
+
             html_output = generate_archive_html(
                 daily_content, 
                 timestamp_id, 
@@ -1358,17 +1369,6 @@ if __name__ == "__main__":
                 'new_style': new_style['id'] if new_style else None,
                 'new_layout': new_layout['id'] if new_layout else None
             }
-            
-            # AIモードのメタデータを追加
-            if new_feature:
-                daily_content['meta']['feature_prompt'] = new_feature.get('prompt', '')
-                daily_content['meta']['feature_tokens'] = f"入力={new_feature['tokens']['input']}, 出力={new_feature['tokens']['output']}, 合計={new_feature['tokens']['total']}"
-            if new_style:
-                daily_content['meta']['style_prompt'] = new_style.get('prompt', '')
-                daily_content['meta']['style_tokens'] = f"入力={new_style['tokens']['input']}, 出力={new_style['tokens']['output']}, 合計={new_style['tokens']['total']}"
-            if new_layout:
-                daily_content['meta']['layout_prompt'] = new_layout.get('prompt', '')
-                daily_content['meta']['layout_tokens'] = f"入力={new_layout['tokens']['input']}, 出力={new_layout['tokens']['output']}, 合計={new_layout['tokens']['total']}"
             
             # full-evolveモードの場合、design_metaを追加
             if design_meta:

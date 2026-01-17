@@ -551,100 +551,134 @@
         </a>
     </nav>
 
-    <main class="settings-container">
-        <div class="page-title">
-            <h1>
-                <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
-                設定
-            </h1>
-            <p>MorphoNewsの機能とスタイルをカスタマイズ</p>
-        </div>
+    <div class="settings-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="settings-sidebar">
+            <nav class="settings-nav">
+                <div class="settings-nav-item active" data-tab="features">
+                    <i data-lucide="puzzle" style="width: 20px; height: 20px;"></i>
+                    機能
+                </div>
+                <div class="settings-nav-item" data-tab="layouts">
+                    <i data-lucide="layout" style="width: 20px; height: 20px;"></i>
+                    レイアウト
+                </div>
+                <div class="settings-nav-item" data-tab="themes">
+                    <i data-lucide="palette" style="width: 20px; height: 20px;"></i>
+                    テーマ
+                </div>
+                <div class="settings-nav-item" data-tab="stats">
+                    <i data-lucide="bar-chart-2" style="width: 20px; height: 20px;"></i>
+                    統計・情報
+                </div>
+            </nav>
+        </aside>
 
-        <!-- Features Section -->
-        <section class="settings-section">
-            <div class="section-header">
-                <i data-lucide="puzzle" style="width: 24px; height: 24px;"></i>
-                <h2>機能の有効化/無効化</h2>
-            </div>
-            <div class="feature-list" id="featureList">
-                <!-- JavaScript で動的に生成 -->
-                <div style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary);">
-                    <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
-                    <p>機能を読み込み中...</p>
-                </div>
-            </div>
-        </section>
+        <!-- Main Content Area -->
+        <main class="settings-main">
+            <!-- Features Tab -->
+            <div class="tab-content active" id="tab-features">
+                <section class="settings-section">
+                    <div class="section-info">
+                        <h2>🧩 機能の管理</h2>
+                        <p>生成された機能をON/OFFして挙動をカスタマイズできます。</p>
+                    </div>
 
-        <!-- Layout Section -->
-        <section class="settings-section">
-            <div class="section-header">
-                <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
-                <h2>レイアウトを選択</h2>
-            </div>
-            <div class="layout-grid" id="layoutGrid">
-                <!-- JavaScript で動的に生成 -->
-                <div
-                    style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary); grid-column: 1 / -1;">
-                    <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
-                    <p>レイアウトを読み込み中...</p>
-                </div>
-            </div>
-        </section>
+                    <div class="search-container">
+                        <i data-lucide="search" class="search-icon" style="width: 18px; height: 18px;"></i>
+                        <input type="text" class="search-input" id="featureSearch" placeholder="機能を検索...">
+                    </div>
 
-        <!-- Theme Section -->
-        <section class="settings-section">
-            <div class="section-header">
-                <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
-                <h2>テーマを選択</h2>
+                    <div class="feature-list" id="featureList">
+                        <div style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary);">
+                            <i data-lucide="loader"
+                                style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                            <p>機能を読み込み中...</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div class="theme-grid" id="themeGrid">
-                <!-- JavaScript で動的に生成 -->
-                <div
-                    style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary); grid-column: 1 / -1;">
-                    <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
-                    <p>テーマを読み込み中...</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Stats Section -->
-        <section class="settings-section">
-            <div class="section-header">
-                <i data-lucide="bar-chart-2" style="width: 24px; height: 24px;"></i>
-                <h2>統計情報</h2>
-            </div>
-            <div class="stats-grid" id="statsGrid">
-                <div class="stat-card">
-                    <div class="stat-value" id="statFeatures">-</div>
-                    <div class="stat-label">登録機能</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="statLayouts">-</div>
-                    <div class="stat-label">レイアウト</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="statThemes">-</div>
-                    <div class="stat-label">テーマ</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="statArchives">-</div>
-                    <div class="stat-label">アーカイブ</div>
-                </div>
-            </div>
-        </section>
+            <!-- Layouts Tab -->
+            <div class="tab-content" id="tab-layouts">
+                <section class="settings-section">
+                    <div class="section-info">
+                        <h2>📐 レイアウトを選択</h2>
+                        <p>AIが生成した多彩なページ構造から適用するものを選べます。</p>
+                    </div>
 
-        <!-- Save Section -->
-        <div class="save-section">
-            <button class="btn-reset" id="btnReset">
-                <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;"></i>
-                リセット
-            </button>
-            <button class="btn-save" id="btnSave">
-                <i data-lucide="save" style="width: 18px; height: 18px;"></i>
-                設定を保存
-            </button>
-        </div>
-    </main>
+                    <div class="layout-grid" id="layoutGrid">
+                        <div
+                            style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary); grid-column: 1 / -1;">
+                            <i data-lucide="loader"
+                                style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                            <p>レイアウトを読み込み中...</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Themes Tab -->
+            <div class="tab-content" id="tab-themes">
+                <section class="settings-section">
+                    <div class="section-info">
+                        <h2>🎨 テーマを選択</h2>
+                        <p>サイトの配色（テーマ）を自由に変更できます。</p>
+                    </div>
+
+                    <div class="theme-grid" id="themeGrid">
+                        <div
+                            style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary); grid-column: 1 / -1;">
+                            <i data-lucide="loader"
+                                style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                            <p>テーマを読み込み中...</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Stats Tab -->
+            <div class="tab-content" id="tab-stats">
+                <section class="settings-section">
+                    <div class="section-info">
+                        <h2>📊 統計・システム情報</h2>
+                        <p>プロジェクトの進化状況を確認できます。</p>
+                    </div>
+
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="statFeatures">-</div>
+                            <div class="stat-label">登録機能</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statLayouts">-</div>
+                            <div class="stat-label">レイアウト</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statThemes">-</div>
+                            <div class="stat-label">テーマ</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statArchives">-</div>
+                            <div class="stat-label">アーカイブ</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="settings-toolbar">
+        <button class="btn-reset" id="btnReset">
+            <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;"></i>
+            リセット
+        </button>
+        <button class="btn-save" id="btnSave">
+            <i data-lucide="save" style="width: 18px; height: 18px;"></i>
+            設定を保存
+        </button>
+    </div>
 
     <!-- Toast -->
     <div class="toast" id="toast">
@@ -754,30 +788,52 @@
                     return;
                 }
 
-                container.innerHTML = this.features.map(feature => {
+                // Group by category
+                const groups = {};
+                this.features.forEach(f => {
+                    const cat = f.category || 'other';
+                    if (!groups[cat]) groups[cat] = [];
+                    groups[cat].push(f);
+                });
+
+                const categories = {
+                    'ui': 'UI Enhancements',
+                    'accessibility': 'Accessibility',
+                    'navigation': 'Navigation',
+                    'analytics': 'Analytics',
+                    'entertainment': 'Entertainment',
+                    'other': 'Other'
+                };
+
+                container.innerHTML = Object.entries(groups).map(([cat, features]) => `
+                    <div class="feature-group">
+                        <div class="feature-group-title">${categories[cat] || cat}</div>
+                        ${features.map(feature => {
                     const isEnabled = this.isFeatureEnabled(feature);
                     const isRequired = feature.required;
 
                     return `
-            <div class="feature-item" data-feature-id="${feature.id}">
-              <div class="feature-info">
-                <div class="feature-name">
-                  ${feature.name}
-                  ${isRequired ? '<span class="badge">必須</span>' : ''}
-                  ${feature.author === 'ai' ? '<span class="badge" style="background: linear-gradient(135deg, #22c55e, #10b981);">AI生成</span>' : ''}
-                </div>
-                <div class="feature-description">${feature.description}</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" 
-                       data-feature-id="${feature.id}" 
-                       ${isEnabled ? 'checked' : ''} 
-                       ${isRequired ? 'disabled' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          `;
-                }).join('');
+                                <div class="feature-item" data-feature-id="${feature.id}">
+                                    <div class="feature-info">
+                                        <div class="feature-name">
+                                            ${feature.name}
+                                            ${isRequired ? '<span class="badge">必須</span>' : ''}
+                                            ${feature.author === 'ai' ? '<span class="badge" style="background: linear-gradient(135deg, #22c55e, #10b981);">AI生成</span>' : ''}
+                                        </div>
+                                        <div class="feature-description">${feature.description}</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" 
+                                               data-feature-id="${feature.id}" 
+                                               ${isEnabled ? 'checked' : ''} 
+                                               ${isRequired ? 'disabled' : ''}>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            `;
+                }).join('')}
+                    </div>
+                `).join('');
             }
 
             renderThemes() {
@@ -883,23 +939,32 @@
                 document.querySelectorAll('.layout-card').forEach(card => {
                     const isNowActive = card.dataset.layoutId === layoutId;
                     card.classList.toggle('active', isNowActive);
-
-                    // Add/remove check icon
-                    let checkIcon = card.querySelector('.check-icon');
-                    if (isNowActive && !checkIcon) {
-                        const icon = document.createElement('i');
-                        icon.className = 'check-icon';
-                        icon.dataset.lucide = 'check';
-                        icon.style.cssText = 'width: 16px; height: 16px; position: absolute; top: 4px; right: 4px; color: white; z-index: 1;';
-                        card.appendChild(icon);
-                        if (typeof lucide !== 'undefined') lucide.createIcons();
-                    } else if (!isNowActive && checkIcon) {
-                        checkIcon.remove();
-                    }
                 });
             }
 
             bindEvents() {
+                // Feature selection (Toggle switches)
+                document.getElementById('featureList').addEventListener('change', (e) => {
+                    const checkbox = e.target;
+                    const featureId = checkbox.dataset.featureId;
+                    if (featureId) {
+                        this.settings.features[featureId] = checkbox.checked;
+                    }
+                });
+
+                // Tab switching
+                document.querySelectorAll('.settings-nav-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const tabId = item.dataset.tab;
+                        this.switchTab(tabId);
+                    });
+                });
+
+                // Search features
+                document.getElementById('featureSearch').addEventListener('input', (e) => {
+                    this.filterFeatures(e.target.value);
+                });
+
                 // Theme selection
                 document.getElementById('themeGrid').addEventListener('click', (e) => {
                     const card = e.target.closest('.theme-card');
@@ -915,15 +980,6 @@
                     if (card) {
                         this.currentLayout = card.dataset.layoutId;
                         this.applyLayout(this.currentLayout);
-                    }
-                });
-
-                // Feature toggles
-                document.getElementById('featureList').addEventListener('change', (e) => {
-                    if (e.target.type === 'checkbox') {
-                        const featureId = e.target.dataset.featureId;
-                        if (!this.settings.features) this.settings.features = {};
-                        this.settings.features[featureId] = e.target.checked;
                     }
                 });
 
@@ -953,14 +1009,49 @@
                     }
                 });
 
-                // Hamburger menu
+                // Hamburger Menu
                 const hamburger = document.getElementById('hamburger');
                 const mobileMenu = document.getElementById('mobileMenu');
 
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    mobileMenu.classList.toggle('show');
-                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                if (hamburger && mobileMenu) {
+                    hamburger.addEventListener('click', () => {
+                        hamburger.classList.toggle('active');
+                        mobileMenu.classList.toggle('show');
+                        document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                    });
+                }
+            }
+
+            switchTab(tabId) {
+                // Update nav items
+                document.querySelectorAll('.settings-nav-item').forEach(item => {
+                    item.classList.toggle('active', item.dataset.tab === tabId);
+                });
+
+                // Update tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.toggle('active', content.id === `tab-${tabId}`);
+                });
+
+                // Re-render if needed or run lucide
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
+
+            filterFeatures(query) {
+                const q = query.toLowerCase();
+                const items = document.querySelectorAll('.feature-item');
+                items.forEach(item => {
+                    const name = item.querySelector('.feature-name').textContent.toLowerCase();
+                    const desc = item.querySelector('.feature-description').textContent.toLowerCase();
+                    const isVisible = name.includes(q) || desc.includes(q);
+                    item.style.display = isVisible ? 'flex' : 'none';
+                });
+
+                // Hide empty groups
+                document.querySelectorAll('.feature-group').forEach(group => {
+                    const hasVisibleItems = Array.from(group.querySelectorAll('.feature-item'))
+                        .some(item => item.style.display !== 'none');
+                    group.style.display = hasVisibleItems ? 'block' : 'none';
                 });
             }
 

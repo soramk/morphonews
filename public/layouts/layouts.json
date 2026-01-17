@@ -141,6 +141,22 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 47
+    },
+    {
+      "id": "interlocked-kinetic-shards-v48",
+      "name": "インターロック・キネティック・シャード",
+      "description": "前回の『流動的な滝』から、さらに一歩踏み込んだ『断片の連動とズレ』への進化。情報の断片（Shard）がパズルのように噛み合いながらも、スクロールに応じて水平・垂直方向に異なる速度でドリフトするキネティック・パッシブ効果を採用。@starting-styleによる初期登場の洗練と、グリッド全体に斜めの緊張感を与えるSkewデザインを融合させました。",
+      "file": "interlocked-kinetic-shards-v48.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "@starting-style + Scroll-driven Horizontal Parallax + Skewed Interlocking Grid",
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 48
     }
   ]
 }

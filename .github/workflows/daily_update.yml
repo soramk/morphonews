@@ -2,8 +2,14 @@ name: Evolve MorphoNews
 
 on:
   schedule:
+    # 1日1回実行 (UTC 0:00 = JST 9:00)
+    - cron: "0 0 * * *"
+    # 1日2回実行 (UTC 0:00, 12:00 = JST 9:00, 21:00)
+    # - cron: "0 0,12 * * *"
     # 1日3回実行 (UTC 0:00, 8:00, 16:00 = JST 9:00, 17:00, 1:00)
-    - cron: "0 0,8,16 * * *"
+    # - cron: "0 0,8,16 * * *"
+    # 1日6回実行 (4時間おき)
+    # - cron: "0 */4 * * *"
   workflow_dispatch: # 手動実行ボタン
     inputs:
       generation_mode:

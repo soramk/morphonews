@@ -391,31 +391,115 @@
         }
 
         @media (max-width: 768px) {
-            .settings-container {
-                padding: 1rem;
-            }
-
-            .morpho-nav {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .theme-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .feature-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
             .toggle-switch {
                 align-self: flex-end;
             }
+        }
+
+        /* Layout Grid */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .layout-card {
+            background: var(--morpho-bg-card);
+            border: 2px solid var(--morpho-border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layout-card:hover {
+            border-color: var(--morpho-accent-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .layout-card.active {
+            border-color: var(--morpho-accent-primary);
+            background: color-mix(in srgb, var(--morpho-accent-primary) 5%, var(--morpho-bg-card));
+        }
+
+        .layout-card.active::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--morpho-accent-gradient);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+
+        .layout-card.active i.check-icon {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            color: white;
+            z-index: 1;
+        }
+
+        .layout-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .layout-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--morpho-text-primary);
+        }
+
+        .layout-badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            background: var(--morpho-bg-secondary);
+            color: var(--morpho-text-secondary);
+            white-space: nowrap;
+        }
+
+        .layout-description {
+            font-size: 0.85rem;
+            color: var(--morpho-text-secondary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--morpho-text-secondary);
+            opacity: 0.8;
+        }
+
+        .layout-evolution {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            background: var(--morpho-bg-primary);
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--morpho-border-color);
+            margin-bottom: 0.5rem;
+            color: var(--morpho-accent-primary);
         }
     </style>
 </head>
@@ -491,6 +575,22 @@
             </div>
         </section>
 
+        <!-- Layout Section -->
+        <section class="settings-section">
+            <div class="section-header">
+                <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
+                <h2>レイアウトを選択</h2>
+            </div>
+            <div class="layout-grid" id="layoutGrid">
+                <!-- JavaScript で動的に生成 -->
+                <div
+                    style="text-align: center; padding: 2rem; color: var(--morpho-text-secondary); grid-column: 1 / -1;">
+                    <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                    <p>レイアウトを読み込み中...</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Theme Section -->
         <section class="settings-section">
             <div class="section-header">
@@ -517,6 +617,10 @@
                 <div class="stat-card">
                     <div class="stat-value" id="statFeatures">-</div>
                     <div class="stat-label">登録機能</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statLayouts">-</div>
+                    <div class="stat-label">レイアウト</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="statThemes">-</div>
@@ -554,31 +658,44 @@
             constructor() {
                 this.features = [];
                 this.themes = [];
+                this.layouts = [];
                 this.settings = this.loadSettings();
                 this.currentTheme = this.settings.theme || 'default';
+                this.currentLayout = this.settings.layout || 'default';
             }
 
             loadSettings() {
                 try {
                     const saved = localStorage.getItem('morpho-settings');
-                    return saved ? JSON.parse(saved) : { features: {}, theme: 'default' };
+                    const theme = localStorage.getItem('morpho-theme') || 'default';
+                    const layout = localStorage.getItem('morpho-layout') || 'default';
+
+                    const settings = saved ? JSON.parse(saved) : { features: {}, theme, layout };
+                    settings.theme = settings.theme || theme;
+                    settings.layout = settings.layout || layout;
+
+                    return settings;
                 } catch {
-                    return { features: {}, theme: 'default' };
+                    return { features: {}, theme: 'default', layout: 'default' };
                 }
             }
 
             saveSettings() {
                 localStorage.setItem('morpho-settings', JSON.stringify(this.settings));
                 localStorage.setItem('morpho-theme', this.currentTheme);
+                localStorage.setItem('morpho-layout', this.currentLayout);
             }
 
             async init() {
                 await this.loadFeatures();
                 await this.loadThemes();
+                await this.loadLayouts();
                 await this.loadStats();
                 this.renderFeatures();
                 this.renderThemes();
+                this.renderLayouts();
                 this.applyTheme(this.currentTheme);
+                this.applyLayout(this.currentLayout);
                 this.bindEvents();
             }
 
@@ -604,6 +721,17 @@
                 }
             }
 
+            async loadLayouts() {
+                try {
+                    const response = await fetch('./layouts/layouts.json');
+                    const data = await response.json();
+                    this.layouts = data.layouts || [];
+                } catch (error) {
+                    console.error('Failed to load layouts:', error);
+                    this.layouts = [];
+                }
+            }
+
             async loadStats() {
                 try {
                     const response = await fetch('./history.json');
@@ -615,6 +743,7 @@
 
                 document.getElementById('statFeatures').textContent = this.features.length;
                 document.getElementById('statThemes').textContent = this.themes.length;
+                document.getElementById('statLayouts').textContent = this.layouts.length;
             }
 
             renderFeatures() {
@@ -677,6 +806,57 @@
                 }).join('');
             }
 
+            renderLayouts() {
+                const container = document.getElementById('layoutGrid');
+
+                if (this.layouts.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--morpho-text-secondary); grid-column: 1 / -1;">レイアウトが見つかりませんでした</p>';
+                    return;
+                }
+
+                container.innerHTML = this.layouts.map(layout => {
+                    const isActive = layout.id === this.currentLayout;
+                    const preview = layout.preview || {};
+
+                    return `
+            <div class="layout-card ${isActive ? 'active' : ''}" data-layout-id="${layout.id}">
+              ${isActive ? '<i class="check-icon" data-lucide="check" style="width: 16px; height: 16px;"></i>' : ''}
+              <div class="layout-header">
+                <div class="layout-name">${layout.name}</div>
+                <div class="layout-badge">${layout.mood || 'Standard'}</div>
+              </div>
+              <div class="layout-description">${layout.description}</div>
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                ${preview.gridType ? `
+                    <span class="layout-badge" title="Grid Type">
+                        <i data-lucide="grid" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i>
+                        ${preview.gridType}
+                    </span>` : ''}
+                ${preview.cardStyle ? `
+                    <span class="layout-badge" title="Card Style">
+                        <i data-lucide="layers" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i>
+                        ${preview.cardStyle}
+                    </span>` : ''}
+                ${preview.animation ? `
+                    <span class="layout-badge" title="Animation">
+                        <i data-lucide="play-circle" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i>
+                        ${preview.animation}
+                    </span>` : ''}
+              </div>
+              ${layout.evolution_note ? `<div class="layout-evolution">${layout.evolution_note}</div>` : ''}
+              <div class="layout-footer">
+                <span>Gen #${layout.generation || '-'}</span>
+                <span>${layout.addedDate || ''}</span>
+              </div>
+            </div>
+          `;
+                }).join('');
+
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }
+
             isFeatureEnabled(feature) {
                 if (feature.required) return true;
                 const setting = this.settings.features?.[feature.id];
@@ -695,6 +875,30 @@
                 });
             }
 
+            applyLayout(layoutId) {
+                const layout = this.layouts.find(l => l.id === layoutId);
+                if (!layout) return;
+
+                // Update active state in UI
+                document.querySelectorAll('.layout-card').forEach(card => {
+                    const isNowActive = card.dataset.layoutId === layoutId;
+                    card.classList.toggle('active', isNowActive);
+
+                    // Add/remove check icon
+                    let checkIcon = card.querySelector('.check-icon');
+                    if (isNowActive && !checkIcon) {
+                        const icon = document.createElement('i');
+                        icon.className = 'check-icon';
+                        icon.dataset.lucide = 'check';
+                        icon.style.cssText = 'width: 16px; height: 16px; position: absolute; top: 4px; right: 4px; color: white; z-index: 1;';
+                        card.appendChild(icon);
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    } else if (!isNowActive && checkIcon) {
+                        checkIcon.remove();
+                    }
+                });
+            }
+
             bindEvents() {
                 // Theme selection
                 document.getElementById('themeGrid').addEventListener('click', (e) => {
@@ -702,6 +906,15 @@
                     if (card) {
                         this.currentTheme = card.dataset.themeId;
                         this.applyTheme(this.currentTheme);
+                    }
+                });
+
+                // Layout selection
+                document.getElementById('layoutGrid').addEventListener('click', (e) => {
+                    const card = e.target.closest('.layout-card');
+                    if (card) {
+                        this.currentLayout = card.dataset.layoutId;
+                        this.applyLayout(this.currentLayout);
                     }
                 });
 
@@ -717,6 +930,7 @@
                 // Save button
                 document.getElementById('btnSave').addEventListener('click', () => {
                     this.settings.theme = this.currentTheme;
+                    this.settings.layout = this.currentLayout;
                     this.saveSettings();
                     this.showToast('設定を保存しました');
                 });
@@ -726,11 +940,15 @@
                     if (confirm('設定をリセットしますか？')) {
                         localStorage.removeItem('morpho-settings');
                         localStorage.removeItem('morpho-theme');
-                        this.settings = { features: {}, theme: 'default' };
+                        localStorage.removeItem('morpho-layout');
+                        this.settings = { features: {}, theme: 'default', layout: 'default' };
                         this.currentTheme = 'default';
+                        this.currentLayout = 'default';
                         this.applyTheme('default');
+                        this.applyLayout('default');
                         this.renderFeatures();
                         this.renderThemes();
+                        this.renderLayouts();
                         this.showToast('設定をリセットしました');
                     }
                 });

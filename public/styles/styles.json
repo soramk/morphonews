@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-17",
+  "lastUpdated": "2026-01-18",
   "currentDefault": "default",
   "themes": [
     {
@@ -401,6 +401,21 @@
       "addedDate": "2026-01-17",
       "author": "ai",
       "mood": "Regulation"
+    },
+    {
+      "id": "transitional-flux",
+      "name": "トランジショナル・フラックス",
+      "description": "物事が移り変わる「移行」の瞬間を捉えたテーマ。静謐なミッドナイトブルーからエネルギッシュなアンバーへと変化するグラデーションが、進化し続けるニュースの動態を表現します。",
+      "file": "themes/transitional-flux.css",
+      "preview": {
+        "primary": "#bb9af7",
+        "secondary": "#ff9e64",
+        "background": "#1a1b26",
+        "text": "#c0caf5"
+      },
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Transition"
     }
   ]
 }

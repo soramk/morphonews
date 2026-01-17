@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-17",
+  "lastUpdated": "2026-01-18",
   "layouts": [
     {
       "id": "default",
@@ -125,6 +125,22 @@
       "author": "ai",
       "mood": "Regulation",
       "generation": 46
+    },
+    {
+      "id": "transitional-fluid-cascade-v47",
+      "name": "トランジショナル・フルイド・カスケード",
+      "description": "前回の「規律（Regulation）」から、流動的な「遷移（Transition）」への進化。厳格なグリッドの境界をあえて崩し、スクロール量に連動して要素が浮上・変形する『Scroll-driven Animations』を全面的に採用。カードは左右非対称に配置され、静的な配置から動的な流れへとユーザーを誘います。情報の重なりと奥行きを強調するパースペクティブ効果により、次世代の閲覧体験を提示します。",
+      "file": "transitional-fluid-cascade-v47.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven Animations (view-timeline) + Perspective Staggering + Clip-path Morphing",
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 47
     }
   ]
 }

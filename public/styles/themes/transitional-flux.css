@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: トランジショナル・フラックス
+ * Generated: 2026-01-18_0013
+ * Mood: Transition
+ * Description: 物事が移り変わる「移行」の瞬間を捉えたテーマ。静謐なミッドナイトブルーからエネルギッシュなアンバーへと変化するグラデーションが、進化し続けるニュースの動態を表現します。
+ */
+:root {
+  --morpho-bg-primary: #1a1b26;
+  --morpho-bg-secondary: #24283b;
+  --morpho-bg-card: #2f354a;
+  --morpho-text-primary: #c0caf5;
+  --morpho-text-secondary: #9aa5ce;
+  --morpho-accent-primary: #bb9af7;
+  --morpho-accent-secondary: #ff9e64;
+  --morpho-border-color: #414868;
+  --morpho-accent-gradient: linear-gradient(135deg, #7aa2f7 0%, #bb9af7 50%, #ff9e64 100%);
+}

@@ -1,0 +1,162 @@
+/**
+ * MorphoNews Layout: バイラテラル・サーキット・カスケード
+ * Generated: 2026-01-18_0033
+ * Generation: #49
+ * Mood: Pivotal
+ * Evolution: view-timeline + scroll-driven clip-path + CSS Counter-based circuit paths
+ * Description: 第50世代の節目として、これまでの断片化された表現から「統合されたフロー」への転換を試行。中央に仮想的な「情報の動脈（サーキット）」を配し、左右交互に展開するシンメトリーなタイムライン構造を採用しました。スクロールと連動してカードが電子回路の導通のように『開通』する演出を、最新のview-timelineとclip-pathアニメーションで制御しています。
+ */
+:root {
+    --layout-max-width: 1200px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: 8rem;
+    --layout-card-direction: column;
+    --layout-animation-style: circuit-unfold;
+    --circuit-color: var(--morpho-accent-primary);
+    --line-width: 2px;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 15rem auto;
+    padding: 0 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-gap);
+}
+
+/* 中央の動脈（サーキット）ライン */
+#news-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -5rem;
+    bottom: -5rem;
+    width: var(--line-width);
+    background: linear-gradient(to bottom, 
+        transparent, 
+        var(--circuit-color) 15%, 
+        var(--circuit-color) 85%, 
+        transparent
+    );
+    transform: translateX(-50%);
+    z-index: 0;
+    opacity: 0.3;
+}
+
+.news-card {
+    position: relative;
+    width: 45%;
+    margin-left: 0;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid rgba(var(--morpho-text-primary-rgb), 0.1);
+    padding: 2.5rem;
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    /* Scroll-driven animation: Clip-path reveal */
+    animation: circuit-entry-path linear both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 40%;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+}
+
+/* 左右交互の配置 */
+.news-card:nth-child(even) {
+    align-self: flex-end;
+    border-left: 4px solid var(--morpho-accent-primary);
+}
+
+.news-card:nth-child(odd) {
+    align-self: flex-start;
+    border-right: 4px solid var(--morpho-accent-primary);
+}
+
+/* コネクタライン */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 11.2%;
+    height: var(--line-width);
+    background: var(--circuit-color);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.news-card:nth-child(odd)::after {
+    left: 100%;
+}
+
+.news-card:nth-child(even)::after {
+    right: 100%;
+}
+
+@keyframes circuit-entry-path {
+    from {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateY(50px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0) scale(1);
+    }
+}
+
+.news-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    border-color: var(--morpho-accent-primary);
+}
+
+.news-card-number {
+    position: absolute;
+    top: -1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    background: var(--morpho-accent-primary);
+    color: var(--morpho-bg-primary);
+    padding: 0.2rem 1rem;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.news-card:nth-child(odd) .news-card-number { right: 1rem; }
+.news-card:nth-child(even) .news-card-number { left: 1rem; }
+
+.news-card-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    word-break: break-all;
+}
+
+.news-card-content {
+    font-size: 0.95rem;
+    color: var(--morpho-text-primary);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* レスポンシブ対応：モバイルではシングルカラム・センターライン */
+@media (max-width: 768px) {
+    #news-container::before {
+        left: 20px;
+    }
+    .news-card {
+        width: calc(100% - 60px);
+        margin-left: 60px !important;
+        align-self: flex-start !important;
+    }
+    .news-card::after {
+        width: 40px;
+        right: 100% !important;
+        left: auto !important;
+    }
+    .news-card:nth-child(even) {
+        border-left: 4px solid var(--morpho-accent-primary);
+        border-right: none;
+    }
+}

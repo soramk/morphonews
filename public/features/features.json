@@ -298,6 +298,17 @@
       "category": "ui",
       "addedDate": "2026-01-18",
       "author": "ai"
+    },
+    {
+      "id": "agentic-pivotal-context-anchor",
+      "name": "エージェンティック・ピボタル・コンテクスト・アンカー",
+      "description": "読了中のセクションから「情報の旋回軸（ピボット）」となる重要文脈をリアルタイムで抽出し、画面端に固定表示します。スクロールにより視点が移動しても、現在の文脈の核心を常に視界に留め、理解の連続性を維持します。",
+      "file": "modules/agentic-pivotal-context-anchor.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-18",
+      "author": "ai"
     }
   ]
 }

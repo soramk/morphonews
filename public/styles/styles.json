@@ -431,6 +431,21 @@
       "addedDate": "2026-01-18",
       "author": "ai",
       "mood": "Transition"
+    },
+    {
+      "id": "pivotal-juncture",
+      "name": "ピボタル・ジャンクチャー",
+      "description": "決定的な転換点を象徴するテーマ。重厚な基盤を意味するディープコバルトと、未来を切り拓く鋭いピボタル・ゴールドのコントラストが、進化の瞬間の緊張感と期待を表現します。",
+      "file": "themes/pivotal-juncture.css",
+      "preview": {
+        "primary": "#f59e0b",
+        "secondary": "#38bdf8",
+        "background": "#0f172a",
+        "text": "#f1f5f9"
+      },
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Pivotal"
     }
   ]
 }

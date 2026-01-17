@@ -1,0 +1,162 @@
+/**
+ * MorphoNews Layout: インターロック・キネティック・シャード
+ * Generated: 2026-01-18_0024
+ * Generation: #48
+ * Mood: Transition
+ * Evolution: @starting-style + Scroll-driven Horizontal Parallax + Skewed Interlocking Grid
+ * Description: 前回の『流動的な滝』から、さらに一歩踏み込んだ『断片の連動とズレ』への進化。情報の断片（Shard）がパズルのように噛み合いながらも、スクロールに応じて水平・垂直方向に異なる速度でドリフトするキネティック・パッシブ効果を採用。@starting-styleによる初期登場の洗練と、グリッド全体に斜めの緊張感を与えるSkewデザインを融合させました。
+ */
+/**
+ * MorphoNews Layout: インターロック・キネティック・シャード
+ * Generated: 2026-01-18_1020
+ * Generation: #48
+ * Mood: Transition
+ * Evolution: @starting-style + Scroll-driven Horizontal Parallax + Skewed Interlocking Grid
+ */
+
+:root {
+    --layout-max-width: 1600px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 3rem;
+    --layout-card-direction: column;
+    --layout-animation-style: kinetic-shard-drift;
+    --shard-skew: -2deg;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 0 4rem;
+    perspective: 2000px;
+    /* コンテナ全体を少し傾けて緊張感を作る */
+    transform: skewY(var(--shard-skew));
+}
+
+/* 個別のカード設定：グリッドの配置を不規則に */
+.news-card {
+    grid-column: span 6;
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    border-left: 4px solid var(--morpho-accent-primary);
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    min-height: 400px;
+    /* コンテナの傾きを打ち消して中身を水平に保つ */
+    transform: skewY(calc(var(--shard-skew) * -1));
+    transition: 
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+        filter 0.5s ease,
+        box-shadow 0.5s ease;
+    overflow: hidden;
+    view-timeline-name: --shard-reveal;
+}
+
+/* 2列目以降の変則スパン */
+.news-card:nth-child(3n+1) { grid-column: span 7; }
+.news-card:nth-child(3n+2) { grid-column: span 5; }
+.news-card:nth-child(even) { margin-top: 4rem; }
+
+/* @starting-style: ブラウザのレンダリング開始時の初期状態を定義(最新のCSS) */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: skewY(calc(var(--shard-skew) * -1)) translateY(50px) scale(0.95);
+    }
+}
+
+/* Scroll-driven Animation for internal parallax */
+@keyframes shard-drift {
+    0% {
+        transform: translateX(-30px) translateZ(0);
+        filter: blur(5px);
+    }
+    50% {
+        filter: blur(0);
+    }
+    100% {
+        transform: translateX(30px) translateZ(100px);
+    }
+}
+
+.news-card-header {
+    animation: shard-drift linear both;
+    animation-timeline: --shard-reveal;
+    animation-range: entry 0% exit 100%;
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--morpho-accent-primary) 0%, transparent 100%);
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+/* ニュースナンバーの新しい形状：デジタルスライス */
+.news-card-number {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--morpho-text-primary);
+    color: var(--morpho-bg-primary);
+    padding: 10px 20px;
+    font-family: var(--font-fira-code);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+}
+
+.news-content {
+    padding: 4rem 3rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    z-index: 2;
+}
+
+.news-card-header h3 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--morpho-text-primary), var(--morpho-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hover Interaction: Shard Expansion */
+.news-card:hover {
+    transform: skewY(calc(var(--shard-skew) * -1)) translateY(-15px) translateZ(50px) scale(1.02);
+    box-shadow: -20px 30px 60px rgba(0,0,0,0.3);
+    border-left-width: 12px;
+    z-index: 10;
+}
+
+.news-card:hover .news-card-number {
+    background: var(--morpho-accent-gradient);
+    color: #fff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+        margin: 4rem auto;
+        transform: none;
+    }
+    .news-card {
+        grid-column: span 1 !important;
+        margin-top: 0 !important;
+        transform: none !important;
+        min-height: 300px;
+    }
+    .news-card-header h3 {
+        font-size: 1.4rem;
+    }
+}

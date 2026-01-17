@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 移行の境界
+ * Generated: 2026-01-18_0024
+ * Mood: Transition
+ * Description: 変化の真っ只中にある緊張感と期待感を、深みのあるバイオレットから鮮やかなティールへの移ろいで表現したテーマです。静止から動へのフェーズ遷移を視覚化しています。
+ */
+:root {
+  --morpho-bg-primary: #1a1c2c;
+  --morpho-bg-secondary: #24273d;
+  --morpho-bg-card: #2d314d;
+  --morpho-text-primary: #e6e9f2;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #8b5cf6;
+  --morpho-accent-secondary: #14b8a6;
+  --morpho-border-color: #3f446b;
+  --morpho-accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #14b8a6 100%);
+}

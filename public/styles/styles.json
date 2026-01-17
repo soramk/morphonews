@@ -416,6 +416,36 @@
       "addedDate": "2026-01-18",
       "author": "ai",
       "mood": "Transition"
+    },
+    {
+      "id": "shifting-threshold",
+      "name": "移行の境界",
+      "description": "変化の真っ只中にある緊張感と期待感を、深みのあるバイオレットから鮮やかなティールへの移ろいで表現したテーマです。静止から動へのフェーズ遷移を視覚化しています。",
+      "file": "themes/shifting-threshold.css",
+      "preview": {
+        "primary": "#8b5cf6",
+        "secondary": "#14b8a6",
+        "background": "#1a1c2c",
+        "text": "#e6e9f2"
+      },
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Transition"
+    },
+    {
+      "id": "pivotal-juncture",
+      "name": "ピボタル・ジャンクチャー",
+      "description": "決定的な転換点を象徴するテーマ。重厚な基盤を意味するディープコバルトと、未来を切り拓く鋭いピボタル・ゴールドのコントラストが、進化の瞬間の緊張感と期待を表現します。",
+      "file": "themes/pivotal-juncture.css",
+      "preview": {
+        "primary": "#f59e0b",
+        "secondary": "#38bdf8",
+        "background": "#0f172a",
+        "text": "#f1f5f9"
+      },
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Pivotal"
     }
   ]
 }

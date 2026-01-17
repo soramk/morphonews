@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: ピボタル・ジャンクチャー
+ * Generated: 2026-01-18_0033
+ * Mood: Pivotal
+ * Description: 決定的な転換点を象徴するテーマ。重厚な基盤を意味するディープコバルトと、未来を切り拓く鋭いピボタル・ゴールドのコントラストが、進化の瞬間の緊張感と期待を表現します。
+ */
+:root {
+  --morpho-bg-primary: #0f172a;
+  --morpho-bg-secondary: #020617;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f1f5f9;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #f59e0b;
+  --morpho-accent-secondary: #38bdf8;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #f59e0b 0%, #38bdf8 100%);
+}

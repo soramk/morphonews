@@ -287,6 +287,28 @@
       "category": "ui",
       "addedDate": "2026-01-18",
       "author": "ai"
+    },
+    {
+      "id": "agentic-fluid-state-interpolator",
+      "name": "エージェンティック・フルイド・ステート・インターポレーター",
+      "description": "コンテンツの更新やレイアウト変更を検知し、要素間に流体のような有機的な遷移（Transition）を生成します。各要素の移動を、物理演算に基づいたイージングと残像エフェクトで補完し、情報の変容を直感的に伝えます。",
+      "file": "modules/agentic-fluid-state-interpolator.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-18",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-pivotal-context-anchor",
+      "name": "エージェンティック・ピボタル・コンテクスト・アンカー",
+      "description": "読了中のセクションから「情報の旋回軸（ピボット）」となる重要文脈をリアルタイムで抽出し、画面端に固定表示します。スクロールにより視点が移動しても、現在の文脈の核心を常に視界に留め、理解の連続性を維持します。",
+      "file": "modules/agentic-pivotal-context-anchor.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-18",
+      "author": "ai"
     }
   ]
 }

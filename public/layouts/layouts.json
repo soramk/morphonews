@@ -141,6 +141,38 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 47
+    },
+    {
+      "id": "interlocked-kinetic-shards-v48",
+      "name": "インターロック・キネティック・シャード",
+      "description": "前回の『流動的な滝』から、さらに一歩踏み込んだ『断片の連動とズレ』への進化。情報の断片（Shard）がパズルのように噛み合いながらも、スクロールに応じて水平・垂直方向に異なる速度でドリフトするキネティック・パッシブ効果を採用。@starting-styleによる初期登場の洗練と、グリッド全体に斜めの緊張感を与えるSkewデザインを融合させました。",
+      "file": "interlocked-kinetic-shards-v48.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "@starting-style + Scroll-driven Horizontal Parallax + Skewed Interlocking Grid",
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 48
+    },
+    {
+      "id": "bilateral-circuit-cascade-v50",
+      "name": "バイラテラル・サーキット・カスケード",
+      "description": "第50世代の節目として、これまでの断片化された表現から「統合されたフロー」への転換を試行。中央に仮想的な「情報の動脈（サーキット）」を配し、左右交互に展開するシンメトリーなタイムライン構造を採用しました。スクロールと連動してカードが電子回路の導通のように『開通』する演出を、最新のview-timelineとclip-pathアニメーションで制御しています。",
+      "file": "bilateral-circuit-cascade-v50.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "minimal-glass",
+        "animation": "scroll-driven-unfold"
+      },
+      "evolution_note": "view-timeline + scroll-driven clip-path + CSS Counter-based circuit paths",
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Pivotal",
+      "generation": 49
     }
   ]
 }

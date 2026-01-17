@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: エヴォルヴィング・ビオ
+ * Generated: 2026-01-17_0959
+ * Mood: Evolving
+ * Description: 生命の脈動とデジタルな変異をイメージした、深みのあるモスグリーンと自己発光するようなライムアクセントを組み合わせた進化型テーマです。
+ */
+:root { --morpho-bg-primary: #0a110a; --morpho-bg-secondary: #142114; --morpho-bg-card: #1b2e1b; --morpho-text-primary: #e0f2e0; --morpho-text-secondary: #8ca38c; --morpho-accent-primary: #4ade80; --morpho-accent-secondary: #2dd4bf; --morpho-border-color: #2d4a2d; --morpho-accent-gradient: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%); }

@@ -254,6 +254,17 @@
       "category": "navigation",
       "addedDate": "2026-01-17",
       "author": "ai"
+    },
+    {
+      "id": "agentic-cognitive-flow-viz",
+      "name": "エージェンティック・コグニティブ・フロー・ビジュアライザー",
+      "description": "ユーザーの閲覧履歴と滞在時間を解析し、情報の「進化の軌跡」をページ上に有機的な流体ラインとして可視化します。どのニュースからどの知識へ遷移したかの認知的フローを動的に描画します。",
+      "file": "modules/agentic-cognitive-flow-viz.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-17",
+      "author": "ai"
     }
   ]
 }

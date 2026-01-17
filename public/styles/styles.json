@@ -371,6 +371,21 @@
       "addedDate": "2026-01-17",
       "author": "ai",
       "mood": "Pragmatic Integration"
+    },
+    {
+      "id": "evolving-bioluminescence",
+      "name": "エヴォルヴィング・ビオ",
+      "description": "生命の脈動とデジタルな変異をイメージした、深みのあるモスグリーンと自己発光するようなライムアクセントを組み合わせた進化型テーマです。",
+      "file": "themes/evolving-bioluminescence.css",
+      "preview": {
+        "primary": "#4ade80",
+        "secondary": "#2dd4bf",
+        "background": "#0a110a",
+        "text": "#e0f2e0"
+      },
+      "addedDate": "2026-01-17",
+      "author": "ai",
+      "mood": "Evolving"
     }
   ]
 }

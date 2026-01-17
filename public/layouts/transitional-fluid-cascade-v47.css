@@ -1,0 +1,159 @@
+/**
+ * MorphoNews Layout: トランジショナル・フルイド・カスケード
+ * Generated: 2026-01-18_0013
+ * Generation: #47
+ * Mood: Transition
+ * Evolution: Scroll-driven Animations (view-timeline) + Perspective Staggering + Clip-path Morphing
+ * Description: 前回の「規律（Regulation）」から、流動的な「遷移（Transition）」への進化。厳格なグリッドの境界をあえて崩し、スクロール量に連動して要素が浮上・変形する『Scroll-driven Animations』を全面的に採用。カードは左右非対称に配置され、静的な配置から動的な流れへとユーザーを誘います。情報の重なりと奥行きを強調するパースペクティブ効果により、次世代の閲覧体験を提示します。
+ */
+/**
+ * MorphoNews Layout: トランジショナル・フルイド・カスケード
+ * Generated: 2026-01-17_1740
+ * Generation: #47
+ * Mood: Transition
+ * Evolution: Scroll-driven Animations + Perspective Staggering
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(2, 1fr);
+    --layout-card-gap: 4rem;
+    --layout-card-direction: column;
+    --layout-animation-style: fluid-cascade;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 8rem auto;
+    padding: 0 4rem;
+    perspective: 1200px;
+}
+
+/* Mobile adjustment: 1 column */
+@media (max-width: 900px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+        gap: 2rem;
+    }
+}
+
+/* Applying Scroll-driven Animations to Cards */
+.news-card {
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    
+    animation-name: card-entrance;
+    animation-fill-mode: both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 35%;
+
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid var(--morpho-border-subtle);
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    min-height: 320px;
+    padding: 0;
+    transition: 
+        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+        box-shadow 0.6s ease,
+        border-color 0.4s ease;
+    overflow: visible; /* To allow shadow/depth effects */
+}
+
+/* Staggered Offset for Even Cards to break the grid */
+@media (min-width: 901px) {
+    .news-card:nth-child(even) {
+        margin-top: 6rem;
+    }
+}
+
+@keyframes card-entrance {
+    from {
+        opacity: 0;
+        transform: translateY(100px) rotateX(20deg) scale(0.9);
+        clip-path: inset(100% 0 0 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg) scale(1);
+        clip-path: inset(0% 0 0 0);
+    }
+}
+
+/* Internal Structure with Glassmorphism Overlay */
+.news-content {
+    padding: 3rem 2rem 2rem;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 0%, var(--morpho-bg-secondary) 100%);
+}
+
+.news-card-number {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    background: var(--morpho-accent-gradient);
+    color: #fff;
+    padding: 8px 16px;
+    font-family: var(--font-fira-code);
+    font-size: 0.8rem;
+    font-weight: 700;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.news-card-header h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--morpho-text-primary);
+    letter-spacing: -0.03em;
+}
+
+.news-card-body {
+    font-size: 0.95rem;
+    color: var(--morpho-text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+
+.news-card-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    border-top: 1px solid var(--morpho-border-subtle);
+    padding-top: 1.5rem;
+    font-family: var(--font-fira-code);
+}
+
+/* Hover Interaction: Depth Shift */
+.news-card:hover {
+    transform: translateZ(30px) translateY(-10px) rotateY(-2deg);
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 
+        -20px 20px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px var(--morpho-accent-primary);
+}
+
+/* Background Decorative Element */
+.news-card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--morpho-accent-primary);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: scale(0.95);
+}
+
+.news-card:hover::after {
+    opacity: 0.03;
+    transform: scale(1.05);
+}

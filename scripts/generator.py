@@ -336,7 +336,15 @@ MorphoNewsは「自己進化するWebページ」です。毎回の実行で新�
         save_features(features)
         
         print(f"  ✓ Generated feature: {feature_data['name']} ({feature_id})")
-        return new_feature
+        return {
+            **new_feature,
+            "prompt": feature_prompt.strip(),
+            "tokens": {
+                "input": response.usage_metadata.prompt_token_count,
+                "output": response.usage_metadata.candidates_token_count,
+                "total": response.usage_metadata.total_token_count
+            }
+        }
         
     except json.JSONDecodeError as e:
         print(f"  ⚠ Feature generation failed (JSON parse error): {e}")
@@ -472,7 +480,15 @@ CSSのみ。説明不要。
         save_styles(styles)
         
         print(f"  ✓ Generated style: {style_data['name']} ({style_id})")
-        return new_style
+        return {
+            **new_style,
+            "prompt": style_prompt.strip(),
+            "tokens": {
+                "input": response.usage_metadata.prompt_token_count,
+                "output": response.usage_metadata.candidates_token_count,
+                "total": response.usage_metadata.total_token_count
+            }
+        }
         
     except json.JSONDecodeError as e:
         print(f"  ⚠ Style generation failed (JSON parse error): {e}")
@@ -680,7 +696,15 @@ JSON形式で出力してください：
         
         print(f"  ✓ Generated layout: {layout_data['name']} ({layout_id})")
         print(f"    Evolution: {evolution_note}")
-        return new_layout
+        return {
+            **new_layout,
+            "prompt": layout_prompt.strip(),
+            "tokens": {
+                "input": response.usage_metadata.prompt_token_count,
+                "output": response.usage_metadata.candidates_token_count,
+                "total": response.usage_metadata.total_token_count
+            }
+        }
         
     except json.JSONDecodeError as e:
         print(f"  ⚠ Layout generation failed (JSON parse error): {e}")
@@ -937,6 +961,15 @@ def generate_archive_html(news_data, current_id, prev_link, generation_count, ne
     
     # プロンプト
     html = html.replace('{SUMMARY_PROMPT}', html_module.escape(meta.get('summary_prompt', '')))
+    
+    # 拡張プロンプト
+    feature_meta = f"【新機能プロンプト】\n{meta.get('feature_prompt', 'N/A')}\n\n【トークン】{meta.get('feature_tokens', 'N/A')}"
+    style_meta = f"【新スタイルプロンプト】\n{meta.get('style_prompt', 'N/A')}\n\n【トークン】{meta.get('style_tokens', 'N/A')}"
+    layout_meta = f"【新レイアウトプロンプト】\n{meta.get('layout_prompt', 'N/A')}\n\n【トークン】{meta.get('layout_tokens', 'N/A')}"
+    
+    html = html.replace('{FEATURE_PROMPT}', html_module.escape(feature_meta))
+    html = html.replace('{STYLE_PROMPT}', html_module.escape(style_meta))
+    html = html.replace('{LAYOUT_PROMPT}', html_module.escape(layout_meta))
     
     # 進化ログ
     new_feature_name = new_feature['name'] if new_feature else 'なし（既存機能を使用）'
@@ -1325,6 +1358,17 @@ if __name__ == "__main__":
                 'new_style': new_style['id'] if new_style else None,
                 'new_layout': new_layout['id'] if new_layout else None
             }
+            
+            # AIモードのメタデータを追加
+            if new_feature:
+                daily_content['meta']['feature_prompt'] = new_feature.get('prompt', '')
+                daily_content['meta']['feature_tokens'] = f"入力={new_feature['tokens']['input']}, 出力={new_feature['tokens']['output']}, 合計={new_feature['tokens']['total']}"
+            if new_style:
+                daily_content['meta']['style_prompt'] = new_style.get('prompt', '')
+                daily_content['meta']['style_tokens'] = f"入力={new_style['tokens']['input']}, 出力={new_style['tokens']['output']}, 合計={new_style['tokens']['total']}"
+            if new_layout:
+                daily_content['meta']['layout_prompt'] = new_layout.get('prompt', '')
+                daily_content['meta']['layout_tokens'] = f"入力={new_layout['tokens']['input']}, 出力={new_layout['tokens']['output']}, 合計={new_layout['tokens']['total']}"
             
             # full-evolveモードの場合、design_metaを追加
             if design_meta:

@@ -5,7 +5,7 @@
 [![GitHub Actions](https://img.shields.io/badge/Powered%20by-GitHub%20Actions-2088FF?logo=github-actions&logoColor=white)](https://github.com/features/actions)
 [![Gemini AI](https://img.shields.io/badge/AI-Gemini%202.0-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
 
-MorphoNewsは、AIが毎回の実行で**新しい機能**と**新しいスタイル**を自動生成する、進化型Webアプリケーションです。世界のテックニュースを収集・要約し、自律的にUI/UXを進化させていきます。
+MorphoNewsは、AIが毎回の実行で**新しい機能**、**新しいスタイル**、そして**新しいレイアウト**を自動生成する、進化型Webアプリケーションです。世界のテックニュースを収集・要約し、自律的にUI/UXを進化させていきます。
 
 ## ✨ コンセプト：進化するWebサイト
 
@@ -16,12 +16,12 @@ MorphoNewsは、AIが毎回の実行で**新しい機能**と**新しいスタ�
 │                                                             │
 │   📰 ニュース取得    →    🤖 AI要約                          │
 │         ↓                                                   │
-│   🆕 新機能生成     →    🎨 新スタイル生成                    │
-│   (JavaScript)           (CSS Theme)                        │
+│   🆕 新機能生成     →    🎨 新スタイル生成 → 📐 新レイアウト生成  │
+│   (JavaScript)           (CSS Theme)         (CSS Layout)   │
 │         ↓                                                   │
 │   📄 HTML生成       →    🚀 デプロイ                          │
 │                                                             │
-│   ユーザーは過去のスタイルを自由に選択可能                      │
+│   ユーザーは過去のスタイルやレイアウトを自由に選択可能            │
 │   機能も個別にON/OFF可能                                     │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
@@ -37,202 +37,102 @@ MorphoNewsは、AIが毎回の実行で**新しい機能**と**新しいスタ�
 
 ### 🧬 自己進化システム
 
-- **新機能の自動生成**: AIが毎回新しいJSモジュールを提案・実装
-- **新スタイルの自動生成**: その日のムードに合わせたCSSテーマを生成
-- **モジュラー設計**: 機能とスタイルは独立したファイルで管理
+- **新機能の自動生成**: AI가 毎回新しいJSモジュールを提案・実装
+- **新スタイルの自動生成**: その日のムードに合わせた配色テーマを生成
+- **新レイアウトの自動生成**: グリッド構造やアニメーションを含むページ構造を生成
+- **モジュラー設計**: 機能・スタイル・レイアウトは独立したファイルとして蓄積
 
-### ⚙️ ユーザーカスタマイズ
+### ⚙️ ユーザーカスタマイズ（設定ページ）
 
-- **設定ページ**: 機能のON/OFF切り替え
-- **テーマ選択**: 6+のテーマから自由に選択
-- **設定の永続化**: localStorageに保存
+- **機能の管理**: 生成された各機能のON/OFF切り替え
+- **スタイル選択**: AIが生成した多彩なテーマから選択
+- **レイアウト選択**: グリッド、スタック、ニュースペーパーなど、AIが描いた構造を選択
+- **設定の永続化**: ユーザーの好みをブラウザ（localStorage）に保存
 
-### モバイル対応
+### 📊 進化の透明性
 
-- レスポンシブデザイン
-- ハンバーガーメニュー
-- タッチフレンドリーなUI
+- 各アーカイブページに**詳細なシステム情報**を掲載
+- 要約だけでなく、**機能・スタイル・レイアウト生成に使用された全プロンプト**とトークン量を公開
+- AIがどのような意図でデザインを進化させたかの「進化前ログ」を確認可能
 
 ## 📁 ディレクトリ構造
 
 ```text
 morphonews/
-├── README.md
-├── docs/                         # ドキュメント
-│   ├── ARCHITECTURE.md
-│   ├── EVOLUTION_ARCHITECTURE.md
-│   ├── FEATURES.md
-│   └── ...
-│
 ├── public/                       # 公開ファイル
-│   ├── index.html               # 最新版へリダイレクト
-│   ├── history.html             # 履歴一覧（検索・ソート付き）
-│   ├── settings.html            # 設定ページ
+│   ├── history.html             # 履歴一覧（進化の軌跡）
+│   ├── settings.html            # 設定ページ（機能・テーマ・レイアウト変更）
 │   │
 │   ├── features/                # 機能モジュール
 │   │   ├── features.json        # 機能メタデータ
-│   │   ├── core/               # 必須機能
-│   │   │   ├── loader.js       # モジュールローダー
-│   │   │   └── news-renderer.js
-│   │   └── modules/            # オプション機能
-│   │       ├── reading-progress.js
-│   │       ├── font-resize.js
-│   │       ├── keyboard-nav.js
-│   │       ├── style-switcher.js
-│   │       └── [AI生成の機能].js
+│   │   └── modules/            # AI生成のJSプラグイン
 │   │
 │   ├── styles/                  # スタイルモジュール
 │   │   ├── styles.json          # テーマメタデータ
-│   │   ├── base.css             # 共通ベーススタイル
-│   │   └── themes/              # テーマ別CSS
-│   │       ├── default.css
-│   │       ├── ocean.css
-│   │       ├── forest.css
-│   │       ├── sunset.css
-│   │       ├── midnight.css
-│   │       ├── cherry.css
-│   │       └── [AI生成のテーマ].css
+│   │   └── themes/              # AI生成のCSSテーマ
+│   │
+│   ├── layouts/                 # レイアウトモジュール
+│   │   ├── layouts.json         # レイアウトメタデータ
+│   │   └── [AI生成のレイアウト].css
 │   │
 │   ├── archives/                # 生成されたHTMLアーカイブ
-│   │   ├── TEMPLATE.html
-│   │   └── YYYY-MM-DD_HHMM.html
-│   │
 │   └── data/                    # ニュースデータ（JSON）
-│       └── YYYY-MM-DD_HHMM.json
 │
 ├── scripts/
-│   ├── generator.py             # メイン生成スクリプト
-│   └── requirements.txt
+│   └── generator.py             # メイン生成スクリプト（AI進化エンジン）
 │
 └── .github/
     └── workflows/
-        └── daily_update.yml     # GitHub Actions設定
+        └── daily_update.yml     # 定期更新スケジュール
 ```
 
 ## 🔄 生成モード
 
-MorphoNewsは3つの生成モードをサポートしています。
+| 機能 | `full-evolve` | `ai` モード | `modular` | `news-only` |
+|------|:-----------:|:-----------:|:-----------:|:-----------:|
+| ニュース取得・要約 | ✅ | ✅ | ✅ | ✅ |
+| 新機能生成（JS） | ❌ | ✅ | ❌ | ❌ |
+| 新スタイル生成（CSS） | ❌ | ✅ | ❌ | ❌ |
+| 新レイアウト生成（CSS） | ❌ | ✅ | ❌ | ❌ |
+| HTML全体再構築 | ✅ AI生成 | ❌ | ❌ | ❌ |
+| HTML出力（固定テンプレート） | ❌ | ✅ | ✅ | ❌ |
 
-| 機能 | `ai` モード | `modular` モード | `news-only` モード |
-|------|:-----------:|:----------------:|:------------------:|
-| ニュース取得（RSS） | ✅ | ✅ | ✅ |
-| AI要約生成 | ✅ | ✅ | ✅ |
-| JSONデータ保存 | ✅ | ✅ | ✅ |
-| 新機能生成（JS） | ✅ AI生成 | ❌ | ❌ |
-| 新スタイル生成（CSS） | ✅ AI生成 | ❌ | ❌ |
-| HTML生成 | ✅ | ✅ テンプレート | ❌ |
-| 処理速度 | 遅い（30-60秒） | 速い（5-10秒） | 最速（数秒） |
+### 🧬 `full-evolve` モード（完全自律進化）
 
-### 🤖 `ai` モード（デフォルト）
+テンプレートを一切使用せず、AIがその日のニュースとムードに合わせて**HTML全体構造をゼロから設計・出力**します。最も予測不能で劇的な進化を遂げるモードです。
 
-毎回の実行で：
+### 🤖 `ai` モード（パーツ単位の進化 - デフォルト）
 
-1. Gemini AIがニュースを分析・要約
-2. **新しい機能**のアイデアを生成し、JSファイルとして保存
-3. **新しいスタイル**を生成し、CSSファイルとして保存
-4. テンプレートを元にHTMLを生成
-
-```bash
-export GENERATION_MODE="ai"
-python scripts/generator.py
-```
+既存のテンプレート構造を維持しつつ、AIが新しい「機能(JS)」「スタイル(CSS)」「レイアウト(CSS)」を独立して生成・蓄積します。安定性と進化を両立させたモードです。
 
 ### 📦 `modular` モード
 
-テンプレートベースで高速生成。新機能・新スタイルの生成はスキップ。
-
-```bash
-export GENERATION_MODE="modular"
-python scripts/generator.py
-```
+進化を停止し、蓄積された既存の機能・テーマ・レイアウトを使用して高速にニュースを生成します。
 
 ### 📰 `news-only` モード
 
-ニュースデータ（JSON）のみを取得・保存。HTML生成なし。
-
-```bash
-export GENERATION_MODE="news-only"
-python scripts/generator.py
-```
+ニュースデータ（JSON）のみを取得・保存し、Webページの生成は行いません。
 
 ## 🚀 セットアップ
 
-### 必要な環境
-
 - Python 3.10+
-- Gemini API キー
-
-### ローカルでの実行
+- Gemini API キー (`OPENAI_API_KEY` 環境変数として設定)
 
 ```bash
-# 依存関係インストール
 pip install -r scripts/requirements.txt
-
-# 環境変数設定
-export OPENAI_API_KEY="your-gemini-api-key"
-
-# 実行
 python scripts/generator.py
 ```
 
-### GitHub Actions設定
+## 📅 更新スケジュール
 
-1. リポジトリの **Settings** → **Secrets and variables** → **Actions**
-2. `OPENAI_API_KEY` にGemini APIキーを設定
-3. **Settings** → **Pages** → Source: **GitHub Actions**
-
-## � 自動実行スケジュール
-
-GitHub Actionsにより1日3回自動実行されます：
-
-| 時刻（JST） | 時刻（UTC） |
-|-------------|-------------|
-| 09:00 | 00:00 |
-| 17:00 | 08:00 |
-| 01:00 | 16:00 |
-
-手動実行も可能：**Actions** → **Evolve MorphoNews** → **Run workflow**
-
-## 📊 システム情報の透明性
-
-各ページには以下の情報が表示されます：
-
-- 取得日時（JST）
-- 収集記事数
-- 使用モデル（Gemini 2.0 Flash）
-- トークン使用量
-- 処理時間
-- AIプロンプト全文
-
-## 🎨 プリセットテーマ
-
-| テーマ | 説明 |
-|--------|------|
-| **Default** | インディゴ＆パープルのモダンデザイン |
-| **Ocean** | 深い海のブルー |
-| **Forest** | 自然の緑 |
-| **Sunset** | 夕焼けのオレンジ＆ピンク |
-| **Midnight** | ダークモード |
-| **Cherry** | 桜をイメージしたピンク |
-
-AIモードでは、これらに加えて新しいテーマが自動生成されます。
-
-## 📖 ドキュメント
-
-詳細なドキュメントは [`docs/`](./docs/) フォルダを参照してください：
-
-- [EVOLUTION_ARCHITECTURE.md](./docs/EVOLUTION_ARCHITECTURE.md) - 進化型アーキテクチャの詳細
-- [FEATURES.md](./docs/FEATURES.md) - 機能一覧
-- [ARCHITECTURE.md](./docs/ARCHITECTURE.md) - システム設計
-- [CHANGELOG.md](./docs/CHANGELOG.md) - 変更履歴
+GitHub Actionsにより1日1回自動実行されます（日本時間 9:00）。
+設定により1日2回、3回、6回への切り替えも可能です。
 
 ## 🛠️ 技術スタック
 
-- **Backend**: Python 3.10+
-- **AI**: Google Gemini 2.0 Flash
+- **AI**: Google Gemini 2.0 Flash (Preview)
 - **Frontend**: Vanilla HTML/CSS/JavaScript
 - **Icons**: Lucide Icons
-- **Fonts**: Noto Sans JP, Fira Code
 - **CI/CD**: GitHub Actions
 - **Hosting**: GitHub Pages
 

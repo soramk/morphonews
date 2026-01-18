@@ -320,6 +320,17 @@
       "category": "ui",
       "addedDate": "2026-01-18",
       "author": "ai"
+    },
+    {
+      "id": "agentic-evidence-weight-visualizer",
+      "name": "実証的証拠ウェイト・ビジュアライザー",
+      "description": "ニュース記事内の数値、統計、固有名詞、引用文の密度を動的に解析し、客観的情報量が多いセクションを強調・ナビゲートします。効率的な情報収集（Pragmatism）を支援します。",
+      "file": "modules/agentic-evidence-weight-visualizer.js",
+      "enabled": false,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-18",
+      "author": "ai"
     }
   ]
 }

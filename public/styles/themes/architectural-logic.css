@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 構築的な論理
+ * Generated: 2026-01-18_0951
+ * Mood: Pragmatism
+ * Description: 実用主義に基づいた、視認性と構造的秩序を最優先したテーマ。無駄を削ぎ落としたスレートグレーと、機能的なシアンのアクシデントカラーが効率的な情報処理を促します。
+ */
+:root {
+  --morpho-bg-primary: #2d3436;
+  --morpho-bg-secondary: #1e2122;
+  --morpho-bg-card: #353b48;
+  --morpho-text-primary: #f1f2f6;
+  --morpho-text-secondary: #a4b0be;
+  --morpho-accent-primary: #00b894;
+  --morpho-accent-secondary: #0984e3;
+  --morpho-border-color: #4a5568;
+  --morpho-accent-gradient: linear-gradient(135deg, #00b894 0%, #0984e3 100%);
+}

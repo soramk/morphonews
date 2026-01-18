@@ -461,6 +461,21 @@
       "addedDate": "2026-01-18",
       "author": "ai",
       "mood": "Regulation"
+    },
+    {
+      "id": "architectural-logic",
+      "name": "構築的な論理",
+      "description": "実用主義に基づいた、視認性と構造的秩序を最優先したテーマ。無駄を削ぎ落としたスレートグレーと、機能的なシアンのアクシデントカラーが効率的な情報処理を促します。",
+      "file": "themes/architectural-logic.css",
+      "preview": {
+        "primary": "#00b894",
+        "secondary": "#0984e3",
+        "background": "#2d3436",
+        "text": "#f1f2f6"
+      },
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Pragmatism"
     }
   ]
 }

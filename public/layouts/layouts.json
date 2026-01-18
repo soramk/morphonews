@@ -189,6 +189,22 @@
       "author": "ai",
       "mood": "Regulation",
       "generation": 50
+    },
+    {
+      "id": "pragmatic-lateral-pivot-v52",
+      "name": "軌道変換：プラグラマティック・ラテラル・ピボット",
+      "description": "第52世代。前回の規律ある『ベントー・グリッド』から一転、情報の読みやすさと視線誘導を実用主義（Pragmatism）的に再解釈した『動的スタッガード・リスト』レイアウト。カードを垂直に並べるのではなく、左右に互い違いに配置し、スクロールに合わせて水平方向にスライド・拡張する「ラテラル・ピボット」エフェクトを実装。scroll-driven animationsを活用し、ユーザーの読み進める速度に同調して情報の「入り口」が展開する、極めて機能的かつ前衛的な体験を提供します。",
+      "file": "pragmatic-lateral-pivot-v52.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "expanded",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven horizontal displacement + alternating flex-layout + progressive clip-path reveal",
+      "addedDate": "2026-01-18",
+      "author": "ai",
+      "mood": "Pragmatism",
+      "generation": 51
     }
   ]
 }

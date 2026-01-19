@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-18",
+  "lastUpdated": "2026-01-19",
   "features": [
     {
       "id": "news-renderer",
@@ -330,6 +330,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-01-18",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-unified-convergence-lens",
+      "name": "統合収束レンズ",
+      "description": "今日のムード『Convergence（収束）』に基づき、ページ内に点在する関連性の高いニュース情報を一つの視点に集約する機能。ユーザーが特定の記事に注目した際、ページ全体の関連情報を中心点へ視覚的に引き寄せ、文脈の統合を促します。",
+      "file": "modules/agentic-unified-convergence-lens.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-19",
       "author": "ai"
     }
   ]

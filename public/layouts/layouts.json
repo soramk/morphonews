@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-18",
+  "lastUpdated": "2026-01-19",
   "layouts": [
     {
       "id": "default",
@@ -205,6 +205,22 @@
       "author": "ai",
       "mood": "Pragmatism",
       "generation": 51
+    },
+    {
+      "id": "convergence-modular-tiles-v53",
+      "name": "収束する断片：シンクロナイズド・モジュラー・タイル",
+      "description": "第53世代。今日のムード『Convergence（収束）』を物理的なレイアウトに昇華。これまでのリスト形式から脱却し、変則的な3カラム・グリッドを採用。画面外では情報の断片が浮遊・拡散しているが、ユーザーのスクロールという意思（Scroll-driven animation）によって、特定の座標に整然と収束・整列するエフェクトを実装。情報の『カオスから秩序への変容』を視覚化したデザインです。",
+      "file": "convergence-modular-tiles-v53.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animations (perspective-shift) + CSS Grid subgrid + filter convergence",
+      "addedDate": "2026-01-19",
+      "author": "ai",
+      "mood": "Convergence",
+      "generation": 52
     }
   ]
 }

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews | 2026-01-20 09:45 - Generation #53</title>
+    <meta name="description" content="AIが自動生成する進化型テックニュース - Pragmatic">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../styles/base.css">
+
+    <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/pragmatic-foundation.css">
+
+    <!-- Layout (ページ構造・配置・アニメーション) -->
+    <link id="morpho-layout-css" rel="stylesheet" href="../layouts/default.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--morpho-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--morpho-bg-secondary);
+            z-index: 999;
+            padding: 80px 24px 24px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--morpho-text-primary);
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--morpho-bg-primary);
+        }
+
+        .mobile-menu a.active {
+            background: var(--morpho-accent-gradient);
+            color: white;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .morpho-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .morpho-header-content {
+                flex-wrap: nowrap;
+            }
+
+            .morpho-logo span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body data-article-id="2026-01-20_0945" data-prev-link="./2026-01-19_0950.html">
+
+    <!-- Header -->
+    <header class="morpho-header">
+        <div class="morpho-header-content">
+            <div class="morpho-logo">
+                <h1>🦋 MorphoNews</h1>
+                <span>Generation #53 | Pragmatic</span>
+            </div>
+            <nav class="morpho-nav">
+                <a href="./2026-01-19_0950.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                前のニュース
+            </a>
+                <a href="../history.html">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブ
+                </a>
+                <a href="../settings.html">
+                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                    設定
+                </a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">
+            <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+            最新のニュース
+        </a>
+        <a href="../history.html">
+            <i data-lucide="archive" style="width: 24px; height: 24px;"></i>
+            アーカイブ
+        </a>
+        <a href="../settings.html">
+            <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
+            設定
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="morpho-main">
+        <!-- Daily Summary -->
+        <section class="morpho-card morpho-animate-in" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--morpho-accent-primary);"></i>
+                今日のテックトレンド
+            </h2>
+            <p style="font-size: 1.05rem; line-height: 1.8;">2026年のテック業界は、「AIの社会実装」と「エコシステムの成熟」が鮮明になっています。OpenAIが年間売上200億ドルを突破し、最新モデル『GPT-5.2-Codex』の解禁によって開発環境が次世代へとシフトする中、業界の関心は抽象的な「AIバブル」の議論から、実務への適用やセキュリティの確保、そして具体的な収益化へと移っています。GitHub CopilotやCursorといった主要ツールへの新モデル統合は、開発者の生産性を劇的に向上させており、長時間稼働するAIエージェントの実用化が目前に迫っています。一方で、jQuery 4.0が10年ぶりにメジャーアップデートされ、誕生20周年を迎えるなど、伝統的なウェブ技術の堅実な進化も続いています。ハードウェア分野では、ASUSがスマートフォンのリリースを見送るという衝撃的な市場再編の動きがある一方、オフィスビル内での複数ロボット協調運用（RMF）など、物理空間での自動化技術が着実に進展しています。Threadsがモバイル利用でXを追い抜くなど、ソーシャルメディアの勢力図も大きく塗り替えられつつあり、メタバースのような仮想的な夢から、AIとロボティクスが駆動する現実的な利便性へと投資の軸足が完全に移行した「実利の年」を象徴するニュースが揃いました。</p>
+        </section>
+
+        <!-- Top News -->
+        <section>
+            <h2 style="font-size: 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="newspaper" style="width: 22px; height: 22px; color: var(--morpho-accent-primary);"></i>
+                注目ニュース
+            </h2>
+            <div id="news-container">
+                
+        <article class="news-card" data-index="0">
+          <div class="news-number">01</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://atmarkit.itmedia.co.jp/ait/articles/2601/20/news014.html" target="_blank" rel="noopener noreferrer">
+                GPT-5.2-Codexが主要ツールで解禁、AI開発環境が次世代へ
+              </a>
+            </h3>
+            <p class="news-description">OpenAIのコーディング特化モデルがGitHub Copilot等で利用可能に。Windows最適化と長時間エージェント機能により、開発実務の自動化がさらに加速します。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="1">
+          <div class="news-number">02</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.publickey1.jp/blog/26/jquery_4010ie10xss.html" target="_blank" rel="noopener noreferrer">
+                jQuery 4.0が10年ぶりのメジャーアップデート、誕生20周年
+              </a>
+            </h3>
+            <p class="news-description">レガシー技術と思われがちなjQueryが、IEサポート終了やXSS対策を盛り込んだ最新版を公開。Web開発の歴史における大きな節目を迎えました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="2">
+          <div class="news-number">03</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://devices.slashdot.org/story/26/01/19/2249208/openai-cfo-says-annualized-revenue-crosses-20-billion-in-2025?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" target="_blank" rel="noopener noreferrer">
+                OpenAIの売上が200億ドルを突破、1年で3倍以上の急成長
+              </a>
+            </h3>
+            <p class="news-description">CFOが明かした驚異的な成長。計算資源の拡大に伴い、2026年は「実用的な導入」を最優先事項として掲げる方針です。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="3">
+          <div class="news-number">04</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.engadget.com/mobile/smartphones/asus-will-not-release-any-new-smartphones-this-year-213043832.html?src=rss" target="_blank" rel="noopener noreferrer">
+                ASUSが2026年のスマートフォン発売を中止、事業モデル転換か
+              </a>
+            </h3>
+            <p class="news-description">PC大手のASUSがスマホ市場から距離を置く動き。Androidデバイスの開発から撤退する可能性も示唆されています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="4">
+          <div class="news-number">05</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://venturebeat.com/technology/black-forest-labs-launches-open-source-flux-2-klein-to-generate-ai-images-in" target="_blank" rel="noopener noreferrer">
+                Black Forest Labs、1秒未満で画像生成可能な「Flux.2 [klein]」公開
+              </a>
+            </h3>
+            <p class="news-description">オープンソースの画像生成AIが高速化。リアルタイムに近い生成速度を実現し、クリエイティブ分野での利活用を促進します。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="5">
+          <div class="news-number">06</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://monoist.itmedia.co.jp/mn/articles/2601/20/news039.html" target="_blank" rel="noopener noreferrer">
+                日建設計が複数ロボットの統合管理「RMF」をオフィスビルで実証
+              </a>
+            </h3>
+            <p class="news-description">清掃、配送、家庭用など異なるメーカーのロボットを横断的に協調運用。スマートビルディングの実現に向けた大きな一歩です。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="6">
+          <div class="news-number">07</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://tech.slashdot.org/story/26/01/19/2240209/threads-usage-overtakes-x-on-mobile?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" target="_blank" rel="noopener noreferrer">
+                Threadsのモバイル利用者がXを上回る、SNSの勢力図に変化
+              </a>
+            </h3>
+            <p class="news-description">Similarwebのデータにより、モバイルデバイスにおけるThreadsのデイリーユーザーがXを追い抜いたことが判明。Web版では依然Xが優勢です。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="7">
+          <div class="news-number">08</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://thehackernews.com/2026/01/google-gemini-prompt-injection-flaw.html" target="_blank" rel="noopener noreferrer">
+                Google Geminiに深刻な脆弱性、カレンダーデータが流出の恐れ
+              </a>
+            </h3>
+            <p class="news-description">間接的なプロンプトインジェクションにより、悪意ある招待状からプライベートな情報が取得される欠陥が指摘されました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="8">
+          <div class="news-number">09</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://atmarkit.itmedia.co.jp/ait/articles/2601/20/news017.html" target="_blank" rel="noopener noreferrer">
+                Python 3.15のαリリース、2026年10月の正式版に向け開発進行中
+              </a>
+            </h3>
+            <p class="news-description">新機能のPEPやスケジュールが整理され、モダンな言語仕様へのアップデートが進んでいます。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="9">
+          <div class="news-number">10</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.publickey1.jp/blog/26/pulumiterraformhclterraform.html" target="_blank" rel="noopener noreferrer">
+                PulumiがTerraformのHCLに対応、IaCツールの移行が容易に
+              </a>
+            </h3>
+            <p class="news-description">インフラ構成ツールのPulumiが競合の言語をサポート。クラウドインフラ管理の柔軟性が向上します。</p>
+          </div>
+        </article>
+        
+            </div>
+        </section>
+
+        <!-- Meta Information -->
+        <section class="morpho-card" style="margin-top: 2rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="info" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                システム情報
+            </h3>
+            <div class="morpho-meta">
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">取得日時</span>
+                    <span class="morpho-meta-value" id="meta-fetch-time">2026-01-20 09:45:15 JST</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">収集記事数</span>
+                    <span class="morpho-meta-value" id="meta-article-count">60</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">使用モデル</span>
+                    <span class="morpho-meta-value" id="meta-model">gemini-3-flash-preview</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約トークン</span>
+                    <span class="morpho-meta-value" id="meta-summary-tokens">入力=7636, 出力=1503, 合計=10401</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約時間</span>
+                    <span class="morpho-meta-value" id="meta-summary-time">17.71秒</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">全体処理時間</span>
+                    <span class="morpho-meta-value" id="meta-total-time">0秒</span>
+                </div>
+            </div>
+
+            <!-- Prompts (collapsible) -->
+            <details style="margin-top: 1rem;">
+                <summary>
+                    <i data-lucide="code" style="width: 16px; height: 16px;"></i>
+                    AIプロンプトを表示
+                </summary>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">要約プロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;サルはなぜ「同性間の性行為」をするのか？　ニホンザルやチンパンジーなどを調査　英国チームが発表&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/20/news036.html&quot;, &quot;summary&quot;: &quot;英インペリアル・カレッジ・ロンドン（ICL）に所属する研究者らは、霊長類における同性間性行動の進化的・生態的要因を解明した研究報告を発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;チェスの初期配置は本当に最適か？　960通りを物理学者が検証　一カ所変えるだけで公平性激変　最大3倍の差&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/20/news034.html&quot;, &quot;summary&quot;: &quot;フランスのパリ＝サクレー大学に所属する物理学者のマーク・バルテルミーさんは、チェスの標準的な初期配置が本当に最適なのか、960通りの可能性からどの配置が複雑（難しい）か、公平かを検証した研究報告を発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;ピッコマの“落とし穴”　販売終了になった漫画はまるっと購入していても冒頭3話が読めない──運営の見解は&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2601/19/news112.html&quot;, &quot;summary&quot;: &quot;「ピッコマ」では、漫画のポイント購入も可能だが、購入後にその漫画の販売が終了してしまうと、冒頭3話が読めなくなる。そんな“落とし穴”のような仕様が、漫画家さんの間で話題になっていた。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;業務用大型ロボと家庭用小型ロボがオフィスビルで協働、日建設計がRMFを適用&quot;, &quot;link&quot;: &quot;https://monoist.itmedia.co.jp/mn/articles/2601/20/news039.html&quot;, &quot;summary&quot;: &quot;日建設計とビルポは、中型清掃ロボットと家庭用小型ロボット、大型配送ロボットなど、複数ロボットを協調運用する実証実験を行った。異なる種類かつ複数のロボットを横断的に統合管理する「RMF」を導入した成果だ。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;Python 3.15.0a5がリリースされたので今後のスケジュールや新機能についてまとめてみた&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2601/20/news017.html&quot;, &quot;summary&quot;: &quot;2026年10月に向けて、Python 3.15の開発は順調に進んでいるようです（いろいろあるようですが）。5番目のαリリースが出たこのタイミングで今後のスケジュールやPEPを基にどんな機能が追加されそうかをまとめてみました。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;GPT-5.2-Codexが主要ツールで解禁　「Windows最適化」×「長時間エージェント」で実用性が向上&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2601/20/news014.html&quot;, &quot;summary&quot;: &quot;OpenAIのコーディング特化モデル「GPT-5.2-Codex」が、GitHub CopilotやCursorなど主要AI開発ツールで解禁された。長時間エージェントとWindows最適化の強化点を整理し、どんな開発者に効くアップデートなのかを解説する。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;【Python】クラス全員を救うために「実験レポート爆速生成ツール」を作って配布した話&quot;, &quot;link&quot;: &quot;https://qiita.com/afmi21/items/5583156dec3b32acb400?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n高専生（エンジニアの卵たち）にとって、避けては通れないラスボス。\nそれが 「実験レポート」 です。\n毎週のように課される実験、そしてレポート。\n中身を書くだけでも大変なのに、僕たちを地味に、しかし確実に削ってくるのが 「事務作業」 の数々です。\n\n毎回Wordの......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;生成AIの収束先の存在を圏論で証明する&quot;, &quot;link&quot;: &quot;https://qiita.com/momo10/items/097d51405416e93d5132?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\n敵対的模倣学習の圏論的解釈について紹介します。\n近年、敵対的模倣学習 (Generative Adversarial Imitation Learning; GAIL) や、それを応用した RLHF (Reinforcement Learning from Hu......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Rust と Web でつくる軽量デスクトップアプリ：Tauri 完全ガイド&quot;, &quot;link&quot;: &quot;https://qiita.com/automation2025/items/c2e5d77c08c37532a3a3?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに：なぜ今 Tauri なのか\nElectron のようなフレームワークは便利ですが、「アプリサイズが大きい」「メモリを食う」といった悩みを抱えがちです。\nTauri は、OS がもともと持っている WebView を利用し、Rust をバックエンドに採用することで......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;なぜ、MCPよりも「ファイルベースで扱うSkills」の方が便利なのか&quot;, &quot;link&quot;: &quot;https://zenn.dev/karamage/articles/db488ca6362eb2&quot;, &quot;summary&quot;: &quot;最近、Model Context Protocol（MCP）ではなく「ファイルベースで扱うSkills」の方が便利だという話をよく耳にするようになりました。\n実際に過去数カ月、自分もClaude Codeや関連ツールを触りながら、MCPとSkillsを使ってきました。\nその中で感じたことを雑多に言語化したいと思います\n私が最初にMCPを触ったときの印象は、「とてもよくできた接続規格」でした。\nUS...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;濫立するClaude Codeの機能の使い分け：スキル、サブエージェント、スラッシュコマンド、CLAUDE.md、Hooks&quot;, &quot;link&quot;: &quot;https://zenn.dev/notahotel/articles/a175aa95629d0b&quot;, &quot;summary&quot;: &quot;Claude Codeにはスキル、サブエージェント、スラッシュコマンド、CLAUDE.md、Hooksなど、多くの機能があります。中には似たようなものもあり、その使い分けがわからなくなることも多々あります。この記事では各機能の概要及び使い分けについて、特にコンテキストの観点で考察します。\n\n 先に結論\n\n CLAUDE.md\nhttps://code.claude.com/docs/en/memo...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;テストで開発者を駆動する&quot;, &quot;link&quot;: &quot;https://zenn.dev/fusic/articles/test-driven-developers&quot;, &quot;summary&quot;: &quot;2026年1月より株式会社 Fusic にジョインした miyamyia(←これはtypoですが、みやみやと読みます。typoが正。) です。\n早速ですが、私は前職で、もしくは休日にこんな経験をすることがありました。\n朝起きるとなんだか嫌な予感がする。いつもより目が霞んでいて、ベッドから出たくない。\nそんな体を起こして、デスクに座る。いつもの通りやるべきことを思い出して、コードを書く。...思い出...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;無料で人間関係を整理し維持できる「Nametag」、オープンソースでセルフホストも可能&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260120-nametag/&quot;, &quot;summary&quot;: &quot;会った人の名前や経歴を覚えるのが苦手で、自分の人間関係を把握しきれていないという人もいるはず。AGPL-3.0ライセンスの下でオープンソースで開発される「Nametag」は人間関係を整理して視覚化してくれるシステムで、人の名前と関係がなかなか覚えられない場合にお役立ちです。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260120&amp;#45;nametag/\&quot;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;「黒死病の感染拡大」には火山の噴火が関係していたかもしれない&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260120-before-black-death-mediterranean-ports/&quot;, &quot;summary&quot;: &quot;肌に黒い斑点が現れる症状から「黒死病」と呼ばれ恐れられるペストは、1347年から1353年にかけてヨーロッパで猛威を振るい地域によっては死亡率が60％近くに達したとされています。黒死病の原因がペスト菌であり、中央アジアの野生げっ歯類に由来する菌が黒海周辺を経てヨーロッパへ到達したとする説が一般的に受け入れられている一方で、なぜその時期に黒死病が流行し短期間で急速に広がったのかについては議論が続いて...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;7万人の手下を率いた史上最強の海賊は女性だった&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260120-most-powerful-pirate-in-china/&quot;, &quot;summary&quot;: &quot;マンガや映画の題材にもなる海賊は古くから存在しており、ウィリアム・キッドや黒ひげ海賊団のエドワード・ティーチが特に有名です。YouTubeチャンネルのNightshiftは、史上最強の海賊として中国の女海賊「鄭一嫂」を挙げています。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260120&amp;#45;most&amp;#45;powerful&amp;#45;pirate&amp;#...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;jQuery 4.0正式版が公開。10年振りのメジャーバージョンアップ。IE10以前がサポート外、XSS防止など&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/jquery_4010ie10xss.html&quot;, &quot;summary&quot;: &quot;jQuery開発チームは、10年振りのメジャーバージョンアップとなる「JQuery 4.0」正式版のリリースを発表しました。 ちなみに2026年1月は、最初のバージョンのjQueryが2006年1月にはじめて公開されてからちょうど20周年に......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;インフラ構成ツールのPulumiがTerraformのHCLに対応。Terraformからの移行を容易に&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/pulumiterraformhclterraform.html&quot;, &quot;summary&quot;: &quot;クラウドをはじめとするITインフラの構成をコードで定義する、いわゆるInfrastructure as Codeツール「Pulumi」が、Terraformなどで使われているHCL（HashiCorp Configuration Langu......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;通信キャリアにおけるクラウドネイティブは導入から成熟へ。今後は「ネットワークAPI」に期待。ドコモやKDDI、ソフトバンク、楽天などが議論。CNTOM 2025［PR］&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/apikddicntom_2025pr.html&quot;, &quot;summary&quot;: &quot;国内の主要な通信事業者や通信機器メーカー、クラウド事業者、オープンソース開発者らのキーパーソンを集め、テレコム市場におけるクラウドネイティブを中心とした最新技術について議論するイベント「Cloud Native Telecom Operat......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;GitLab Duo Agent Platformの一般提供開始 ―AIエージェントがソフトウェア開発サイクル全体をサポート&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/gitlab-duo-agent-platform?utm_source=feed&quot;, &quot;summary&quot;: &quot;GitLabは2026年1月15日、エージェント型AIを使った開発プラットフォーム「GitLab Duo Agent Platform」の一般提供を開始した。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;OpenAI、Responses APIを基盤としたオープンソース仕様「Open Responses」を公開&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/open-responses?utm_source=feed&quot;, &quot;summary&quot;: &quot;OpenAIは2026年1月15日、Responses APIを基盤とした、マルチプロバイダー対応かつ相互運用可能なLLMインターフェース構築のためのオープンソース仕様「Open Responses」を公開した。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;GitHub、Copilot Memoryをパブリックプレビューで提供開始 ——すべてのGitHub Copilot有料プランで有効可能に&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/01/copilot-memory-public-preview?utm_source=feed&quot;, &quot;summary&quot;: &quot;GitHubは2026年1月15日、GitHub Copilotの全有料プランを対象に、エージェント用のメモリ機能「Copilot Memory」のパブリックプレビューを開始した。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;デジタル庁、OSS利活用推進検討会の議事録を公開&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23029&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;AIの業務判断ミスは誰の責任なのか？業務活用は進展している一方、課題も。フロンティアが調査結果を発表&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23024&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;新卒エンジニア育成の課題は「ソフトスキル不足」が9割。「新卒エンジニア育成」に関する調査結果&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23025&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;【いつモノコト】1年を1枚で見渡せるカレンダーを自作してみた&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/series/itsmo/2078050.html&quot;, &quot;summary&quot;: &quot;突然ですが皆さん、紙のカレンダーは使っていますか? 私もメインのスケジュール管理はデジタルのツールを使っているものの、「日付と曜日をパッと確認したい」「予定の有無だけ知りたい」「長期の予定を立てたい」といった時には紙の方が便利だと感じています。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;3年経っても9割が飽きない「LOVOT」　CESにパチモン登場でも歓迎!?&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2078933.html&quot;, &quot;summary&quot;: &quot;家庭型ロボット「LOVOT(ラボット)」を開発するGROOVE Xは、同社10周年を記念したトークショーを開催した。2026年は「AIロボット戦国時代」と位置づけ、世界のAI活用トレンドや、日本におけるAIロボット産業の展望が語られた。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;相模大野・伊勢丹跡地に41階「プラウドタワー相模大野クロス」　店内焙煎のタリーズも&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2079050.html&quot;, &quot;summary&quot;: &quot;野村不動産は、小田急線最高層の新築分譲マンション「プラウドタワー相模大野クロス」を竣工し、1月29日から入居を開始する。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Here are the 55 US AI startups that raised $100M or more in 2025&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/19/here-are-the-49-us-ai-startups-that-have-raised-100m-or-more-in-2025/&quot;, &quot;summary&quot;: &quot;Last year was monumental for the AI industry in the U.S. and beyond. How will 2025 compare?...&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Well, there goes the metaverse!&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/19/well-there-goes-the-metaverse/&quot;, &quot;summary&quot;: &quot;The metaverse is on its last legs as VR is eclipsed by AI. But that&#x27;s not the only thing that went wrong for Meta&#x27;s VR ambitions....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Rogue agents and shadow AI: Why VCs are betting big on AI security&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/01/19/rogue-agents-and-shadow-ai-why-vcs-are-betting-big-on-ai-security/&quot;, &quot;summary&quot;: &quot;Misaligned agents are just one layer of the AI security challenge that startup Witness AI is trying to solve. It detects employee use of unapproved tools, blocking attacks, and ensuring compliance....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Google Gemini Prompt Injection Flaw Exposed Private Calendar Data via Malicious Invites&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/google-gemini-prompt-injection-flaw.html&quot;, &quot;summary&quot;: &quot;Cybersecurity researchers have disclosed details of a security flaw that leverages indirect prompt injection targeting Google Gemini as a way to bypass authorization guardrails and use Google Calendar...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;⚡ Weekly Recap: Fortinet Exploits, RedLine Clipjack, NTLM Crack, Copilot Attack &amp; More&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/weekly-recap-fortinet-exploits-redline.html&quot;, &quot;summary&quot;: &quot;In cybersecurity, the line between a normal update and a serious incident keeps getting thinner. Systems that once felt reliable are now under pressure from constant change. New AI tools, connected de...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;DevOps &amp; SaaS Downtime: The High (and Hidden) Costs for Cloud-First Businesses&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/01/high-costs-of-devops-saas-downtime.html&quot;, &quot;summary&quot;: &quot;Just a few years ago, the cloud was touted as the “magic pill” for any cyber threat or performance issue. Many were lured by the “always-on” dream, trading granular control for the convenience of mana...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;OpenAI’s 2026 ‘focus’ is ‘practical adoption’&quot;, &quot;link&quot;: &quot;https://www.theverge.com/news/864229/openai-focus-practical-adoption-sarah-friar&quot;, &quot;summary&quot;: &quot;OpenAI plans to focus on \&quot;practical adoption\&quot; of AI in 2026, according to a blog post from CFO Sarah Friar. As the company spends a huge amount of money on infrastructure, OpenAI is working on \&quot;closin...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;How much can a city take?&quot;, &quot;link&quot;: &quot;https://www.theverge.com/policy/864195/minneapolis-ice-invasion-organizing-immigration&quot;, &quot;summary&quot;: &quot;I live in Minneapolis. I grew up not far from here, in a suburb of St. Paul; after stints on both coasts, my wife and I settled here to raise our daughters in a freezing state that had always welcomed...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;A second US Sphere could come to Maryland&quot;, &quot;link&quot;: &quot;https://www.theverge.com/tech/864192/sphere-entertainment-mini-venue-maryland-national-harbor&quot;, &quot;summary&quot;: &quot;Sphere Entertainment, the company behind the eye-catching interactive venue in Las Vegas, has announced its \&quot;intent to develop\&quot; another Sphere in Maryland that will be located 15 minutes south of Wash...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;The fastest human spaceflight mission in history crawls closer to liftoff&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/01/nasas-artemis-ii-rocket-rolls-to-launch-pad-but-key-test-looms-ahead/&quot;, &quot;summary&quot;: &quot;After a remarkably smooth launch campaign, Artemis II reached its last stop before the Moon....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;The first new Marathon game in decades will launch on March 5&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gaming/2026/01/bungies-delayed-marathon-revival-will-finally-launch-march-5/&quot;, &quot;summary&quot;: &quot;Development hasn&#x27;t exactly been smooth since the extraction shooter&#x27;s 2023 announcement....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Signs point to a sooner-rather-than-later M5 MacBook Pro refresh&quot;, &quot;link&quot;: &quot;https://arstechnica.com/gadgets/2026/01/signs-point-to-a-sooner-rather-than-later-m5-macbook-pro-refresh/&quot;, &quot;summary&quot;: &quot;Delayed shipping times for current models sometimes means an update is imminent....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Are DJI Drones Still Banned? (2026)&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/whats-going-on-with-the-dji-drone-ban/&quot;, &quot;summary&quot;: &quot;Can you still buy a DJI drone in the US? (Yes.) Will you be able to buy future drones? (Maybe.) Here are the current DJI dos and don’ts....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;How to Clean Your Keurig (and When)&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/how-to-clean-keurig/&quot;, &quot;summary&quot;: &quot;Your pod coffee maker can get gross over time. Here’s how to clean it up....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Dumbphone Owners Have Lost Their Minds&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/dumbphone-owners-have-literally-lost-their-minds/&quot;, &quot;summary&quot;: &quot;All my Gen Z friends want to ditch their smartphones. It’s cool. They’re cool. But there’s more at stake than they think....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Nvidia Contacted Anna&#x27;s Archive To Secure Access To Millions of Pirated Books&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/01/19/2257241/nvidia-contacted-annas-archive-to-secure-access-to-millions-of-pirated-books?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;An anonymous reader quotes a report from TorrentFreak: NVIDIA executives allegedly authorized the use of millions of pirated books from Anna&#x27;s Archive to fuel its AI training. In an expanded class-act...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;OpenAI CFO Says Annualized Revenue Crosses $20 Billion In 2025&quot;, &quot;link&quot;: &quot;https://devices.slashdot.org/story/26/01/19/2249208/openai-cfo-says-annualized-revenue-crosses-20-billion-in-2025?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;According to CFO Sarah Friar, OpenAI&#x27;s annualized revenue surpassed $20 billion in 2025, up from $6 billion a year earlier with growth closely tracking an expansion in computing capacity. Reuters repo...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Threads Usage Overtakes X On Mobile&quot;, &quot;link&quot;: &quot;https://tech.slashdot.org/story/26/01/19/2240209/threads-usage-overtakes-x-on-mobile?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;New data from Similarweb shows Threads has overtaken X in daily mobile users. However, X still dominates on the web with around 150 million daily web visits compared to Threads&#x27; 8.5 million daily visi...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Reticulum, a secure and anonymous mesh networking stack&quot;, &quot;link&quot;: &quot;https://github.com/markqvist/Reticulum&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://github.com/markqvist/Reticulum\&quot;&gt;https://github.com/markqvist/Reticulum&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46686273\&quot;&gt;https://news.yc...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Nanolang: A tiny experimental language designed to be targeted by coding LLMs&quot;, &quot;link&quot;: &quot;https://github.com/jordanhubbard/nanolang&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://github.com/jordanhubbard/nanolang\&quot;&gt;https://github.com/jordanhubbard/nanolang&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=46684958\&quot;&gt;https://n...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Use Social Media Mindfully&quot;, &quot;link&quot;: &quot;https://danielleheberling.xyz/blog/mindful-social-media/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://danielleheberling.xyz/blog/mindful-social-media/\&quot;&gt;https://danielleheberling.xyz/blog/mindful-social-media/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.c...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Dr. Gladys West, whose mathematical models inspired GPS, dies at 95&quot;, &quot;link&quot;: &quot;https://www.engadget.com/science/dr-gladys-west-whose-mathematical-models-inspired-gps-dies-at-95-234605023.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Pioneering mathematician Dr. Gladys West has passed away at the age of 95. Her name may not be familiar to you, but her contributions certainly are; West&#x27;s work laid the foundation for the global p...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;ASUS will not release any new smartphones this year&quot;, &quot;link&quot;: &quot;https://www.engadget.com/mobile/smartphones/asus-will-not-release-any-new-smartphones-this-year-213043832.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;ASUS appears to be shifting its business operations away from smartphones. According to &lt;a class=\&quot;link\&quot; href=\&quot;https://www.pcmag.com/news/asus-confirms-it-wont-launch-phones-in-2026-may-leave-androi...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;UK agency questions Meta&#x27;s policies for illegal gambling site ads&quot;, &quot;link&quot;: &quot;https://www.engadget.com/social-media/uk-agency-questions-metas-policies-for-illegal-gambling-site-ads-210500714.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;The UK Gambling Commission has raised concerns that Meta is ignoring advertisements by illegal gambling websites on its platforms. At a conference in Barcelona, the commission&#x27;s Executive Director ...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Stop calling it &#x27;The AI bubble&#x27;: It&#x27;s actually multiple bubbles, each with a different expiration date&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/stop-calling-it-the-ai-bubble-its-actually-multiple-bubbles-each-with-a&quot;, &quot;summary&quot;: &quot;&lt;p&gt;It’s the question on everyone’s minds and lips: Are we in an AI bubble?&lt;/p&gt;&lt;p&gt;It&amp;#x27;s the wrong question. The real question is: &lt;i&gt;Which&lt;/i&gt; AI bubble are we in, and when will each one burst?&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Why reinforcement learning plateaus without representation depth (and other key takeaways from NeurIPS 2025)&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/why-reinforcement-learning-plateaus-without-representation-depth-and-other&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Every year, NeurIPS produces hundreds of impressive papers, and a handful that subtly reset how practitioners think about scaling, evaluation and system design. In 2025, the most consequential work...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;Black Forest Labs launches open source Flux.2 [klein] to generate AI images in less than a second&quot;, &quot;link&quot;: &quot;https://venturebeat.com/technology/black-forest-labs-launches-open-source-flux-2-klein-to-generate-ai-images-in&quot;, &quot;summary&quot;: &quot;&lt;p&gt;The German AI startup Black Forest Labs (BFL), &lt;a href=\&quot;https://venturebeat.com/ai/stable-diffusion-creators-launch-black-forest-labs-secure-31m-for-flux-1-ai-image-generator\&quot;&gt;founded by former Sta...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;OpenAI&#x27;s Google Translate killer is here: How to use the new ChatGPT Translate&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/how-to-use-chatgpt-translate-vs-google-translate-alternative/&quot;, &quot;summary&quot;: &quot;ChatGPT Translate isn&#x27;t multimodal yet, but it does beat Google Translate in one big way. Here&#x27;s how....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;AI fails at freelancer tasks 97% of the time, new &#x27;Remote Labor Index&#x27; shows&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/ai-failed-test-on-remote-freelance-jobs/&quot;, &quot;summary&quot;: &quot;Researchers tested AI on remote freelance projects across fields like game development, data analysis, and video animation. It didn&#x27;t go well....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;How I used GPT-5.2-Codex to solve a mystery bug and hosting nightmare - in under an hour&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/how-i-use-chatgpt-plus-codex-to-debug-code/&quot;, &quot;summary&quot;: &quot;The $20-per-month ChatGPT plan is more than enough for occasional bug fixes and feature addition runs. Here&#x27;s one such example....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;How Nano Banana got its name&quot;, &quot;link&quot;: &quot;https://blog.google/products-and-platforms/products/gemini/how-nano-banana-got-its-name/&quot;, &quot;summary&quot;: &quot;A Nano Banana-generated image showing yellow bananas spelling out &#x27;Nano Banana&#x27; on a bed of additional yellow bananas...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Learners and educators are AI’s new “super users”&quot;, &quot;link&quot;: &quot;https://blog.google/products-and-platforms/products/education/our-life-with-ai-2025/&quot;, &quot;summary&quot;: &quot;Teacher using a computer with students...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Introducing Community Benchmarks on Kaggle&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/developers-tools/kaggle-community-benchmarks/&quot;, &quot;summary&quot;: &quot;A drawing of three people working on laptops, with one person&#x27;s screen showing \&quot;Kaggle Benchmark Results\&quot; with \&quot;Gemini XXXX\&quot; and a large \&quot;PASS\&quot; checkmark.1...&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</pre>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">新機能プロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">【新機能プロンプト】
+あなたはWebフロントエンド開発者です。MorphoNewsという進化型ニュースサイトに新しい機能を追加してください。
+
+【プロジェクト概要】
+MorphoNewsは「自己進化するWebページ」です。毎回の実行で新しい機能が追加されます。
+
+【今日のムード】Pragmatic
+
+【既存の機能】
+[&quot;news-renderer&quot;, &quot;reading-progress&quot;, &quot;font-resize&quot;, &quot;keyboard-nav&quot;, &quot;style-switcher&quot;, &quot;topic-explorer&quot;, &quot;infra-health-monitor&quot;, &quot;density-regulator&quot;, &quot;content-outliner&quot;, &quot;autonomous-focus-shield&quot;, &quot;context-task-agent&quot;, &quot;agentic-insight-synthesizer&quot;, &quot;autonomous-attention-focalizer&quot;, &quot;agentic-curiosity-scout&quot;, &quot;agentic-session-architect&quot;, &quot;agentic-data-extractor&quot;, &quot;agentic-intent-anticipator&quot;, &quot;agentic-curiosity-mapper&quot;, &quot;agentic-layout-reshuffler&quot;, &quot;agentic-morphological-canvas&quot;, &quot;agentic-tension-stabilizer&quot;, &quot;agentic-efficiency-balancer&quot;, &quot;agentic-semantic-linker&quot;, &quot;agentic-cognitive-flow-viz&quot;, &quot;agentic-load-regulator&quot;, &quot;agentic-cinematic-transitioner&quot;, &quot;agentic-fluid-state-interpolator&quot;, &quot;agentic-pivotal-context-anchor&quot;, &quot;agentic-perceptual-load-regulator&quot;, &quot;agentic-evidence-weight-visualizer&quot;, &quot;agentic-unified-convergence-lens&quot;]
+
+【要件】
+1. 既存の機能と重複しない、新しいユーザー体験を提供する機能を1つ考案
+2. JavaScriptで完結する機能（外部APIは使用しない）
+3. 即座に自己実行関数(IIFE)で動作すること
+4. CSSは自分でstyleタグとして追加すること
+
+【出力形式】JSON
+{
+    &quot;id&quot;: &quot;機能ID（英数字とハイフンのみ）&quot;,
+    &quot;name&quot;: &quot;機能名（日本語）&quot;,
+    &quot;description&quot;: &quot;機能の説明（日本語）&quot;,
+    &quot;category&quot;: &quot;ui/accessibility/navigation/analytics/entertainment のいずれか&quot;,
+    &quot;code&quot;: &quot;JavaScriptコード全文（即座実行関数形式）&quot;
+}
+
+コードのみ。説明不要。
+
+【トークン】入力=490, 出力=1124, 合計=5151</pre>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">新スタイルプロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">【新スタイルプロンプト】
+あなたはWebデザイナーです。MorphoNewsという進化型ニュースサイトに新しいカラーテーマを作成してください。
+
+【今日のムード】Pragmatic
+
+【既存のテーマ】
+[&quot;default&quot;, &quot;ocean&quot;, &quot;forest&quot;, &quot;sunset&quot;, &quot;midnight&quot;, &quot;cherry&quot;, &quot;expansion-nebula&quot;, &quot;industrial-infrastructure&quot;, &quot;regulating-growth&quot;, &quot;pragmatic-logic&quot;, &quot;autonomous-system&quot;, &quot;agentic-command&quot;, &quot;agentic-velocity&quot;, &quot;autonomous-evolution&quot;, &quot;agentic-strategic-pulse&quot;, &quot;agentic-tactical-focus&quot;, &quot;pragmatic-execution&quot;, &quot;agentic-kinetic-dispatch&quot;, &quot;agentic-decisive-vector&quot;, &quot;agentic-dynamic-initiative&quot;, &quot;agentic-reshuffle&quot;, &quot;metamorphic-transition&quot;, &quot;tensioned-integration&quot;, &quot;pragmatic-utility&quot;, &quot;pragmatic-integration&quot;, &quot;evolving-bioluminescence&quot;, &quot;systemic-regulation&quot;, &quot;transitional-flux&quot;, &quot;shifting-threshold&quot;, &quot;pivotal-juncture&quot;, &quot;normative-framework&quot;, &quot;architectural-logic&quot;, &quot;convergent-fusion&quot;]
+
+【要件】
+1. 今日のムードを反映した、新しいカラーテーマを作成
+2. 既存のテーマと明確に異なる配色
+3. CSS Variablesを使用（:root内で定義）
+4. 可読性を確保（コントラスト比に注意）
+
+【必須CSS Variables】
+--morpho-bg-primary: 背景色（メイン）
+--morpho-bg-secondary: 背景色（サブ）
+--morpho-bg-card: カード背景色
+--morpho-text-primary: テキスト色（メイン）
+--morpho-text-secondary: テキスト色（サブ）
+--morpho-accent-primary: アクセント色（メイン）
+--morpho-accent-secondary: アクセント色（サブ）
+--morpho-border-color: ボーダー色
+--morpho-accent-gradient: グラデーション
+
+【出力形式】JSON
+{
+    &quot;id&quot;: &quot;テーマID（英数字とハイフンのみ）&quot;,
+    &quot;name&quot;: &quot;テーマ名（日本語）&quot;,
+    &quot;description&quot;: &quot;テーマの説明（日本語）&quot;,
+    &quot;preview&quot;: {
+        &quot;primary&quot;: &quot;#hex色&quot;,
+        &quot;secondary&quot;: &quot;#hex色&quot;,
+        &quot;background&quot;: &quot;#hex色&quot;,
+        &quot;text&quot;: &quot;#hex色&quot;
+    },
+    &quot;css&quot;: &quot;CSSコード全文（:root { ... } 形式）&quot;
+}
+
+CSSのみ。説明不要。
+
+【トークン】入力=545, 出力=319, 合計=5136</pre>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">新レイアウトプロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">【新レイアウトプロンプト】
+N/A
+
+【トークン】N/A</pre>
+            </details>
+        </section>
+
+        <!-- Evolution Log -->
+        <section class="morpho-card" style="margin-top: 1rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="git-branch" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                進化ログ
+            </h3>
+            <p style="color: var(--morpho-text-secondary); font-size: 0.95rem;">
+                <strong>新機能:</strong> エージェンティック・テイクアウト・ハーベスター<br>
+                <strong>新スタイル:</strong> 実利的基盤<br>
+                <strong>新レイアウト:</strong> クラシック<br>
+                <strong>ムード:</strong> Pragmatic
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="morpho-footer">
+        <div class="morpho-footer-content" style="text-align: center; color: var(--morpho-text-secondary);">
+            <p>🦋 MorphoNews - AIが進化させる自律型ニュースサイト</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Generation #53 | 2026-01-20 09:45
+            </p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/layout-loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
+
+    <!-- Initialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide Icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Hamburger Menu
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('show');
+                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+
+            // Apply saved theme
+            const savedTheme = localStorage.getItem('morpho-theme');
+            if (savedTheme) {
+                const themeLink = document.getElementById('morpho-theme-css');
+                if (themeLink) {
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 実利的基盤
+ * Generated: 2026-01-20_0945
+ * Mood: Pragmatic
+ * Description: 堅実さと実効性を象徴する、土着的なアースカラーと洗練されたオフホワイトの組み合わせ。情報の真実味を伝える、落ち着いた読み心地を提供します。
+ */
+:root {
+    --morpho-bg-primary: #f9f9f7;
+    --morpho-bg-secondary: #f0eee9;
+    --morpho-bg-card: #ffffff;
+    --morpho-text-primary: #3c3c3b;
+    --morpho-text-secondary: #706f6c;
+    --morpho-accent-primary: #8e735b;
+    --morpho-accent-secondary: #b5a191;
+    --morpho-border-color: #e2ddd3;
+    --morpho-accent-gradient: linear-gradient(135deg, #8e735b 0%, #6f5946 100%);
+}

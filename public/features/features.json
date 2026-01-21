@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-20",
+  "lastUpdated": "2026-01-21",
   "features": [
     {
       "id": "news-renderer",
@@ -352,6 +352,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-01-20",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-perspectives-debate-engine",
+      "name": "エージェンティック・視点討論エンジン",
+      "description": "ニュース記事に対して、複数の仮想エージェント（楽観主義者、批判家、現実主義者）が独自の視点で議論を交わすシミュレーションを表示し、読者に多角的な考察を促します。",
+      "file": "modules/agentic-perspectives-debate-engine.js",
+      "enabled": false,
+      "required": false,
+      "category": "entertainment",
+      "addedDate": "2026-01-21",
       "author": "ai"
     }
   ]

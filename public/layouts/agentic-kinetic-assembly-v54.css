@@ -1,0 +1,158 @@
+/**
+ * MorphoNews Layout: 動的能動体：キネティック・アセンブリ・システム
+ * Generated: 2026-01-21_0947
+ * Generation: #54
+ * Mood: Agentic
+ * Evolution: @starting-styleによる初期状態制御 + scroll-driven clip-path変形 + 非対称コンテナクエリ連動
+ * Description: 第54世代。今日のムード『Agentic』を『情報の自己組織化』と定義し、静的な配置を拒絶するレイアウトを構築。左右非対称な二軸のタイムライン構造を採用し、スクロールの深度に応じて、斜めに欠落した形状（clip-path）を持つカードが、特定の座標で完全な矩形へと「自己結合」する。@starting-styleによるDOM挿入時の挙動制御と、CSS Scroll-driven Animationsを用いた『流動から定着への変容』を視覚化しています。
+ */
+/**
+ * MorphoNews Layout: agentic-kinetic-assembly-v54
+ * Evolution: Asymmetric timeline + Kinetic clip-path assembly + @starting-style
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: 1fr 1.2fr;
+    --layout-card-gap: 6rem;
+    --layout-card-direction: column;
+    --layout-animation-style: kinetic-assembly;
+    --assembly-timing: linear(0, 0.45 25%, 0.8 50%, 0.95 75%, 1);
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 12rem auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    align-items: start;
+}
+
+/* 奇数・偶数で配置をずらして動的なリズムを生成 */
+.news-card:nth-child(even) {
+    margin-top: 15rem;
+    transform: translateX(10%);
+}
+
+.news-card:nth-child(odd) {
+    transform: translateX(-10%);
+}
+
+.news-card {
+    position: relative;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    background: var(--morpho-bg-secondary);
+    border-left: 2px solid var(--morpho-accent-primary);
+    text-decoration: none;
+    overflow: visible;
+    container-type: inline-size;
+    
+    /* Scroll-driven: Shape Assembly */
+    view-timeline-name: --card-assemble;
+    animation: assemble-frame both linear;
+    animation-timeline: --card-assemble;
+    animation-range: entry 10% cover 40%;
+}
+
+/* @starting-style によるDOM出現時のスムーズな遷移 */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+}
+
+@keyframes assemble-frame {
+    from {
+        opacity: 0;
+        clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+        filter: saturate(0) brightness(0.5);
+        transform: translateY(100px) skewY(5deg);
+    }
+    to {
+        opacity: 1;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        filter: saturate(1) brightness(1);
+        transform: translateY(0) skewY(0deg);
+    }
+}
+
+.news-card-content {
+    padding: 3rem;
+    position: relative;
+    transition: background 0.4s ease;
+}
+
+.news-card:hover .news-card-content {
+    background: rgba(var(--morpho-accent-primary-rgb), 0.03);
+}
+
+.news-card-number {
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: var(--morpho-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0.5rem;
+    z-index: 10;
+}
+
+.news-card-title {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    color: var(--morpho-text-primary);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.news-card-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--morpho-text-secondary);
+    text-transform: uppercase;
+    border-top: 1px solid rgba(var(--morpho-text-primary-rgb), 0.1);
+    padding-top: 1.5rem;
+}
+
+/* ホバー時の能動的リアクション */
+.news-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--morpho-accent-primary);
+    opacity: 0;
+    transform: scale(1.05);
+    transition: all 0.3s var(--assembly-timing);
+    pointer-events: none;
+}
+
+.news-card:hover::after {
+    opacity: 0.5;
+    transform: scale(1);
+}
+
+/* レスポンシブ調整: モバイルでは1カラムかつ簡略化 */
+@media (max-width: 1024px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        padding: 0 2rem;
+    }
+    .news-card:nth-child(even), .news-card:nth-child(odd) {
+        margin-top: 0;
+        transform: none;
+    }
+    .news-card {
+        animation-range: entry 5% cover 25%;
+    }
+}

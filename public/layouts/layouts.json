@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-19",
+  "lastUpdated": "2026-01-21",
   "layouts": [
     {
       "id": "default",
@@ -221,6 +221,22 @@
       "author": "ai",
       "mood": "Convergence",
       "generation": 52
+    },
+    {
+      "id": "agentic-kinetic-assembly-v54",
+      "name": "動的能動体：キネティック・アセンブリ・システム",
+      "description": "第54世代。今日のムード『Agentic』を『情報の自己組織化』と定義し、静的な配置を拒絶するレイアウトを構築。左右非対称な二軸のタイムライン構造を採用し、スクロールの深度に応じて、斜めに欠落した形状（clip-path）を持つカードが、特定の座標で完全な矩形へと「自己結合」する。@starting-styleによるDOM挿入時の挙動制御と、CSS Scroll-driven Animationsを用いた『流動から定着への変容』を視覚化しています。",
+      "file": "agentic-kinetic-assembly-v54.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "@starting-styleによる初期状態制御 + scroll-driven clip-path変形 + 非対称コンテナクエリ連動",
+      "addedDate": "2026-01-21",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 54
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-20",
+  "lastUpdated": "2026-01-21",
   "currentDefault": "default",
   "themes": [
     {
@@ -506,6 +506,21 @@
       "addedDate": "2026-01-20",
       "author": "ai",
       "mood": "Pragmatic"
+    },
+    {
+      "id": "agentic-operational-flow",
+      "name": "エージェンティック・オペレーショナル・フロー",
+      "description": "目的指向の実行力と、複雑なプロセスを迅速に整理する操作性を象徴するテーマ。深みのあるネイビーを基調に、意志の強さを感じさせる鮮やかなアンバーをアクセントに採用しています。",
+      "file": "themes/agentic-operational-flow.css",
+      "preview": {
+        "primary": "#f59e0b",
+        "secondary": "#06b6d4",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-21",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

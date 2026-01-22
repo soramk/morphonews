@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-21",
+  "lastUpdated": "2026-01-22",
   "features": [
     {
       "id": "news-renderer",
@@ -363,6 +363,17 @@
       "required": false,
       "category": "entertainment",
       "addedDate": "2026-01-21",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-context-particle-bridge",
+      "name": "エージェンティック・コンテキスト・パーティクル・ブリッジ",
+      "description": "ユーザーが記事間をスクロール移動する際、前の文脈の断片を「パーティクル（情報粒子）」として物理的に次のコンテンツへと運び込み、情報の連続性と認知的遷移を視覚的にサポートします。",
+      "file": "modules/agentic-context-particle-bridge.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-22",
       "author": "ai"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-21",
+  "lastUpdated": "2026-01-22",
   "layouts": [
     {
       "id": "default",
@@ -237,6 +237,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 54
+    },
+    {
+      "id": "agentic-phase-shutter-v55",
+      "name": "位相転換体：エージェンティック・フェーズ・シャッター",
+      "description": "第55世代。ムード『Agentic-Transition』を、情報の『潜伏（Latent）』から『顕現（Manifest）』への相転移として解釈。前回のアセンブリ（結合）から一歩進み、今回は「視線の焦点」に連動したフェーズ移行を採用。3カラム構造のグリッドにおいて、スクロール深度と連動したCSS Mask-imageによるシャッター効果と、Z軸方向へのPerspective-shiftを同期させています。中心となるニュース本体が左右のメタ情報を磁力のように引き寄せる、能動的な情報体験を構築しました。",
+      "file": "agentic-phase-shutter-v55.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "minimal",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animation + mask-image shutter + 3D perspective transition",
+      "addedDate": "2026-01-22",
+      "author": "ai",
+      "mood": "Agentic-Transition",
+      "generation": 55
     }
   ]
 }

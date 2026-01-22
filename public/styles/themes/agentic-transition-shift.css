@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: エージェンティック・トランジション
+ * Generated: 2026-01-22_0946
+ * Mood: Agentic-Transition
+ * Description: 自律的な意思決定が加速し、静的な状態から動的な実行フェーズへと切り替わる瞬間を表現。深みのあるチャコールをベースに、知性を象徴するインディゴと変革の熱量を示すビビッドなマゼンタのグラデーションを採用しています。
+ */
+:root { --morpho-bg-primary: #0f1218; --morpho-bg-secondary: #1a1e26; --morpho-bg-card: #242933; --morpho-text-primary: #f0f4f8; --morpho-text-secondary: #94a3b8; --morpho-accent-primary: #6366f1; --morpho-accent-secondary: #ec4899; --morpho-border-color: #334155; --morpho-accent-gradient: linear-gradient(135deg, #6366f1 0%, #ec4899 100%); }

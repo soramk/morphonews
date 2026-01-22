@@ -1,0 +1,151 @@
+/**
+ * MorphoNews Layout: 位相転換体：エージェンティック・フェーズ・シャッター
+ * Generated: 2026-01-22_0946
+ * Generation: #55
+ * Mood: Agentic-Transition
+ * Evolution: scroll-driven animation + mask-image shutter + 3D perspective transition
+ * Description: 第55世代。ムード『Agentic-Transition』を、情報の『潜伏（Latent）』から『顕現（Manifest）』への相転移として解釈。前回のアセンブリ（結合）から一歩進み、今回は「視線の焦点」に連動したフェーズ移行を採用。3カラム構造のグリッドにおいて、スクロール深度と連動したCSS Mask-imageによるシャッター効果と、Z軸方向へのPerspective-shiftを同期させています。中心となるニュース本体が左右のメタ情報を磁力のように引き寄せる、能動的な情報体験を構築しました。
+ */
+/**
+ * MorphoNews Layout: agentic-phase-shutter-v55
+ * Generation: #55
+ * Mood: Agentic-Transition
+ * Evolution: Scroll-driven mask revealing + Z-axis perspective integration
+ */
+
+:root {
+    --layout-max-width: 1600px;
+    --layout-news-columns: 0.8fr 2.5fr 0.8fr;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: row;
+    --layout-animation-style: phase-shutter;
+    --transition-speed: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+    perspective: 2000px;
+}
+
+.news-card {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    
+    /* Scroll-driven: Perspective and Mask Reveal */
+    view-timeline-name: --phase-reveal;
+    animation: phase-reveal-animation both linear;
+    animation-timeline: --phase-reveal;
+    animation-range: entry 10% cover 50%;
+}
+
+@keyframes phase-reveal-animation {
+    from {
+        opacity: 0;
+        transform: translateZ(-200px) rotateX(15deg);
+        mask-image: linear-gradient(to bottom, black 0%, transparent 0%);
+        mask-size: 100% 0%;
+        mask-repeat: no-repeat;
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0) rotateX(0deg);
+        mask-image: linear-gradient(to bottom, black 100%, transparent 100%);
+        mask-size: 100% 100%;
+    }
+}
+
+/* 左側：ナンバリング・メタ（潜伏） */
+.news-card::before {
+    content: attr(data-index);
+    font-family: 'Fira Code', monospace;
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--morpho-text-primary);
+    opacity: 0.1;
+    text-align: right;
+    transition: var(--transition-speed);
+}
+
+/* 中央：メインコンテンツ */
+.news-card-content {
+    position: relative;
+    padding: 4rem;
+    background: var(--morpho-bg-secondary);
+    border-right: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    border-left: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    transition: var(--transition-speed);
+}
+
+.news-card:hover .news-card-content {
+    background: rgba(var(--morpho-accent-primary-rgb), 0.02);
+    border-color: var(--morpho-accent-primary);
+    transform: scale(1.02);
+}
+
+.news-card-title {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    color: var(--morpho-text-primary);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* 右側：タグ・カテゴリー（能動的配置） */
+.news-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--morpho-accent-primary);
+    text-transform: uppercase;
+    border-left: 2px solid var(--morpho-accent-secondary);
+    padding-left: 1.5rem;
+}
+
+/* モバイル対応：3カラムから1カラムへの相転移 */
+@media (max-width: 1024px) {
+    :root {
+        --layout-news-columns: 1fr;
+    }
+    
+    .news-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .news-card::before {
+        font-size: 2rem;
+        text-align: left;
+    }
+
+    .news-card-content {
+        padding: 2rem;
+        width: 100%;
+    }
+}
+
+/* 装飾的グリッド背景（エージェントの活動領域を暗示） */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(var(--morpho-accent-primary-rgb), 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--morpho-accent-primary-rgb), 0.03) 1px, transparent 1px);
+    background-size: 100px 100px;
+    z-index: -1;
+    pointer-events: none;
+}

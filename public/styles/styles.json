@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-21",
+  "lastUpdated": "2026-01-22",
   "currentDefault": "default",
   "themes": [
     {
@@ -521,6 +521,21 @@
       "addedDate": "2026-01-21",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "agentic-transition-shift",
+      "name": "エージェンティック・トランジション",
+      "description": "自律的な意思決定が加速し、静的な状態から動的な実行フェーズへと切り替わる瞬間を表現。深みのあるチャコールをベースに、知性を象徴するインディゴと変革の熱量を示すビビッドなマゼンタのグラデーションを採用しています。",
+      "file": "themes/agentic-transition-shift.css",
+      "preview": {
+        "primary": "#6366f1",
+        "secondary": "#ec4899",
+        "background": "#0f1218",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-01-22",
+      "author": "ai",
+      "mood": "Agentic-Transition"
     }
   ]
 }

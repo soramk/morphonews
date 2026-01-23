@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
   "currentDefault": "default",
   "themes": [
     {
@@ -536,6 +536,21 @@
       "addedDate": "2026-01-22",
       "author": "ai",
       "mood": "Agentic-Transition"
+    },
+    {
+      "id": "phase-transition-pulse",
+      "name": "フェーズ・トランジション・パルス",
+      "description": "静寂の深紺からエネルギーに満ちた夕映えへと移り変わる、ダイナミックな変容の瞬間を捉えたテーマです。",
+      "file": "themes/phase-transition-pulse.css",
+      "preview": {
+        "primary": "#8b5cf6",
+        "secondary": "#fb923c",
+        "background": "#020617",
+        "text": "#f1f5f9"
+      },
+      "addedDate": "2026-01-23",
+      "author": "ai",
+      "mood": "Transition"
     }
   ]
 }

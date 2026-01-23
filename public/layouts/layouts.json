@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
   "layouts": [
     {
       "id": "default",
@@ -253,6 +253,22 @@
       "author": "ai",
       "mood": "Agentic-Transition",
       "generation": 55
+    },
+    {
+      "id": "kinetic-interweave-transition-v56",
+      "name": "織層転換：キネティック・インターウィーブ",
+      "description": "第56世代。ムード『Transition』を、情報の「交差と統合」のプロセスとして定義。前回の『シャッター』による平面的開示から、空間的な『織り込み（Weaving）』へと進化させました。CSS Gridの12カラム構造をベースに、奇数・偶数要素を左右にオフセット配置し、スクロール深度に応じて中央へと収束・交差するインターロック・アニメーションを実装。静止時にはアシンメトリーな美しさを、移動時にはダイナミックな流動性を提供します。",
+      "file": "kinetic-interweave-transition-v56.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven interleaving (左右交互スライド) + 12-column staggered overlap + clip-path transition",
+      "addedDate": "2026-01-23",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 56
     }
   ]
 }

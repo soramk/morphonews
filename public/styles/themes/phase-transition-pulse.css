@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: フェーズ・トランジション・パルス
+ * Generated: 2026-01-23_0946
+ * Mood: Transition
+ * Description: 静寂の深紺からエネルギーに満ちた夕映えへと移り変わる、ダイナミックな変容の瞬間を捉えたテーマです。
+ */
+:root {
+  --morpho-bg-primary: #020617;
+  --morpho-bg-secondary: #0f172a;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f1f5f9;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #8b5cf6;
+  --morpho-accent-secondary: #fb923c;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #fb923c 100%);
+}

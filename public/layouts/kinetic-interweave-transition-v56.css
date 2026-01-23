@@ -1,0 +1,145 @@
+/**
+ * MorphoNews Layout: 織層転換：キネティック・インターウィーブ
+ * Generated: 2026-01-23_0946
+ * Generation: #56
+ * Mood: Transition
+ * Evolution: scroll-driven interleaving (左右交互スライド) + 12-column staggered overlap + clip-path transition
+ * Description: 第56世代。ムード『Transition』を、情報の「交差と統合」のプロセスとして定義。前回の『シャッター』による平面的開示から、空間的な『織り込み（Weaving）』へと進化させました。CSS Gridの12カラム構造をベースに、奇数・偶数要素を左右にオフセット配置し、スクロール深度に応じて中央へと収束・交差するインターロック・アニメーションを実装。静止時にはアシンメトリーな美しさを、移動時にはダイナミックな流動性を提供します。
+ */
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 6rem;
+    --layout-card-direction: column;
+    --layout-animation-style: kinetic-weave;
+    --transition-speed: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    --card-bg-blur: 15px;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 12rem auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    perspective: 1500px;
+}
+
+.news-card {
+    grid-column: span 9;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    backdrop-filter: blur(var(--card-bg-blur));
+    padding: 3rem;
+    transition: var(--transition-speed);
+    z-index: 1;
+    
+    /* Scroll-driven: Kinetic Interweave */
+    view-timeline-name: --weave-timeline;
+    animation: weave-motion both linear;
+    animation-timeline: --weave-timeline;
+    animation-range: entry 0% cover 50%;
+}
+
+/* 奇数カード：左からスライド */
+.news-card:nth-child(odd) {
+    grid-column: 1 / 10;
+    --slide-dist: -100px;
+    --rotate-dir: 2deg;
+}
+
+/* 偶数カード：右からスライド、奇数と重ねる */
+.news-card:nth-child(even) {
+    grid-column: 4 / 13;
+    margin-top: -8rem;
+    --slide-dist: 100px;
+    --rotate-dir: -2deg;
+    z-index: 2;
+}
+
+@keyframes weave-motion {
+    from {
+        opacity: 0;
+        transform: translateX(var(--slide-dist)) rotateY(var(--rotate-dir)) scale(0.95);
+        clip-path: inset(0 50% 0 50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotateY(0) scale(1);
+        clip-path: inset(0 0% 0 0%);
+    }
+}
+
+.news-card-content {
+    position: relative;
+}
+
+.news-card-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--morpho-text-primary);
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+}
+
+/* インデックス番号の浮遊配置 */
+.news-card::before {
+    content: attr(data-index);
+    position: absolute;
+    top: -2rem;
+    left: -1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 6rem;
+    font-weight: 900;
+    color: var(--morpho-accent-primary);
+    opacity: 0.05;
+    pointer-events: none;
+    transition: var(--transition-speed);
+}
+
+/* ホバー時のマイクロインタラクション */
+.news-card:hover {
+    background: rgba(var(--morpho-accent-primary-rgb), 0.03);
+    border-color: var(--morpho-accent-primary);
+    transform: translateY(-10px) translateZ(50px) !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.news-card:hover::before {
+    opacity: 0.15;
+    transform: translateY(-1rem);
+}
+
+.news-card-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    padding-top: 1.5rem;
+}
+
+.news-card-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--morpho-accent-secondary);
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .news-card:nth-child(odd), .news-card:nth-child(even) {
+        grid-column: 1 / 13;
+        margin-top: 0;
+        --slide-dist: 0;
+    }
+    #news-container {
+        gap: 3rem;
+        padding: 0 1.5rem;
+    }
+}

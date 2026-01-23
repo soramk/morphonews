@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-22",
+  "lastUpdated": "2026-01-23",
   "features": [
     {
       "id": "news-renderer",
@@ -374,6 +374,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-22",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-metamorphic-transition-portal",
+      "name": "エージェンティック・メタモルフィック・トランジション・ポータル",
+      "description": "コンテンツの階層移動やカテゴリーの切り替え時に、有機的な形状変化（モーフィング）を伴う視覚的なポータルを生成。情報の断絶を防ぎ、空間的な連続性を提供します。",
+      "file": "modules/agentic-metamorphic-transition-portal.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-23",
       "author": "ai"
     }
   ]

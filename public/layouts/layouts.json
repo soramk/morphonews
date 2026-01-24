@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-23",
+  "lastUpdated": "2026-01-24",
   "layouts": [
     {
       "id": "default",
@@ -269,6 +269,22 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 56
+    },
+    {
+      "id": "prismatic-depth-field-v57",
+      "name": "閃光のプリズマティック・デプス・フィールド",
+      "description": "第57世代。前回（#56）の『2次元的な織り込み（Weaving）』から、情報が空間から浮上する『3次元的な深度（Depth）』へと進化。Transitionというムードを「平面的遷移」ではなく「空間的次元の移行」と再定義しました。CSS Gridのdenseパッキングを利用し、アスペクト比の異なるタイルがランダムに敷き詰められたようなモザイク構造を採用。scroll-driven animationsを用い、各カードがスクロールに応じて深淵から手前へとプログレッシブに浮き上がる視差効果を実装しています。",
+      "file": "prismatic-depth-field-v57.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "grid-auto-flow: dense による高密度パッキング + scroll-driven 3D-perspective-depth + @starting-style による初期表示の安定化",
+      "addedDate": "2026-01-24",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 57
     }
   ]
 }

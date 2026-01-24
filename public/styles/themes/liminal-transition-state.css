@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: リミナル・トランジション
+ * Generated: 2026-01-24_0945
+ * Mood: Transition
+ * Description: 「移ろい」の境界線を表現したテーマ。深い夜から明け方へと向かうようなグラデーションと、境界を揺らぐシアンとマゼンタのアクセントが、新しいフェーズへの移行を象徴します。
+ */
+:root {
+  --morpho-bg-primary: #141622;
+  --morpho-bg-secondary: #1d2133;
+  --morpho-bg-card: #252a41;
+  --morpho-text-primary: #f0f2f5;
+  --morpho-text-secondary: #a0a8c8;
+  --morpho-accent-primary: #00f2ff;
+  --morpho-accent-secondary: #ff00e5;
+  --morpho-border-color: #3e4b7a;
+  --morpho-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #ff00e5 100%);
+}

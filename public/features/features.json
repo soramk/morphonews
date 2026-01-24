@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-23",
+  "lastUpdated": "2026-01-24",
   "features": [
     {
       "id": "news-renderer",
@@ -385,6 +385,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-23",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-phase-transition-orchestrator",
+      "name": "エージェンティック・フェーズ・トランジション・オーケストラ",
+      "description": "ページのコンテンツ状態の変化やスクロールによる要素の登場を、物質が相転移（Phase Transition）するような滑らかな視覚エフェクトで演出します。情報の断絶を「流体的な変化」として繋ぐことで、高速な情報収集時でも視覚的な安定性を維持します。",
+      "file": "modules/agentic-phase-transition-orchestrator.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-24",
       "author": "ai"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-23",
+  "lastUpdated": "2026-01-24",
   "currentDefault": "default",
   "themes": [
     {
@@ -549,6 +549,21 @@
         "text": "#f1f5f9"
       },
       "addedDate": "2026-01-23",
+      "author": "ai",
+      "mood": "Transition"
+    },
+    {
+      "id": "liminal-transition-state",
+      "name": "リミナル・トランジション",
+      "description": "「移ろい」の境界線を表現したテーマ。深い夜から明け方へと向かうようなグラデーションと、境界を揺らぐシアンとマゼンタのアクセントが、新しいフェーズへの移行を象徴します。",
+      "file": "themes/liminal-transition-state.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#ff00e5",
+        "background": "#141622",
+        "text": "#f0f2f5"
+      },
+      "addedDate": "2026-01-24",
       "author": "ai",
       "mood": "Transition"
     }

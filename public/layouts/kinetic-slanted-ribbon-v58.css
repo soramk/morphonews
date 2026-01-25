@@ -1,0 +1,142 @@
+/**
+ * MorphoNews Layout: 躍動するスランテッド・リボン・シーケンス
+ * Generated: 2026-01-25_0952
+ * Generation: #58
+ * Mood: Transition
+ * Evolution: scroll-driven skew-transform + clip-path sequence + container queries + negative margin overlapping
+ * Description: 第58世代。前回の「空間的深度（Depth）」から、情報の「連続的な推移（Flow/Sequence）」へと進化。Transitionというムードを、時間が流れるリボンのような連続体として再解釈しました。CSS Gridの代わりにFlexboxとネガティブマージンを組み合わせ、カードが互い違いに重なり合いながら流れる「スランテッド（傾斜）」構造を採用。Scroll-driven animationsを用い、スクロールに合わせて各カードが平行四辺形に歪み（Skew）ながらスライドインする視覚効果を実装しました。さらにContainer Queriesを使用し、コンテナの幅に応じた動的なタイポグラフィ調整を行っています。
+ */
+:root {
+    --layout-max-width: 1100px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: -4rem;
+    --layout-card-direction: row;
+    --layout-animation-style: kinetic-skew-reveal;
+    --ribbon-skew-angle: 6deg;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 12rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-gap);
+    padding: 2rem;
+}
+
+.news-card {
+    width: 85%;
+    position: relative;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    padding: 4rem 3rem;
+    text-decoration: none;
+    container-type: inline-size;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Scroll-driven: Skew & Slide */
+    view-timeline-name: --card-flow;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-flow;
+    animation-range: entry 10% cover 40%;
+}
+
+/* 奇数番目：左から右への傾斜 */
+.news-card:nth-child(odd) {
+    align-self: flex-start;
+    clip-path: polygon(0 0, 100% var(--ribbon-skew-angle), 100% 100%, 0 calc(100% - var(--ribbon-skew-angle)));
+    border-left: 6px solid var(--morpho-accent-primary);
+    --slide-dir: -150px;
+    --skew-dir: 5deg;
+}
+
+/* 偶数番目：右から左への傾斜 */
+.news-card:nth-child(even) {
+    align-self: flex-end;
+    clip-path: polygon(0 var(--ribbon-skew-angle), 100% 0, 100% calc(100% - var(--ribbon-skew-angle)), 0 100%);
+    border-right: 6px solid var(--morpho-accent-secondary);
+    --slide-dir: 150px;
+    --skew-dir: -5deg;
+}
+
+@keyframes kinetic-skew-reveal {
+    from {
+        opacity: 0;
+        transform: translateX(var(--slide-dir)) skewY(var(--skew-dir)) scale(0.9);
+        filter: grayscale(1) blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) skewY(0) scale(1);
+        filter: grayscale(0) blur(0);
+    }
+}
+
+/* Container Queries による動的テキスト調整 */
+@container (min-width: 600px) {
+    .news-card-title {
+        font-size: 2.5rem;
+        max-width: 70%;
+    }
+}
+
+.news-card:hover {
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.9);
+    z-index: 10;
+    transform: scale(1.02) translateY(-10px) !important;
+    border-color: var(--morpho-accent-primary);
+}
+
+.news-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.news-card-title {
+    color: var(--morpho-text-primary);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.news-card:hover .news-card-title {
+    color: var(--morpho-accent-primary);
+}
+
+.news-card-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--morpho-text-secondary);
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* ナンバリングの幾何学的表現 */
+.news-card::before {
+    content: attr(data-index);
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(var(--morpho-accent-primary-rgb), 0.05);
+    pointer-events: none;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .news-card {
+        width: 100%;
+        --layout-card-gap: 1rem;
+        clip-path: none !important;
+        margin-bottom: 2rem;
+    }
+    #news-container {
+        margin-top: 6rem;
+        gap: 2rem;
+    }
+}

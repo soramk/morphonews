@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-24",
+  "lastUpdated": "2026-01-25",
   "features": [
     {
       "id": "news-renderer",
@@ -396,6 +396,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-24",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-spatial-transition-nexus",
+      "name": "エージェンティック・スペーシャル・トランジション・ネクサス",
+      "description": "スクロール速度と位置に連動してコンテンツを3次元空間内で動的に傾斜・変形させ、情報の切り替わりを「空間の深度」の変化として直感的に表現する、動的な遷移制御インターフェースです。",
+      "file": "modules/agentic-spatial-transition-nexus.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-25",
       "author": "ai"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-24",
+  "lastUpdated": "2026-01-25",
   "layouts": [
     {
       "id": "default",
@@ -285,6 +285,22 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 57
+    },
+    {
+      "id": "kinetic-slanted-ribbon-v58",
+      "name": "躍動するスランテッド・リボン・シーケンス",
+      "description": "第58世代。前回の「空間的深度（Depth）」から、情報の「連続的な推移（Flow/Sequence）」へと進化。Transitionというムードを、時間が流れるリボンのような連続体として再解釈しました。CSS Gridの代わりにFlexboxとネガティブマージンを組み合わせ、カードが互い違いに重なり合いながら流れる「スランテッド（傾斜）」構造を採用。Scroll-driven animationsを用い、スクロールに合わせて各カードが平行四辺形に歪み（Skew）ながらスライドインする視覚効果を実装しました。さらにContainer Queriesを使用し、コンテナの幅に応じた動的なタイポグラフィ調整を行っています。",
+      "file": "kinetic-slanted-ribbon-v58.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "minimal",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven skew-transform + clip-path sequence + container queries + negative margin overlapping",
+      "addedDate": "2026-01-25",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 58
     }
   ]
 }

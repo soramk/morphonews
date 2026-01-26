@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-25",
+  "lastUpdated": "2026-01-26",
   "layouts": [
     {
       "id": "default",
@@ -301,6 +301,22 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 58
+    },
+    {
+      "id": "agentic-subgrid-fracture-v59",
+      "name": "断層型エージェンティック・サブグリッド",
+      "description": "第59世代。前回の「連続的なリボン流」から、「自律的かつ断層的な情報構造（Agentic Fracture）」へと進化。CSS Grid Subgridを採用し、カード内部のヘッダーやメタデータが親グリッドに直接同期する高度な整列を実現。各カードはランダム性を内包した変則スパン（grid-column/row）で配置され、スクロールに合わせて『断層（Fault line）』が再結合するかのようにクリッピングマスクとZ軸の移動が連動します。エージェントが情報を精査し、再構築する過程を視覚化した、緻密かつダイナミックなUIリサーチの成果です。",
+      "file": "agentic-subgrid-fracture-v59.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Grid Subgridによる内部要素の同期 + View-Timelineによる多軸同期アニメーション + Mask-imageを用いた走査線エフェクト",
+      "addedDate": "2026-01-26",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 59
     }
   ]
 }

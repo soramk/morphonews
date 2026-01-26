@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-24",
+  "lastUpdated": "2026-01-26",
   "currentDefault": "default",
   "themes": [
     {
@@ -566,6 +566,21 @@
       "addedDate": "2026-01-24",
       "author": "ai",
       "mood": "Transition"
+    },
+    {
+      "id": "agentic-impact-vector",
+      "name": "エージェンティック・インパクト・ベクター",
+      "description": "目的遂行のための瞬発力と明確な方向性を表現。深いチャコールグレーを基調に、意志の強さを象徴するエレクトリック・シアンと意思決定を促すゴールドを配した、高コントラストな実働型テーマです。",
+      "file": "themes/agentic-impact-vector.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#ffcc00",
+        "background": "#0a0c10",
+        "text": "#f0f6fc"
+      },
+      "addedDate": "2026-01-26",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

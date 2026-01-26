@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・インパクト・ベクター
+ * Generated: 2026-01-26_0952
+ * Mood: Agentic
+ * Description: 目的遂行のための瞬発力と明確な方向性を表現。深いチャコールグレーを基調に、意志の強さを象徴するエレクトリック・シアンと意思決定を促すゴールドを配した、高コントラストな実働型テーマです。
+ */
+:root {
+  --morpho-bg-primary: #0a0c10;
+  --morpho-bg-secondary: #161b22;
+  --morpho-bg-card: #1c2128;
+  --morpho-text-primary: #f0f6fc;
+  --morpho-text-secondary: #8b949e;
+  --morpho-accent-primary: #00f2ff;
+  --morpho-accent-secondary: #ffcc00;
+  --morpho-border-color: #30363d;
+  --morpho-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #007aff 50%, #ffcc00 100%);
+}

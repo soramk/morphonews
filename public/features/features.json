@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-25",
+  "lastUpdated": "2026-01-26",
   "features": [
     {
       "id": "news-renderer",
@@ -407,6 +407,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-25",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-horizon-scanner",
+      "name": "エージェンティック・ホライゾン・スキャナー",
+      "description": "ユーザーの読解速度とスクロール方向を分析し、まだ画面に現れていない「情報の地平線」にある重要なキーワードや概念を先読みして、周辺視野（画面端）にフローティング表示します。これにより、読者は情報の全体像を常に把握しながら読み進めることができます。",
+      "file": "modules/agentic-horizon-scanner.js",
+      "enabled": false,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-01-26",
       "author": "ai"
     }
   ]

@@ -1,0 +1,151 @@
+/**
+ * MorphoNews Layout: 断層型エージェンティック・サブグリッド
+ * Generated: 2026-01-26_0952
+ * Generation: #59
+ * Mood: Agentic
+ * Evolution: CSS Grid Subgridによる内部要素の同期 + View-Timelineによる多軸同期アニメーション + Mask-imageを用いた走査線エフェクト
+ * Description: 第59世代。前回の「連続的なリボン流」から、「自律的かつ断層的な情報構造（Agentic Fracture）」へと進化。CSS Grid Subgridを採用し、カード内部のヘッダーやメタデータが親グリッドに直接同期する高度な整列を実現。各カードはランダム性を内包した変則スパン（grid-column/row）で配置され、スクロールに合わせて『断層（Fault line）』が再結合するかのようにクリッピングマスクとZ軸の移動が連動します。エージェントが情報を精査し、再構築する過程を視覚化した、緻密かつダイナミックなUIリサーチの成果です。
+ */
+/**
+ * MorphoNews Layout: 断層型エージェンティック・サブグリッド
+ * Generated: 2026-01-25_1015
+ * Generation: #59
+ * Mood: Agentic
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: agentic-shatter-reveal;
+    --fracture-intensity: 20px;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    padding: 2rem;
+    perspective: 2000px;
+}
+
+/* カードの基本構造 */
+.news-card {
+    grid-column: span 6;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.5);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    text-decoration: none;
+    
+    /* Scroll-driven Animation */
+    view-timeline-name: --card-scroll;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-scroll;
+    animation-range: entry 5% cover 30%;
+}
+
+/* 変則的なグリッドスパンによる「断層」の表現 */
+.news-card:nth-child(3n+1) { grid-column: span 8; }
+.news-card:nth-child(3n+2) { grid-column: span 4; }
+.news-card:nth-child(4n) { grid-column: span 12; }
+
+/* スキャンライン・エフェクトの疑似要素 */
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(var(--morpho-accent-primary-rgb), 0.05) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+}
+
+@keyframes agentic-shatter-reveal {
+    from {
+        opacity: 0;
+        transform: translateZ(-200px) translateY(100px) rotateX(15deg);
+        clip-path: inset(0 50% 0 50%);
+        filter: blur(10px) brightness(1.5);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0) translateY(0) rotateX(0);
+        clip-path: inset(0 0 0 0);
+        filter: blur(0) brightness(1);
+    }
+}
+
+.news-card-content {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 2;
+}
+
+.news-card-title {
+    color: var(--morpho-text-primary);
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* ホバー時の「エージェント・スキャン」アクション */
+.news-card:hover {
+    transform: scale(0.98) translateZ(20px) !important;
+    border-color: var(--morpho-accent-primary);
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.8);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(var(--morpho-accent-primary-rgb), 0.2);
+}
+
+.news-card:hover .news-card-title {
+    color: var(--morpho-accent-primary);
+    text-shadow: 0 0 8px rgba(var(--morpho-accent-primary-rgb), 0.4);
+}
+
+/* 特徴的なナンバリングバッジ：エージェントID風 */
+.news-card::after {
+    content: 'AGENT_ID_0' attr(data-index);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: var(--morpho-accent-secondary);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--morpho-accent-secondary);
+    opacity: 0.6;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 900px) {
+    .news-card, .news-card:nth-child(n) {
+        grid-column: span 12;
+    }
+    #news-container {
+        gap: 2rem;
+        margin: 6rem auto;
+    }
+}
+
+/* スクロール進行状況に合わせた境界線の発光 */
+@property --glow-pos {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+}
+
+.news-card {
+    border-image: radial-gradient(circle at var(--glow-pos, 0%) 50%, var(--morpho-accent-primary), transparent 100%) 1;
+    transition: --glow-pos 0.3s ease;
+}

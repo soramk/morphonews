@@ -1,0 +1,155 @@
+/**
+ * MorphoNews Layout: 軌道型エージェンティック・デプス
+ * Generated: 2026-01-27_0950
+ * Generation: #60
+ * Mood: Agentic
+ * Evolution: scroll-snap-type + view-timeline (horizontal) + Container Queriesによる自己完結型レイアウト最適化
+ * Description: 第60世代の進化。前回の「断層的グリッド」から、情報の『巡回と深度』をテーマにした「軌道型レイアウト（Orbital Layout）」へ転換。水平方向のスクロールスナップ（Scroll-snap）に、scroll-driven animationsを組み合わせ、各ニュースカードが画面中央に近づくにつれて3D空間上で手前に迫り出し、コンテナクエリによって内部構造を自律的に変容させます。エージェントが情報の海を周回し、特定のトピックにフォーカスするプロセスをUIとして具現化しました。
+ */
+/**
+ * MorphoNews Layout: 軌道型エージェンティック・デプス
+ * Generation: #60
+ * Evolution: Scroll-snap-type (x) + view-timeline (inline) + container-queries
+ */
+
+:root {
+    --layout-max-width: 100vw;
+    --layout-news-columns: auto-flow 80vw;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: row;
+    --layout-animation-style: orbital-focus;
+    --perspective-value: 1200px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+#news-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 10vh 10vw;
+    gap: var(--layout-card-gap);
+    perspective: var(--perspective-value);
+    height: 80vh;
+    align-items: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#news-container::-webkit-scrollbar {
+    display: none;
+}
+
+.news-card {
+    flex: 0 0 80vw;
+    height: 60vh;
+    scroll-snap-align: center;
+    position: relative;
+    container-type: size;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.3);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: border-color 0.4s ease;
+
+    /* Scroll-driven Animation for 3D depth */
+    view-timeline: --card-orbit inline;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-orbit;
+    animation-range: contain 0% contain 100%;
+}
+
+@keyframes orbital-focus {
+    0% {
+        transform: rotateY(45deg) scale(0.8) translateZ(-300px);
+        opacity: 0.4;
+        filter: blur(4px);
+    }
+    50% {
+        transform: rotateY(0deg) scale(1) translateZ(0);
+        opacity: 1;
+        filter: blur(0);
+    }
+    100% {
+        transform: rotateY(-45deg) scale(0.8) translateZ(-300px);
+        opacity: 0.4;
+        filter: blur(4px);
+    }
+}
+
+.news-card-content {
+    padding: 4rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* コンテナクエリによる自己適応的タイポグラフィ */
+@container (min-height: 500px) {
+    .news-card-title {
+        font-size: clamp(2rem, 8cqw, 4rem);
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--morpho-text-primary);
+        margin-bottom: 2rem;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+}
+
+.news-card-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--morpho-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+/* 軌道を表す装飾要素 */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -5%;
+    width: 110%;
+    height: 120%;
+    border-left: 2px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    border-right: 2px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, transparent, black, transparent);
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+}
+
+.news-card:hover .news-card-title {
+    transform: translateZ(50px);
+}
+
+/* レスポンシブ対応：モバイルでは縦スクロールに戻る */
+@media (max-width: 768px) {
+    #news-container {
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+        height: auto;
+        padding: 2rem;
+    }
+    .news-card {
+        flex: 0 0 70vh;
+        width: 100%;
+        animation: none;
+        scroll-snap-align: start;
+    }
+}

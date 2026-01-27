@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-26",
+  "lastUpdated": "2026-01-27",
   "currentDefault": "default",
   "themes": [
     {
@@ -579,6 +579,21 @@
         "text": "#f0f6fc"
       },
       "addedDate": "2026-01-26",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-precision-matrix",
+      "name": "エージェンティック・プレシジョン・マトリクス",
+      "description": "意思決定を加速させるための、高精度で洗練されたタクティカル・カラーテーマ。視認性の高いシアンと深いネイビーのコントラストが、論理的かつ能動的な行動を促します。",
+      "file": "themes/agentic-precision-matrix.css",
+      "preview": {
+        "primary": "#22d3ee",
+        "secondary": "#6366f1",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-27",
       "author": "ai",
       "mood": "Agentic"
     }

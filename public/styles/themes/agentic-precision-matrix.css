@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: エージェンティック・プレシジョン・マトリクス
+ * Generated: 2026-01-27_0950
+ * Mood: Agentic
+ * Description: 意思決定を加速させるための、高精度で洗練されたタクティカル・カラーテーマ。視認性の高いシアンと深いネイビーのコントラストが、論理的かつ能動的な行動を促します。
+ */
+:root { --morpho-bg-primary: #0f172a; --morpho-bg-secondary: #1e293b; --morpho-bg-card: #1e293b; --morpho-text-primary: #f8fafc; --morpho-text-secondary: #94a3b8; --morpho-accent-primary: #22d3ee; --morpho-accent-secondary: #6366f1; --morpho-border-color: #334155; --morpho-accent-gradient: linear-gradient(135deg, #22d3ee 0%, #6366f1 100%); }

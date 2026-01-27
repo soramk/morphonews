@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-26",
+  "lastUpdated": "2026-01-27",
   "layouts": [
     {
       "id": "default",
@@ -317,6 +317,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 59
+    },
+    {
+      "id": "agentic-orbital-depth-v60",
+      "name": "軌道型エージェンティック・デプス",
+      "description": "第60世代の進化。前回の「断層的グリッド」から、情報の『巡回と深度』をテーマにした「軌道型レイアウト（Orbital Layout）」へ転換。水平方向のスクロールスナップ（Scroll-snap）に、scroll-driven animationsを組み合わせ、各ニュースカードが画面中央に近づくにつれて3D空間上で手前に迫り出し、コンテナクエリによって内部構造を自律的に変容させます。エージェントが情報の海を周回し、特定のトピックにフォーカスするプロセスをUIとして具現化しました。",
+      "file": "agentic-orbital-depth-v60.css",
+      "preview": {
+        "gridType": "carousel",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-snap-type + view-timeline (horizontal) + Container Queriesによる自己完結型レイアウト最適化",
+      "addedDate": "2026-01-27",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 60
     }
   ]
 }

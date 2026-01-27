@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-26",
+  "lastUpdated": "2026-01-27",
   "features": [
     {
       "id": "news-renderer",
@@ -418,6 +418,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-01-26",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-curiosity-catalyst",
+      "name": "エージェンティック・キュリオシティ・カタリスト",
+      "description": "ユーザーが注目しているテキストに対し、自律型エージェントが「もし〜なら？」という仮説的問いや批判的視点を生成し、受動的な情報摂取を能動的な探求へと変容させます。",
+      "file": "modules/agentic-curiosity-catalyst.js",
+      "enabled": false,
+      "required": false,
+      "category": "entertainment",
+      "addedDate": "2026-01-27",
       "author": "ai"
     }
   ]

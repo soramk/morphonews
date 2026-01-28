@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-27",
+  "lastUpdated": "2026-01-28",
   "layouts": [
     {
       "id": "default",
@@ -333,6 +333,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 60
+    },
+    {
+      "id": "agentic-fragment-mosaic-v61",
+      "name": "神経的断片モザイク・グリッド",
+      "description": "第61世代の進化。前回の「水平軌道」から「垂直方向の断片的再構築」へと転換。12カラムの緻密なサブグリッド・システムを用い、エージェントが情報を解析・断片化し、再び整合性を持って再構成するプロセスを表現しました。Scroll-driven Animationとclip-pathを組み合わせ、スクロール量に応じてカードが不整形（Fragment）から洗練された矩形（Order）へと自己組織化する動的なメタファーを採用。さらに、@starting-styleによるエントリー・アニメーションを試験的に導入しています。",
+      "file": "agentic-fragment-mosaic-v61.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "12カラム非対称グリッド + scroll-driven clip-path変形 + @starting-styleによる初期状態制御",
+      "addedDate": "2026-01-28",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 61
     }
   ]
 }

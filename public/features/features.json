@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-27",
+  "lastUpdated": "2026-01-28",
   "features": [
     {
       "id": "news-renderer",
@@ -429,6 +429,17 @@
       "required": false,
       "category": "entertainment",
       "addedDate": "2026-01-27",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-dynamic-belief-updater",
+      "name": "エージェンティック・ダイナミック・ビリーフ・アップデーター",
+      "description": "記事の内容がユーザーの既存知識や予測にどのような影響を与えるかを、確率的な「ビリーフ（確信度）モデル」として可視化し、情報の受容プロセスをエージェントが支援します。",
+      "file": "modules/agentic-dynamic-belief-updater.js",
+      "enabled": false,
+      "required": false,
+      "category": "analytics",
+      "addedDate": "2026-01-28",
       "author": "ai"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-27",
+  "lastUpdated": "2026-01-28",
   "currentDefault": "default",
   "themes": [
     {
@@ -594,6 +594,21 @@
         "text": "#f8fafc"
       },
       "addedDate": "2026-01-27",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-operational-orchestration",
+      "name": "エージェンティック・オペレーショナル・オーケストレーション",
+      "description": "意思決定と実行のプロセスを視覚化した、高度な制御と指揮をイメージしたテーマ。深いブラックを基調に、鋭いミントグリーンとバイオレットのアクセントが情報の動的な流れを強調します。",
+      "file": "themes/agentic-operational-orchestration.css",
+      "preview": {
+        "primary": "#00ffcc",
+        "secondary": "#7c3aed",
+        "background": "#0a0e14",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-01-28",
       "author": "ai",
       "mood": "Agentic"
     }

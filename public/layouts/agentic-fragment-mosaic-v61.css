@@ -1,0 +1,146 @@
+/**
+ * MorphoNews Layout: 神経的断片モザイク・グリッド
+ * Generated: 2026-01-28_0946
+ * Generation: #61
+ * Mood: Agentic
+ * Evolution: 12カラム非対称グリッド + scroll-driven clip-path変形 + @starting-styleによる初期状態制御
+ * Description: 第61世代の進化。前回の「水平軌道」から「垂直方向の断片的再構築」へと転換。12カラムの緻密なサブグリッド・システムを用い、エージェントが情報を解析・断片化し、再び整合性を持って再構成するプロセスを表現しました。Scroll-driven Animationとclip-pathを組み合わせ、スクロール量に応じてカードが不整形（Fragment）から洗練された矩形（Order）へと自己組織化する動的なメタファーを採用。さらに、@starting-styleによるエントリー・アニメーションを試験的に導入しています。
+ */
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: fragment-evolve;
+}
+
+body {
+    overflow-x: hidden;
+    background: var(--morpho-bg-primary);
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    padding: 0 2rem;
+    grid-auto-flow: dense;
+}
+
+.news-card {
+    grid-column: span 12;
+    position: relative;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.5);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.15);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    text-decoration: none;
+    overflow: hidden;
+    
+    /* Scroll-driven Animation Setup */
+    view-timeline: --card-scroll block;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-scroll;
+    animation-range: entry 10% cover 40%;
+}
+
+/* 非対称グリッドの動的定義 */
+@media (min-width: 768px) {
+    .news-card:nth-child(4n+1) { grid-column: span 8; grid-row: span 2; }
+    .news-card:nth-child(4n+2) { grid-column: span 4; grid-row: span 1; }
+    .news-card:nth-child(4n+3) { grid-column: span 4; grid-row: span 1; }
+    .news-card:nth-child(4n+4) { grid-column: span 12; grid-row: span 1; min-height: 200px; }
+}
+
+@keyframes fragment-evolve {
+    from {
+        clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+        transform: translateY(100px) scale(0.9) rotateX(15deg);
+        opacity: 0;
+        filter: saturate(0) blur(10px);
+    }
+    to {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateY(0) scale(1) rotateX(0deg);
+        opacity: 1;
+        filter: saturate(1) blur(0);
+    }
+}
+
+.news-card-content {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    z-index: 2;
+}
+
+.news-card-title {
+    font-size: clamp(1.25rem, 4cqi, 2.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--morpho-text-primary);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.news-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--morpho-accent-primary);
+}
+
+/* 疑似要素による背景のグリッチ・パターン */
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 95%, rgba(var(--morpho-accent-primary-rgb), 0.05) 95%),
+        linear-gradient(transparent 95%, rgba(var(--morpho-accent-primary-rgb), 0.05) 95%);
+    background-size: 20px 20px;
+    z-index: 1;
+    opacity: 0.3;
+}
+
+/* ホバー時の「神経的接続」エフェクト */
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 0 30px rgba(var(--morpho-accent-primary-rgb), 0.1);
+}
+
+.news-card:hover .news-card-title {
+    color: var(--morpho-accent-primary);
+    transform: translateX(10px);
+}
+
+/* コンテナクエリによる内部要素の自律配置 */
+.news-card {
+    container-type: inline-size;
+}
+
+@container (min-width: 600px) {
+    .news-card-content {
+        padding: 3.5rem;
+    }
+    .news-card:nth-child(4n+1) .news-card-title {
+        font-size: 3rem;
+    }
+}
+
+/* スクロールバーのカスタマイズ */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--morpho-accent-primary);
+    border-radius: 10px;
+}

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・オペレーショナル・オーケストレーション
+ * Generated: 2026-01-28_0946
+ * Mood: Agentic
+ * Description: 意思決定と実行のプロセスを視覚化した、高度な制御と指揮をイメージしたテーマ。深いブラックを基調に、鋭いミントグリーンとバイオレットのアクセントが情報の動的な流れを強調します。
+ */
+:root {
+  --morpho-bg-primary: #0a0e14;
+  --morpho-bg-secondary: #141b24;
+  --morpho-bg-card: #1c252f;
+  --morpho-text-primary: #f0f4f8;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #00ffcc;
+  --morpho-accent-secondary: #7c3aed;
+  --morpho-border-color: #2d3748;
+  --morpho-accent-gradient: linear-gradient(135deg, #00ffcc 0%, #7c3aed 100%);
+}

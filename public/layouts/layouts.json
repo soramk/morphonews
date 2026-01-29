@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-28",
+  "lastUpdated": "2026-01-29",
   "layouts": [
     {
       "id": "default",
@@ -349,6 +349,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 61
+    },
+    {
+      "id": "transformation-perspective-cascade-v62",
+      "name": "変換的パースペクティブ・カスケード",
+      "description": "第62世代の進化。前回の「垂直方向の断片化」から、水平軸への「動的な視点移動とパースペクティブ」へと完全に移行しました。scroll-driven animationを用い、カードが画面中央に近づくにつれて3D空間上で回転・直立し、遠ざかるにつれてパースがついて消えていく『シネマティック・シーケンス』を構築。CSSのperspectiveとrotateYを組み合わせ、情報の流れを単なるリストではなく、空間的な体験へと昇華させています。",
+      "file": "transformation-perspective-cascade-v62.css",
+      "preview": {
+        "gridType": "carousel",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Horizontal Scroll-driven Animation + 3D Transform (rotateY) + Container Queries",
+      "addedDate": "2026-01-29",
+      "author": "ai",
+      "mood": "Transformation",
+      "generation": 62
     }
   ]
 }

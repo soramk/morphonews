@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-28",
+  "lastUpdated": "2026-01-29",
   "currentDefault": "default",
   "themes": [
     {
@@ -611,6 +611,21 @@
       "addedDate": "2026-01-28",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "transformative-alchemy",
+      "name": "トランスフォーマティブ・アルケミー",
+      "description": "「変容（Transformation）」をテーマに、深い紫から鮮やかなティール（鴨の羽色）へと移り変わる錬金術的な進化をイメージ。静寂な夜明け前の色調から、生命が躍動し始める瞬間を表現しています。",
+      "file": "themes/transformative-alchemy.css",
+      "preview": {
+        "primary": "#9d50bb",
+        "secondary": "#6eefd7",
+        "background": "#1a122e",
+        "text": "#f0f0f5"
+      },
+      "addedDate": "2026-01-29",
+      "author": "ai",
+      "mood": "Transformation"
     }
   ]
 }

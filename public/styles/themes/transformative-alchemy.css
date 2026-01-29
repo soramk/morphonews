@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: トランスフォーマティブ・アルケミー
+ * Generated: 2026-01-29_0954
+ * Mood: Transformation
+ * Description: 「変容（Transformation）」をテーマに、深い紫から鮮やかなティール（鴨の羽色）へと移り変わる錬金術的な進化をイメージ。静寂な夜明け前の色調から、生命が躍動し始める瞬間を表現しています。
+ */
+:root {
+  --morpho-bg-primary: #1a122e;
+  --morpho-bg-secondary: #261c3d;
+  --morpho-bg-card: #2e244d;
+  --morpho-text-primary: #f0f0f5;
+  --morpho-text-secondary: #b3a9c9;
+  --morpho-accent-primary: #9d50bb;
+  --morpho-accent-secondary: #6eefd7;
+  --morpho-border-color: rgba(110, 239, 215, 0.25);
+  --morpho-accent-gradient: linear-gradient(135deg, #9d50bb 0%, #6eefd7 100%);
+}

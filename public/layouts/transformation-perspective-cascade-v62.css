@@ -1,0 +1,146 @@
+/**
+ * MorphoNews Layout: 変換的パースペクティブ・カスケード
+ * Generated: 2026-01-29_0954
+ * Generation: #62
+ * Mood: Transformation
+ * Evolution: Horizontal Scroll-driven Animation + 3D Transform (rotateY) + Container Queries
+ * Description: 第62世代の進化。前回の「垂直方向の断片化」から、水平軸への「動的な視点移動とパースペクティブ」へと完全に移行しました。scroll-driven animationを用い、カードが画面中央に近づくにつれて3D空間上で回転・直立し、遠ざかるにつれてパースがついて消えていく『シネマティック・シーケンス』を構築。CSSのperspectiveとrotateYを組み合わせ、情報の流れを単なるリストではなく、空間的な体験へと昇華させています。
+ */
+:root {
+    --layout-max-width: 100vw;
+    --layout-news-columns: none;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: column;
+    --layout-animation-style: perspective-pivot;
+}
+
+body {
+    overflow-x: hidden;
+    background: var(--morpho-bg-primary);
+}
+
+/* 水平スクロールコンテナの構築 */
+#news-container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--layout-card-gap);
+    padding: 0 15vw;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    height: 90vh;
+    align-items: center;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    perspective: 2000px;
+    perspective-origin: center;
+}
+
+#news-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.news-card {
+    flex: 0 0 450px;
+    height: 600px;
+    position: relative;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.7);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    text-decoration: none;
+    scroll-snap-align: center;
+    transform-style: preserve-3d;
+    
+    /* Scroll-driven Animation (Inline Axis) */
+    view-timeline: --card-inline inline;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-inline;
+}
+
+@keyframes perspective-pivot {
+    entry 0% {
+        transform: rotateY(45deg) scale(0.8) translateZ(-200px);
+        opacity: 0.3;
+        filter: blur(5px) grayscale(1);
+    }
+    entry 100% {
+        transform: rotateY(0deg) scale(1) translateZ(0);
+        opacity: 1;
+        filter: blur(0) grayscale(0);
+    }
+    exit 0% {
+        transform: rotateY(0deg) scale(1) translateZ(0);
+        opacity: 1;
+        filter: blur(0) grayscale(0);
+    }
+    exit 100% {
+        transform: rotateY(-45deg) scale(0.8) translateZ(-200px);
+        opacity: 0.3;
+        filter: blur(5px) grayscale(1);
+    }
+}
+
+.news-card-content {
+    padding: 3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%);
+    border-radius: 20px;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.news-card:hover .news-card-content {
+    transform: translateZ(50px);
+}
+
+.news-card-title {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--morpho-text-primary);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.news-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--morpho-accent-primary);
+    background: rgba(var(--morpho-bg-primary-rgb), 0.8);
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    border-radius: 50px;
+}
+
+/* 特殊な装飾：背景のグリッドメッシュ */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(var(--morpho-accent-secondary) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    #news-container {
+        padding: 0 5vw;
+        gap: 2rem;
+    }
+    .news-card {
+        flex: 0 0 85vw;
+        height: 70vh;
+    }
+    .news-card-title {
+        font-size: 1.5rem;
+    }
+}

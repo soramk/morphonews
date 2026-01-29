@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-28",
+  "lastUpdated": "2026-01-29",
   "features": [
     {
       "id": "news-renderer",
@@ -440,6 +440,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-01-28",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-transformation-layer-matrix",
+      "name": "エージェント指向・多層変容マトリクス",
+      "description": "閲覧中のコンテンツを「有機的(Organic)」「幾何学的(Geometric)」「流体的(Liquid)」「静止的(Monolith)」の4つの存在形態へと動的に変容させます。ユーザーの心理状態や情報の性質に合わせてインターフェースの物理的構造を再定義します。",
+      "file": "modules/agentic-transformation-layer-matrix.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-29",
       "author": "ai"
     }
   ]

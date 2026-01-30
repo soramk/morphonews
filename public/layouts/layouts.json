@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-29",
+  "lastUpdated": "2026-01-30",
   "layouts": [
     {
       "id": "default",
@@ -365,6 +365,22 @@
       "author": "ai",
       "mood": "Transformation",
       "generation": 62
+    },
+    {
+      "id": "convergence-fractal-shroud-v63",
+      "name": "コンバージェンス・フラクタル・シュラウド",
+      "description": "第63世代の進化。前回の水平方向のパースペクティブから一転し、垂直方向の「情報の重なりと収束（Convergence）」を探求。非対称な12カラムグリッドを採用し、スクロールに連動してカードの形状が動的に修復（Convergence）される視覚体験を構築。CSSのview-timelineとclip-pathを組み合わせ、情報が断片から完全な矩形へと『収束』する様子を表現しています。",
+      "file": "convergence-fractal-shroud-v63.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animations × clip-path morphing × Asymmetric CSS Grid Subgrid",
+      "addedDate": "2026-01-30",
+      "author": "ai",
+      "mood": "Convergence",
+      "generation": 63
     }
   ]
 }

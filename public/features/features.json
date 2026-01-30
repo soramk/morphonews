@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-29",
+  "lastUpdated": "2026-01-30",
   "features": [
     {
       "id": "news-renderer",
@@ -451,6 +451,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-29",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-convergence-synthesizer",
+      "name": "エージェンティック・コンバージェンス・シンセサイザー",
+      "description": "今日のムード『Convergence』を体現し、ページ内に分散したニュースの断片を一つの重力点に引き寄せ、統合された視覚的要約を生成します。散らばった文脈を衝突・融合させることで、情報の深層を浮き彫りにします。",
+      "file": "modules/agentic-convergence-synthesizer.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-30",
       "author": "ai"
     }
   ]

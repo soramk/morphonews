@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: コンバージェント・フォーカス
+ * Generated: 2026-01-30_0954
+ * Mood: Convergence
+ * Description: 多様な情報の奔流が一点に集約される「収束（Convergence）」の瞬間を表現。深いインディゴと鮮やかなティールの対比が、情報の核心への集中力を高めます。
+ */
+:root { --morpho-bg-primary: #0f172a; --morpho-bg-secondary: #1e293b; --morpho-bg-card: #1e293b; --morpho-text-primary: #f8fafc; --morpho-text-secondary: #94a3b8; --morpho-accent-primary: #2dd4bf; --morpho-accent-secondary: #818cf8; --morpho-border-color: #334155; --morpho-accent-gradient: linear-gradient(135deg, #2dd4bf 0%, #818cf8 100%); }

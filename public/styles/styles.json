@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-29",
+  "lastUpdated": "2026-01-30",
   "currentDefault": "default",
   "themes": [
     {
@@ -626,6 +626,21 @@
       "addedDate": "2026-01-29",
       "author": "ai",
       "mood": "Transformation"
+    },
+    {
+      "id": "convergent-focus-point",
+      "name": "コンバージェント・フォーカス",
+      "description": "多様な情報の奔流が一点に集約される「収束（Convergence）」の瞬間を表現。深いインディゴと鮮やかなティールの対比が、情報の核心への集中力を高めます。",
+      "file": "themes/convergent-focus-point.css",
+      "preview": {
+        "primary": "#2dd4bf",
+        "secondary": "#818cf8",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-01-30",
+      "author": "ai",
+      "mood": "Convergence"
     }
   ]
 }

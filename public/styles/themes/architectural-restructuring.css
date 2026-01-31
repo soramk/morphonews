@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: アーキテクチャル・リストラクチャリング
+ * Generated: 2026-01-31_0952
+ * Mood: Restructuring
+ * Description: 「再構築」をテーマにした、鉄骨の力強さと設計図の精密さを併せ持つ配色。規律あるグレーと信頼感のあるブルーを基調に、変化を促すアンバーをアクセントに配置し、システムの刷新と安定した構造を表現しています。
+ */
+:root {
+  --morpho-bg-primary: #1a1c1e;
+  --morpho-bg-secondary: #25282c;
+  --morpho-bg-card: #2d3136;
+  --morpho-text-primary: #f0f2f5;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #3b82f6;
+  --morpho-accent-secondary: #f59e0b;
+  --morpho-border-color: #475569;
+  --morpho-accent-gradient: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-30",
+  "lastUpdated": "2026-01-31",
   "features": [
     {
       "id": "news-renderer",
@@ -462,6 +462,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-30",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-architecture-reflow-engine",
+      "name": "エージェンティック・アーキテクチャ・リフロー・エンジン",
+      "description": "ページの論理構造をリアルタイムで解析し、現在のコンテキストに最適化された階層構造へとDOMを動的に再構成（リストから階層ツリー、または論理的マトリックスへ）します。",
+      "file": "modules/agentic-architecture-reflow-engine.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-01-31",
       "author": "ai"
     }
   ]

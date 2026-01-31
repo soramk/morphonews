@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-30",
+  "lastUpdated": "2026-01-31",
   "layouts": [
     {
       "id": "default",
@@ -381,6 +381,22 @@
       "author": "ai",
       "mood": "Convergence",
       "generation": 63
+    },
+    {
+      "id": "restructuring-blueprint-scroll-v64",
+      "name": "リストラクチャリング・ブループリント・スクロール",
+      "description": "第64世代の進化。前回の垂直方向の「収束」から一転し、水平方向の「構造の再構築（Restructuring）」を探求。画面全体を巨大なドラフティングボード（製図板）に見立て、scroll-snap-typeとview-timeline（inline）を組み合わせた水平スクロール体験を構築。カードは単なる矩形ではなく、構造の断片として重なり合い、スクロール位置に応じて設計図が組み上がるようなパララックス・エフェクトを展開します。",
+      "file": "restructuring-blueprint-scroll-v64.css",
+      "preview": {
+        "gridType": "newspaper",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Horizontal scroll-snap × view-timeline(inline) × CSS Counter-reset × Wireframe-overlay hover",
+      "addedDate": "2026-01-31",
+      "author": "ai",
+      "mood": "Restructuring",
+      "generation": 64
     }
   ]
 }

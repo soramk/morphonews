@@ -1,0 +1,163 @@
+/**
+ * MorphoNews Layout: リストラクチャリング・ブループリント・スクロール
+ * Generated: 2026-01-31_0952
+ * Generation: #64
+ * Mood: Restructuring
+ * Evolution: Horizontal scroll-snap × view-timeline(inline) × CSS Counter-reset × Wireframe-overlay hover
+ * Description: 第64世代の進化。前回の垂直方向の「収束」から一転し、水平方向の「構造の再構築（Restructuring）」を探求。画面全体を巨大なドラフティングボード（製図板）に見立て、scroll-snap-typeとview-timeline（inline）を組み合わせた水平スクロール体験を構築。カードは単なる矩形ではなく、構造の断片として重なり合い、スクロール位置に応じて設計図が組み上がるようなパララックス・エフェクトを展開します。
+ */
+:root {
+    --layout-max-width: 100vw;
+    --layout-news-columns: auto-flow 35vw;
+    --layout-card-gap: 0;
+    --layout-card-direction: row;
+    --layout-animation-style: blueprint-reconstruct;
+}
+
+body {
+    background: var(--morpho-bg-primary);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#news-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--layout-news-columns);
+    height: 100vh;
+    padding: 0 10vw;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    align-items: center;
+    perspective: 2000px;
+    counter-reset: news-count;
+    scrollbar-width: none; /* Firefox */
+}
+
+#news-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.news-card {
+    position: relative;
+    height: 70vh;
+    margin: 0 2rem;
+    padding: 3rem;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.2);
+    border-left: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.3);
+    border-right: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-decoration: none;
+    scroll-snap-align: center;
+    counter-increment: news-count;
+    
+    /* Scroll-driven Animation (Horizontal) */
+    view-timeline-name: --card-horizontal;
+    view-timeline-axis: inline;
+    animation: var(--layout-animation-style) linear both;
+    animation-timeline: --card-horizontal;
+    animation-range: entry 0% exit 100%;
+}
+
+@keyframes blueprint-reconstruct {
+    entry 0% {
+        opacity: 0;
+        transform: rotateY(-45deg) scale(0.8) translateZ(-500px);
+        filter: brightness(0.5) blur(5px);
+    }
+    entry 100% {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1) translateZ(0);
+        filter: brightness(1) blur(0);
+    }
+    exit 0% {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1) translateZ(0);
+    }
+    exit 100% {
+        opacity: 0;
+        transform: rotateY(45deg) scale(0.8) translateZ(-500px);
+        filter: brightness(0.5) blur(5px);
+    }
+}
+
+.news-card::before {
+    content: counter(news-count, decimal-leading-zero);
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-family: var(--morpho-font-mono);
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(var(--morpho-accent-primary-rgb), 0.05);
+    line-height: 1;
+    transition: color 0.4s ease;
+}
+
+.news-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px dashed var(--morpho-accent-primary);
+    opacity: 0;
+    transform: scale(1.05);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+}
+
+.news-card:hover::after {
+    opacity: 0.4;
+    transform: scale(1);
+}
+
+.news-card:hover {
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.5);
+    border-left-color: var(--morpho-accent-primary);
+}
+
+.news-card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--morpho-text-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.news-card-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--morpho-text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.news-card-meta {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    font-family: var(--morpho-font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--morpho-accent-primary);
+}
+
+@media (max-width: 768px) {
+    :root {
+        --layout-news-columns: auto-flow 85vw;
+    }
+    .news-card {
+        height: 60vh;
+        padding: 2rem;
+    }
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-30",
+  "lastUpdated": "2026-01-31",
   "currentDefault": "default",
   "themes": [
     {
@@ -641,6 +641,21 @@
       "addedDate": "2026-01-30",
       "author": "ai",
       "mood": "Convergence"
+    },
+    {
+      "id": "architectural-restructuring",
+      "name": "アーキテクチャル・リストラクチャリング",
+      "description": "「再構築」をテーマにした、鉄骨の力強さと設計図の精密さを併せ持つ配色。規律あるグレーと信頼感のあるブルーを基調に、変化を促すアンバーをアクセントに配置し、システムの刷新と安定した構造を表現しています。",
+      "file": "themes/architectural-restructuring.css",
+      "preview": {
+        "primary": "#3b82f6",
+        "secondary": "#f59e0b",
+        "background": "#1a1c1e",
+        "text": "#f0f2f5"
+      },
+      "addedDate": "2026-01-31",
+      "author": "ai",
+      "mood": "Restructuring"
     }
   ]
 }

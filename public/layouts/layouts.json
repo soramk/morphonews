@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-31",
+  "lastUpdated": "2026-02-01",
   "layouts": [
     {
       "id": "default",
@@ -397,6 +397,22 @@
       "author": "ai",
       "mood": "Restructuring",
       "generation": 64
+    },
+    {
+      "id": "kinetic-acceleration-vortex-v65",
+      "name": "キネティック・アクセラレーション・ヴォルテクス",
+      "description": "第65世代の進化。前回の水平方向の静的な構造化（Restructuring）から、今日のムードである「加速（Acceleration）」を体現する垂直・深度レイアウトへ転換。Scroll-driven animationsを活用し、スクロールに応じて各ニュースカードが深淵から手前へと超高速で「ワープ」してくるような擬似3Dグリッドを構築しました。CSSのlinear()関数による精密な加速イージングと、不規則なグリッド配置が情報の波を創出します。",
+      "file": "kinetic-acceleration-vortex-v65.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven perspective warp + CSS linear() easing + Dynamic grid-area mapping + Variable blur-depth interaction",
+      "addedDate": "2026-02-01",
+      "author": "ai",
+      "mood": "Acceleration",
+      "generation": 65
     }
   ]
 }

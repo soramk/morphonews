@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-31",
+  "lastUpdated": "2026-02-01",
   "features": [
     {
       "id": "news-renderer",
@@ -473,6 +473,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-01-31",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-acceleration-warp-vortex",
+      "name": "エージェンティック・アクセラレーション・ワープ",
+      "description": "ユーザーの操作速度（スクロールやカーソル移動）に連動して、情報の断片を3D空間上の視覚的粒子として放射・加速させることで、高速ブラウジング時の認知負荷を興奮と効率に変えるインターフェース。",
+      "file": "modules/agentic-acceleration-warp-vortex.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-01",
       "author": "ai"
     }
   ]

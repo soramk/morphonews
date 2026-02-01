@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-31",
+  "lastUpdated": "2026-02-01",
   "currentDefault": "default",
   "themes": [
     {
@@ -656,6 +656,21 @@
       "addedDate": "2026-01-31",
       "author": "ai",
       "mood": "Restructuring"
+    },
+    {
+      "id": "acceleration-kinetic-vector",
+      "name": "アクセラレーション・キネティック・ベクター",
+      "description": "「加速」をテーマにした、速度感とエネルギーに満ちた高コントラストなテーマ。漆黒の空間を切り裂く電光のようなブルーと、残像を残すパープルが情報の躍動感を演出します。",
+      "file": "themes/acceleration-kinetic-vector.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#7b2cff",
+        "background": "#0a0c10",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-02-01",
+      "author": "ai",
+      "mood": "Acceleration"
     }
   ]
 }

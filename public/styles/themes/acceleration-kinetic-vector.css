@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: アクセラレーション・キネティック・ベクター
+ * Generated: 2026-02-01_1004
+ * Mood: Acceleration
+ * Description: 「加速」をテーマにした、速度感とエネルギーに満ちた高コントラストなテーマ。漆黒の空間を切り裂く電光のようなブルーと、残像を残すパープルが情報の躍動感を演出します。
+ */
+:root {
+  --morpho-bg-primary: #0a0c10;
+  --morpho-bg-secondary: #14181f;
+  --morpho-bg-card: #1a1e26;
+  --morpho-text-primary: #f0f4f8;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #00f2ff;
+  --morpho-accent-secondary: #7b2cff;
+  --morpho-border-color: #2d3748;
+  --morpho-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #7b2cff 100%);
+}

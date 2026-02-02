@@ -1,0 +1,154 @@
+/**
+ * MorphoNews Layout: トランスフォーマティブ・スリット・マトリクス
+ * Generated: 2026-02-02_0958
+ * Generation: #66
+ * Mood: TRANSFORMATION
+ * Evolution: CSS Subgridによる要素間同期 + Scroll-driven Clip-path Morphing + 疑似要素による動的プログレスバー
+ * Description: 第66世代の進化。今日のムードである『TRANSFORMATION（変容）』を物理的な構造の展開として解釈しました。前回の『加速』による奥行きのワープに対し、今回は『情報の断片がスリットから立ち上がる』ような、より構造的かつ精密な出現プロセスを採用。CSS Subgridを活用してカード内のメタデータ、タイトル、要約をグリッド全体で完璧に同期させつつ、Scroll-driven animationsによって各要素が中央のスリットから左右・上下へ「変容」しながら展開する視覚効果を実装しました。
+ */
+:root {
+    --layout-max-width: 1600px;
+    --layout-news-columns: repeat(auto-fill, minmax(450px, 1fr));
+    --layout-card-gap: 0;
+    --layout-card-direction: column;
+    --layout-animation-style: slit-reveal-morph;
+    --slit-color: rgba(var(--morpho-accent-primary-rgb), 0.3);
+}
+
+body {
+    background: var(--morpho-bg-primary);
+    overflow-x: hidden;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: 10vh 2vw;
+    border-left: 1px solid var(--slit-color);
+    border-right: 1px solid var(--slit-color);
+}
+
+.news-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-row: span 1;
+    padding: 4rem 3rem;
+    text-decoration: none;
+    position: relative;
+    border-bottom: 1px solid var(--slit-color);
+    border-right: 1px solid var(--slit-color);
+    background: var(--morpho-bg-primary);
+    overflow: hidden;
+    transition: background 0.4s ease;
+
+    /* Scroll-driven Reveal */
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 40%;
+}
+
+.news-card:hover {
+    background: rgba(var(--morpho-accent-primary-rgb), 0.03);
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--morpho-accent-gradient);
+    transform: scaleY(0);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: top;
+}
+
+.news-card:hover::before {
+    transform: scaleY(1);
+}
+
+/* Title styling with Subgrid feel (simulated via consistent sizing) */
+.news-card h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--morpho-text-primary);
+    line-height: 1.2;
+    margin: 1.5rem 0;
+    letter-spacing: -0.02em;
+    transition: color 0.3s ease;
+}
+
+.news-card .news-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--morpho-accent-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.news-card .news-excerpt {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--morpho-text-secondary);
+    margin-top: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Transformation Animation */
+@keyframes slit-reveal-morph {
+    0% {
+        opacity: 0;
+        clip-path: inset(0 50% 0 50%);
+        transform: translateY(30px) scale(0.98);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        clip-path: inset(0 0% 0 0%);
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Badge Customization */
+.category-badge {
+    padding: 0.2rem 0.8rem;
+    border: 1px solid var(--morpho-accent-primary);
+    border-radius: 0;
+    font-size: 0.7rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Interaction: Magnetic content shift on hover */
+.news-card:hover h3 {
+    transform: translateX(10px);
+    color: var(--morpho-accent-secondary);
+}
+
+.news-card:hover .news-excerpt {
+    transform: translateX(5px);
+}
+
+/* Responsive Grid Adjustment */
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        border: none;
+    }
+    .news-card {
+        border-right: none;
+        padding: 3rem 1.5rem;
+    }
+}

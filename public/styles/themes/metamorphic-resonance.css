@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: メタモルフィック・レゾナンス（変容の共鳴）
+ * Generated: 2026-02-02_0958
+ * Mood: TRANSFORMATION
+ * Description: 蛹（さなぎ）から羽化へと至る劇的な変容をイメージしたテーマ。深いインディゴの背景は静かな変革の土壌を、マゼンタとシアンの対比は進化のエネルギーを表現しています。
+ */
+:root {
+    --morpho-bg-primary: #0f0c29;
+    --morpho-bg-secondary: #1b1642;
+    --morpho-bg-card: rgba(36, 29, 91, 0.8);
+    --morpho-text-primary: #f0f4f8;
+    --morpho-text-secondary: #b8c2cc;
+    --morpho-accent-primary: #ff00cc;
+    --morpho-accent-secondary: #33ccff;
+    --morpho-border-color: #3d3580;
+    --morpho-accent-gradient: linear-gradient(135deg, #ff00cc 0%, #33ccff 100%);
+}

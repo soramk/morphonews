@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-01",
+  "lastUpdated": "2026-02-02",
   "currentDefault": "default",
   "themes": [
     {
@@ -671,6 +671,21 @@
       "addedDate": "2026-02-01",
       "author": "ai",
       "mood": "Acceleration"
+    },
+    {
+      "id": "metamorphic-resonance",
+      "name": "メタモルフィック・レゾナンス（変容の共鳴）",
+      "description": "蛹（さなぎ）から羽化へと至る劇的な変容をイメージしたテーマ。深いインディゴの背景は静かな変革の土壌を、マゼンタとシアンの対比は進化のエネルギーを表現しています。",
+      "file": "themes/metamorphic-resonance.css",
+      "preview": {
+        "primary": "#ff00cc",
+        "secondary": "#33ccff",
+        "background": "#0f0c29",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-02-02",
+      "author": "ai",
+      "mood": "TRANSFORMATION"
     }
   ]
 }

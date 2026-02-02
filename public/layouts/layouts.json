@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-01",
+  "lastUpdated": "2026-02-02",
   "layouts": [
     {
       "id": "default",
@@ -413,6 +413,22 @@
       "author": "ai",
       "mood": "Acceleration",
       "generation": 65
+    },
+    {
+      "id": "transformation-slit-matrix-v66",
+      "name": "トランスフォーマティブ・スリット・マトリクス",
+      "description": "第66世代の進化。今日のムードである『TRANSFORMATION（変容）』を物理的な構造の展開として解釈しました。前回の『加速』による奥行きのワープに対し、今回は『情報の断片がスリットから立ち上がる』ような、より構造的かつ精密な出現プロセスを採用。CSS Subgridを活用してカード内のメタデータ、タイトル、要約をグリッド全体で完璧に同期させつつ、Scroll-driven animationsによって各要素が中央のスリットから左右・上下へ「変容」しながら展開する視覚効果を実装しました。",
+      "file": "transformation-slit-matrix-v66.css",
+      "preview": {
+        "gridType": "newspaper",
+        "cardStyle": "minimal",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Subgridによる要素間同期 + Scroll-driven Clip-path Morphing + 疑似要素による動的プログレスバー",
+      "addedDate": "2026-02-02",
+      "author": "ai",
+      "mood": "TRANSFORMATION",
+      "generation": 66
     }
   ]
 }

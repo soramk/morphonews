@@ -1,0 +1,162 @@
+/**
+ * MorphoNews Layout: レイヤード・コンバージェンス・デプス
+ * Generated: 2026-02-03_0959
+ * Generation: #67
+ * Mood: Convergence
+ * Evolution: CSS Scroll-driven Animations + 3D Perspective Transforms + Backface-visibility control + Backdrop-filter dynamics
+ * Description: 第67世代の進化。今日のムード『Convergence（収束）』を、情報の断片が奥から手前へと3D空間上で収束していく「層の重なり」として定義しました。前回の『スリットによる断片的な出現』に対し、今回は『空間的な奥行きからの統合』をテーマに、Scroll-driven Animationsを用いた高度な3Dパースペクティブ制御を実装。各カードはスクロールに応じてZ軸方向に移動しながら、ぼかし（Blur）と透明度が変化し、中央のフォーカスエリアで最も鮮明に「収束」します。また、mix-blend-modeを活用し、カードが重なり合う瞬間に色彩が干渉し合う視覚的エフェクトを採用しました。
+ */
+:root {
+    --layout-max-width: 1000px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: -10vh;
+    --layout-card-direction: column;
+    --layout-animation-style: convergence-focus;
+    --depth-perspective: 1200px;
+}
+
+body {
+    background: var(--morpho-bg-primary);
+    perspective: var(--depth-perspective);
+    overflow-x: hidden;
+}
+
+#news-container {
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: 40vh 2vw;
+    transform-style: preserve-3d;
+}
+
+.news-card {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-areas: "meta content";
+    gap: 2rem;
+    padding: 3rem;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    border-radius: 4px;
+    text-decoration: none;
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    
+    /* Scroll-driven Convergence Effect */
+    view-timeline-name: --card-scroll;
+    view-timeline-axis: block;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-scroll;
+    animation-range: entry 0% cover 60%;
+    
+    transform-style: preserve-3d;
+    will-change: transform, opacity, filter;
+    mix-blend-mode: screen;
+}
+
+.news-card:nth-child(even) {
+    align-self: flex-end;
+    width: 85%;
+}
+
+.news-card:nth-child(odd) {
+    align-self: flex-start;
+    width: 85%;
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    mix-blend-mode: normal;
+}
+
+.news-meta {
+    grid-area: meta;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--morpho-accent-primary);
+    border-right: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.3);
+    padding-right: 1rem;
+}
+
+.news-card-content {
+    grid-area: content;
+}
+
+.news-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--morpho-text-primary);
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+.news-excerpt {
+    font-size: 1.1rem;
+    color: var(--morpho-text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+/* Convergence Animation Keyframes */
+@keyframes convergence-focus {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: translateZ(-800px) translateY(100px) rotateX(20deg);
+    }
+    40% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateZ(0) translateY(0) rotateX(0deg);
+    }
+    100% {
+        opacity: 0.3;
+        filter: blur(4px);
+        transform: translateZ(200px) translateY(-100px) rotateX(-10deg);
+    }
+}
+
+/* Numbers as Background Elements */
+.news-card::after {
+    content: attr(data-index);
+    position: absolute;
+    top: -2rem;
+    right: 2rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(var(--morpho-accent-primary-rgb), 0.05);
+    pointer-events: none;
+    z-index: -1;
+}
+
+@media (max-width: 768px) {
+    .news-card {
+        grid-template-columns: 1fr;
+        grid-template-areas: "meta" "content";
+        width: 100% !important;
+        padding: 2rem;
+    }
+    .news-meta {
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.3);
+        padding-right: 0;
+        padding-bottom: 0.5rem;
+        gap: 1rem;
+    }
+    .news-card h3 {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+    }
+}

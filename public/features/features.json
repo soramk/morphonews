@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-02",
+  "lastUpdated": "2026-02-03",
   "features": [
     {
       "id": "news-renderer",
@@ -495,6 +495,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-02",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-structural-merger-nucleus",
+      "name": "エージェンティック・ストラクチャル・マージャー・ニュークリアス",
+      "description": "ページ内の分散したニュース要素を物理的に中央の一点（核）へと収束させ、情報の断片を統合的な「要約カード」として再構成する、収束（Convergence）を象徴する機能です。",
+      "file": "modules/agentic-structural-merger-nucleus.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-03",
       "author": "ai"
     }
   ]

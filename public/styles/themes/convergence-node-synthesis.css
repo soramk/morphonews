@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: コンバージェンス・ノード
+ * Generated: 2026-02-03_0959
+ * Mood: Convergence
+ * Description: あらゆる情報が中心へと収束し、新たな価値へと昇華される瞬間をイメージ。深いスレートブルーと鋭いティールのアクセントが、思考の純度を高める知的で静謐な空間を構築します。
+ */
+:root {
+  --morpho-bg-primary: #0f172a;
+  --morpho-bg-secondary: #020617;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #cbd5e1;
+  --morpho-accent-primary: #2dd4bf;
+  --morpho-accent-secondary: #818cf8;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(225deg, #2dd4bf 0%, #818cf8 100%);
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-02",
+  "lastUpdated": "2026-02-03",
   "currentDefault": "default",
   "themes": [
     {
@@ -686,6 +686,21 @@
       "addedDate": "2026-02-02",
       "author": "ai",
       "mood": "TRANSFORMATION"
+    },
+    {
+      "id": "convergence-node-synthesis",
+      "name": "コンバージェンス・ノード",
+      "description": "あらゆる情報が中心へと収束し、新たな価値へと昇華される瞬間をイメージ。深いスレートブルーと鋭いティールのアクセントが、思考の純度を高める知的で静謐な空間を構築します。",
+      "file": "themes/convergence-node-synthesis.css",
+      "preview": {
+        "primary": "#2dd4bf",
+        "secondary": "#818cf8",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-02-03",
+      "author": "ai",
+      "mood": "Convergence"
     }
   ]
 }

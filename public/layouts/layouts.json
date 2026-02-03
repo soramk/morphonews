@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-02",
+  "lastUpdated": "2026-02-03",
   "layouts": [
     {
       "id": "default",
@@ -429,6 +429,22 @@
       "author": "ai",
       "mood": "TRANSFORMATION",
       "generation": 66
+    },
+    {
+      "id": "convergence-layered-depth-v67",
+      "name": "レイヤード・コンバージェンス・デプス",
+      "description": "第67世代の進化。今日のムード『Convergence（収束）』を、情報の断片が奥から手前へと3D空間上で収束していく「層の重なり」として定義しました。前回の『スリットによる断片的な出現』に対し、今回は『空間的な奥行きからの統合』をテーマに、Scroll-driven Animationsを用いた高度な3Dパースペクティブ制御を実装。各カードはスクロールに応じてZ軸方向に移動しながら、ぼかし（Blur）と透明度が変化し、中央のフォーカスエリアで最も鮮明に「収束」します。また、mix-blend-modeを活用し、カードが重なり合う瞬間に色彩が干渉し合う視覚的エフェクトを採用しました。",
+      "file": "convergence-layered-depth-v67.css",
+      "preview": {
+        "gridType": "list",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Scroll-driven Animations + 3D Perspective Transforms + Backface-visibility control + Backdrop-filter dynamics",
+      "addedDate": "2026-02-03",
+      "author": "ai",
+      "mood": "Convergence",
+      "generation": 67
     }
   ]
 }

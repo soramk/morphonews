@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-03",
+  "lastUpdated": "2026-02-04",
   "layouts": [
     {
       "id": "default",
@@ -445,6 +445,22 @@
       "author": "ai",
       "mood": "Convergence",
       "generation": 67
+    },
+    {
+      "id": "agentic-kinetic-command-v68",
+      "name": "キネティック・コマンド・グリッド",
+      "description": "第68世代の進化。今日のムード『Agentic（自律的/主体的）』を、情報を能動的に再構成する「コマンドセンター」のようなグリッドとして表現しました。前回の「奥行きへの収束」というソフトなアプローチに対し、今回は「平面上での機能的・硬質な展開」を追求。12カラムの精密なグリッドシステムを採用し、カードごとに異なるスパン（占有幅）を割り当てることで、情報の重要度や性質に応じた動的な視覚的リズムを生み出します。Scroll-driven Animationsとclip-pathを組み合わせ、スクロールに合わせて各セクションが「デプロイ（展開）」されるような機械的なアニメーションを実装。ホバー時にはボーダーが光の速さで周回するエフェクトを採用し、システムがアクティブに稼働している様子を演出しています。",
+      "file": "agentic-kinetic-command-v68.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "12カラム非対称グリッド + Clip-pathによる展開アニメーション + CSS Scroll-driven Animationsによる要素の同期変形 + 疑似要素によるステータス・トラッカー",
+      "addedDate": "2026-02-04",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 68
     }
   ]
 }

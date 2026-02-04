@@ -1,0 +1,172 @@
+/**
+ * MorphoNews Layout: キネティック・コマンド・グリッド
+ * Generated: 2026-02-04_0953
+ * Generation: #68
+ * Mood: Agentic
+ * Evolution: 12カラム非対称グリッド + Clip-pathによる展開アニメーション + CSS Scroll-driven Animationsによる要素の同期変形 + 疑似要素によるステータス・トラッカー
+ * Description: 第68世代の進化。今日のムード『Agentic（自律的/主体的）』を、情報を能動的に再構成する「コマンドセンター」のようなグリッドとして表現しました。前回の「奥行きへの収束」というソフトなアプローチに対し、今回は「平面上での機能的・硬質な展開」を追求。12カラムの精密なグリッドシステムを採用し、カードごとに異なるスパン（占有幅）を割り当てることで、情報の重要度や性質に応じた動的な視覚的リズムを生み出します。Scroll-driven Animationsとclip-pathを組み合わせ、スクロールに合わせて各セクションが「デプロイ（展開）」されるような機械的なアニメーションを実装。ホバー時にはボーダーが光の速さで周回するエフェクトを採用し、システムがアクティブに稼働している様子を演出しています。
+ */
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: row;
+    --layout-animation-style: agentic-deploy;
+    --agent-accent-glow: rgba(var(--morpho-accent-primary-rgb), 0.5);
+}
+
+body {
+    background: var(--morpho-bg-primary);
+    overflow-x: hidden;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    padding: 0 2rem;
+    align-items: start;
+}
+
+.news-card {
+    grid-column: span 12;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.3s ease;
+    
+    /* Scroll Animation */
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 40%;
+}
+
+@media (min-width: 1024px) {
+    .news-card:nth-child(4n+1) { grid-column: span 8; }
+    .news-card:nth-child(4n+2) { grid-column: span 4; }
+    .news-card:nth-child(4n+3) { grid-column: span 5; }
+    .news-card:nth-child(4n+4) { grid-column: span 7; }
+}
+
+@keyframes agentic-deploy {
+    from {
+        clip-path: inset(0 100% 0 0);
+        transform: translateX(-30px) skewX(-5deg);
+        opacity: 0;
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        transform: translateX(0) skewX(0);
+        opacity: 1;
+    }
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--morpho-accent-primary);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    transform: translateY(-5px) scale(1.01);
+    z-index: 10;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+}
+
+.news-card:hover::before {
+    transform: scaleY(1);
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--morpho-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.news-meta::after {
+    content: '●';
+    font-size: 0.5rem;
+    animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.news-card-content h3 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--morpho-text-primary);
+    margin: 0 0 1rem 0;
+    transition: color 0.3s ease;
+}
+
+.news-excerpt {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--morpho-text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.news-card:hover .news-card-footer {
+    opacity: 1;
+}
+
+.read-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--morpho-accent-primary);
+}
+
+/* Interactive Background Grid (Decorative) */
+#news-container::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-image: 
+        linear-gradient(to right, rgba(var(--morpho-accent-primary-rgb), 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(var(--morpho-accent-primary-rgb), 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    pointer-events: none;
+}

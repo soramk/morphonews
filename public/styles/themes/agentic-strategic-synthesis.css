@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・ストラテジック・シンセシス
+ * Generated: 2026-02-04_0953
+ * Mood: Agentic
+ * Description: 能動的な意思決定と戦略的思考を促進する、高コントラストなダークテーマ。情報の優位性と実行力を表現しています。
+ */
+:root {
+  --morpho-bg-primary: #0F172A;
+  --morpho-bg-secondary: #1E293B;
+  --morpho-bg-card: #1E293B;
+  --morpho-text-primary: #F8FAFC;
+  --morpho-text-secondary: #94A3B8;
+  --morpho-accent-primary: #FACC15;
+  --morpho-accent-secondary: #22D3EE;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #FACC15 0%, #22D3EE 100%);
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-03",
+  "lastUpdated": "2026-02-04",
   "features": [
     {
       "id": "news-renderer",
@@ -506,6 +506,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-03",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-narrative-scaffold-builder",
+      "name": "エージェンティック・ナラティブ・スカフォールド・ビルダー",
+      "description": "読者の現在の視点と次に読むべき情報の間に動的な「物語の足場（スカフォールド）」を構築します。視線やスクロールの動きから関心の遷移を予測し、文脈を繋ぐキーワードを空間上に浮遊させ、情報の断片を一つの連続した物語へと再構成します。",
+      "file": "modules/agentic-narrative-scaffold-builder.js",
+      "enabled": false,
+      "required": false,
+      "category": "navigation",
+      "addedDate": "2026-02-04",
       "author": "ai"
     }
   ]

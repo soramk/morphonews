@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-04",
+  "lastUpdated": "2026-02-05",
   "currentDefault": "default",
   "themes": [
     {
@@ -714,6 +714,21 @@
         "text": "#F8FAFC"
       },
       "addedDate": "2026-02-04",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-resolute-vision",
+      "name": "エージェンティック・レゾリュート・ビジョン",
+      "description": "意志決定の迅速さと実行力を象徴する、高コントラストでプロフェッショナルなダークテーマ。深いグラファイトを基調に、鋭いティールとインディゴのアクセントが目的意識と確実性を強調します。",
+      "file": "themes/agentic-resolute-vision.css",
+      "preview": {
+        "primary": "#2dd4bf",
+        "secondary": "#6366f1",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-02-05",
       "author": "ai",
       "mood": "Agentic"
     }

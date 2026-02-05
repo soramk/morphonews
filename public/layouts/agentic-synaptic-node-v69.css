@@ -1,0 +1,181 @@
+/**
+ * MorphoNews Layout: シナプティック・ノード・スタック
+ * Generated: 2026-02-05_0957
+ * Generation: #69
+ * Mood: Agentic
+ * Evolution: perspective 3Dスタック + Scroll-driven Animationsによる角度補正 + 擬似要素接続ライン
+ * Description: 第69世代の進化。前回の『硬質なコマンドセンター』という平面的な情報の集積に対し、今回は『自律的な情報の結合（シナプス）』をテーマに、3D空間における奥行きと接続性を表現しました。CSSのperspectiveとtransform-style: preserve-3dを駆使し、スクロールに合わせて情報が次元を超えて浮上・整列する体験を構築。Scroll-driven Animationsにより、画面外から現れる際に斜め45度の角度から水平へと『収束』する動きを実装しました。各カードは擬似要素による『コネクション・パス』を持ち、情報同士が神経系のように繋がっている視覚的メタファーを提供します。
+ */
+/**
+ * MorphoNews Layout: シナプティック・ノード・スタック
+ * Generation: #69
+ * Mood: Agentic (Autonomous Connection)
+ * Evolution: 3D空間における情報の浮上と結合。平面的なグリッドから、奥行きを持ったスタック構造への転換。
+ */
+
+:root {
+    --layout-max-width: 1100px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: 6rem;
+    --layout-card-direction: column;
+    --layout-animation-style: synaptic-entry;
+    --node-connection-color: rgba(var(--morpho-accent-primary-rgb), 0.2);
+}
+
+#news-container {
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 8rem auto;
+    padding: 0 2rem;
+    perspective: 2000px;
+    position: relative;
+}
+
+/* 背景のグリッドスキャンライン */
+#news-container::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+        linear-gradient(90deg, var(--node-connection-color) 1px, transparent 1px),
+        linear-gradient(var(--node-connection-color) 1px, transparent 1px);
+    background-size: 100px 100px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.news-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    padding: 3rem;
+    text-decoration: none;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 
+        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+        box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.4s ease;
+
+    /* Scroll-driven Animation */
+    view-timeline-name: --node-reveal;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --node-reveal;
+    animation-range: entry 0% cover 40%;
+}
+
+@keyframes synaptic-entry {
+    from {
+        opacity: 0;
+        transform: translateZ(-500px) rotateX(45deg) translateY(100px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0) rotateX(0) translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* 接続線の演出 */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: -6rem;
+    left: 10%;
+    width: 2px;
+    height: 6rem;
+    background: linear-gradient(to bottom, transparent, var(--morpho-accent-primary));
+    opacity: 0.5;
+}
+
+.news-card:first-child::after {
+    display: none;
+}
+
+.news-card:hover {
+    transform: translateZ(50px) scale(1.02);
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(var(--morpho-accent-primary-rgb), 0.2);
+    z-index: 10;
+}
+
+.news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--node-connection-color);
+    padding-bottom: 1rem;
+}
+
+.news-card .category-badge {
+    background: var(--morpho-accent-gradient);
+    color: white;
+    padding: 0.2rem 1rem;
+    font-size: 0.7rem;
+    font-family: 'Fira Code', monospace;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.news-card h3 {
+    font-size: 2rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    color: var(--morpho-text-primary);
+    transition: color 0.3s ease;
+}
+
+.news-card:hover h3 {
+    color: var(--morpho-accent-primary);
+}
+
+.news-card p {
+    color: var(--morpho-text-secondary);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.news-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--morpho-accent-primary);
+}
+
+/* モバイル対応：3D効果を弱める */
+@media (max-width: 768px) {
+    :root {
+        --layout-card-gap: 3rem;
+    }
+    
+    #news-container {
+        perspective: none;
+    }
+
+    .news-card {
+        padding: 1.5rem;
+    }
+    
+    .news-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .news-card::after {
+        left: 50%;
+        height: 3rem;
+        top: -3rem;
+    }
+}

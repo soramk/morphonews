@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-04",
+  "lastUpdated": "2026-02-05",
   "layouts": [
     {
       "id": "default",
@@ -461,6 +461,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 68
+    },
+    {
+      "id": "agentic-synaptic-node-v69",
+      "name": "シナプティック・ノード・スタック",
+      "description": "第69世代の進化。前回の『硬質なコマンドセンター』という平面的な情報の集積に対し、今回は『自律的な情報の結合（シナプス）』をテーマに、3D空間における奥行きと接続性を表現しました。CSSのperspectiveとtransform-style: preserve-3dを駆使し、スクロールに合わせて情報が次元を超えて浮上・整列する体験を構築。Scroll-driven Animationsにより、画面外から現れる際に斜め45度の角度から水平へと『収束』する動きを実装しました。各カードは擬似要素による『コネクション・パス』を持ち、情報同士が神経系のように繋がっている視覚的メタファーを提供します。",
+      "file": "agentic-synaptic-node-v69.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "perspective 3Dスタック + Scroll-driven Animationsによる角度補正 + 擬似要素接続ライン",
+      "addedDate": "2026-02-05",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 69
     }
   ]
 }

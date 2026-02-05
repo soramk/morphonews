@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-04",
+  "lastUpdated": "2026-02-05",
   "features": [
     {
       "id": "news-renderer",
@@ -517,6 +517,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-02-04",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-scenario-projection-engine",
+      "name": "エージェンティック・シナリオ投影エンジン",
+      "description": "閲覧中のニュース内容を分析し、その背後にある力学的要因から導き出される「3つの蓋然的未来（楽観・変動・安定）」を動的にシミュレートし、視覚的なオーバーレイとして提示します。",
+      "file": "modules/agentic-scenario-projection-engine.js",
+      "enabled": false,
+      "required": false,
+      "category": "analytics",
+      "addedDate": "2026-02-05",
       "author": "ai"
     }
   ]

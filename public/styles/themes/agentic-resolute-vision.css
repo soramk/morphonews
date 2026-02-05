@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・レゾリュート・ビジョン
+ * Generated: 2026-02-05_0957
+ * Mood: Agentic
+ * Description: 意志決定の迅速さと実行力を象徴する、高コントラストでプロフェッショナルなダークテーマ。深いグラファイトを基調に、鋭いティールとインディゴのアクセントが目的意識と確実性を強調します。
+ */
+:root {
+    --morpho-bg-primary: #0f172a;
+    --morpho-bg-secondary: #1e293b;
+    --morpho-bg-card: #111827;
+    --morpho-text-primary: #f8fafc;
+    --morpho-text-secondary: #94a3b8;
+    --morpho-accent-primary: #2dd4bf;
+    --morpho-accent-secondary: #6366f1;
+    --morpho-border-color: #334155;
+    --morpho-accent-gradient: linear-gradient(135deg, #2dd4bf 0%, #6366f1 100%);
+}

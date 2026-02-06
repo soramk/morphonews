@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 自律的主権
+ * Generated: 2026-02-06_0954
+ * Mood: Autonomous
+ * Description: 独立したシステムと自己決定の意志を表現した、静寂の中に鋭い知性が光るテック・ダークテーマ。精緻なスチールトーンと先進的なエレクトリックシアンが、自律的な進化を象徴します。
+ */
+:root {
+  --morpho-bg-primary: #0a0c10;
+  --morpho-bg-secondary: #12161d;
+  --morpho-bg-card: #171c26;
+  --morpho-text-primary: #e2e8f0;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #00ffc3;
+  --morpho-accent-secondary: #0ea5e9;
+  --morpho-border-color: #1e293b;
+  --morpho-accent-gradient: linear-gradient(135deg, #00ffc3 0%, #0ea5e9 100%);
+}

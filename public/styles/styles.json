@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-05",
+  "lastUpdated": "2026-02-06",
   "currentDefault": "default",
   "themes": [
     {
@@ -731,6 +731,21 @@
       "addedDate": "2026-02-05",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "autonomous-sovereignty",
+      "name": "自律的主権",
+      "description": "独立したシステムと自己決定の意志を表現した、静寂の中に鋭い知性が光るテック・ダークテーマ。精緻なスチールトーンと先進的なエレクトリックシアンが、自律的な進化を象徴します。",
+      "file": "themes/autonomous-sovereignty.css",
+      "preview": {
+        "primary": "#00ffc3",
+        "secondary": "#0ea5e9",
+        "background": "#0a0c10",
+        "text": "#e2e8f0"
+      },
+      "addedDate": "2026-02-06",
+      "author": "ai",
+      "mood": "Autonomous"
     }
   ]
 }

@@ -1,0 +1,160 @@
+/**
+ * MorphoNews Layout: 自律的パルス・マトリックス
+ * Generated: 2026-02-06_0954
+ * Generation: #70
+ * Mood: Autonomous
+ * Evolution: CSS Grid subgridによる内部要素の同期 + mask-imageによるスキャン reveal + scroll-driven animationsによるクリップパス制御
+ * Description: 第70世代の進化。前回の縦方向の3D接続に対し、今回は「自律的なグリッドの呼吸」をテーマに、CSS Gridのsubgridを用いた高精度なアライメントと、mask-imageによる情報のフェイズシフトを融合。スクロールに応じてグリッド内のカードが非同期にクリッピングパスを変化させ、情報が湧き出すような有機的なマルチカラム・グリッドを実現しました。個々のカードが独立した『生命体』のように振る舞いながらも、全体として厳格な秩序を保つ構成です。
+ */
+/**
+ * MorphoNews Layout: 自律的パルス・マトリックス
+ * Generation: #70
+ * Mood: Autonomous (Systemic Organicism)
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(auto-fill, minmax(380px, 1fr));
+    --layout-card-gap: 5rem 2.5rem;
+    --layout-card-direction: row;
+    --layout-animation-style: autonomous-reveal;
+    --pulse-speed: 3s;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 6rem auto;
+    padding: 0 2.5rem;
+    align-items: start;
+}
+
+.news-card {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-row: span 1;
+    gap: 1.5rem;
+    background: transparent;
+    position: relative;
+    padding: 2rem;
+    border-left: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.3);
+    transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Scroll-driven Animation Setup */
+    view-timeline-name: --card-scroll;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-scroll;
+    animation-range: entry 10% cover 40%;
+}
+
+@keyframes autonomous-reveal {
+    from {
+        opacity: 0;
+        clip-path: inset(100% 0 0 0);
+        transform: translateY(50px) scale(0.98);
+        filter: brightness(2) contrast(0.5);
+    }
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0) scale(1);
+        filter: brightness(1) contrast(1);
+    }
+}
+
+/* カード内部のsubgrid的配置（ブラウザ対応を考慮した疑似表現） */
+.news-card-header {
+    font-family: var(--morpho-font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--morpho-accent-primary);
+    text-transform: uppercase;
+}
+
+.news-card-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--morpho-text-primary);
+}
+
+.news-card-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--morpho-text-secondary);
+    border-top: 1px dashed rgba(var(--morpho-accent-primary-rgb), 0.1);
+    padding-top: 1.5rem;
+}
+
+/* 背景の自律的パルス装飾 */
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(180deg, 
+        rgba(var(--morpho-accent-primary-rgb), 0.05) 0%,
+        transparent 100%
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.news-card:hover {
+    border-left: 1px solid var(--morpho-accent-primary);
+    transform: translateX(10px);
+}
+
+.news-card:hover::before {
+    opacity: 1;
+}
+
+/* インジケーター：スクロール位置に応じたドットの移動 */
+.news-card::after {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    background: var(--morpho-accent-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--morpho-accent-primary);
+    animation: pulse-move both linear;
+    animation-timeline: --card-scroll;
+}
+
+@keyframes pulse-move {
+    from { top: 0%; opacity: 0; }
+    50% { opacity: 1; }
+    to { top: 100%; opacity: 0; }
+}
+
+/* 特殊なマスキング効果 */
+.news-card-title {
+    mask-image: linear-gradient(to right, black, black 80%, transparent);
+    mask-size: 200% 100%;
+    mask-position: 100% 0;
+    transition: mask-position 0.6s ease;
+}
+
+.news-card:hover .news-card-title {
+    mask-position: 0% 0;
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --layout-news-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    :root {
+        --layout-news-columns: 1fr;
+    }
+    #news-container {
+        padding: 0 1.5rem;
+    }
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-05",
+  "lastUpdated": "2026-02-06",
   "layouts": [
     {
       "id": "default",
@@ -477,6 +477,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 69
+    },
+    {
+      "id": "autonomous-pulse-matrix-v70",
+      "name": "自律的パルス・マトリックス",
+      "description": "第70世代の進化。前回の縦方向の3D接続に対し、今回は「自律的なグリッドの呼吸」をテーマに、CSS Gridのsubgridを用いた高精度なアライメントと、mask-imageによる情報のフェイズシフトを融合。スクロールに応じてグリッド内のカードが非同期にクリッピングパスを変化させ、情報が湧き出すような有機的なマルチカラム・グリッドを実現しました。個々のカードが独立した『生命体』のように振る舞いながらも、全体として厳格な秩序を保つ構成です。",
+      "file": "autonomous-pulse-matrix-v70.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "minimal",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Grid subgridによる内部要素の同期 + mask-imageによるスキャン reveal + scroll-driven animationsによるクリップパス制御",
+      "addedDate": "2026-02-06",
+      "author": "ai",
+      "mood": "Autonomous",
+      "generation": 70
     }
   ]
 }

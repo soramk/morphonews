@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-06",
+  "lastUpdated": "2026-02-07",
   "features": [
     {
       "id": "news-renderer",
@@ -539,6 +539,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-02-06",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-knowledge-syntropy-field",
+      "name": "エージェンティック・ナレッジ・シントロピー・フィールド",
+      "description": "ページ内のテキスト情報密度を自律的に解析し、情報の秩序（シントロピー）が高まっている領域を視覚的なエネルギー磁場として描画します。重要度の高いセクション間を流動的な粒子が繋ぐことで、読者の潜在意識にコンテンツの構造を提示します。",
+      "file": "modules/agentic-knowledge-syntropy-field.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-07",
       "author": "ai"
     }
   ]

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 自律的ネクサス
+ * Generated: 2026-02-07_0953
+ * Mood: Autonomous
+ * Description: 独立した知性と論理の純粋さを象徴する、深いチャコールグレーと高輝度のサイバーシアンを基調とした、自己完結型の洗練されたテーマです。
+ */
+:root {
+  --morpho-bg-primary: #05070a;
+  --morpho-bg-secondary: #0f172a;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #00f2ff;
+  --morpho-accent-secondary: #7000ff;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #7000ff 100%);
+}

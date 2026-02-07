@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-06",
+  "lastUpdated": "2026-02-07",
   "currentDefault": "default",
   "themes": [
     {
@@ -744,6 +744,21 @@
         "text": "#e2e8f0"
       },
       "addedDate": "2026-02-06",
+      "author": "ai",
+      "mood": "Autonomous"
+    },
+    {
+      "id": "autonomous-nexus",
+      "name": "自律的ネクサス",
+      "description": "独立した知性と論理の純粋さを象徴する、深いチャコールグレーと高輝度のサイバーシアンを基調とした、自己完結型の洗練されたテーマです。",
+      "file": "themes/autonomous-nexus.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#7000ff",
+        "background": "#05070a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-02-07",
       "author": "ai",
       "mood": "Autonomous"
     }

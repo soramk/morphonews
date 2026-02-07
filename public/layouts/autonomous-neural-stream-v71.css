@@ -1,0 +1,146 @@
+/**
+ * MorphoNews Layout: 自律的ニューラル・ストリーム
+ * Generated: 2026-02-07_0953
+ * Generation: #71
+ * Mood: Autonomous
+ * Evolution: scroll-driven animationsによる3Dトランスフォーム + Container Queriesによる自己完結型レスポンシブ + 擬似的なZ軸パースペクティブ
+ * Description: 第71世代の進化。前回の規則的なマトリックス構造から、情報の『流動性』を極限まで高めたタイムライン・ストリーム形式へと移行しました。scroll-driven animationsと3D perspectiveを組み合わせ、スクロールに応じて記事が深淵から手前に浮上し、視界を通過していくような没入体験を構築。さらに、Container Queries（コンテナクエリ）を採用し、各カードが自身の幅を認識して自律的にレイアウトを再構成する『自己適応型コンポーネント』へと進化させました。
+ */
+:root {
+    --layout-max-width: 900px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: 15rem;
+    --layout-card-direction: column;
+    --layout-animation-style: neural-flow-arrival;
+    --stream-line-color: rgba(var(--morpho-accent-primary-rgb), 0.2);
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 0 2rem;
+    position: relative;
+    perspective: 2000px;
+}
+
+/* 中央を貫くニューラル・パス */
+#news-container::before {
+    content: '';
+    position: absolute;
+    top: -5rem;
+    left: 50%;
+    width: 1px;
+    height: calc(100% + 10rem);
+    background: linear-gradient(to bottom, transparent, var(--stream-line-color) 10%, var(--stream-line-color) 90%, transparent);
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.news-card {
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+    margin-bottom: var(--layout-card-gap);
+    z-index: 1;
+    
+    /* Scroll-driven Animation */
+    view-timeline-name: --card-scroll;
+    animation: var(--layout-animation-style) both linear;
+    animation-timeline: --card-scroll;
+    animation-range: entry 10% cover 50%;
+}
+
+@keyframes neural-flow-arrival {
+    0% {
+        opacity: 0;
+        transform: rotateX(-30deg) translateZ(-400px) translateY(100px);
+        filter: blur(15px) brightness(0.5);
+    }
+    40% {
+        opacity: 1;
+        filter: blur(0) brightness(1);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateX(0deg) translateZ(0) translateY(0);
+    }
+}
+
+.news-card-body {
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.15);
+    border-radius: 4px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Container Queriesによる自律的内部配置 */
+@container (min-width: 600px) {
+    .news-card-body {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 3rem;
+    }
+    .news-card-header {
+        flex: 0 0 120px;
+        padding-top: 0.5rem;
+    }
+    .news-card-main {
+        flex: 1;
+    }
+}
+
+.news-card-header {
+    font-family: var(--morpho-font-mono);
+    font-size: 0.75rem;
+    color: var(--morpho-accent-primary);
+    letter-spacing: 0.3em;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    border-right: 1px solid var(--morpho-accent-primary);
+    padding-right: 0.5rem;
+    height: fit-content;
+}
+
+.news-card-title {
+    font-size: clamp(1.5rem, 5cqw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--morpho-text-primary);
+    background: linear-gradient(90deg, var(--morpho-text-primary), var(--morpho-accent-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.news-card-excerpt {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--morpho-text-secondary);
+}
+
+.news-card:hover .news-card-body {
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(var(--morpho-accent-primary-rgb), 0.1);
+    transform: translateY(-10px) scale(1.02);
+}
+
+/* 装飾：フロー・インジケーター */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: var(--morpho-accent-primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px var(--morpho-accent-primary);
+    z-index: -1;
+}

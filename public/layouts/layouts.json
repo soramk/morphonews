@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-07",
+  "lastUpdated": "2026-02-08",
   "layouts": [
     {
       "id": "default",
@@ -509,6 +509,22 @@
       "author": "ai",
       "mood": "Autonomous",
       "generation": 71
+    },
+    {
+      "id": "agentic-fractal-subgrid-v72",
+      "name": "自律的フラクタル・サブグリッド",
+      "description": "第72世代の進化。前回の線形な「ニューラル・ストリーム（タイムライン）」から、情報の「多次元的構造と接続」を強調する非対称なフラクタル・グリッドへと再編しました。本レイアウトの核となるのは、最新のCSS機能である『Grid Subgrid』の採用です。これにより、ネストされたカード内の要素（日付、見出し、メタデータ）が、ページ全体の12カラムグリッドと完璧に同期し、異なるカード間でも視覚的な整列（アライメント）が維持されます。さらに、@starting-styleを利用した「デジタル再構築」エフェクトと、不規則なclip-pathを用いた幾何学的な出現アニメーションを統合し、情報が自律的にマッピングされる感覚を演出しています。",
+      "file": "agentic-fractal-subgrid-v72.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "stagger"
+      },
+      "evolution_note": "CSS Grid Subgridによる階層間アライメントの同期 + @starting-styleによる初期レンダリング・アニメーション + clip-pathによる幾何学的フラグメンテーション",
+      "addedDate": "2026-02-08",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 72
     }
   ]
 }

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・エグゼクティブ・オーバライド
+ * Generated: 2026-02-08_1014
+ * Mood: Agentic
+ * Description: 強力な意思決定と実行力を象徴する、深淵なミッドナイトブルーと鮮烈なコマンドゴールドの対比。自律的な情報の統制と、確実なアクションを促す高コントラストなテーマです。
+ */
+:root {
+  --morpho-bg-primary: #020617;
+  --morpho-bg-secondary: #0f172a;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #f59e0b;
+  --morpho-accent-secondary: #38bdf8;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #f59e0b 0%, #38bdf8 100%);
+}

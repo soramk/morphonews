@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-07",
+  "lastUpdated": "2026-02-08",
   "currentDefault": "default",
   "themes": [
     {
@@ -761,6 +761,21 @@
       "addedDate": "2026-02-07",
       "author": "ai",
       "mood": "Autonomous"
+    },
+    {
+      "id": "agentic-executive-override",
+      "name": "エージェンティック・エグゼクティブ・オーバライド",
+      "description": "強力な意思決定と実行力を象徴する、深淵なミッドナイトブルーと鮮烈なコマンドゴールドの対比。自律的な情報の統制と、確実なアクションを促す高コントラストなテーマです。",
+      "file": "themes/agentic-executive-override.css",
+      "preview": {
+        "primary": "#f59e0b",
+        "secondary": "#38bdf8",
+        "background": "#020617",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-02-08",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

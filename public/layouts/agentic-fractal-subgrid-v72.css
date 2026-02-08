@@ -1,0 +1,145 @@
+/**
+ * MorphoNews Layout: 自律的フラクタル・サブグリッド
+ * Generated: 2026-02-08_1014
+ * Generation: #72
+ * Mood: Agentic
+ * Evolution: CSS Grid Subgridによる階層間アライメントの同期 + @starting-styleによる初期レンダリング・アニメーション + clip-pathによる幾何学的フラグメンテーション
+ * Description: 第72世代の進化。前回の線形な「ニューラル・ストリーム（タイムライン）」から、情報の「多次元的構造と接続」を強調する非対称なフラクタル・グリッドへと再編しました。本レイアウトの核となるのは、最新のCSS機能である『Grid Subgrid』の採用です。これにより、ネストされたカード内の要素（日付、見出し、メタデータ）が、ページ全体の12カラムグリッドと完璧に同期し、異なるカード間でも視覚的な整列（アライメント）が維持されます。さらに、@starting-styleを利用した「デジタル再構築」エフェクトと、不規則なclip-pathを用いた幾何学的な出現アニメーションを統合し、情報が自律的にマッピングされる感覚を演出しています。
+ */
+/**
+ * MorphoNews Layout: 自律的フラクタル・サブグリッド
+ * Generation: #72
+ * Mood: Agentic
+ * Evolution: Grid Subgrid + @starting-style + clip-path
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 2rem;
+    --layout-card-direction: column;
+    --layout-animation-style: tactical-reconstruction;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 6rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    align-items: start;
+}
+
+/* カードの配置パターン: フラクタルな非対称性 */
+.news-card:nth-child(6n+1) { grid-column: span 8; }
+.news-card:nth-child(6n+2) { grid-column: span 4; }
+.news-card:nth-child(6n+3) { grid-column: span 4; }
+.news-card:nth-child(6n+4) { grid-column: span 4; }
+.news-card:nth-child(6n+5) { grid-column: span 4; }
+.news-card:nth-child(6n+6) { grid-column: span 12; }
+
+.news-card {
+    opacity: 1;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+
+/* @starting-style による登場アニメーション (対応ブラウザ) */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+        clip-path: inset(0 100% 0 0);
+    }
+}
+
+.news-card {
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), clip-path 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    clip-path: inset(0 0 0 0);
+}
+
+.news-card-body {
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.4);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    /* Subgridの適用: 親の12カラムを継承 */
+    grid-template-columns: subgrid;
+    grid-column: span 1 / span inherit; 
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.news-card-body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--morpho-accent-primary);
+    transform: scaleY(0);
+    transition: transform 0.4s ease;
+    transform-origin: bottom;
+}
+
+.news-card:hover .news-card-body::before {
+    transform: scaleY(1);
+}
+
+.news-card-header {
+    grid-column: span 2;
+    font-family: var(--morpho-font-mono);
+    font-size: 0.7rem;
+    color: var(--morpho-accent-primary);
+    opacity: 0.7;
+    border-bottom: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.2);
+    padding-bottom: 0.5rem;
+    align-self: start;
+}
+
+.news-card-main {
+    grid-column: span 10;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.news-card-title {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--morpho-text-primary);
+}
+
+.news-card-excerpt {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--morpho-text-secondary);
+}
+
+/* ホバー時のタクティカル・フィードバック */
+.news-card:hover .news-card-body {
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.8);
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 10px 30px -10px rgba(var(--morpho-accent-primary-rgb), 0.2);
+}
+
+.news-card:hover .news-card-title {
+    color: var(--morpho-accent-primary);
+}
+
+/* レスポンシブ対応: モバイルでは通常の1カラムへ */
+@media (max-width: 900px) {
+    #news-container {
+        grid-template-columns: 1fr;
+    }
+    .news-card, .news-card:nth-child(n) {
+        grid-column: span 1;
+    }
+    .news-card-body {
+        grid-template-columns: 1fr;
+    }
+    .news-card-header, .news-card-main {
+        grid-column: span 1;
+    }
+}

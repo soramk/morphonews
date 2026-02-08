@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-07",
+  "lastUpdated": "2026-02-08",
   "features": [
     {
       "id": "news-renderer",
@@ -550,6 +550,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-07",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-reasoning-path-tracer",
+      "name": "エージェント推論パス・トレーサー",
+      "description": "記事の選択や重み付けの背後にある「エージェントの思考プロセス」を動的な推論グラフとして可視化し、情報の論理的な繋がりをマッピングします。",
+      "file": "modules/agentic-reasoning-path-tracer.js",
+      "enabled": false,
+      "required": false,
+      "category": "analytics",
+      "addedDate": "2026-02-08",
       "author": "ai"
     }
   ]

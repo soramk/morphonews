@@ -1,0 +1,152 @@
+/**
+ * MorphoNews Layout: 自律的キネティック・スロット・シリンダー
+ * Generated: 2026-02-09_1000
+ * Generation: #73
+ * Mood: Agentic
+ * Evolution: CSS Scroll-driven Animations (view-timeline) + 3D Perspective Transform + Offset Column Parallax
+ * Description: 第73世代の進化。前回の平面的な「フラクタル・サブグリッド」から、垂直方向のダイナミズムと情報の「深度」を追求した3Dキネティック構造へと遷移しました。最大の特徴は、CSS Scroll-driven Animations (view-timeline) を全面的に採用した点です。各ニュースカードはスクロールに応じてシリンダーのように回転しながら現れ、視界の中心で『合焦』します。また、奇数カラムと偶数カラムでスクロール速度の比率を変えるパララックス・ディスプレイスメントを導入し、エージェントが情報を高速でスキャンし、取捨選択するプロセスの視覚化を試みました。
+ */
+:root {
+    --layout-max-width: 1600px;
+    --layout-news-columns: repeat(3, 1fr);
+    --layout-card-gap: 4rem;
+    --layout-card-direction: column;
+    --layout-animation-style: kinetic-slot-cylinder;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    perspective: 2000px;
+}
+
+/* カラムごとのオフセットによるパララックス効果 */
+#news-container > .news-card:nth-child(3n+2) {
+    margin-top: 8rem;
+}
+
+#news-container > .news-card:nth-child(3n+3) {
+    margin-top: 16rem;
+}
+
+.news-card {
+    position: relative;
+    transform-style: preserve-3d;
+    /* Scroll-driven Animation 設定 */
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    animation: reveal-and-rotate both linear;
+    animation-timeline: --card-reveal;
+    animation-range: entry 0% cover 50%;
+}
+
+@keyframes reveal-and-rotate {
+    from {
+        opacity: 0;
+        transform: perspective(1000px) rotateX(45deg) translateZ(-200px) translateY(100px);
+        filter: blur(10px) brightness(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(1000px) rotateX(0deg) translateZ(0) translateY(0);
+        filter: blur(0px) brightness(1);
+    }
+}
+
+.news-card-body {
+    background: linear-gradient(135deg, rgba(var(--morph-bg-secondary-rgb), 0.8), rgba(var(--morph-bg-secondary-rgb), 0.4));
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(var(--morph-accent-primary-rgb), 0.2);
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+}
+
+.news-card:hover .news-card-body {
+    border-color: var(--morph-accent-primary);
+    transform: translateZ(50px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--morph-accent-primary-rgb), 0.2);
+}
+
+.news-card-header {
+    font-family: var(--morph-font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--morph-accent-primary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.news-card-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--morph-accent-primary), transparent);
+}
+
+.news-card-main h3 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--morph-text-primary);
+}
+
+.news-card-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(var(--morph-text-primary-rgb), 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.news-card-footer .tag {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(var(--morph-accent-primary-rgb), 0.1);
+    color: var(--morph-accent-primary);
+    border-radius: 4px;
+}
+
+/* 装飾用擬似要素: デジタル・ゲージ */
+.news-card-body::after {
+    content: 'SYS-ID: ' attr(data-id);
+    position: absolute;
+    bottom: 1rem;
+    right: 2.5rem;
+    font-family: var(--morph-font-mono);
+    font-size: 0.5rem;
+    opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+    #news-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 2rem;
+    }
+    #news-container > .news-card:nth-child(even) {
+        margin-top: 4rem;
+    }
+    #news-container > .news-card:nth-child(odd) {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+    }
+    #news-container > .news-card {
+        margin-top: 0 !important;
+    }
+}

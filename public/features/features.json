@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-08",
+  "lastUpdated": "2026-02-09",
   "features": [
     {
       "id": "news-renderer",
@@ -561,6 +561,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-02-08",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-strategic-intent-visualizer",
+      "name": "エージェンティック・戦略意図ビジュアライザー",
+      "description": "ニュース内の主要な主体（組織、人物、概念）の潜在的な戦略的意図をエージェントが推論し、それらの力学的関係をタクティカル・マップとして動的に生成・可視化します。",
+      "file": "modules/agentic-strategic-intent-visualizer.js",
+      "enabled": false,
+      "required": false,
+      "category": "analytics",
+      "addedDate": "2026-02-09",
       "author": "ai"
     }
   ]

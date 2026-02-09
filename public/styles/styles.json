@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-08",
+  "lastUpdated": "2026-02-09",
   "currentDefault": "default",
   "themes": [
     {
@@ -774,6 +774,21 @@
         "text": "#f8fafc"
       },
       "addedDate": "2026-02-08",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-sovereign-authority",
+      "name": "エージェンティック・ソブリン・オーソリティ",
+      "description": "絶対的な意思決定と主権を象徴する、漆黒に黄金のアクセントを配した権威あるテーマ。目的達成に向けた力強い推進力と、揺るぎないリーダーシップを視覚化しています。",
+      "file": "themes/agentic-sovereign-authority.css",
+      "preview": {
+        "primary": "#ffca28",
+        "secondary": "#f57c00",
+        "background": "#050505",
+        "text": "#ffffff"
+      },
+      "addedDate": "2026-02-09",
       "author": "ai",
       "mood": "Agentic"
     }

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・ソブリン・オーソリティ
+ * Generated: 2026-02-09_1000
+ * Mood: Agentic
+ * Description: 絶対的な意思決定と主権を象徴する、漆黒に黄金のアクセントを配した権威あるテーマ。目的達成に向けた力強い推進力と、揺るぎないリーダーシップを視覚化しています。
+ */
+:root {
+    --morpho-bg-primary: #050505;
+    --morpho-bg-secondary: #121212;
+    --morpho-bg-card: #1a1a1a;
+    --morpho-text-primary: #ffffff;
+    --morpho-text-secondary: #a0a0a0;
+    --morpho-accent-primary: #ffca28;
+    --morpho-accent-secondary: #f57c00;
+    --morpho-border-color: #333333;
+    --morpho-accent-gradient: linear-gradient(135deg, #ffca28 0%, #f57c00 100%);
+}

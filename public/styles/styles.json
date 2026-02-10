@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-09",
+  "lastUpdated": "2026-02-10",
   "currentDefault": "default",
   "themes": [
     {
@@ -791,6 +791,21 @@
       "addedDate": "2026-02-09",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "spectral-phase-transition",
+      "name": "スペクトラル・フェーズ・トランジション",
+      "description": "静止から流動への転換点をイメージしたテーマ。深みのあるミッドナイトパープルから、夜明けを予感させる鮮やかなシアンとピーチへのグラデーションが、ニュースの鮮烈な変化を際立たせます。",
+      "file": "themes/spectral-phase-transition.css",
+      "preview": {
+        "primary": "#ff9a8b",
+        "secondary": "#4facfe",
+        "background": "#0f0c29",
+        "text": "#e0e0e0"
+      },
+      "addedDate": "2026-02-10",
+      "author": "ai",
+      "mood": "Transition"
     }
   ]
 }

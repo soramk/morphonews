@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: スペクトラル・フェーズ・トランジション
+ * Generated: 2026-02-10_1008
+ * Mood: Transition
+ * Description: 静止から流動への転換点をイメージしたテーマ。深みのあるミッドナイトパープルから、夜明けを予感させる鮮やかなシアンとピーチへのグラデーションが、ニュースの鮮烈な変化を際立たせます。
+ */
+:root {
+  --morpho-bg-primary: #0f0c29;
+  --morpho-bg-secondary: #1a1642;
+  --morpho-bg-card: rgba(43, 38, 87, 0.6);
+  --morpho-text-primary: #f8f9fa;
+  --morpho-text-secondary: #b8b8d0;
+  --morpho-accent-primary: #ff9a8b;
+  --morpho-accent-secondary: #4facfe;
+  --morpho-border-color: #3e3a7a;
+  --morpho-accent-gradient: linear-gradient(135deg, #4facfe 0%, #c2e9fb 50%, #ff9a8b 100%);
+}

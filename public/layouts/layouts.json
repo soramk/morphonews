@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-09",
+  "lastUpdated": "2026-02-10",
   "layouts": [
     {
       "id": "default",
@@ -541,6 +541,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 73
+    },
+    {
+      "id": "transitional-fluid-stream-v74",
+      "name": "遷移型フルイド・ストリーム・マージ",
+      "description": "第74世代の進化。前回の垂直3Dシリンダー構造から一転し、情報の「水平方向の融合と分離」をテーマに据えたレイアウトです。中央の仮想的な軸（ストリーム）を中心に、スクロールに応じて左右からカードが引き寄せられ、重なり合う「ジッパー」のような視覚構造を採用しました。CSSの Scroll-driven Animations を活用し、画面中央（Viewport Center）に近づくほどカードの深度と彩度が極大化する「磁気的収束」を演出。また、最新の @starting-style を導入し、動的な要素追加時における予期せぬジャンプを防ぎ、エレガントなフェードインを実現しています。",
+      "file": "transitional-fluid-stream-v74.css",
+      "preview": {
+        "gridType": "newspaper",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "view-timeline による水平スライドマージ + @starting-style による初期状態制御 + Container Queries による内部コンテンツの適応的再配置",
+      "addedDate": "2026-02-10",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 74
     }
   ]
 }

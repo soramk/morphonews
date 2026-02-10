@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-09",
+  "lastUpdated": "2026-02-10",
   "features": [
     {
       "id": "news-renderer",
@@ -572,6 +572,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-02-09",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-flux-state-bridge",
+      "name": "エージェンティック・フラックス・ステート・ブリッジ",
+      "description": "ページ内の要素が移動・変形する際、その動的な軌跡を「エネルギーの残像」として視覚的に繋ぎ合わせます。レイアウトの変化による認知負荷を軽減し、情報の遷移を滑らかな物理的移動として脳に認識させます。",
+      "file": "modules/agentic-flux-state-bridge.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-10",
       "author": "ai"
     }
   ]

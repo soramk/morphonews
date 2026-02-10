@@ -1,0 +1,176 @@
+/**
+ * MorphoNews Layout: 遷移型フルイド・ストリーム・マージ
+ * Generated: 2026-02-10_1008
+ * Generation: #74
+ * Mood: Transition
+ * Evolution: view-timeline による水平スライドマージ + @starting-style による初期状態制御 + Container Queries による内部コンテンツの適応的再配置
+ * Description: 第74世代の進化。前回の垂直3Dシリンダー構造から一転し、情報の「水平方向の融合と分離」をテーマに据えたレイアウトです。中央の仮想的な軸（ストリーム）を中心に、スクロールに応じて左右からカードが引き寄せられ、重なり合う「ジッパー」のような視覚構造を採用しました。CSSの Scroll-driven Animations を活用し、画面中央（Viewport Center）に近づくほどカードの深度と彩度が極大化する「磁気的収束」を演出。また、最新の @starting-style を導入し、動的な要素追加時における予期せぬジャンプを防ぎ、エレガントなフェードインを実現しています。
+ */
+/**
+ * MorphoNews Layout: 遷移型フルイド・ストリーム・マージ
+ * Generation: #74
+ * Evolution: Horizontal Fluid Merge + @starting-style + Scroll-driven Convergence
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: 1fr 1fr;
+    --layout-card-gap: 0px;
+    --layout-card-direction: row;
+    --layout-animation-style: fluid-stream-merge;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 5rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    position: relative;
+}
+
+/* 中央のストリームライン */
+#news-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--morph-accent-primary), transparent);
+    z-index: 10;
+    opacity: 0.3;
+}
+
+.news-card {
+    position: relative;
+    height: 450px;
+    container-type: size;
+    view-timeline-name: --card-stream;
+    view-timeline-axis: block;
+    margin-bottom: -50px; /* 重なりを許容 */
+}
+
+/* 奇数番目：左から右へ */
+.news-card:nth-child(odd) {
+    padding-right: 2rem;
+    animation: merge-left both linear;
+    animation-timeline: --card-stream;
+    animation-range: entry 0% exit 100%;
+}
+
+/* 偶数番目：右から左へ */
+.news-card:nth-child(even) {
+    padding-left: 2rem;
+    margin-top: 150px;
+    animation: merge-right both linear;
+    animation-timeline: --card-stream;
+    animation-range: entry 0% exit 100%;
+}
+
+@keyframes merge-left {
+    0% { transform: translateX(-100px); opacity: 0.3; filter: grayscale(1); }
+    50% { transform: translateX(0); opacity: 1; filter: grayscale(0); }
+    100% { transform: translateX(-50px); opacity: 0.3; }
+}
+
+@keyframes merge-right {
+    0% { transform: translateX(100px); opacity: 0.3; filter: grayscale(1); }
+    50% { transform: translateX(0); opacity: 1; filter: grayscale(0); }
+    100% { transform: translateX(50px); opacity: 0.3; }
+}
+
+.news-card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(var(--morph-bg-secondary-rgb), 0.6);
+    backdrop-filter: blur(20px);
+    padding: 3rem;
+    border: 1px solid rgba(var(--morph-accent-primary-rgb), 0.1);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 最新の@starting-styleを利用した登場演出 */
+@starting-style {
+    .news-card-body {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.news-card:hover .news-card-body {
+    border-color: var(--morph-accent-primary);
+    z-index: 20;
+    background: rgba(var(--morph-bg-secondary-rgb), 0.9);
+    transform: scale(1.05);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+}
+
+.news-card-header {
+    font-family: var(--morph-font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 1.5rem;
+    display: block;
+    color: var(--morph-accent-primary);
+}
+
+.news-card-main h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, var(--morph-text-primary), var(--morph-accent-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.news-card-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(var(--morph-text-primary-rgb), 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.news-card::after {
+    content: attr(data-index);
+    position: absolute;
+    top: 1rem;
+    right: 3rem;
+    font-size: 6rem;
+    font-weight: 900;
+    font-family: var(--morph-font-mono);
+    color: var(--morph-accent-primary);
+    opacity: 0.05;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.news-card:hover::after {
+    opacity: 0.15;
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --layout-news-columns: 1fr;
+    }
+    .news-card {
+        height: auto;
+        margin-bottom: 2rem !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+    }
+    @keyframes merge-left, @keyframes merge-right {
+        0% { transform: translateY(50px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+}

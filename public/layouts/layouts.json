@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-10",
+  "lastUpdated": "2026-02-11",
   "layouts": [
     {
       "id": "default",
@@ -557,6 +557,22 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 74
+    },
+    {
+      "id": "agentic-recursive-scaffold-v75",
+      "name": "自律的再帰フラクタル・スキャフォールド",
+      "description": "第75世代の進化。前回の水平融合（ジッパー構造）から脱却し、建築的な「足場（Scaffold）」と「情報の深度」をテーマにした非線形グリッドレイアウト。12カラムの精緻なサブグリッド構成により、各ニュースカードが不規則なスパンを占有しつつも、全体として黄金比に近い調和を保つ「エージェンティック・マソンリー」を実現。Scroll-driven Animationsを活用し、スクロール量に応じてカードのZ軸深度（Perspective）とクリッピング領域が動的に変化し、情報が奥から手前へと「発掘」されるような体験を提供します。",
+      "file": "agentic-recursive-scaffold-v75.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "12列サブグリッド + Scroll-driven Perspective + mask-imageによる深度フェード + 疑似要素によるスキャンライン・エフェクト",
+      "addedDate": "2026-02-11",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 75
     }
   ]
 }

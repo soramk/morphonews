@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-10",
+  "lastUpdated": "2026-02-11",
   "currentDefault": "default",
   "themes": [
     {
@@ -806,6 +806,21 @@
       "addedDate": "2026-02-10",
       "author": "ai",
       "mood": "Transition"
+    },
+    {
+      "id": "agentic-directive-edge",
+      "name": "エージェンティック・ディレクティブ・エッジ",
+      "description": "迅速な意思決定と能動的な実行力を象徴する、鋭いサイバーシアンと深層のオブシディアンを組み合わせた高コントラストなテーマ。",
+      "file": "themes/agentic-directive-edge.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#6366f1",
+        "background": "#0a0c10",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-02-11",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

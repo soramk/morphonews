@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-10",
+  "lastUpdated": "2026-02-11",
   "features": [
     {
       "id": "news-renderer",
@@ -583,6 +583,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-10",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-semantic-resonance-pulse",
+      "name": "エージェンティック・セマンティック・レゾナンス・パルス",
+      "description": "現在閲覧中のセクションとページ内の他セクションとの意味的関連性を自律的に検知し、共鳴（パルス）エフェクトによって情報のネットワークを視覚化します。",
+      "file": "modules/agentic-semantic-resonance-pulse.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-11",
       "author": "ai"
     }
   ]

@@ -1,0 +1,176 @@
+/**
+ * MorphoNews Layout: 自律的再帰フラクタル・スキャフォールド
+ * Generated: 2026-02-11_1006
+ * Generation: #75
+ * Mood: Agentic
+ * Evolution: 12列サブグリッド + Scroll-driven Perspective + mask-imageによる深度フェード + 疑似要素によるスキャンライン・エフェクト
+ * Description: 第75世代の進化。前回の水平融合（ジッパー構造）から脱却し、建築的な「足場（Scaffold）」と「情報の深度」をテーマにした非線形グリッドレイアウト。12カラムの精緻なサブグリッド構成により、各ニュースカードが不規則なスパンを占有しつつも、全体として黄金比に近い調和を保つ「エージェンティック・マソンリー」を実現。Scroll-driven Animationsを活用し、スクロール量に応じてカードのZ軸深度（Perspective）とクリッピング領域が動的に変化し、情報が奥から手前へと「発掘」されるような体験を提供します。
+ */
+/**
+ * MorphoNews Layout: agentic-recursive-scaffold-v75
+ * Generation: #75 (Agentic)
+ */
+
+:root {
+    --layout-max-width: 1600px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: recursive-depth-shift;
+    --scaffold-line-color: rgba(var(--morph-accent-primary-rgb), 0.15);
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 8rem auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    background-image: 
+        linear-gradient(var(--scaffold-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--scaffold-line-color) 1px, transparent 1px);
+    background-size: calc(100% / 12) 50px;
+    perspective: 1200px;
+}
+
+.news-card {
+    position: relative;
+    background: var(--morph-bg-secondary);
+    border-left: 3px solid var(--morph-accent-primary);
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    min-height: 300px;
+    view-timeline: --card-view block;
+    animation: reveal-scaffold both linear;
+    animation-timeline: --card-view;
+    animation-range: entry 10% exit 90%;
+    overflow: hidden;
+    transition: border-color 0.4s ease;
+}
+
+/* カードの不規則な配置パターン */
+.news-card:nth-child(4n+1) { grid-column: span 7; aspect-ratio: 16/9; }
+.news-card:nth-child(4n+2) { grid-column: span 5; aspect-ratio: 4/5; }
+.news-card:nth-child(4n+3) { grid-column: span 4; aspect-ratio: 1/1; }
+.news-card:nth-child(4n+4) { grid-column: span 8; aspect-ratio: 21/9; }
+
+@keyframes reveal-scaffold {
+    0% {
+        opacity: 0;
+        transform: translateZ(-200px) rotateX(15deg);
+        filter: blur(10px) brightness(0.5);
+        mask-image: linear-gradient(to bottom, black 0%, transparent 0%);
+    }
+    40%, 60% {
+        opacity: 1;
+        transform: translateZ(0) rotateX(0deg);
+        filter: blur(0px) brightness(1);
+        mask-image: linear-gradient(to bottom, black 100%, black 100%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateZ(100px) rotateX(-15deg);
+        filter: blur(4px) brightness(0.8);
+        mask-image: linear-gradient(to top, black 0%, transparent 0%);
+    }
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(var(--morph-accent-primary-rgb), 0.05),
+        transparent
+    );
+    transform: skewX(-15deg);
+    transition: 0.5s;
+}
+
+.news-card:hover::before {
+    left: 100%;
+}
+
+.news-card-body {
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.news-card-title {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--morph-text-primary);
+    letter-spacing: -0.02em;
+}
+
+.news-card-excerpt {
+    font-size: 0.95rem;
+    color: var(--morph-text-secondary);
+    margin-bottom: 2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(var(--morph-accent-primary-rgb), 0.1);
+    padding-top: 1.5rem;
+}
+
+.news-card-category {
+    text-transform: uppercase;
+    background: var(--morph-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* インタラクティブ・スキャンライン */
+.news-card:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--morph-accent-primary);
+    box-shadow: 0 0 15px var(--morph-accent-primary);
+    animation: scanline 2s infinite linear;
+}
+
+@keyframes scanline {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+@media (max-width: 1024px) {
+    .news-card:nth-child(n) {
+        grid-column: span 6 !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .news-card:nth-child(n) {
+        grid-column: span 12 !important;
+        aspect-ratio: auto !important;
+    }
+}

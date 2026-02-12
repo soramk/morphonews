@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-11",
+  "lastUpdated": "2026-02-12",
   "features": [
     {
       "id": "news-renderer",
@@ -594,6 +594,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-11",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-strategic-mission-composer",
+      "name": "エージェンティック・戦略ミッション・コンポーザー",
+      "description": "閲覧中のニュース記事から戦略的キーワードを抽出し、ユーザーを「能動的エージェント」と見立てた動的な戦術ブリーフィングHUDを生成します。情報を「消費」するのではなく「遂行すべきミッション」として再定義します。",
+      "file": "modules/agentic-strategic-mission-composer.js",
+      "enabled": false,
+      "required": false,
+      "category": "entertainment",
+      "addedDate": "2026-02-12",
       "author": "ai"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-11",
+  "lastUpdated": "2026-02-12",
   "layouts": [
     {
       "id": "default",
@@ -573,6 +573,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 75
+    },
+    {
+      "id": "agentic-kinetic-shard-v76",
+      "name": "速度論的プリズム・シャード・エントロピー",
+      "description": "第76世代の進化。前回の『足場（Scaffold）』による静的な構築概念を破壊し、情報が断片（Shard）から秩序へと再構成される『動的エントロピーの制御』を表現。CSS clip-pathとscroll-driven animationsを組み合わせ、ユーザーのスクロール量に応じて幾何学的な破片が完全な矩形へと収束・整列するキネティックな体験を構築。個々のカードは不規則な多角形から始まり、視覚的なノイズが情報の核心へと変換されるプロセスをシミュレートしています。",
+      "file": "agentic-kinetic-shard-v76.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animationsを用いたclip-pathの動的変形 + インターセクションによる色の彩度復元 + 疑似要素による磁気フィールド・エフェクト",
+      "addedDate": "2026-02-12",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 76
     }
   ]
 }

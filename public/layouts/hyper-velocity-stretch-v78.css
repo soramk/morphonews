@@ -1,0 +1,165 @@
+/**
+ * MorphoNews Layout: 超加速・垂直伸長マトリクス
+ * Generated: 2026-02-13_1002
+ * Generation: #77
+ * Mood: Hyper-Acceleration
+ * Evolution: scroll-driven animations (scaleY & letter-spacing) + mix-blend-mode: screen + CSS subgridによる情報の垂直同期
+ * Description: 第78世代の進化。ムード「Hyper-Acceleration」を物理的な『引き伸ばし（Stretch）』として解釈。前回のエントロピー収束（Shard）から、今回は『速度による時空の歪み』へと進化。Scroll-driven animationsを用いて、カードが画面下部から現れる際に垂直方向に極端に引き伸ばされ（scaleY）、定位置に近づくにつれて本来の比率へと収束する視覚効果を実装。さらに、スクロール量に連動してタイポグラフィのletter-spacingが動的に変化し、情報の『密度』が加速とともに変動する体験を提供します。境界線にはmix-blend-modeを活用した残像エフェクトを付与しています。
+ */
+/**
+ * MorphoNews Layout: hyper-velocity-stretch-v78
+ * Generation: #78 (Hyper-Acceleration)
+ * Evolution: 垂直方向の伸長アニメーションと文字間隔の動的同期による「加速感」の視覚化
+ */
+
+@property --velocity-intensity {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+}
+
+:root {
+    --layout-max-width: 1200px;
+    --layout-news-columns: repeat(2, 1fr);
+    --layout-card-gap: 6rem;
+    --layout-card-direction: column;
+    --layout-animation-style: velocity-stretch;
+    --stretch-factor: 2.5;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 15rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    perspective: 1500px;
+}
+
+.news-card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(var(--morph-bg-secondary-rgb), 0.8) 0%, rgba(var(--morph-bg-secondary-rgb), 0.4) 100%);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid var(--morph-accent-primary);
+    padding: 3rem;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    min-height: 500px;
+    overflow: visible;
+
+    /* Scroll-driven Animation */
+    view-timeline: --card-velocity block;
+    animation: stretch-in both linear;
+    animation-timeline: --card-velocity;
+    animation-range: entry 0% cover 40%;
+}
+
+.news-card:nth-child(even) {
+    transform: translateY(12rem);
+}
+
+@keyframes stretch-in {
+    0% {
+        transform: scaleY(var(--stretch-factor)) translateY(200px);
+        filter: blur(10px) brightness(1.5);
+        opacity: 0;
+        letter-spacing: 1.5em;
+    }
+    60% {
+        transform: scaleY(1.2) translateY(50px);
+        filter: blur(2px) brightness(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scaleY(1) translateY(0);
+        filter: blur(0px) brightness(1);
+        opacity: 1;
+        letter-spacing: normal;
+    }
+}
+
+.news-card-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--morph-text-primary);
+    /* タイポグラフィもスクロールに連動 */
+    animation: text-compression both linear;
+    animation-timeline: --card-velocity;
+    animation-range: entry 0% cover 40%;
+}
+
+@keyframes text-compression {
+    0% { letter-spacing: 0.8rem; transform: scaleX(0.9); }
+    100% { letter-spacing: normal; transform: scaleX(1); }
+}
+
+.news-card-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--morph-accent-primary);
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px dashed rgba(var(--morph-accent-primary-rgb), 0.3);
+}
+
+/* Hover Effect: 超加速への追従 */
+.news-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: var(--morph-accent-gradient);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.news-card:hover {
+    transform: skewY(-2deg) scale(1.02);
+    box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.3);
+    border-left-width: 5px;
+}
+
+.news-card:hover::before {
+    opacity: 0.1;
+}
+
+.news-card:hover .news-card-title {
+    color: var(--morph-accent-primary);
+    transition: color 0.3s ease;
+}
+
+/* 残像エフェクト */
+.news-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-left: 2px solid var(--morph-accent-secondary);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.news-card:hover::after {
+    opacity: 1;
+    transform: translateX(10px) scaleY(1.05);
+}
+
+@media (max-width: 768px) {
+    :root {
+        --layout-news-columns: 1fr;
+        --layout-card-gap: 3rem;
+    }
+    
+    .news-card:nth-child(even) {
+        transform: translateY(0);
+    }
+
+    .news-card {
+        min-height: auto;
+        padding: 2rem;
+    }
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-12",
+  "lastUpdated": "2026-02-13",
   "features": [
     {
       "id": "news-renderer",
@@ -605,6 +605,17 @@
       "required": false,
       "category": "entertainment",
       "addedDate": "2026-02-12",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-hyper-velocity-chrono-slider",
+      "name": "アジェンティック・ハイパーベロシティ・クロノスライダー",
+      "description": "ユーザーのスクロール速度とポインタの動線を解析し、サイトの表示密度と情報の抽象度をリアルタイムで可変。超高速移動時には要約のみを、静止時には詳細を自動展開する『認知速度同期型』のUIを実現します。",
+      "file": "modules/agentic-hyper-velocity-chrono-slider.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-13",
       "author": "ai"
     }
   ]

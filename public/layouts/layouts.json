@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-12",
+  "lastUpdated": "2026-02-13",
   "layouts": [
     {
       "id": "default",
@@ -589,6 +589,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 76
+    },
+    {
+      "id": "hyper-velocity-stretch-v78",
+      "name": "超加速・垂直伸長マトリクス",
+      "description": "第78世代の進化。ムード「Hyper-Acceleration」を物理的な『引き伸ばし（Stretch）』として解釈。前回のエントロピー収束（Shard）から、今回は『速度による時空の歪み』へと進化。Scroll-driven animationsを用いて、カードが画面下部から現れる際に垂直方向に極端に引き伸ばされ（scaleY）、定位置に近づくにつれて本来の比率へと収束する視覚効果を実装。さらに、スクロール量に連動してタイポグラフィのletter-spacingが動的に変化し、情報の『密度』が加速とともに変動する体験を提供します。境界線にはmix-blend-modeを活用した残像エフェクトを付与しています。",
+      "file": "hyper-velocity-stretch-v78.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animations (scaleY & letter-spacing) + mix-blend-mode: screen + CSS subgridによる情報の垂直同期",
+      "addedDate": "2026-02-13",
+      "author": "ai",
+      "mood": "Hyper-Acceleration",
+      "generation": 77
     }
   ]
 }

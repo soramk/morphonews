@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: ハイパー・アクセラレーション
+ * Generated: 2026-02-13_1002
+ * Mood: Hyper-Acceleration
+ * Description: 超加速する進化の最前線をイメージした、極限のスピード感と高エネルギーを内包するテーマ。鋭いネオンカラーと深い闇のコントラストが情報の純度を高めます。
+ */
+:root { --morpho-bg-primary: #05070a; --morpho-bg-secondary: #0d121c; --morpho-bg-card: #161d2b; --morpho-text-primary: #f0f4f8; --morpho-text-secondary: #a0aec0; --morpho-accent-primary: #00f2ff; --morpho-accent-secondary: #7000ff; --morpho-border-color: #2d3748; --morpho-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #7000ff 50%, #ff00c8 100%); }

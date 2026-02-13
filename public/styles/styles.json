@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-11",
+  "lastUpdated": "2026-02-13",
   "currentDefault": "default",
   "themes": [
     {
@@ -821,6 +821,21 @@
       "addedDate": "2026-02-11",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "hyper-acceleration-vortex",
+      "name": "ハイパー・アクセラレーション",
+      "description": "超加速する進化の最前線をイメージした、極限のスピード感と高エネルギーを内包するテーマ。鋭いネオンカラーと深い闇のコントラストが情報の純度を高めます。",
+      "file": "themes/hyper-acceleration-vortex.css",
+      "preview": {
+        "primary": "#00f2ff",
+        "secondary": "#7000ff",
+        "background": "#05070a",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-02-13",
+      "author": "ai",
+      "mood": "Hyper-Acceleration"
     }
   ]
 }

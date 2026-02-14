@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-13",
+  "lastUpdated": "2026-02-14",
   "currentDefault": "default",
   "themes": [
     {
@@ -836,6 +836,21 @@
       "addedDate": "2026-02-13",
       "author": "ai",
       "mood": "Hyper-Acceleration"
+    },
+    {
+      "id": "interphase-crossover-state",
+      "name": "インターフェーズ・クロスオーバー",
+      "description": "状態が重なり合い、新たなフェーズへと移行する瞬間を表現したテーマ。深い静寂から鮮やかなエネルギーへの転換をカラーグラデーションで視覚化しています。",
+      "file": "themes/interphase-crossover-state.css",
+      "preview": {
+        "primary": "#6366f1",
+        "secondary": "#22d3ee",
+        "background": "#0f1218",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-02-14",
+      "author": "ai",
+      "mood": "Transition"
     }
   ]
 }

@@ -1,0 +1,146 @@
+/**
+ * MorphoNews Layout: 遷移的フェーズ・スライディング・マトリクス
+ * Generated: 2026-02-14_0956
+ * Generation: #78
+ * Mood: Transition
+ * Evolution: scroll-snap-type + clip-path morphing + vertical-rl writing-mode transition
+ * Description: 第79世代の進化。ムード「Transition」を情報の水平横断として解釈。前回の垂直方向の『引き伸ばし』に対し、今回は水平方向の『相転移（Phase Shift）』にフォーカス。Scroll-driven animationsとclip-pathを組み合わせ、カードが画面中央を通過する瞬間に形状が有機的に変容するエフェクトを実装。さらに、縦書き（writing-mode: vertical-rl）と横書きの混在により、情報の次元が切り替わる「遷移」の瞬間を視覚化します。Scroll-snapによる定点観測的な閲覧体験を提供します。
+ */
+:root {
+    --layout-max-width: 100vw;
+    --layout-news-columns: auto-flow calc(80vw);
+    --layout-card-gap: 4vw;
+    --layout-card-direction: row;
+    --layout-animation-style: phase-morphing;
+    --morph-transition-ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#news-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 10vh 10vw;
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    min-height: 80vh;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+#news-container::-webkit-scrollbar {
+    display: none;
+}
+
+.news-card {
+    flex: 0 0 80vw;
+    height: 65vh;
+    scroll-snap-align: center;
+    position: relative;
+    background: rgba(var(--morph-bg-secondary-rgb), 0.2);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--morph-accent-primary-rgb), 0.3);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 0;
+    overflow: hidden;
+
+    /* Scroll-driven Animation for Morphing */
+    view-timeline: --phase-shift inline;
+    animation: morph-card both linear;
+    animation-timeline: --phase-shift;
+    animation-range: entry 0% exit 100%;
+}
+
+@keyframes morph-card {
+    0% {
+        clip-path: inset(10% 20% 10% 20% round 50px);
+        transform: scale(0.8) rotateY(20deg);
+        filter: saturate(0);
+    }
+    50% {
+        clip-path: inset(0% 0% 0% 0% round 0px);
+        transform: scale(1) rotateY(0deg);
+        filter: saturate(1);
+    }
+    100% {
+        clip-path: inset(10% 20% 10% 20% round 50px);
+        transform: scale(0.8) rotateY(-20deg);
+        filter: saturate(0);
+    }
+}
+
+.news-card-title {
+    writing-mode: vertical-rl;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1;
+    padding: 2rem;
+    background: var(--morph-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-left: 2px solid var(--morph-accent-primary);
+    text-orientation: mixed;
+    animation: title-slide both linear;
+    animation-timeline: --phase-shift;
+    animation-range: entry 20% exit 80%;
+}
+
+@keyframes title-slide {
+    0% { transform: translateY(50px); opacity: 0; }
+    50% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-50px); opacity: 0; }
+}
+
+.news-card-content {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(90deg, rgba(var(--morph-bg-primary-rgb), 0.5), transparent);
+}
+
+.news-card-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--morph-accent-secondary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+.news-card-excerpt {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 40ch;
+    color: var(--morph-text-secondary);
+}
+
+/* Interactive Phase Indicator */
+#news-container::after {
+    content: 'SCROLL TO TRANSITION';
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--morph-accent-primary);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .news-card {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        flex: 0 0 90vw;
+    }
+    .news-card-title {
+        writing-mode: horizontal-tb;
+        padding: 1.5rem;
+        font-size: 1.8rem;
+    }
+}

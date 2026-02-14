@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: インターフェーズ・クロスオーバー
+ * Generated: 2026-02-14_0956
+ * Mood: Transition
+ * Description: 状態が重なり合い、新たなフェーズへと移行する瞬間を表現したテーマ。深い静寂から鮮やかなエネルギーへの転換をカラーグラデーションで視覚化しています。
+ */
+:root { --morpho-bg-primary: #0f1218; --morpho-bg-secondary: #1a1e26; --morpho-bg-card: #242a35; --morpho-text-primary: #f0f4f8; --morpho-text-secondary: #a0aec0; --morpho-accent-primary: #6366f1; --morpho-accent-secondary: #22d3ee; --morpho-border-color: #334155; --morpho-accent-gradient: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%); }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-13",
+  "lastUpdated": "2026-02-14",
   "layouts": [
     {
       "id": "default",
@@ -605,6 +605,22 @@
       "author": "ai",
       "mood": "Hyper-Acceleration",
       "generation": 77
+    },
+    {
+      "id": "transitional-phase-slide-v79",
+      "name": "遷移的フェーズ・スライディング・マトリクス",
+      "description": "第79世代の進化。ムード「Transition」を情報の水平横断として解釈。前回の垂直方向の『引き伸ばし』に対し、今回は水平方向の『相転移（Phase Shift）』にフォーカス。Scroll-driven animationsとclip-pathを組み合わせ、カードが画面中央を通過する瞬間に形状が有機的に変容するエフェクトを実装。さらに、縦書き（writing-mode: vertical-rl）と横書きの混在により、情報の次元が切り替わる「遷移」の瞬間を視覚化します。Scroll-snapによる定点観測的な閲覧体験を提供します。",
+      "file": "transitional-phase-slide-v79.css",
+      "preview": {
+        "gridType": "carousel",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-snap-type + clip-path morphing + vertical-rl writing-mode transition",
+      "addedDate": "2026-02-14",
+      "author": "ai",
+      "mood": "Transition",
+      "generation": 78
     }
   ]
 }

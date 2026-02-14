@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-13",
+  "lastUpdated": "2026-02-14",
   "features": [
     {
       "id": "news-renderer",
@@ -616,6 +616,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-13",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-liquid-phase-transitioner",
+      "name": "エージェンティック・リキッド・フェーズ・トランジショナー",
+      "description": "ページ内の要素切り替え時やセクション移動時に、液体が混ざり合うような有機的なフェーズ遷移（メタモルフォーゼ）を視覚化します。SVGフィルタを活用したGooey効果により、情報の断絶を「流体」として繋ぎ合わせます。",
+      "file": "modules/agentic-liquid-phase-transitioner.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-14",
       "author": "ai"
     }
   ]

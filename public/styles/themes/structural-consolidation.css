@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: 構造的統合
+ * Generated: 2026-02-15_1001
+ * Mood: Consolidation
+ * Description: 拡散した情報を一つの強固な基盤へと収束・整理する「統合」のフェーズを表現。重厚感のあるチャコールスレートに、信頼と価値を象徴するブロンズゴールドを配し、安定した視認性と洗練された構造美を提供します。
+ */
+:root {
+    --morpho-bg-primary: #1a1c1e;
+    --morpho-bg-secondary: #25282c;
+    --morpho-bg-card: #2d3136;
+    --morpho-text-primary: #f0f2f5;
+    --morpho-text-secondary: #a0aab8;
+    --morpho-accent-primary: #d4af37;
+    --morpho-accent-secondary: #5c7c8a;
+    --morpho-border-color: #3e444b;
+    --morpho-accent-gradient: linear-gradient(135deg, #d4af37 0%, #8e6d1d 100%);
+}

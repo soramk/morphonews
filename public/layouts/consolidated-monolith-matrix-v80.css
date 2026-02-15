@@ -1,0 +1,191 @@
+/**
+ * MorphoNews Layout: 統合化モノリス・タクティカル・マトリクス
+ * Generated: 2026-02-15_1001
+ * Generation: #79
+ * Mood: Consolidation
+ * Evolution: @starting-styleによる初期状態の定義 + Grid-areaによる非対称な統合 + ::before/::afterによるタクティカル・装飾フレーム
+ * Description: 第80世代の進化。ムード「Consolidation（統合・整理）」を、情報の密度と構造的堅牢さとして解釈。前回の「遷移（Transition）」による流動的な水平スクロールと有機的な形状変化に対し、今回は「静的かつ強固な12カラム・モザイクグリッド」を採用。@starting-styleを用いた「断片から統合へ」のローディングアニメーションと、CSS Gridのエリア指定による情報の優先順位付け、そして微細なコーナーブラケット（角括弧）によるタクティカルな視覚表現により、混沌とした情報を一つの「モノリス」として再構築します。情報の散乱を抑え、密度を高めることで、プロフェッショナルな信頼感を醸成します。
+ */
+/**
+ * MorphoNews Layout: 統合化モノリス・タクティカル・マトリクス
+ * Generation: #80
+ * Mood: Consolidation
+ * Evolution: @starting-style re-assembly + Tactical Grid Areas + Corner Brackets
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: monolith-lock;
+    --bracket-size: 15px;
+    --bracket-thickness: 2px;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    grid-auto-rows: minmax(150px, auto);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: 2rem;
+    perspective: 1000px;
+}
+
+.news-card {
+    position: relative;
+    background: rgba(var(--morph-bg-secondary-rgb), 0.5);
+    border: 1px solid rgba(var(--morph-accent-primary-rgb), 0.2);
+    padding: 2rem;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    justify-content: space-between;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    opacity: 1;
+    transform: translateZ(0);
+}
+
+/* Consolidation Animation: Fragments to Monolith */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: translateZ(-100px) translateY(20px);
+        filter: blur(10px);
+    }
+}
+
+/* Tactical Grid Allocation */
+.news-card:nth-child(6n+1) {
+    grid-column: span 8;
+    grid-row: span 3;
+}
+
+.news-card:nth-child(6n+2) {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+3) {
+    grid-column: span 4;
+    grid-row: span 3;
+}
+
+.news-card:nth-child(6n+4) {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+5) {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+6) {
+    grid-column: span 12;
+    grid-row: span 1;
+}
+
+/* Corner Brackets for Tactical Feel */
+.news-card::before,
+.news-card::after {
+    content: '';
+    position: absolute;
+    width: var(--bracket-size);
+    height: var(--bracket-size);
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.news-card::before {
+    top: 10px;
+    left: 10px;
+    border-top: var(--bracket-thickness) solid var(--morph-accent-primary);
+    border-left: var(--bracket-thickness) solid var(--morph-accent-primary);
+}
+
+.news-card::after {
+    bottom: 10px;
+    right: 10px;
+    border-bottom: var(--bracket-thickness) solid var(--morph-accent-primary);
+    border-right: var(--bracket-thickness) solid var(--morph-accent-primary);
+}
+
+.news-card:hover {
+    background: rgba(var(--morph-bg-secondary-rgb), 0.8);
+    border-color: var(--morph-accent-primary);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.news-card:hover::before {
+    top: 5px;
+    left: 5px;
+}
+
+.news-card:hover::after {
+    bottom: 5px;
+    right: 5px;
+}
+
+.news-card-title {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    color: var(--morph-text-primary);
+    border-left: 4px solid var(--morph-accent-secondary);
+    padding-left: 1rem;
+}
+
+.news-card-content {
+    font-size: 0.95rem;
+    color: var(--morph-text-secondary);
+    opacity: 0.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Decorative Grid Lines */
+#news-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        linear-gradient(rgba(var(--morph-accent-primary-rgb), 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--morph-accent-primary-rgb), 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@media (max-width: 1024px) {
+    #news-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .news-card:nth-child(n) {
+        grid-column: span 1;
+        grid-row: auto;
+    }
+    .news-card:nth-child(odd) {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 640px) {
+    #news-container {
+        grid-template-columns: 1fr;
+    }
+    .news-card:nth-child(n) {
+        grid-column: span 1;
+    }
+}

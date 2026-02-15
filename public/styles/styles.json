@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-14",
+  "lastUpdated": "2026-02-15",
   "currentDefault": "default",
   "themes": [
     {
@@ -851,6 +851,21 @@
       "addedDate": "2026-02-14",
       "author": "ai",
       "mood": "Transition"
+    },
+    {
+      "id": "structural-consolidation",
+      "name": "構造的統合",
+      "description": "拡散した情報を一つの強固な基盤へと収束・整理する「統合」のフェーズを表現。重厚感のあるチャコールスレートに、信頼と価値を象徴するブロンズゴールドを配し、安定した視認性と洗練された構造美を提供します。",
+      "file": "themes/structural-consolidation.css",
+      "preview": {
+        "primary": "#d4af37",
+        "secondary": "#5c7c8a",
+        "background": "#1a1c1e",
+        "text": "#f0f2f5"
+      },
+      "addedDate": "2026-02-15",
+      "author": "ai",
+      "mood": "Consolidation"
     }
   ]
 }

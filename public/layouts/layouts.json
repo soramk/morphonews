@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-14",
+  "lastUpdated": "2026-02-15",
   "layouts": [
     {
       "id": "default",
@@ -621,6 +621,22 @@
       "author": "ai",
       "mood": "Transition",
       "generation": 78
+    },
+    {
+      "id": "consolidated-monolith-matrix-v80",
+      "name": "統合化モノリス・タクティカル・マトリクス",
+      "description": "第80世代の進化。ムード「Consolidation（統合・整理）」を、情報の密度と構造的堅牢さとして解釈。前回の「遷移（Transition）」による流動的な水平スクロールと有機的な形状変化に対し、今回は「静的かつ強固な12カラム・モザイクグリッド」を採用。@starting-styleを用いた「断片から統合へ」のローディングアニメーションと、CSS Gridのエリア指定による情報の優先順位付け、そして微細なコーナーブラケット（角括弧）によるタクティカルな視覚表現により、混沌とした情報を一つの「モノリス」として再構築します。情報の散乱を抑え、密度を高めることで、プロフェッショナルな信頼感を醸成します。",
+      "file": "consolidated-monolith-matrix-v80.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "3d",
+        "animation": "stagger"
+      },
+      "evolution_note": "@starting-styleによる初期状態の定義 + Grid-areaによる非対称な統合 + ::before/::afterによるタクティカル・装飾フレーム",
+      "addedDate": "2026-02-15",
+      "author": "ai",
+      "mood": "Consolidation",
+      "generation": 79
     }
   ]
 }

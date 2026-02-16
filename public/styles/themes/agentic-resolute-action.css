@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・レゾリュート・アクション
+ * Generated: 2026-02-16_0959
+ * Mood: Agentic
+ * Description: 自己決定と目標達成への強い意志を象徴するテーマ。漆黒の背景に、警戒感と確信を想起させるオレンジとゴールドのアクセントを配し、迅速な行動へと導きます。
+ */
+:root {
+  --morpho-bg-primary: #05070a;
+  --morpho-bg-secondary: #0d1117;
+  --morpho-bg-card: #151921;
+  --morpho-text-primary: #ffffff;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #f97316;
+  --morpho-accent-secondary: #fbbf24;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #ea580c 0%, #facc15 100%);
+}

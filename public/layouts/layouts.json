@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-15",
+  "lastUpdated": "2026-02-16",
   "layouts": [
     {
       "id": "default",
@@ -637,6 +637,22 @@
       "author": "ai",
       "mood": "Consolidation",
       "generation": 79
+    },
+    {
+      "id": "agentic-neural-flow-v81",
+      "name": "エージェンティック・ニューラル・フロウ",
+      "description": "第81世代の進化。前回の「堅牢なモノリス（統合）」から脱却し、ムード「Agentic（自律的・能動的）」を体現する、情報の流動的なネットワーク構造を構築。Scroll-driven Animationsを採用し、ユーザーのスクロール位置に応じて各カードがニューロンのように発火・拡大する動的体験を提供します。CSS Container Queriesによる内部要素の自律的最適化と、疑似要素による「脈動する信号」のエフェクトを加え、情報が単なる静的なタイルではなく、意思を持って流れるストリームであることを表現しました。",
+      "file": "agentic-neural-flow-v81.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven Animations (view-timeline) + Container Queries + Neural Pulse Micro-interactions",
+      "addedDate": "2026-02-16",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 80
     }
   ]
 }

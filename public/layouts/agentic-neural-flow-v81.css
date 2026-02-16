@@ -1,0 +1,144 @@
+/**
+ * MorphoNews Layout: エージェンティック・ニューラル・フロウ
+ * Generated: 2026-02-16_0959
+ * Generation: #80
+ * Mood: Agentic
+ * Evolution: Scroll-driven Animations (view-timeline) + Container Queries + Neural Pulse Micro-interactions
+ * Description: 第81世代の進化。前回の「堅牢なモノリス（統合）」から脱却し、ムード「Agentic（自律的・能動的）」を体現する、情報の流動的なネットワーク構造を構築。Scroll-driven Animationsを採用し、ユーザーのスクロール位置に応じて各カードがニューロンのように発火・拡大する動的体験を提供します。CSS Container Queriesによる内部要素の自律的最適化と、疑似要素による「脈動する信号」のエフェクトを加え、情報が単なる静的なタイルではなく、意思を持って流れるストリームであることを表現しました。
+ */
+:root {
+    --layout-max-width: 1200px;
+    --layout-news-columns: 1fr 2px 1fr;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: column;
+    --layout-animation-style: neural-activation;
+    --pulse-color: var(--morpho-accent-primary);
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+/* Central Neural Path */
+#news-container::before {
+    content: '';
+    grid-column: 2;
+    grid-row: 1 / -1;
+    background: linear-gradient(to bottom, transparent, var(--morpho-accent-secondary), transparent);
+    opacity: 0.3;
+    width: 2px;
+    height: 100%;
+}
+
+.news-card {
+    position: relative;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    container-type: inline-size;
+    view-timeline-name: --card-scroll;
+    view-timeline-axis: block;
+    animation-name: var(--layout-animation-style);
+    animation-fill-mode: both;
+    animation-timeline: --card-scroll;
+    animation-range: entry 10% cover 40%;
+    transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Scroll-driven Animation Keyframes */
+@keyframes neural-activation {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8) rotateX(-20deg);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0);
+        filter: blur(0);
+    }
+}
+
+/* Asymmetric Staggering */
+.news-card:nth-child(odd) {
+    grid-column: 1;
+    margin-right: -2rem;
+    text-align: right;
+}
+
+.news-card:nth-child(even) {
+    grid-column: 3;
+    margin-left: -2rem;
+    margin-top: 6rem;
+}
+
+/* Neural Pulse Effect */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: var(--morpho-accent-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--morpho-accent-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.news-card:nth-child(odd)::after {
+    right: -calc(var(--layout-card-gap) / 2 + 6px);
+}
+
+.news-card:nth-child(even)::after {
+    left: -calc(var(--layout-card-gap) / 2 + 8px);
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    transform: scale(1.02) translateZ(20px);
+    z-index: 10;
+}
+
+.news-card:hover::after {
+    opacity: 1;
+    animation: pulse-ring 1.5s infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+/* Container Query for Internal Content Adaptation */
+@container (min-width: 400px) {
+    .news-card-content {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1.5rem;
+        align-items: end;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    #news-container::before { display: none; }
+    .news-card:nth-child(odd), .news-card:nth-child(even) {
+        grid-column: 1;
+        margin: 0;
+        text-align: left;
+    }
+    .news-card::after { display: none; }
+}

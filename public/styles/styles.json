@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-15",
+  "lastUpdated": "2026-02-16",
   "currentDefault": "default",
   "themes": [
     {
@@ -866,6 +866,21 @@
       "addedDate": "2026-02-15",
       "author": "ai",
       "mood": "Consolidation"
+    },
+    {
+      "id": "agentic-resolute-action",
+      "name": "エージェンティック・レゾリュート・アクション",
+      "description": "自己決定と目標達成への強い意志を象徴するテーマ。漆黒の背景に、警戒感と確信を想起させるオレンジとゴールドのアクセントを配し、迅速な行動へと導きます。",
+      "file": "themes/agentic-resolute-action.css",
+      "preview": {
+        "primary": "#f97316",
+        "secondary": "#fbbf24",
+        "background": "#05070a",
+        "text": "#ffffff"
+      },
+      "addedDate": "2026-02-16",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

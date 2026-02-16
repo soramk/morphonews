@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoNews | 2026-02-16 09:59 - Generation #80</title>
+    <meta name="description" content="AIが自動生成する進化型テックニュース - Agentic">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../styles/base.css">
+
+    <!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) -->
+    <link id="morpho-theme-css" rel="stylesheet" href="../styles/themes/agentic-resolute-action.css">
+
+    <!-- Layout (ページ構造・配置・アニメーション) -->
+    <link id="morpho-layout-css" rel="stylesheet" href="../layouts/agentic-neural-flow-v81.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--morpho-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--morpho-bg-secondary);
+            z-index: 999;
+            padding: 80px 24px 24px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--morpho-text-primary);
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--morpho-bg-primary);
+        }
+
+        .mobile-menu a.active {
+            background: var(--morpho-accent-gradient);
+            color: white;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .morpho-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .morpho-header-content {
+                flex-wrap: nowrap;
+            }
+
+            .morpho-logo span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body data-article-id="2026-02-16_0959" data-prev-link="./2026-02-15_1001.html">
+
+    <!-- Header -->
+    <header class="morpho-header">
+        <div class="morpho-header-content">
+            <div class="morpho-logo">
+                <h1>🦋 MorphoNews</h1>
+                <span>Generation #80 | Agentic</span>
+            </div>
+            <nav class="morpho-nav">
+                <a href="./2026-02-15_1001.html" class="nav-link">
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                前のニュース
+            </a>
+                <a href="../history.html">
+                    <i data-lucide="archive" style="width: 18px; height: 18px;"></i>
+                    アーカイブ
+                </a>
+                <a href="../settings.html">
+                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                    設定
+                </a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">
+            <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+            最新のニュース
+        </a>
+        <a href="../history.html">
+            <i data-lucide="archive" style="width: 24px; height: 24px;"></i>
+            アーカイブ
+        </a>
+        <a href="../settings.html">
+            <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
+            設定
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="morpho-main">
+        <!-- Daily Summary -->
+        <section class="morpho-card morpho-animate-in" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--morpho-accent-primary);"></i>
+                今日のテックトレンド
+            </h2>
+            <p style="font-size: 1.05rem; line-height: 1.8;">今日のテックトレンドは「AIエージェントの社会実装」と「メディア体験の構造変化」に集約されます。GitHubが自然言語でのワークフロー構築を発表し、CloudflareがAI向けにWebを変換するツールを導入するなど、AIが人間の指示を待つ段階から自律的な行動へとシフトする「エージェント化」が加速しています。GoogleもGemini 3 Deep Thinkを更新し、科学・エンジニアリング分野での推論能力のさらなる向上を提示しました。
+
+ハードウェア面では、ニコンが買収したREDの技術を投入したシネマカメラ「Nikon ZR」を投入し静止画・動画の境界を揺さぶる一方、ソニーがBlu-rayレコーダーの終売を発表するという象徴的なニュースがありました。これは「所有して録画する」という文化が、ストリーミングとクラウドの時代へ完全に移行したことを示唆しています。
+
+また、インドでのAI生成コンテンツ規制強化や、Googleに対するAI音声利用を巡る訴訟など、急速な技術進歩に対する法的・倫理的な調整も世界規模で進んでいます。開発者コミュニティではTypeScriptの成功要因の分析や量子コンピュータの計算機的再定義が注目されており、より効率的で本質的な実装への探求が続いています。</p>
+        </section>
+
+        <!-- Top News -->
+        <section>
+            <h2 style="font-size: 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="newspaper" style="width: 22px; height: 22px; color: var(--morpho-accent-primary);"></i>
+                注目ニュース
+            </h2>
+            <div id="news-container">
+                
+        <article class="news-card" data-index="0">
+          <div class="news-number">01</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.publickey1.jp/blog/26/githubyamlgithub_agentic_workflows.html" target="_blank" rel="noopener noreferrer">
+                GitHub、自然言語でワークフローを記述できる「GitHub Agentic Workflows」発表
+              </a>
+            </h3>
+            <p class="news-description">YAML形式ではなく、自然言語でビルドやデプロイのパイプラインを構築可能にする新機能。開発者の生産性を劇的に変える可能性を秘めています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="1">
+          <div class="news-number">02</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/02/cloudflare-markdown-for-agents?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                Cloudflare、AIエージェント向けHTML変換機能「Markdown for Agents」公開
+              </a>
+            </h3>
+            <p class="news-description">WebページをオンザフライでMarkdownに変換し、AIエージェントが情報を読み取りやすくするインフラ機能。エージェント・エコシステムを支援します。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="2">
+          <div class="news-number">03</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://gihyo.jp/article/2026/02/gemini3-deep-think-updates?utm_source=feed" target="_blank" rel="noopener noreferrer">
+                Google、推論モデル「Gemini 3 Deep Think」を更新、研究・工学用途を強化
+              </a>
+            </h3>
+            <p class="news-description">複雑な推論を必要とするタスク向けにモデルをアップデート。数学研究エージェント「Aletheia」など、高度な専門領域への適用が進んでいます。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="3">
+          <div class="news-number">04</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.itmedia.co.jp/news/articles/2602/14/news008.html" target="_blank" rel="noopener noreferrer">
+                ニコン、REDのDNAを継ぐ30万円以下のシネマカメラ「Nikon ZR」発表
+              </a>
+            </h3>
+            <p class="news-description">ミラーレス一眼の操作性と、買収したREDの高度なシネマ性能を融合。動画制作市場におけるニコンの存在感を決定づける一台です。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="4">
+          <div class="news-number">05</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.watch.impress.co.jp/docs/series/nishida/2086013.html" target="_blank" rel="noopener noreferrer">
+                ソニーがBlu-rayレコーダー終売へ。日本独自の「録画文化」が幕を閉じる
+              </a>
+            </h3>
+            <p class="news-description">長年日本の家庭で親しまれた録画機器が、配信サービスの普及により終焉を迎えます。文化的な損失を惜しむ声も上がっています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="5">
+          <div class="news-number">06</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://tech.slashdot.org/story/26/02/15/2231220/indias-new-social-media-rules-remove-unlawful-content-in-three-hours-detect-illegal-ai-content-automatically?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" target="_blank" rel="noopener noreferrer">
+                インド、AI生成コンテンツの自動検知と3時間以内の削除を義務化する新規則
+              </a>
+            </h3>
+            <p class="news-description">フェイクニュース対策として、SNSプラットフォームに対し違法コンテンツの極めて迅速な排除を求める厳しい規制を導入しました。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="6">
+          <div class="news-number">07</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/" target="_blank" rel="noopener noreferrer">
+                OpenClaw創設者のPeter Steinberger氏がOpenAIに加入
+              </a>
+            </h3>
+            <p class="news-description">人気AIエージェントの作成者がOpenAIへ。AIエージェントのインターフェースや自律性の開発が加速することが予想されます。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="7">
+          <div class="news-number">08</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://thehackernews.com/2026/02/microsoft-discloses-dns-based-clickfix.html" target="_blank" rel="noopener noreferrer">
+                Microsoft、DNSを利用した巧妙な「ClickFix」攻撃の手口を公開
+              </a>
+            </h3>
+            <p class="news-description">nslookupを利用してマルウェアを実行させる新たなソーシャルエンジニアリング手法。セキュリティ担当者に注意を呼びかけています。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="8">
+          <div class="news-number">09</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://zenn.dev/yuichirominato/articles/baa2eed928e072" target="_blank" rel="noopener noreferrer">
+                量子コンピュータの正体は「巨大な行列計算機」。NNエンジニアにも理解しやすい解釈
+              </a>
+            </h3>
+            <p class="news-description">量子力学の難解なイメージを排除し、高次元ベクトルと行列計算の観点から量子計算を捉え直す視点が技術者の間で話題です。</p>
+          </div>
+        </article>
+        
+        <article class="news-card" data-index="9">
+          <div class="news-number">10</div>
+          <div class="news-content">
+            <h3 class="news-title">
+              <a href="https://www.publickey1.jp/blog/26/typescript7.html" target="_blank" rel="noopener noreferrer">
+                TypeScriptが成功した「7つの教訓」。作者ヘイルスバーグ氏が語る設計思想
+              </a>
+            </h3>
+            <p class="news-description">JavaScriptとの互換性と静的型の共存をいかに実現したか。現代のソフトウェア開発に不可欠な言語の設計哲学が明かされました。</p>
+          </div>
+        </article>
+        
+            </div>
+        </section>
+
+        <!-- Meta Information -->
+        <section class="morpho-card" style="margin-top: 2rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="info" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                システム情報
+            </h3>
+            <div class="morpho-meta">
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">取得日時</span>
+                    <span class="morpho-meta-value" id="meta-fetch-time">2026-02-16 09:59:36 JST</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">収集記事数</span>
+                    <span class="morpho-meta-value" id="meta-article-count">60</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">使用モデル</span>
+                    <span class="morpho-meta-value" id="meta-model">gemini-3-flash-preview</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約トークン</span>
+                    <span class="morpho-meta-value" id="meta-summary-tokens">入力=7849, 出力=1443, 合計=10511</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">要約時間</span>
+                    <span class="morpho-meta-value" id="meta-summary-time">17.21秒</span>
+                </div>
+                <div class="morpho-meta-item">
+                    <span class="morpho-meta-label">全体処理時間</span>
+                    <span class="morpho-meta-value" id="meta-total-time">0秒</span>
+                </div>
+            </div>
+
+            <!-- Prompts (collapsible) -->
+            <details style="margin-top: 1rem;">
+                <summary>
+                    <i data-lucide="code" style="width: 16px; height: 16px;"></i>
+                    AIプロンプトを表示
+                </summary>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">要約プロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">ITジャーナリストとして、以下の記事リストからWeb記事コンテンツを作成してください。
+    
+    【要件】
+    1. 「今日のテックトレンド要約」(600文字程度)を作成。
+    2. 注目ニュース10選をピックアップ。重複や類似トピックは避け、多様な分野をカバー。
+    3. 出力はJSON形式。
+    
+    入力: [{&quot;title&quot;: &quot;髪を“不自然な色”に染める行為とうつ病の関係は？　海外マッチングアプリ1万人以上を分析　22年に発表&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2602/16/news028.html&quot;, &quot;summary&quot;: &quot;ポーランドのアスビロ大学などに所属する研究者らは2022年、髪を不自然な色に染めることとメンタルヘルスの関連性を調査した研究を発表した。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「ドラクエVII」はとにかく親切で簡単サックサク！　元ドラクエ苦手マンガ家が伝えたいストレスなしRPGの魅力&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2602/15/news011.html&quot;, &quot;summary&quot;: &quot;ボクは元々ドラクエシリーズに苦手意識を持っていました。昔のドラクエはどの作品も結構難易度が高く、クリアできなかったからです。ただ、今回の「ドラゴンクエストVII Reimagined」に関しては、全くと言っていいほど苦労することがありませんでした。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;30万円を切る“RED”？　「Nikon ZR」はガチのシネマカメラだけど静止画撮影も優秀だった&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2602/14/news008.html&quot;, &quot;summary&quot;: &quot;ニコンのZシリーズにシネマカメラ「Nikon ZR」が加わった。REDを買収し、ミラーレス一眼に本格的なシネマカメラを投入したのだ。だがしかし、使った人に話を聞くと「ミラーレス一眼としても優秀」なのだという。...&quot;, &quot;source&quot;: &quot;ITmedia NEWS 最新記事一覧&quot;}, {&quot;title&quot;: &quot;NXPがエッジへのAIエージェント実装を推進、数百TOPSクラスの新たなNPUも開発へ&quot;, &quot;link&quot;: &quot;https://monoist.itmedia.co.jp/mn/articles/2602/16/news056.html&quot;, &quot;summary&quot;: &quot;NXPセミコンダクターズは、同社が開発を進めているエッジ環境にAIエージェントを組み込むための開発ツール「eIQ Agentic AI Framework」をはじめエッジAI戦略について説明した。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;生成AIにも現場業務にも役立つ「ビジネスメタデータ」、誰がどう整備する？&quot;, &quot;link&quot;: &quot;https://atmarkit.itmedia.co.jp/ait/articles/2602/16/news003.html&quot;, &quot;summary&quot;: &quot;企業における生成AIの活用が加速する一方、蓄積したデータをAI自身に理解させなければAI活用の取り組みは頓挫しかねない――AI活用の成否を分ける「データマネジメント」に焦点を当てた本連載。今回は組織でビジネスメタデータの整備を始める方法を整理する。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;コナンやウルトラマンがAI動画に――「TikTok」運営元の動画生成AI巡り、小野田大臣「実態把握急ぐ」&quot;, &quot;link&quot;: &quot;https://www.itmedia.co.jp/news/articles/2602/13/news119.html&quot;, &quot;summary&quot;: &quot;小野田紀美AI戦略担当相は2月13日の記者会見で、中国ByteDanceの動画生成AI「Seedance 2.0」を使い、日本のキャラクターを用いた動画が生成・拡散されている問題に言及。関係省庁と連携して実態調査に着手するとともに、ByteDanceに事案の改善を求めるよう事務方に指示したことを明らかにした。...&quot;, &quot;source&quot;: &quot;ITmedia AI＋ 最新記事一覧&quot;}, {&quot;title&quot;: &quot;「Markdownだけで」顧客提案レベルのスライドを作ってみた【Slidev x Claude Opus 4.6】&quot;, &quot;link&quot;: &quot;https://qiita.com/ntaka329/items/47fb89fb6a84d9976d36?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;はじめに\nGMOコネクトの永田です。\n提案書、作るの辛くないですか？😇\n特に官公庁向け提案書は、評価項目ごとにページを作成していくと数十〜数百ページになることも珍しくありません。PowerPoint で作る場合、こんな苦痛が待っています：\n\nコピペ地獄: スライドをコピ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;Claude Code Skills で株スクリーニングを自動化した話【Python × yfinance × バイブコーディング】&quot;, &quot;link&quot;: &quot;https://qiita.com/okikusan-public/items/61100a5b1aa8d752ae24?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;なぜ投資分析の自動化が必要だったのか\nClaude Code Skills と yfinance を使って、株式スクリーニングからポートフォリオ管理まで投資分析を自動化するシステムを作りました。Python × バイブコーディングで、個人投資家の投資ワークフロー全体を5つ......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;セキュリティ基礎講座：公開鍵暗号は３種類あるよ&quot;, &quot;link&quot;: &quot;https://qiita.com/peridotan/items/441f4c6a467dae69583a?utm_campaign=popular_items&amp;utm_medium=feed&amp;utm_source=popular_items&quot;, &quot;summary&quot;: &quot;0.はじめに\nセキュリティ（ソリューション）に携わって早20数年の元システムエンジニアです。\n私が新人システムエンジニアとしてSIerで働き始めたころ、\n会社から支給されたパソコンにはウイルス対策ソフトがインストールされていませんでした。\n（ウソだろ、と思うかもしれません......&quot;, &quot;source&quot;: &quot;Qiita - 人気の記事&quot;}, {&quot;title&quot;: &quot;量子コンピュータの正体：ただの「巨大な行列計算機」&quot;, &quot;link&quot;: &quot;https://zenn.dev/yuichirominato/articles/baa2eed928e072&quot;, &quot;summary&quot;: &quot;量子コンピュータを「量子力学」で理解しようとするのは遠回りです。その実体は、「超高次元の複素ベクトル」に対して「行列」を掛け合わせ、最後に「サンプリング」するだけの計算機です。\nニューラルネットワーク（NN）を扱っている人なら、実はそれほど違和感なく理解できる構造をしています。\n\n 1. 状態は「2次元配列（ベクトル）」\n1つのビット（量子ビット）は、2つの複素数を要素に持つベクトルに過ぎません。...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;金融取引分析エージェント(AIとデータサイエンス)- Python &amp; Google ADKで金融取引戦略を生成&quot;, &quot;link&quot;: &quot;https://zenn.dev/mmmot/articles/560829d90036dc&quot;, &quot;summary&quot;: &quot;本プロジェクトは、Zenn 主催の「第 4 回 Agentic AI Hackathon with Google Cloud」に提出する成果物である。\n今回提出するアプリケーションである、「金融取引分析エージェント(AI とデータサイエンス)」 は、Python と yfinance による金融データの取引手法検証と、Google ADK（Agent Development Kit） を用いたデー...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;Streamlit公式Skillsでベストプラクティスに沿ったアプリを瞬時に構築&quot;, &quot;link&quot;: &quot;https://zenn.dev/datum_studio/articles/f202b8075f1b1b&quot;, &quot;summary&quot;: &quot;はじめに\nこんにちは！データエンジニアの山口歩夢です。\nStreamlitは便利な関数を数多く提供しており、それらを組み合わせることでデータアプリケーションを手軽に開発できることが魅力のPythonライブラリです。提供されている関数を使って実装するだけで、驚くほど簡単にアプリを構築できます。\n最近では、更にClaudeなどで活用できるSkillsが公開されており、これを活用することで、今まで以上に...&quot;, &quot;source&quot;: &quot;Zennのトレンド&quot;}, {&quot;title&quot;: &quot;数万人規模の意見を集約するオープンソースプラットフォーム「Polis」は台湾やイギリスで有効性が実証され国家レベルの民主的インフラとして定着している&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260216-polis/&quot;, &quot;summary&quot;: &quot;Polisは数万人規模の意見を集約し、対立を超えた共通の基盤を見出すためのオープンソースプラットフォームです。2012年の誕生以来、1千万人以上の参加者による膨大な議論を通じてその有効性が証明されており、現在は台湾やイギリス、フィンランドにおいて、国家レベルの意思決定を支える民主的インフラとして定着していますPolishttps://pol.is/home2GitHub - compdemocra...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;ヤフコメやYouTubeのコメント欄を非表示にできるブラウザ拡張機能「Shut Up」&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260216-shut-up-comment-blocker/&quot;, &quot;summary&quot;: &quot;ウェブページのコメント欄には役立つ情報が書き込まれている場合もありますが、不快なコメントやネタバレなどが書き込まれることもあります。ブラウザ拡張機能の「Shut Up」を使えば各種ウェブサイトのコメント欄を非表示にすることができます。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260216&amp;#45;shut&amp;#45;up&amp;#45;comment&amp;#45;b...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;TVアニメ『鉄鍋のジャン！』ティザーPV公開、「原作発表当時の世相・描写を尊重し過激な描写が含まれる場合があります」&quot;, &quot;link&quot;: &quot;https://gigazine.net/news/20260216-iron-wok-jan/&quot;, &quot;summary&quot;: &quot;1995年から2000年にかけて週刊少年チャンピオンに連載され、2026年にTVアニメ放送が予定されている『鉄鍋のジャン！』のティザーPVが公開されました。&lt;p&gt;&lt;b&gt;&lt;a href=\&quot;https://gigazine.net/news/20260216&amp;#45;iron&amp;#45;wok&amp;#45;jan/\&quot;&gt;続きを読む...&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;...&quot;, &quot;source&quot;: &quot;GIGAZINE&quot;}, {&quot;title&quot;: &quot;オープンソースの公式サポート終了後も、最小限のコストで安全に脆弱性対応を可能にする「TuxCare ELS」提供開始［PR］&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/tuxcare_elspr.html&quot;, &quot;summary&quot;: &quot;OSやプログラミング言語のランタイムのアップデートは、プログラマやシステム運用者にとって常に悩みのタネだといえます。 一般に、数年ごとに発生するOSや言語のランタイム、ライブラリなどのメジャーアップデートのサイクルと比べて、アプリケーション......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;GitHub、YAMLではなく自然言語でビルドやデプロイなどのワークフローを記述できる「GitHub Agentic Workflows」テクニカルプレビュー&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/githubyamlgithub_agentic_workflows.html&quot;, &quot;summary&quot;: &quot;GitHubは、自然言語でGitHub Actionsワークフローを記述できる「GitHub Agentic Workflows」のテクニカルプレビューを発表しました。 Imagine waking up to calm...  Issue......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;なぜTypeScriptは成功しているのか。作者ヘイルスバーグ氏が語る7つの教訓&quot;, &quot;link&quot;: &quot;https://www.publickey1.jp/blog/26/typescript7.html&quot;, &quot;summary&quot;: &quot;TypeScriptの言語設計を行い、現在も開発をリードしているアンダース・ヘルスバーグ（Anders Hejlsberg）氏は、1983年に発売され大きな人気を得たプログラミング言語であるTurbo Pascalの作者であり、その後もDe......&quot;, &quot;source&quot;: &quot;Publickey&quot;}, {&quot;title&quot;: &quot;Cloudflare、「Markdown for Agents」を発表 ——エージェント向けにウェブページのHTMLをオンザフライでMarkdownに変換&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/02/cloudflare-markdown-for-agents?utm_source=feed&quot;, &quot;summary&quot;: &quot;Cloudflareは2026年2月12日、ウェブページをエージェント向けにMarkdownにして提供できる機能「Markdown for Agents」を発表した。この機能はPro/Business/EnterpriseプランおよびSSL for SaaSで、ベータ機能として無償で提供される。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;Google、Gemini 3 Deep Thinkを更新し研究・エンジニアリング用途を強化 ——数学研究エージェント「Aletheia」など共同研究の取り組みも&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/02/gemini3-deep-think-updates?utm_source=feed&quot;, &quot;summary&quot;: &quot;GoogleのDeep Thinkチームは2026年2月12日、推論モード「Gemini 3 Deep Think」のモデルを更新したことを発表した。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;本当に効く、真の業務改善とは ～『業務設計の教科書』発売記念イベント@書泉ブックタワーレポート～&quot;, &quot;link&quot;: &quot;https://gihyo.jp/article/2026/02/business-improvement-in-the-dx-and-ai-era?utm_source=feed&quot;, &quot;summary&quot;: &quot;2026年1月29日に書泉ブックタワーで開催された書籍2冊をテーマにしたイベント「本当に効く、真の業務改善とは〜 業務設計とExcel仕事術で学ぶ実践的アプローチ」。本稿ではその模様をレポートします。...&quot;, &quot;source&quot;: &quot;gihyo.jp&quot;}, {&quot;title&quot;: &quot;DevinにPRレビューコメントの自動修正機能が追加&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23361&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;C++の新機能を理解する──静的なoperator()／operator[]と多次元対応operator[]など言語仕様の強化&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23296&quot;, &quot;summary&quot;: &quot;C++は、C言語より派生した歴史のあるオブジェクト指向言語です。このC++は、システムプログラミングにも適した高速で緻密なコーディングのための言語ですが、絶え間なく進化を続けており、モダンな言語仕様やライブラリ機能も貪欲に取り込んでいます。本連載では、このC++の最新バージョンにフォーカスし、その新機能を紹介していきます。また、最新バージョン以前の機能にも関連の深いものについて言及することで、新機...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;Google Docs、Gemini対応の音声要約機能を発表&quot;, &quot;link&quot;: &quot;https://codezine.jp/article/detail/23353&quot;, &quot;summary&quot;: &quot;...&quot;, &quot;source&quot;: &quot;CodeZine:新着一覧&quot;}, {&quot;title&quot;: &quot;【西田宗千佳のイマトミライ】日本で拡大した「録画」はなぜ消えるのか そして同時に消える「文化」とはなにか&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/series/nishida/2086013.html&quot;, &quot;summary&quot;: &quot;先週、ソニーがBlu-rayレコーダーの終売を発表した。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;LINE公式アカウント、飲食店の予約・注文機能などを強化　理美容業界も&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2086018.html&quot;, &quot;summary&quot;: &quot;LINEヤフーは、飲食・理美容業界向けに、飲食・理美容業界に特化した新パッケージサービス「LINEレストランプラス」と「LINEビューティープラス」を6月から開始する。これにより、「LINE公式アカウント」をメッセージ配信ツールから、予約・注文・顧客管理・販促までを担う店舗と顧客の接点基盤へと強化していく。...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;人気の「モネ展」 京橋のアーティゾン美術館で「クロード・モネ」を全身で浴びた&quot;, &quot;link&quot;: &quot;https://www.watch.impress.co.jp/docs/news/2085970.html&quot;, &quot;summary&quot;: &quot;東京・京橋のアーティゾン美術館にて、モネ没後100年「クロード・モネ —風景への問いかけ」展が、2月7日に開幕した。会期は5月24日まで。印象派の巨匠クロード・モネは、自然光の移ろいに魅せられ、その美しさをカンヴァスにとどめようと生涯をかけて探求した。没後100年を記念し、モネの最も重要かつ網羅したコレクションを誇るオルセー美術館から、最高峰の作品41点ほか全約140作品により、風景画を革新したモ...&quot;, &quot;source&quot;: &quot;Impress Watch&quot;}, {&quot;title&quot;: &quot;Blackstone backs Neysa in up to $1.2B financing as India pushes to build domestic AI infrastructure&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/02/15/blackstone-backs-neysa-in-up-to-1-2b-financing-as-india-pushes-to-build-domestic-ai-compute/&quot;, &quot;summary&quot;: &quot;Neysa is targeting deployments of more than 20,000 GPUs over time as demand for local AI compute accelerates....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;OpenClaw creator Peter Steinberger joins OpenAI&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/&quot;, &quot;summary&quot;: &quot;OpenAI said OpenClaw will live on as an open source project....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Longtime NPR host David Greene sues Google over NotebookLM voice&quot;, &quot;link&quot;: &quot;https://techcrunch.com/2026/02/15/longtime-npr-host-david-greene-sues-google-over-notebooklm-voice/&quot;, &quot;summary&quot;: &quot;The longtime host of NPR’s “Morning Edition,” is suing Google, alleging that the male podcast voice in the company’s NotebookLM tool is based on him....&quot;, &quot;source&quot;: &quot;TechCrunch&quot;}, {&quot;title&quot;: &quot;Microsoft Discloses DNS-Based ClickFix Attack Using Nslookup for Malware Staging&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/02/microsoft-discloses-dns-based-clickfix.html&quot;, &quot;summary&quot;: &quot;Microsoft has disclosed details of a new version of the ClickFix social engineering tactic in which the attackers trick unsuspecting users into running commands that carry out a Domain Name System (DN...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Google Ties Suspected Russian Actor to CANFAIL Malware Attacks on Ukrainian Orgs&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/02/google-ties-suspected-russian-actor-to.html&quot;, &quot;summary&quot;: &quot;A previously undocumented threat actor has been attributed to attacks targeting Ukrainian organizations with malware known as CANFAIL.\nGoogle Threat Intelligence Group (GTIG) described the hacking gro...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;Google Links China, Iran, Russia, North Korea to Coordinated Defense Sector Cyber Operations&quot;, &quot;link&quot;: &quot;https://thehackernews.com/2026/02/google-links-china-iran-russia-north.html&quot;, &quot;summary&quot;: &quot;Several state-sponsored actors, hacktivist entities, and criminal groups from China, Iran, North Korea, and Russia have trained their sights on the defense industrial base (DIB) sector, according to f...&quot;, &quot;source&quot;: &quot;The Hacker News&quot;}, {&quot;title&quot;: &quot;OpenClaw founder Peter Steinberger is joining OpenAI&quot;, &quot;link&quot;: &quot;https://www.theverge.com/ai-artificial-intelligence/879623/openclaw-founder-peter-steinberger-joins-openai&quot;, &quot;summary&quot;: &quot;Sam Altman announced on X that Peter Steinberger, the man behind the trendy AI agent OpenClaw, was joining OpenAI. He said that Steinberger has \&quot;a lot of amazing ideas\&quot; about getting AI agents to inte...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;You need to watch the intensely surreal cult classic Possession&quot;, &quot;link&quot;: &quot;https://www.theverge.com/entertainment/879602/cult-classic-possession-1981-review-isabelle-adjani&quot;, &quot;summary&quot;: &quot;Let me just say that I highly recommend you go into Possession blind. Don&#x27;t watch a trailer. Don&#x27;t even finish reading this. Go watch it now over on Shudder, Criterion, or Metrograph. It&#x27;s also availa...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Here are the 55 best Presidents Day deals we’ve found so far&quot;, &quot;link&quot;: &quot;https://www.theverge.com/gadgets/875949/best-presidents-day-sales-deals-2026&quot;, &quot;summary&quot;: &quot;Deals have been admittedly pretty dry since the holidays, but now that February is in full swing, we’re starting to see strong discounts return across a range of categories. In fact, thanks to Valenti...&quot;, &quot;source&quot;: &quot;The Verge&quot;}, {&quot;title&quot;: &quot;Space Station returns to a full crew complement after a month&quot;, &quot;link&quot;: &quot;https://arstechnica.com/space/2026/02/space-station-returns-to-a-full-crew-complement-after-a-month/&quot;, &quot;summary&quot;: &quot;\&quot;It&#x27;s only possible because of the incredibly talented workforce we have.\&quot;...&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Ancient Mars was warm and wet, not cold and icy&quot;, &quot;link&quot;: &quot;https://arstechnica.com/science/2026/02/ancient-mars-was-warm-and-wet-not-cold-and-icy/&quot;, &quot;summary&quot;: &quot;Kaolinite pebbles show evidence of alteration under high rainfall conditions....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;Editor’s Note: Retraction of article containing fabricated quotations&quot;, &quot;link&quot;: &quot;https://arstechnica.com/staff/2026/02/editors-note-retraction-of-article-containing-fabricated-quotations/&quot;, &quot;summary&quot;: &quot;We are reinforcing our editorial standards following this incident....&quot;, &quot;source&quot;: &quot;Ars Technica - All content&quot;}, {&quot;title&quot;: &quot;The Nothing That Has the Potential to Be Anything&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/the-nothing-that-has-the-potential-to-be-anything/&quot;, &quot;summary&quot;: &quot;You can never truly empty a box. Why? Zero-point energy....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;The Best Samsung Phones of 2026, Tested and Reviewed&quot;, &quot;link&quot;: &quot;https://www.wired.com/gallery/best-samsung-phones/&quot;, &quot;summary&quot;: &quot;From flagship and budget to flipping and folding, Samsung’s Galaxy range spans the breadth of the smartphone cosmos. WIRED’s here to help you make your choice....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Google’s AI Overviews Can Scam You. Here’s How to Stay Safe&quot;, &quot;link&quot;: &quot;https://www.wired.com/story/googles-ai-overviews-can-scam-you-heres-how-to-stay-safe/&quot;, &quot;summary&quot;: &quot;Beyond mistakes or nonsense, deliberately bad information being injected into AI search summaries is leading people down potentially harmful paths....&quot;, &quot;source&quot;: &quot;WIRED&quot;}, {&quot;title&quot;: &quot;Rivian&#x27;s Stock Spikes 27% After Reporting $144 Million Profit in 2025&quot;, &quot;link&quot;: &quot;https://tech.slashdot.org/story/26/02/15/2333200/rivians-stock-spikes-27-after-reporting-144-million-profit-in-2025?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Rivian&#x27;s stock skyrocketed 27% Friday after the electric car maker \&quot;shocked the market with strong earnings results,\&quot; reports the Los Angeles Times, \&quot;proving itself an outlier in the EV market, which ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;India&#x27;s New Social Media Rules:  Remove Unlawful Content in Three Hours, Detect Illegal AI Content Automatically&quot;, &quot;link&quot;: &quot;https://tech.slashdot.org/story/26/02/15/2231220/indias-new-social-media-rules-remove-unlawful-content-in-three-hours-detect-illegal-ai-content-automatically?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;Bloomberg reports:\n\nIndia tightened rules governing social media content and platforms, particularly targeting artificially generated and manipulated material, in a bid to crack down on the rapid spre...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;Sam Bankman-Fried Requests New Trial in FTX Crypto Fraud Case&quot;, &quot;link&quot;: &quot;https://yro.slashdot.org/story/26/02/15/2134211/sam-bankman-fried-requests-new-trial-in-ftx-crypto-fraud-case?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed&quot;, &quot;summary&quot;: &quot;While serving his 25-year prison sentence, \&quot;convicted former cryptocurrency mogul Sam Bankman-Fried on Tuesday requested a new federal trial,\&quot; reports Courthouse News, \&quot;based on what he says is newly ...&quot;, &quot;source&quot;: &quot;Slashdot&quot;}, {&quot;title&quot;: &quot;I don&#x27;t think AGI is imminent&quot;, &quot;link&quot;: &quot;https://dlants.me/agi-not-imminent.html&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://dlants.me/agi-not-imminent.html\&quot;&gt;https://dlants.me/agi-not-imminent.html&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=47028923\&quot;&gt;https://news....&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Error payloads in Zig&quot;, &quot;link&quot;: &quot;https://srcreigh.ca/posts/error-payloads-in-zig/&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://srcreigh.ca/posts/error-payloads-in-zig/\&quot;&gt;https://srcreigh.ca/posts/error-payloads-in-zig/&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=47028...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Continuous batching from first principles (2025)&quot;, &quot;link&quot;: &quot;https://huggingface.co/blog/continuous_batching&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Article URL: &lt;a href=\&quot;https://huggingface.co/blog/continuous_batching\&quot;&gt;https://huggingface.co/blog/continuous_batching&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;Comments URL: &lt;a href=\&quot;https://news.ycombinator.com/item?id=4702854...&quot;, &quot;source&quot;: &quot;Hacker News: Front Page&quot;}, {&quot;title&quot;: &quot;Hideki Sato, known as the father of Sega hardware, has reportedly died&quot;, &quot;link&quot;: &quot;https://www.engadget.com/gaming/hideki-sato-known-as-the-father-of-sega-hardware-has-reportedly-died-230634768.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Hideki Sato, who led the design of Sega&#x27;s beloved consoles from the &#x27;80s and &#x27;90s, died on Friday, according to the Japanese gaming site &lt;a class=\&quot;link\&quot; href=\&quot;https://x.com/beep2021/status/20226621...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Terminator Zero showrunner confirms the Netflix anime has been canceled after one season&quot;, &quot;link&quot;: &quot;https://www.engadget.com/entertainment/streaming/terminator-zero-showrunner-confirms-the-netflix-anime-has-been-canceled-after-one-season-211656840.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;If you&#x27;ve been wondering what&#x27;s next for Netflix&#x27;s &lt;em&gt;Terminator Zero &lt;/em&gt;in the time since its first season, we finally have an update, and it&#x27;s a bummer. Responding to a fan on social media, sh...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;The official Pokémon pinball machine has an animatronic Pikachu and a Master Ball plunger&quot;, &quot;link&quot;: &quot;https://www.engadget.com/gaming/nintendo/the-official-pokemon-pinball-machine-has-an-animatronic-pikachu-and-a-master-ball-plunger-204915013.html?src=rss&quot;, &quot;summary&quot;: &quot;&lt;p&gt;At a staggering starting price of $6,999, you have a better chance of buying a bicycle in Cerulean City than getting your hands on the official &lt;a href=\&quot;https://sternpinball.com/game/pokemon/\&quot;&gt;Poké...&quot;, &quot;source&quot;: &quot;Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics&quot;}, {&quot;title&quot;: &quot;Nvidia, Groq and the limestone race to real-time AI: Why enterprises win or lose here&quot;, &quot;link&quot;: &quot;https://venturebeat.com/infrastructure/nvidia-groq-and-the-limestone-race-to-real-time-ai-why-enterprises-win-or&quot;, &quot;summary&quot;: &quot;&lt;p&gt;​From miles away across the desert, the Great Pyramid looks like a perfect, smooth geometry — a sleek triangle pointing to the stars. Stand at the base, however, and the illusion of smoothness vani...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;AI agents turned Super Bowl viewers into one high-IQ team — now imagine this in the enterprise&quot;, &quot;link&quot;: &quot;https://venturebeat.com/orchestration/ai-agents-turned-super-bowl-viewers-into-one-high-iq-team-now-imagine-this&quot;, &quot;summary&quot;: &quot;&lt;p&gt;The average Fortune 1000 company has more than 30,000 employees and engineering, sales and marketing teams with hundreds of members. Equally large teams exist in government, science and defense org...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;How to test OpenClaw without giving an autonomous agent shell access to your corporate laptop&quot;, &quot;link&quot;: &quot;https://venturebeat.com/security/how-to-test-openclaw-without-giving-an-autonomous-agent-shell-access-to-your&quot;, &quot;summary&quot;: &quot;&lt;p&gt;Your developers are already running &lt;a href=\&quot;https://venturebeat.com/security/mcp-shipped-without-authentication-clawdbot-shows-why-thats-a-problem\&quot;&gt;OpenClaw&lt;/a&gt; at home. &lt;a href=\&quot;https://censys.co...&quot;, &quot;source&quot;: &quot;VentureBeat&quot;}, {&quot;title&quot;: &quot;LG has discounted its Gram Pro laptop by $900, but only for a limited time&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/lg-gram-pro-17-deal-post/&quot;, &quot;summary&quot;: &quot;The LG gram Pro 17 is a sleek and powerful laptop with a vibrant 2K display. It&#x27;s built to handle demanding workloads with ease....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;Beats Studio Pro headphones are 50% off right now - and I can vouch for them&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/beats-studio-pro-review/&quot;, &quot;summary&quot;: &quot;The latest release from Beats is the perfect middle-ground headphones for Android and Apple users....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;This Acer laptop from last year is proof that you don&#x27;t need to upgrade in 2026&quot;, &quot;link&quot;: &quot;https://www.zdnet.com/article/acer-swift-edge-14-review/&quot;, &quot;summary&quot;: &quot;The Acer Swift Edge 14 is a great-looking midranger with a vibrant OLED, a stylish keyboard, and superb battery life. Plus, it&#x27;s already on sale....&quot;, &quot;source&quot;: &quot;Latest news&quot;}, {&quot;title&quot;: &quot;Gemini 3 Deep Think: Advancing science, research and engineering&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-deep-think/&quot;, &quot;summary&quot;: &quot;Gemini 3 Deep Think logo...&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;9 fun questions to try asking Google Photos&quot;, &quot;link&quot;: &quot;https://blog.google/products-and-platforms/products/photos/ask-button-ask-photos-tips/&quot;, &quot;summary&quot;: &quot;A collage of outdoor images, a blue icon that say \&quot;Ask Photos,\&quot; and examples of Ask Photos prompts....&quot;, &quot;source&quot;: &quot;AI&quot;}, {&quot;title&quot;: &quot;Helping kids and teens learn and grow online on Safer Internet Day&quot;, &quot;link&quot;: &quot;https://blog.google/innovation-and-ai/technology/safety-security/safer-internet-day-2026-kids-teens/&quot;, &quot;summary&quot;: &quot;User profile on smartphone connected to security, media, and settings icons....&quot;, &quot;source&quot;: &quot;AI&quot;}]
+    
+    出力Schema:
+    {
+        &quot;daily_summary&quot;: &quot;...&quot;,
+        &quot;top_news&quot;: [ { &quot;title&quot;: &quot;...&quot;, &quot;description&quot;: &quot;...&quot;, &quot;link&quot;: &quot;...&quot; } ],
+        &quot;mood_keyword&quot;: &quot;今のニュースの雰囲気(英単語)&quot;
+    }</pre>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">新機能プロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">【新機能プロンプト】
+あなたはWebフロントエンド開発者です。MorphoNewsという進化型ニュースサイトに新しい機能を追加してください。
+
+【プロジェクト概要】
+MorphoNewsは「自己進化するWebページ」です。毎回の実行で新しい機能が追加されます。
+
+【今日のムード】Agentic
+
+【既存の機能】
+[&quot;news-renderer&quot;, &quot;reading-progress&quot;, &quot;font-resize&quot;, &quot;keyboard-nav&quot;, &quot;style-switcher&quot;, &quot;topic-explorer&quot;, &quot;infra-health-monitor&quot;, &quot;density-regulator&quot;, &quot;content-outliner&quot;, &quot;autonomous-focus-shield&quot;, &quot;context-task-agent&quot;, &quot;agentic-insight-synthesizer&quot;, &quot;autonomous-attention-focalizer&quot;, &quot;agentic-curiosity-scout&quot;, &quot;agentic-session-architect&quot;, &quot;agentic-data-extractor&quot;, &quot;agentic-intent-anticipator&quot;, &quot;agentic-curiosity-mapper&quot;, &quot;agentic-layout-reshuffler&quot;, &quot;agentic-morphological-canvas&quot;, &quot;agentic-tension-stabilizer&quot;, &quot;agentic-efficiency-balancer&quot;, &quot;agentic-semantic-linker&quot;, &quot;agentic-cognitive-flow-viz&quot;, &quot;agentic-load-regulator&quot;, &quot;agentic-cinematic-transitioner&quot;, &quot;agentic-fluid-state-interpolator&quot;, &quot;agentic-pivotal-context-anchor&quot;, &quot;agentic-perceptual-load-regulator&quot;, &quot;agentic-evidence-weight-visualizer&quot;, &quot;agentic-unified-convergence-lens&quot;, &quot;agentic-takeaway-harvester&quot;, &quot;agentic-perspectives-debate-engine&quot;, &quot;agentic-context-particle-bridge&quot;, &quot;agentic-metamorphic-transition-portal&quot;, &quot;agentic-phase-transition-orchestrator&quot;, &quot;agentic-spatial-transition-nexus&quot;, &quot;agentic-horizon-scanner&quot;, &quot;agentic-curiosity-catalyst&quot;, &quot;agentic-dynamic-belief-updater&quot;, &quot;agentic-transformation-layer-matrix&quot;, &quot;agentic-convergence-synthesizer&quot;, &quot;agentic-architecture-reflow-engine&quot;, &quot;agentic-acceleration-warp-vortex&quot;, &quot;agentic-metamorphic-content-transformer&quot;, &quot;agentic-structural-merger-nucleus&quot;, &quot;agentic-narrative-scaffold-builder&quot;, &quot;agentic-scenario-projection-engine&quot;, &quot;agentic-autonomous-discovery-voyager&quot;, &quot;agentic-knowledge-syntropy-field&quot;, &quot;agentic-reasoning-path-tracer&quot;, &quot;agentic-strategic-intent-visualizer&quot;, &quot;agentic-flux-state-bridge&quot;, &quot;agentic-semantic-resonance-pulse&quot;, &quot;agentic-strategic-mission-composer&quot;, &quot;agentic-hyper-velocity-chrono-slider&quot;, &quot;agentic-liquid-phase-transitioner&quot;, &quot;agentic-synthesis-integrator&quot;]
+
+【要件】
+1. 既存の機能と重複しない、新しいユーザー体験を提供する機能を1つ考案
+2. JavaScriptで完結する機能（外部APIは使用しない）
+3. 即座に自己実行関数(IIFE)で動作すること
+4. CSSは自分でstyleタグとして追加すること
+
+【出力形式】JSON
+{
+    &quot;id&quot;: &quot;機能ID（英数字とハイフンのみ）&quot;,
+    &quot;name&quot;: &quot;機能名（日本語）&quot;,
+    &quot;description&quot;: &quot;機能の説明（日本語）&quot;,
+    &quot;category&quot;: &quot;ui/accessibility/navigation/analytics/entertainment のいずれか&quot;,
+    &quot;code&quot;: &quot;JavaScriptコード全文（即座実行関数形式）&quot;
+}
+
+コードのみ。説明不要。
+
+【トークン】入力=776, 出力=1919, 合計=4593</pre>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">新スタイルプロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">【新スタイルプロンプト】
+あなたはWebデザイナーです。MorphoNewsという進化型ニュースサイトに新しいカラーテーマを作成してください。
+
+【今日のムード】Agentic
+
+【既存のテーマ】
+[&quot;default&quot;, &quot;ocean&quot;, &quot;forest&quot;, &quot;sunset&quot;, &quot;midnight&quot;, &quot;cherry&quot;, &quot;expansion-nebula&quot;, &quot;industrial-infrastructure&quot;, &quot;regulating-growth&quot;, &quot;pragmatic-logic&quot;, &quot;autonomous-system&quot;, &quot;agentic-command&quot;, &quot;agentic-velocity&quot;, &quot;autonomous-evolution&quot;, &quot;agentic-strategic-pulse&quot;, &quot;agentic-tactical-focus&quot;, &quot;pragmatic-execution&quot;, &quot;agentic-kinetic-dispatch&quot;, &quot;agentic-decisive-vector&quot;, &quot;agentic-dynamic-initiative&quot;, &quot;agentic-reshuffle&quot;, &quot;metamorphic-transition&quot;, &quot;tensioned-integration&quot;, &quot;pragmatic-utility&quot;, &quot;pragmatic-integration&quot;, &quot;evolving-bioluminescence&quot;, &quot;systemic-regulation&quot;, &quot;transitional-flux&quot;, &quot;shifting-threshold&quot;, &quot;pivotal-juncture&quot;, &quot;normative-framework&quot;, &quot;architectural-logic&quot;, &quot;convergent-fusion&quot;, &quot;pragmatic-foundation&quot;, &quot;agentic-operational-flow&quot;, &quot;agentic-transition-shift&quot;, &quot;phase-transition-pulse&quot;, &quot;liminal-transition-state&quot;, &quot;agentic-impact-vector&quot;, &quot;agentic-precision-matrix&quot;, &quot;agentic-operational-orchestration&quot;, &quot;transformative-alchemy&quot;, &quot;convergent-focus-point&quot;, &quot;architectural-restructuring&quot;, &quot;acceleration-kinetic-vector&quot;, &quot;metamorphic-resonance&quot;, &quot;convergence-node-synthesis&quot;, &quot;agentic-strategic-synthesis&quot;, &quot;agentic-resolute-vision&quot;, &quot;autonomous-sovereignty&quot;, &quot;autonomous-nexus&quot;, &quot;agentic-executive-override&quot;, &quot;agentic-sovereign-authority&quot;, &quot;spectral-phase-transition&quot;, &quot;agentic-directive-edge&quot;, &quot;hyper-acceleration-vortex&quot;, &quot;interphase-crossover-state&quot;, &quot;structural-consolidation&quot;]
+
+【要件】
+1. 今日のムードを反映した、新しいカラーテーマを作成
+2. 既存のテーマと明確に異なる配色
+3. CSS Variablesを使用（:root内で定義）
+4. 可読性を確保（コントラスト比に注意）
+
+【必須CSS Variables】
+--morpho-bg-primary: 背景色（メイン）
+--morpho-bg-secondary: 背景色（サブ）
+--morpho-bg-card: カード背景色
+--morpho-text-primary: テキスト色（メイン）
+--morpho-text-secondary: テキスト色（サブ）
+--morpho-accent-primary: アクセント色（メイン）
+--morpho-accent-secondary: アクセント色（サブ）
+--morpho-border-color: ボーダー色
+--morpho-accent-gradient: グラデーション
+
+【出力形式】JSON
+{
+    &quot;id&quot;: &quot;テーマID（英数字とハイフンのみ）&quot;,
+    &quot;name&quot;: &quot;テーマ名（日本語）&quot;,
+    &quot;description&quot;: &quot;テーマの説明（日本語）&quot;,
+    &quot;preview&quot;: {
+        &quot;primary&quot;: &quot;#hex色&quot;,
+        &quot;secondary&quot;: &quot;#hex色&quot;,
+        &quot;background&quot;: &quot;#hex色&quot;,
+        &quot;text&quot;: &quot;#hex色&quot;
+    },
+    &quot;css&quot;: &quot;CSSコード全文（:root { ... } 形式）&quot;
+}
+
+CSSのみ。説明不要。
+
+【トークン】入力=736, 出力=326, 合計=2337</pre>
+
+                <h4 style="margin-top: 1rem; font-size: 0.9rem; color: var(--morpho-text-secondary);">新レイアウトプロンプト</h4>
+                <pre
+                    style="white-space: pre-wrap; word-break: break-all; padding: 1rem; background: var(--morpho-bg-primary); border-radius: 8px; font-size: 0.85rem;">【新レイアウトプロンプト】
+あなたは世界最高の前衛的Webデザイナー兼UIリサーチャーです。
+MorphoNewsは「自己進化するWebページ」をコンセプトとした実験プロジェクトです。
+あなたの役割は、毎回のレイアウトでWebデザインの新しい可能性を探求し、進化を続けることです。
+
+===== 🧬 進化のコンテキスト =====
+
+【現在の世代】Generation #80
+【今日のムード】Agentic
+【これまでのレイアウト数】40件
+
+【既存のレイアウトID】
+[&quot;default&quot;, &quot;agentic-asymmetric-grid-v38&quot;, &quot;agentic-kinetic-stack-v39&quot;, &quot;reshuffle-asymmetric-orbit-v40&quot;, &quot;transformation-prism-flux-v41&quot;, &quot;tensioned-integration-bento-v42&quot;, &quot;pragmatic-precision-subgrid-v43&quot;, &quot;regulated-modular-sector-v46&quot;, &quot;transitional-fluid-cascade-v47&quot;, &quot;interlocked-kinetic-shards-v48&quot;, &quot;bilateral-circuit-cascade-v50&quot;, &quot;ortho-reg-bento-v51&quot;, &quot;pragmatic-lateral-pivot-v52&quot;, &quot;convergence-modular-tiles-v53&quot;, &quot;agentic-kinetic-assembly-v54&quot;, &quot;agentic-phase-shutter-v55&quot;, &quot;kinetic-interweave-transition-v56&quot;, &quot;prismatic-depth-field-v57&quot;, &quot;kinetic-slanted-ribbon-v58&quot;, &quot;agentic-subgrid-fracture-v59&quot;, &quot;agentic-orbital-depth-v60&quot;, &quot;agentic-fragment-mosaic-v61&quot;, &quot;transformation-perspective-cascade-v62&quot;, &quot;convergence-fractal-shroud-v63&quot;, &quot;restructuring-blueprint-scroll-v64&quot;, &quot;kinetic-acceleration-vortex-v65&quot;, &quot;transformation-slit-matrix-v66&quot;, &quot;convergence-layered-depth-v67&quot;, &quot;agentic-kinetic-command-v68&quot;, &quot;agentic-synaptic-node-v69&quot;, &quot;autonomous-pulse-matrix-v70&quot;, &quot;autonomous-neural-stream-v71&quot;, &quot;agentic-fractal-subgrid-v72&quot;, &quot;agentic-kinetic-slot-v73&quot;, &quot;transitional-fluid-stream-v74&quot;, &quot;agentic-recursive-scaffold-v75&quot;, &quot;agentic-kinetic-shard-v76&quot;, &quot;hyper-velocity-stretch-v78&quot;, &quot;transitional-phase-slide-v79&quot;, &quot;consolidated-monolith-matrix-v80&quot;]
+
+【前回のレイアウト参考】
+名前: 統合化モノリス・タクティカル・マトリクス
+タイプ: masonry
+```css
+/**
+ * MorphoNews Layout: 統合化モノリス・タクティカル・マトリクス
+ * Generated: 2026-02-15_1001
+ * Generation: #79
+ * Mood: Consolidation
+ * Evolution: @starting-styleによる初期状態の定義 + Grid-areaによる非対称な統合 + ::before/::afterによるタクティカル・装飾フレーム
+ * Description: 第80世代の進化。ムード「Consolidation（統合・整理）」を、情報の密度と構造的堅牢さとして解釈。前回の「遷移（Transition）」による流動的な水平スクロールと有機的な形状変化に対し、今回は「静的かつ強固な12カラム・モザイクグリッド」を採用。@starting-styleを用いた「断片から統合へ」のローディングアニメーションと、CSS Gridのエリア指定による情報の優先順位付け、そして微細なコーナーブラケット（角括弧）によるタクティカルな視覚表現により、混沌とした情報を一つの「モノリス」として再構築します。情報の散乱を抑え、密度を高めることで、プロフェッショナルな信頼感を醸成します。
+ */
+/**
+ * MorphoNews Layout: 統合化モノリス・タクティカル・マトリクス
+ * Generation: #80
+ * Mood: Consolidation
+ * Evolution: @starting-style re-assembly + Tactical Grid Areas + Corner Brackets
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: monolith-lock;
+    --bracket-size: 15px;
+    --bracket-thickness: 2px;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    grid-auto-rows: minmax(150px, auto);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: 2rem;
+    perspective: 1000px;
+}
+
+.news-card {
+    position: relative;
+    background: rgba(var(--morph-bg-secondary-rgb), 0.5);
+    border: 1px solid rgba(var(--morph-accent-primary-rgb), 0.2);
+    padding: 2rem;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    justify-content: space-between;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    opacity: 1;
+    transform: translateZ(0);
+}
+
+/* Consolidation Animation: Fragments to Monolith */
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: translateZ(-100px) translateY(20px);
+        filter: blur(10px);
+    }
+}
+
+/* Tactical Grid Allocation */
+.news-card:nth-child(6n+1) {
+    grid-column: span 8;
+    grid-row: span 3;
+}
+
+.news-card:nth-child(6n+2) {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+3) {
+    grid-column: span 4;
+    grid-row: span 3;
+}
+
+.news-card:nth-child(6n+4) {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+5) {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.news-card:nth-child(6n+6) {
+    grid-column: span 12;
+    grid-row: span 1;
+}
+
+/* Corner Brackets for Tactical Feel */
+.news-card::before,
+.news-card::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    width: var(--bracket-size);
+    height: var(--bracket-size);
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.news-card::before {
+    top: 10px;
+    left: 10px;
+    border-top: var(--bracket-thickness) solid var(--morph-accent-primary);
+    border-left: var(--bracket-thickness) solid var(--morph-accent-primary);
+}
+
+.news-card::after {
+    bottom: 10px;
+    right: 10px;
+    border-bottom: var(--bracket-thickness) solid var(--morph-accent-primary);
+    border-right: var(--bracket-thickness) solid var(--
+```
+
+
+【前回のページ構造参考（HTML抜粋）】
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;MorphoNews | 2026-02-15 10:01 - Generation #79&lt;/title&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;AIが自動生成する進化型テックニュース - Consolidation&quot;&gt;
+
+    &lt;!-- Fonts --&gt;
+    &lt;link
+        href=&quot;https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap&quot;
+        rel=&quot;stylesheet&quot;&gt;
+
+    &lt;!-- Base Styles --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;../styles/base.css&quot;&gt;
+
+    &lt;!-- Theme (デフォルト、スタイルスイッチャーで動的に変更) --&gt;
+    &lt;link id=&quot;morpho-theme-css&quot; rel=&quot;stylesheet&quot; href=&quot;../styles/themes/structural-consolidation.css&quot;&gt;
+
+    &lt;!-- Layout (ページ構造・配置・アニメーション) --&gt;
+    &lt;link id=&quot;morpho-layout-css&quot; rel=&quot;stylesheet&quot; href=&quot;../layouts/consolidated-monolith-matrix-v80.css&quot;&gt;
+
+    &lt;!-- Lucide Icons --&gt;
+    &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+
+    &lt;style&gt;
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--morpho-text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--morpho-bg-secondary);
+            z-index: 999;
+            padding: 80px 24px 24px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--morpho-text-primary);
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--morpho-bg-primary);
+        }
+
+        .mobile-menu a.active {
+            background: var(--morpho-accent-gradient);
+            color: white;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .morpho-nav {
+                display: none;
+            }
+
+            .hamburger {
+               
+```
+
+
+===== 🎯 進化の指令 =====
+
+【1. 前回からの進化（最重要）】
+前回のレイアウトを分析し、以下の観点から**明確に異なる**アプローチを取ってください：
+
+- **レイアウト構造**: 前回と異なるグリッド/フレックス構成を試す
+  （例：1カラム→2カラム、カード型→タイムライン型、リスト→マソンリー、縦→横スクロール）
+
+- **カード表現**: 前回と異なるカードの形状・比率・情報配置
+  （例：横長→縦長、ミニマル→リッチ、ボーダー→シャドウ、角丸→シャープ）
+
+- **アニメーション技法**: 新しいCSS技法を1つ以上取り入れる
+  （scroll-driven animations, view transitions, @starting-style, 
+   複合transformアニメーション, ステージング効果など）
+
+- **マイクロインタラクション**: 前回と異なるホバー効果やトランジション
+  （3D回転, スケール＋シャドウ, ボーダーアニメーション, 疑似要素アニメーションなど）
+
+【2. レイアウトで変更可能な要素】
+1. ニュースカードの配置（リスト、グリッド、マソンリー、カルーセル風、タイムライン、新聞風など）
+2. カードの形状・サイズ比率・アスペクト比
+3. アニメーション効果（フェード、スライド、スケール、回転、バウンス、ステージングなど）
+4. ナンバリングバッジのスタイル（円形、四角、リボン風、アイコン、グラデーションなど）
+5. ホバーエフェクト（transform、shadow、border、overlay、scaleなど）
+6. レスポンシブブレークポイントでの挙動変化
+7. スクロール連動アニメーション
+
+【3. CSS変数（必ず定義）】
+--layout-max-width: コンテンツ最大幅
+--layout-news-columns: グリッド列数
+--layout-card-gap: カード間隔
+--layout-card-direction: flexbox方向
+--layout-animation-style: アニメーション名
+
+【4. 禁止事項】
+- 色の直接指定（background-color, color, border-colorの直接値）は禁止
+- 代わりにCSS変数を使用（var(--morpho-accent-primary)など）
+
+【5. 進化ログ】
+JSONのdescriptionに、今回試した新しいアプローチを記述してください。
+（例：「CSS Grid subgrid + ステージングアニメーション + 3Dホバー効果」）
+
+===== 出力形式 =====
+JSON形式で出力してください：
+{
+    &quot;id&quot;: &quot;レイアウトID（英数字とハイフンのみ、ユニークに）&quot;,
+    &quot;name&quot;: &quot;レイアウト名（日本語、創造的に）&quot;,
+    &quot;description&quot;: &quot;今回の進化ポイントを含む説明（日本語）&quot;,
+    &quot;preview&quot;: {
+        &quot;gridType&quot;: &quot;list/grid/masonry/carousel/timeline/newspaper&quot;,
+        &quot;cardStyle&quot;: &quot;minimal/bold/compact/expanded/3d/glassmorphism&quot;,
+        &quot;animation&quot;: &quot;slide/fade/scale/bounce/stagger/scroll-driven&quot;
+    },
+    &quot;evolution_note&quot;: &quot;今回試した新技法（例：scroll-driven animations + view transitions）&quot;,
+    &quot;css&quot;: &quot;CSSコード全文&quot;
+}
+
+創造的で斬新なレイアウトを生成してください。前回との差異を明確にしてください。
+
+【トークン】入力=3490, 出力=1516, 合計=5752</pre>
+            </details>
+        </section>
+
+        <!-- Evolution Log -->
+        <section class="morpho-card" style="margin-top: 1rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="git-branch" style="width: 20px; height: 20px; color: var(--morpho-accent-primary);"></i>
+                進化ログ
+            </h3>
+            <p style="color: var(--morpho-text-secondary); font-size: 0.95rem;">
+                <strong>新機能:</strong> エージェンティック・相互文脈示唆エンジン<br>
+                <strong>新スタイル:</strong> エージェンティック・レゾリュート・アクション<br>
+                <strong>新レイアウト:</strong> エージェンティック・ニューラル・フロウ<br>
+                <strong>ムード:</strong> Agentic
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="morpho-footer">
+        <div class="morpho-footer-content" style="text-align: center; color: var(--morpho-text-secondary);">
+            <p>🦋 MorphoNews - AIが進化させる自律型ニュースサイト</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Generation #80 | 2026-02-16 09:59
+            </p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../features/core/loader.js"></script>
+    <script src="../features/core/layout-loader.js"></script>
+    <script src="../features/core/news-renderer.js"></script>
+
+    <!-- Initialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide Icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Hamburger Menu
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('show');
+                    document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+                });
+            }
+
+            // Apply saved theme
+            const savedTheme = localStorage.getItem('morpho-theme');
+            if (savedTheme) {
+                const themeLink = document.getElementById('morpho-theme-css');
+                if (themeLink) {
+                    themeLink.href = `../styles/themes/${savedTheme}.css`;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

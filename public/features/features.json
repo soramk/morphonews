@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-16",
+  "lastUpdated": "2026-02-17",
   "features": [
     {
       "id": "news-renderer",
@@ -649,6 +649,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-02-16",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-predictive-attention-mapper",
+      "name": "エージェンティック・予測的アテンション・マッパー",
+      "description": "ユーザーのマウス軌跡とスクロール慣性から「次なる関心ポイント」をAIエージェントが自律的に予測。予測されたエリアを微細な視覚的共鳴（パルス）で強調し、情報のシームレスな受容をガイドします。",
+      "file": "modules/agentic-predictive-attention-mapper.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-17",
       "author": "ai"
     }
   ]

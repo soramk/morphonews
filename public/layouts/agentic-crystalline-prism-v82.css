@@ -1,0 +1,126 @@
+/**
+ * MorphoNews Layout: エージェンティック・クリスタライン・プリズム
+ * Generated: 2026-02-17_0958
+ * Generation: #81
+ * Mood: Agentic
+ * Evolution: @starting-style による宣言的エントリアニメーション + CSS Subgrid による構造同期 + 3D Transform-style による深度表現
+ * Description: 第82世代の進化。前回の「流動的なニューラル・ネットワーク」から一転し、情報の「結晶化と多角的解釈」をテーマにした高密度な3Dマトリックス構造を採用。CSS Subgridを用いることで、カード内のタイトル、抜粋、メタ情報の高さをグリッド全体で厳密に同期させ、視覚的な秩序を極限まで高めました。さらに、最新のブラウザ機能である「@starting-style」を導入し、要素がDOMに追加された際の初期アニメーションをJavaScriptなしで制御。個々のカードは「preserve-3d」プロパティを持ち、ユーザーのホバーに対して物理的な奥行き（Z軸）を伴って反応する、自律的なプリズムのような振る舞いを実装しています。
+ */
+/**
+ * MorphoNews Layout: エージェンティック・クリスタライン・プリズム
+ * Generation: #82
+ * Mood: Agentic
+ * Evolution: @starting-style + CSS Subgrid + 3D Depth Field
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(auto-fill, minmax(380px, 1fr));
+    --layout-card-gap: 3rem;
+    --layout-card-direction: column;
+    --layout-animation-style: crystalline-entry;
+    --prism-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    --prism-accent-glow: 0 0 15px var(--morpho-accent-primary);
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 6rem auto;
+    padding: 0 2rem;
+    perspective: 2000px;
+}
+
+.news-card {
+    /* Grid Subgrid Implementation */
+    grid-row: span 4;
+    display: grid;
+    grid-template-rows: subgrid;
+    row-gap: 1rem;
+    
+    position: relative;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--morpho-accent-primary-rgb), 0.15);
+    border-radius: 4px;
+    padding: 2rem;
+    
+    /* 3D Property */
+    transform-style: preserve-3d;
+    transition: 
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.8s ease,
+        border-color 0.4s ease,
+        opacity 1s ease-out,
+        translate 1s ease-out;
+
+    /* Modern CSS: Starting Style for entry animation */
+    opacity: 1;
+    translate: 0 0;
+}
+
+@starting-style {
+    .news-card {
+        opacity: 0;
+        translate: 0 50px;
+    }
+}
+
+/* Subgrid elements */
+.news-card h3 { grid-row: 1; font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
+.news-card .news-meta { grid-row: 2; font-family: 'Fira Code', monospace; font-size: 0.8rem; opacity: 0.7; }
+.news-card .news-excerpt { grid-row: 3; font-size: 0.95rem; opacity: 0.8; }
+.news-card .news-footer { grid-row: 4; align-self: end; }
+
+/* 3D Hover Effect */
+.news-card:hover {
+    transform: translateZ(40px) rotateX(4deg) rotateY(-2deg);
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 
+        var(--prism-shadow),
+        -10px 10px 30px rgba(var(--morpho-accent-primary-rgb), 0.1);
+    z-index: 10;
+}
+
+/* Shard Overlay - Pseudo-element as crystalline facet */
+.news-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+/* Unique Numbering Style: Vertical Ribbon */
+.news-card::after {
+    content: attr(data-index);
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background: var(--morpho-accent-gradient);
+    color: white;
+    padding: 4px 12px;
+    font-family: 'Fira Code', monospace;
+    font-weight: bold;
+    font-size: 0.75rem;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+    transform: translateZ(20px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .news-card {
+        grid-row: auto;
+        grid-template-rows: auto auto auto auto;
+    }
+    .news-card:hover {
+        transform: none;
+    }
+}

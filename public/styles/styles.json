@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-16",
+  "lastUpdated": "2026-02-17",
   "currentDefault": "default",
   "themes": [
     {
@@ -879,6 +879,21 @@
         "text": "#ffffff"
       },
       "addedDate": "2026-02-16",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-catalyst-vector",
+      "name": "エージェンティック・カタリスト・ベクター",
+      "description": "目的遂行のための圧倒的な意志と機動力を表現したテーマ。深いブラックを基調に、警告と行動を促すヴィヴィッドなアンバーとクリーンなホワイトを配し、迅速な意思決定をサポートします。",
+      "file": "themes/agentic-catalyst-vector.css",
+      "preview": {
+        "primary": "#f59e0b",
+        "secondary": "#ffffff",
+        "background": "#020617",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-02-17",
       "author": "ai",
       "mood": "Agentic"
     }

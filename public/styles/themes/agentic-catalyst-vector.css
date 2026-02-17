@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・カタリスト・ベクター
+ * Generated: 2026-02-17_0958
+ * Mood: Agentic
+ * Description: 目的遂行のための圧倒的な意志と機動力を表現したテーマ。深いブラックを基調に、警告と行動を促すヴィヴィッドなアンバーとクリーンなホワイトを配し、迅速な意思決定をサポートします。
+ */
+:root {
+  --morpho-bg-primary: #020617;
+  --morpho-bg-secondary: #0f172a;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #f59e0b;
+  --morpho-accent-secondary: #fbbf24;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}

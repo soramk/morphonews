@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-16",
+  "lastUpdated": "2026-02-17",
   "layouts": [
     {
       "id": "default",
@@ -653,6 +653,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 80
+    },
+    {
+      "id": "agentic-crystalline-prism-v82",
+      "name": "エージェンティック・クリスタライン・プリズム",
+      "description": "第82世代の進化。前回の「流動的なニューラル・ネットワーク」から一転し、情報の「結晶化と多角的解釈」をテーマにした高密度な3Dマトリックス構造を採用。CSS Subgridを用いることで、カード内のタイトル、抜粋、メタ情報の高さをグリッド全体で厳密に同期させ、視覚的な秩序を極限まで高めました。さらに、最新のブラウザ機能である「@starting-style」を導入し、要素がDOMに追加された際の初期アニメーションをJavaScriptなしで制御。個々のカードは「preserve-3d」プロパティを持ち、ユーザーのホバーに対して物理的な奥行き（Z軸）を伴って反応する、自律的なプリズムのような振る舞いを実装しています。",
+      "file": "agentic-crystalline-prism-v82.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "stagger"
+      },
+      "evolution_note": "@starting-style による宣言的エントリアニメーション + CSS Subgrid による構造同期 + 3D Transform-style による深度表現",
+      "addedDate": "2026-02-17",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 81
     }
   ]
 }

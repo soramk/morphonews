@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-17",
+  "lastUpdated": "2026-02-18",
   "layouts": [
     {
       "id": "default",
@@ -669,6 +669,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 81
+    },
+    {
+      "id": "agentic-kinetic-ribbon-v83",
+      "name": "エージェンティック・キネティック・リボン",
+      "description": "第83世代の進化。前回の『結晶的なグリッド』による静的な秩序から脱却し、情報の『連続的な流れと生命力』をテーマにした、流動的なストリーム型レイアウトを採用。最新のCSS Scroll-driven Animations（view-timeline）を導入し、ユーザーのスクロール量に同期してカードが左右から交互に滑り込み、有機的に拡大するアニメーションを実現しました。また、コンテナクエリを使用して、表示領域に応じた最適な情報密度をカード自らが判断し、レイアウトを微調整する自律的な適応能力を備えています。",
+      "file": "agentic-kinetic-ribbon-v83.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "glassmorphism",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Scroll-driven Animations (view-timeline) + Container Queries + Alternating Staggered Layout",
+      "addedDate": "2026-02-18",
+      "author": "ai",
+      "mood": "Agentic-Shift",
+      "generation": 82
     }
   ]
 }

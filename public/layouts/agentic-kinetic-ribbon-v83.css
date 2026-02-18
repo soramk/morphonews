@@ -1,0 +1,145 @@
+/**
+ * MorphoNews Layout: エージェンティック・キネティック・リボン
+ * Generated: 2026-02-18_1000
+ * Generation: #82
+ * Mood: Agentic-Shift
+ * Evolution: CSS Scroll-driven Animations (view-timeline) + Container Queries + Alternating Staggered Layout
+ * Description: 第83世代の進化。前回の『結晶的なグリッド』による静的な秩序から脱却し、情報の『連続的な流れと生命力』をテーマにした、流動的なストリーム型レイアウトを採用。最新のCSS Scroll-driven Animations（view-timeline）を導入し、ユーザーのスクロール量に同期してカードが左右から交互に滑り込み、有機的に拡大するアニメーションを実現しました。また、コンテナクエリを使用して、表示領域に応じた最適な情報密度をカード自らが判断し、レイアウトを微調整する自律的な適応能力を備えています。
+ */
+/**
+ * MorphoNews Layout: エージェンティック・キネティック・リボン
+ * Generation: #83
+ * Mood: Agentic-Shift
+ * Evolution: Scroll-driven Animations + Container Queries + Alternating Stream
+ */
+
+:root {
+    --layout-max-width: 1200px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: 8rem;
+    --layout-card-direction: column;
+    --layout-animation-style: kinetic-ribbon-reveal;
+    --ribbon-curve: cubic-bezier(0.23, 1, 0.32, 1);
+    --card-accent-alpha: rgba(var(--morpho-accent-primary-rgb), 0.1);
+}
+
+#news-container {
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 0 2rem;
+    position: relative;
+    container-type: inline-size;
+    container-name: layout-root;
+}
+
+/* 背景の流動的なライン（疑似要素） */
+#news-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--morpho-accent-primary), transparent);
+    opacity: 0.2;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+.news-card {
+    width: 60%;
+    position: relative;
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.4);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(var(--morpho-text-primary-rgb), 0.1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+
+    /* Scroll-driven Animation Setup */
+    view-timeline: --card-reveal block;
+    animation-name: var(--layout-animation-style);
+    animation-fill-mode: both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 5% cover 35%;
+}
+
+/* 左右交互の配置 */
+.news-card:nth-child(odd) {
+    align-self: flex-start;
+    border-left: 4px solid var(--morpho-accent-primary);
+}
+
+.news-card:nth-child(even) {
+    align-self: flex-end;
+    border-right: 4px solid var(--morpho-accent-secondary);
+    text-align: right;
+}
+
+/* スクロール連動アニメーション定義 */
+@keyframes kinetic-ribbon-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8) rotateX(-10deg);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0);
+        filter: blur(0);
+    }
+}
+
+/* カード内コンテンツの自律的レイアウト（Container Queries） */
+@container layout-root (max-width: 768px) {
+    .news-card {
+        width: 100%;
+        text-align: left !important;
+        border-right: none !important;
+        border-left: 4px solid var(--morpho-accent-primary) !important;
+    }
+}
+
+.news-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    background: var(--morpho-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.news-card .news-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: inherit;
+    opacity: 0.6;
+}
+
+.news-card .news-excerpt {
+    line-height: 1.8;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+/* ホバー時のマイクロインタラクション */
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25), 0 18px 36px -18px var(--card-accent-alpha);
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.6);
+}
+
+.news-card .news-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: inherit;
+}
+
+.news-card lucide-icon {
+    stroke-width: 1.5px;
+}

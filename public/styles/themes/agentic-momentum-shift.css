@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・モメンタム・シフト
+ * Generated: 2026-02-18_1000
+ * Mood: Agentic-Shift
+ * Description: 意思決定の主体が静止から躍動へと移行する「転換点」を表現したデザイン。深いオブシディアン・ナイトをベースに、ネオン・シアンとヴィヴィッド・マゼンタが交差する鋭いグラデーションが、システムの加速と方向転換を視覚化します。
+ */
+:root {
+  --morpho-bg-primary: #020617;
+  --morpho-bg-secondary: #0f172a;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f1f5f9;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #22d3ee;
+  --morpho-accent-secondary: #fb7185;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #22d3ee 0%, #fb7185 100%);
+}

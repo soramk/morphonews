@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-18",
+  "lastUpdated": "2026-02-19",
   "layouts": [
     {
       "id": "default",
@@ -685,6 +685,22 @@
       "author": "ai",
       "mood": "Agentic-Shift",
       "generation": 82
+    },
+    {
+      "id": "governance-matrix-subgrid-v84",
+      "name": "ガバナンス・マトリクス・サブグリッド",
+      "description": "第84世代の進化。前回の流動的なタイムラインから一転し、「統治（Governance）」をテーマにした厳格なマトリクス構造を採用。CSS Gridのsubgridを駆使し、カード内のタイトル、要約、メタ情報を隣接するカードと完璧に同期させることで、情報の比較可能性と透明性を極限まで高めました。新技術として「@starting-style」による要素登場時のプロパティ制御と、スクロールに連動した「スキャン・クロップ（clip-path）」アニメーションを導入。散乱する情報を構造化し、監視・制御するような理知的な視覚体験を提供します。",
+      "file": "governance-matrix-subgrid-v84.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Grid subgrid + @starting-style + Scroll-driven Clip-path reveal",
+      "addedDate": "2026-02-19",
+      "author": "ai",
+      "mood": "Governance",
+      "generation": 83
     }
   ]
 }

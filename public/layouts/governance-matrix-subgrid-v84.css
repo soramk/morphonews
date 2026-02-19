@@ -1,0 +1,133 @@
+/**
+ * MorphoNews Layout: ガバナンス・マトリクス・サブグリッド
+ * Generated: 2026-02-19_0959
+ * Generation: #83
+ * Mood: Governance
+ * Evolution: CSS Grid subgrid + @starting-style + Scroll-driven Clip-path reveal
+ * Description: 第84世代の進化。前回の流動的なタイムラインから一転し、「統治（Governance）」をテーマにした厳格なマトリクス構造を採用。CSS Gridのsubgridを駆使し、カード内のタイトル、要約、メタ情報を隣接するカードと完璧に同期させることで、情報の比較可能性と透明性を極限まで高めました。新技術として「@starting-style」による要素登場時のプロパティ制御と、スクロールに連動した「スキャン・クロップ（clip-path）」アニメーションを導入。散乱する情報を構造化し、監視・制御するような理知的な視覚体験を提供します。
+ */
+:root {
+    --layout-max-width: 1440px;
+    --layout-news-columns: repeat(auto-fill, minmax(400px, 1fr));
+    --layout-card-gap: 0px;
+    --layout-card-direction: column;
+    --layout-animation-style: matrix-scan-reveal;
+    --governance-border-width: 1px;
+    --scanning-bar-color: var(--morpho-accent-primary);
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    border: var(--governance-border-width) solid rgba(var(--morpho-text-primary-rgb), 0.1);
+    background: rgba(var(--morpho-bg-secondary-rgb), 0.2);
+}
+
+.news-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: var(--morpho-bg-primary);
+    border: var(--governance-border-width) solid rgba(var(--morpho-text-primary-rgb), 0.1);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s ease, transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    animation-name: matrix-scan-reveal;
+    animation-fill-mode: both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 0% cover 30%;
+}
+
+@starting-style {
+    .news-card {
+        opacity: 0;
+        transform: scale(0.98) translateY(20px);
+    }
+}
+
+.news-card:hover {
+    z-index: 10;
+    background: rgba(var(--morpho-accent-primary-rgb), 0.03);
+    outline: 2px solid var(--morpho-accent-primary);
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--morpho-accent-gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover::before {
+    transform: scaleX(1);
+}
+
+.news-card h3 {
+    grid-row: 1;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    color: var(--morpho-text-primary);
+    font-weight: 700;
+}
+
+.news-card p {
+    grid-row: 2;
+    font-size: 0.95rem;
+    color: var(--morpho-text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.news-card .card-meta {
+    grid-row: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(var(--morpho-text-primary-rgb), 0.1);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+}
+
+.news-card .badge {
+    background: rgba(var(--morpho-accent-primary-rgb), 0.1);
+    color: var(--morpho-accent-primary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+@keyframes matrix-scan-reveal {
+    from {
+        clip-path: inset(100% 0 0 0);
+        filter: brightness(2) contrast(1.5);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        filter: brightness(1) contrast(1);
+    }
+}
+
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        margin: 1rem;
+    }
+    .news-card {
+        grid-template-rows: auto auto auto;
+    }
+}

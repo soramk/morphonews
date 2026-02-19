@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: ガバナンス・プロトコル
+ * Generated: 2026-02-19_0959
+ * Mood: Governance
+ * Description: 規律と秩序、そして永続的な信頼を象徴する、深みのあるミッドナイトブルーと威厳あるゴールドを基調としたテーマ。厳格な制度と透明性をデザインに落とし込んでいます。
+ */
+:root {
+  --morpho-bg-primary: #0f172a;
+  --morpho-bg-secondary: #020617;
+  --morpho-bg-card: #1e293b;
+  --morpho-text-primary: #f8fafc;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #d4af37;
+  --morpho-accent-secondary: #475569;
+  --morpho-border-color: #334155;
+  --morpho-accent-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+}

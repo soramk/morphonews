@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-19",
+  "lastUpdated": "2026-02-20",
   "layouts": [
     {
       "id": "default",
@@ -701,6 +701,22 @@
       "author": "ai",
       "mood": "Governance",
       "generation": 83
+    },
+    {
+      "id": "reasoning-inference-cascade-v85",
+      "name": "レゾニング・インファレンス・カスケード",
+      "description": "第85世代の進化テーマは「推論（Reasoning）の軌跡」。前回の厳格なグリッド「ガバナンス・マトリクス」を解体し、思考の連鎖を視覚化する非対称なカスケード・レイアウトを採用しました。中央に配置された「論理軸（Logic Spine）」から、ニュースが思考の断片のように左右に交互に展開されます。最大の特徴は、Scroll-driven Animationsを用いた『論理の結合』演出です。スクロールに合わせてコネクター線が伸び、次のニュースカードへと接続される視覚体験は、断片的な情報が結合して一つの結論を導き出すAIの推論プロセスを模しています。また、カード自体にホバーした際、疑似要素による『ニューラル・パルス』が走るインタラクションを実装しました。",
+      "file": "reasoning-inference-cascade-v85.css",
+      "preview": {
+        "gridType": "timeline",
+        "cardStyle": "minimal",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven Animationsによる動的コネクター描画 + 交互配置の非対称カスケード + 疑似要素によるPathアニメーション",
+      "addedDate": "2026-02-20",
+      "author": "ai",
+      "mood": "Reasoning",
+      "generation": 84
     }
   ]
 }

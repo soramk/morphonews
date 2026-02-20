@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-19",
+  "lastUpdated": "2026-02-20",
   "features": [
     {
       "id": "news-renderer",
@@ -682,6 +682,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-02-19",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-reasoning-chain-mapper",
+      "name": "エージェンティック・推論チェーン・マッパー",
+      "description": "閲覧中のニュース記事群から潜在的な論理的繋がりを抽出し、前提から結論に至る推論のプロセスを視覚的な「推論チェーン」として構築・表示します。",
+      "file": "modules/agentic-reasoning-chain-mapper.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-20",
       "author": "ai"
     }
   ]

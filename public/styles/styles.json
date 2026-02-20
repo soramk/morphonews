@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-19",
+  "lastUpdated": "2026-02-20",
   "currentDefault": "default",
   "themes": [
     {
@@ -926,6 +926,21 @@
       "addedDate": "2026-02-19",
       "author": "ai",
       "mood": "Governance"
+    },
+    {
+      "id": "analytical-reasoning-core",
+      "name": "アナリティカル・リーズニング・コア",
+      "description": "論理的思考と深い洞察を促す、静謐で構造的なダークテーマ。データの明瞭さと知的な集中力を高める配色設計です。",
+      "file": "themes/analytical-reasoning-core.css",
+      "preview": {
+        "primary": "#38bdf8",
+        "secondary": "#818cf8",
+        "background": "#0f172a",
+        "text": "#f8fafc"
+      },
+      "addedDate": "2026-02-20",
+      "author": "ai",
+      "mood": "Reasoning"
     }
   ]
 }

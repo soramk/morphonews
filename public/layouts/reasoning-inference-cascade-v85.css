@@ -1,0 +1,212 @@
+/**
+ * MorphoNews Layout: レゾニング・インファレンス・カスケード
+ * Generated: 2026-02-20_0956
+ * Generation: #84
+ * Mood: Reasoning
+ * Evolution: Scroll-driven Animationsによる動的コネクター描画 + 交互配置の非対称カスケード + 疑似要素によるPathアニメーション
+ * Description: 第85世代の進化テーマは「推論（Reasoning）の軌跡」。前回の厳格なグリッド「ガバナンス・マトリクス」を解体し、思考の連鎖を視覚化する非対称なカスケード・レイアウトを採用しました。中央に配置された「論理軸（Logic Spine）」から、ニュースが思考の断片のように左右に交互に展開されます。最大の特徴は、Scroll-driven Animationsを用いた『論理の結合』演出です。スクロールに合わせてコネクター線が伸び、次のニュースカードへと接続される視覚体験は、断片的な情報が結合して一つの結論を導き出すAIの推論プロセスを模しています。また、カード自体にホバーした際、疑似要素による『ニューラル・パルス』が走るインタラクションを実装しました。
+ */
+/**
+ * MorphoNews Layout: Reasoning Inference Cascade
+ * Generation: #85
+ * Theme: Reasoning
+ */
+
+:root {
+    --layout-max-width: 1100px;
+    --layout-news-columns: 1fr;
+    --layout-card-gap: 6rem;
+    --layout-card-direction: column;
+    --layout-animation-style: inference-reveal;
+    --spine-width: 2px;
+    --node-size: 12px;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 6rem auto;
+    position: relative;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-card-gap);
+}
+
+/* Logic Spine - The central vertical line */
+#news-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: var(--spine-width);
+    background: linear-gradient(to bottom, 
+        transparent, 
+        rgba(var(--morpho-accent-primary-rgb), 0.3) 10%, 
+        rgba(var(--morpho-accent-primary-rgb), 0.3) 90%, 
+        transparent
+    );
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.news-card {
+    position: relative;
+    width: 45%;
+    padding: 2rem;
+    background: var(--morpho-bg-primary);
+    border: 1px solid rgba(var(--morpho-text-primary-rgb), 0.1);
+    border-radius: 4px;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+
+    /* Scroll-driven animation properties */
+    view-timeline-name: --card-reveal;
+    view-timeline-axis: block;
+    animation-name: inference-reveal;
+    animation-fill-mode: both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 40%;
+}
+
+/* Alternating Layout */
+.news-card:nth-child(odd) {
+    align-self: flex-start;
+    text-align: right;
+}
+
+.news-card:nth-child(even) {
+    align-self: flex-end;
+    text-align: left;
+}
+
+/* Connector Nodes */
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    width: var(--node-size);
+    height: var(--node-size);
+    background: var(--morpho-bg-primary);
+    border: 2px solid var(--morpho-accent-primary);
+    border-radius: 50%;
+    z-index: 2;
+
+    /* Connector line drawing animation */
+    animation-name: node-pulse;
+    animation-fill-mode: both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 30%;
+}
+
+.news-card:nth-child(odd)::after {
+    right: calc(-5% - (var(--node-size) / 2) - 13px);
+}
+
+.news-card:nth-child(even)::after {
+    left: calc(-5% - (var(--node-size) / 2) - 13px);
+}
+
+/* Horizontal Connector Line */
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: calc(2rem + (var(--node-size) / 2));
+    height: 1px;
+    background: var(--morpho-accent-primary);
+    width: 0%;
+    opacity: 0.3;
+    z-index: 0;
+
+    animation-name: line-extend;
+    animation-fill-mode: both;
+    animation-timeline: --card-reveal;
+    animation-range: entry 10% cover 30%;
+}
+
+.news-card:nth-child(odd)::before {
+    right: -10%;
+    transform-origin: right;
+}
+
+.news-card:nth-child(even)::before {
+    left: -10%;
+    transform-origin: left;
+}
+
+@keyframes inference-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes node-pulse {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes line-extend {
+    from { width: 0; }
+    to { width: 11%; }
+}
+
+.news-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--morpho-text-primary);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.news-card p {
+    font-size: 0.9rem;
+    color: var(--morpho-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.news-card .card-meta {
+    display: flex;
+    gap: 1rem;
+    justify-content: inherit;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.news-card .badge {
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: rgba(var(--morpho-accent-primary-rgb), 0.1);
+    color: var(--morpho-accent-primary);
+}
+
+@media (max-width: 768px) {
+    #news-container::before {
+        left: 20px;
+    }
+    .news-card {
+        width: calc(100% - 60px);
+        margin-left: 60px !important;
+        text-align: left !important;
+    }
+    .news-card:nth-child(odd)::after, .news-card:nth-child(even)::after {
+        left: -48px;
+        right: auto;
+    }
+    .news-card::before {
+        display: none;
+    }
+}

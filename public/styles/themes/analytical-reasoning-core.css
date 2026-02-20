@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: アナリティカル・リーズニング・コア
+ * Generated: 2026-02-20_0956
+ * Mood: Reasoning
+ * Description: 論理的思考と深い洞察を促す、静謐で構造的なダークテーマ。データの明瞭さと知的な集中力を高める配色設計です。
+ */
+:root { --morpho-bg-primary: #0f172a; --morpho-bg-secondary: #1e293b; --morpho-bg-card: #1e293b; --morpho-text-primary: #f8fafc; --morpho-text-secondary: #94a3b8; --morpho-accent-primary: #38bdf8; --morpho-accent-secondary: #818cf8; --morpho-border-color: #334155; --morpho-accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%); }

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: カタリティック・メタモルフォーゼ
+ * Generated: 2026-02-21_0954
+ * Mood: TRANSFORMATION
+ * Description: 「変容（TRANSFORMATION）」をテーマに、古い殻を破り新しい形へと進化する瞬間を、深い黒から鮮烈なバイオレットとサイバーライムの対比で表現したテーマです。
+ */
+:root {
+  --morpho-bg-primary: #080a10;
+  --morpho-bg-secondary: #121620;
+  --morpho-bg-card: #1b202e;
+  --morpho-text-primary: #f0f0f5;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #a34cff;
+  --morpho-accent-secondary: #dfff00;
+  --morpho-border-color: #2d3748;
+  --morpho-accent-gradient: linear-gradient(135deg, #a34cff 0%, #00e5ff 50%, #dfff00 100%);
+}

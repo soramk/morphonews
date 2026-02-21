@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-20",
+  "lastUpdated": "2026-02-21",
   "layouts": [
     {
       "id": "default",
@@ -717,6 +717,22 @@
       "author": "ai",
       "mood": "Reasoning",
       "generation": 84
+    },
+    {
+      "id": "transformation-kinetic-perspective-v86",
+      "name": "キネティック・パースペクティブ・オーバーラップ",
+      "description": "第86世代の進化テーマ「TRANSFORMATION（変容）」を具現化した、3Dパースペクティブ・グリッド・レイアウトです。前回の『線形な推論（タイムライン）』から脱却し、情報の『多角的な次元からの統合』を試みました。scroll-driven animationsを拡張し、各カードがスクロールに応じて深淵（Z軸の後方）から次元を超えて定位置へとアセンブル（組み立て）される動的配置を採用。カード間にはあえて重なり（Overlap）を許容し、情報の密度と奥行きを強調しています。ホバー時には磁気的な吸着感のある3Dチルトエフェクトが発生し、ユーザーの視点とニュースの距離感を動的に変化させます。",
+      "file": "transformation-kinetic-perspective-v86.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animationsとperspective変形の融合による、3D空間からのグリッド・アセンブル効果の実装。",
+      "addedDate": "2026-02-21",
+      "author": "ai",
+      "mood": "TRANSFORMATION",
+      "generation": 85
     }
   ]
 }

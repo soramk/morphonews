@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-20",
+  "lastUpdated": "2026-02-21",
   "currentDefault": "default",
   "themes": [
     {
@@ -941,6 +941,21 @@
       "addedDate": "2026-02-20",
       "author": "ai",
       "mood": "Reasoning"
+    },
+    {
+      "id": "catalytic-metamorphosis",
+      "name": "カタリティック・メタモルフォーゼ",
+      "description": "「変容（TRANSFORMATION）」をテーマに、古い殻を破り新しい形へと進化する瞬間を、深い黒から鮮烈なバイオレットとサイバーライムの対比で表現したテーマです。",
+      "file": "themes/catalytic-metamorphosis.css",
+      "preview": {
+        "primary": "#a34cff",
+        "secondary": "#dfff00",
+        "background": "#080a10",
+        "text": "#f0f0f5"
+      },
+      "addedDate": "2026-02-21",
+      "author": "ai",
+      "mood": "TRANSFORMATION"
     }
   ]
 }

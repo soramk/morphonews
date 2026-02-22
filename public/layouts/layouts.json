@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-21",
+  "lastUpdated": "2026-02-22",
   "layouts": [
     {
       "id": "default",
@@ -733,6 +733,22 @@
       "author": "ai",
       "mood": "TRANSFORMATION",
       "generation": 85
+    },
+    {
+      "id": "agentic-kinetic-split-v87",
+      "name": "エージェンティック・キネティック・スプリット",
+      "description": "第87世代のテーマ「Agentic（主体的）」を、情報の「自己主張と空間の動的再編」として定義。前回の3Dアセンブル（集結）から一転し、今回は「平面を鋭利に切り裂き、情報が空間を占拠する」アプローチを採用しました。scroll-driven animationsを利用して、スクロール位置に応じて各カードのclip-path（形状）が菱形から安定した矩形へと鋭利に変容し、同時にカード内のタイポグラフィが主体的（Agentic）にウェイトや字間を拡張させます。グリッドは不規則なマソンリー風の配置をベースに、隣接する要素同士が互いの境界を押し合うような緊張感を表現しています。",
+      "file": "agentic-kinetic-split-v87.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven animationsによるclip-pathの動的モーフィング + コンテナクエリによるタイポグラフィの自動ウェイト調整",
+      "addedDate": "2026-02-22",
+      "author": "ai",
+      "mood": "Agentic",
+      "generation": 86
     }
   ]
 }

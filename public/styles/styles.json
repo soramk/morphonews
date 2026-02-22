@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-21",
+  "lastUpdated": "2026-02-22",
   "currentDefault": "default",
   "themes": [
     {
@@ -956,6 +956,21 @@
       "addedDate": "2026-02-21",
       "author": "ai",
       "mood": "TRANSFORMATION"
+    },
+    {
+      "id": "agentic-vanguard-surge",
+      "name": "アジェンティック・ヴァンガード・サージ",
+      "description": "先駆者の突進（サージ）をイメージした、目的遂行への強い意志を感じさせるテーマ。高エネルギーなオレンジと鋭利なパープルが、静寂なダークトーンの中で自律的な行動力を象徴します。",
+      "file": "themes/agentic-vanguard-surge.css",
+      "preview": {
+        "primary": "#f97316",
+        "secondary": "#8b5cf6",
+        "background": "#0c0a09",
+        "text": "#fafaf9"
+      },
+      "addedDate": "2026-02-22",
+      "author": "ai",
+      "mood": "Agentic"
     }
   ]
 }

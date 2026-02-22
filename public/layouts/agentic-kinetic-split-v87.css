@@ -1,0 +1,133 @@
+/**
+ * MorphoNews Layout: エージェンティック・キネティック・スプリット
+ * Generated: 2026-02-22_0958
+ * Generation: #86
+ * Mood: Agentic
+ * Evolution: scroll-driven animationsによるclip-pathの動的モーフィング + コンテナクエリによるタイポグラフィの自動ウェイト調整
+ * Description: 第87世代のテーマ「Agentic（主体的）」を、情報の「自己主張と空間の動的再編」として定義。前回の3Dアセンブル（集結）から一転し、今回は「平面を鋭利に切り裂き、情報が空間を占拠する」アプローチを採用しました。scroll-driven animationsを利用して、スクロール位置に応じて各カードのclip-path（形状）が菱形から安定した矩形へと鋭利に変容し、同時にカード内のタイポグラフィが主体的（Agentic）にウェイトや字間を拡張させます。グリッドは不規則なマソンリー風の配置をベースに、隣接する要素同士が互いの境界を押し合うような緊張感を表現しています。
+ */
+/**
+ * MorphoNews Layout: エージェンティック・キネティック・スプリット
+ * Generation: #87
+ * Theme: Agentic
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(auto-fill, minmax(380px, 1fr));
+    --layout-card-gap: 4rem 2rem;
+    --layout-card-direction: column;
+    --layout-animation-style: kinetic-split-reveal;
+    --font-weight-active: 800;
+}
+
+#news-container {
+    max-width: var(--layout-max-width);
+    margin: 10rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    /* マソンリー的な変則配置をシミュレート */
+    align-items: start;
+}
+
+.news-card {
+    position: relative;
+    background: var(--morpho-bg-primary);
+    border-left: 1px solid var(--morpho-accent-primary);
+    padding: 3rem 2rem 2rem;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    overflow: hidden;
+    container-type: inline-size;
+    
+    /* Scroll-driven animation */
+    view-timeline-name: --card-view;
+    view-timeline-axis: block;
+    animation-name: var(--layout-animation-style);
+    animation-fill-mode: both;
+    animation-timeline: --card-view;
+    animation-range: entry 10% cover 40%;
+}
+
+/* 偶数番目のカードをオフセットさせてリズムを作る */
+.news-card:nth-child(even) {
+    margin-top: 4rem;
+    border-left: none;
+    border-right: 1px solid var(--morpho-accent-secondary);
+}
+
+@keyframes kinetic-split-reveal {
+    0% {
+        clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+        filter: grayscale(1) brightness(0.5);
+        transform: scale(0.95) translateY(50px);
+    }
+    100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        filter: grayscale(0) brightness(1);
+        transform: scale(1) translateY(0);
+    }
+}
+
+.news-card-title {
+    font-weight: 400;
+    line-height: 1.2;
+    transition: font-weight 0.4s ease, letter-spacing 0.4s ease;
+}
+
+/* コンテナクエリを使用したタイポグラフィの自動最適化 */
+@container (min-width: 350px) {
+    .news-card-title {
+        font-size: 1.75rem;
+    }
+}
+
+.news-card:hover {
+    background: linear-gradient(to bottom right, var(--morpho-bg-primary), var(--morpho-bg-secondary));
+}
+
+.news-card:hover .news-card-title {
+    font-weight: var(--font-weight-active);
+    letter-spacing: -0.02em;
+    color: var(--morpho-accent-primary);
+}
+
+/* ナンバリングの再定義: 垂直方向のインジケータ */
+.news-card-number {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    writing-mode: vertical-rl;
+    color: var(--morpho-text-secondary);
+    opacity: 0.5;
+}
+
+/* 装飾的なスプリットライン */
+.news-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--morpho-accent-gradient);
+    transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.news-card:hover::after {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .news-card:nth-child(even) {
+        margin-top: 0;
+    }
+}

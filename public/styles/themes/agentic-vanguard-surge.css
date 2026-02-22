@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: アジェンティック・ヴァンガード・サージ
+ * Generated: 2026-02-22_0958
+ * Mood: Agentic
+ * Description: 先駆者の突進（サージ）をイメージした、目的遂行への強い意志を感じさせるテーマ。高エネルギーなオレンジと鋭利なパープルが、静寂なダークトーンの中で自律的な行動力を象徴します。
+ */
+:root { --morpho-bg-primary: #0c0a09; --morpho-bg-secondary: #1c1917; --morpho-bg-card: #1c1917; --morpho-text-primary: #fafaf9; --morpho-text-secondary: #a8a29e; --morpho-accent-primary: #f97316; --morpho-accent-secondary: #8b5cf6; --morpho-border-color: #44403c; --morpho-accent-gradient: linear-gradient(135deg, #f97316 0%, #8b5cf6 100%); }

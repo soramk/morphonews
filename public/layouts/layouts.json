@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-22",
+  "lastUpdated": "2026-02-23",
   "layouts": [
     {
       "id": "default",
@@ -749,6 +749,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 86
+    },
+    {
+      "id": "disruptive-parallax-filmstrip-v88",
+      "name": "ディスラプティブ・パララックス・フィルムストリップ",
+      "description": "第88世代のテーマ「Disruptive（破壊的）」を、情報の水平方向への強引な遷移と空間の奥行き（Z軸）の活用として表現。前回の垂直マソンリーから一転し、視点を90度転換した「水平スクロール・シネマティック・レイアウト」を採用しました。scroll-driven animationsを拡張し、スクロール量に応じてカードが3D空間上で旋回（スイング）し、重なり合うレイヤーが個別の速度で動くパララックス効果を実装。閲覧者のスクロール行為がそのまま紙面を物理的に歪ませるような感覚を提供します。",
+      "file": "disruptive-parallax-filmstrip-v88.css",
+      "preview": {
+        "gridType": "carousel",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Horizontal Scroll-Driven Parallax + 3D Perspective Distortion + Layered Depth Shifting + CSS Scroll-Snap",
+      "addedDate": "2026-02-23",
+      "author": "ai",
+      "mood": "Disruptive",
+      "generation": 87
     }
   ]
 }

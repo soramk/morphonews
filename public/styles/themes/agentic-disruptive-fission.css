@@ -1,0 +1,7 @@
+/**
+ * MorphoNews Theme: エージェンティック・ディスラプティブ・フィッション
+ * Generated: 2026-02-23_0958
+ * Mood: Disruptive
+ * Description: 既存の秩序を打破し、非連続的な進化を促すための挑発的で高コントラストなテーマ。アシッドイエローとエレクトリックマゼンタが、現状を揺さぶる破壊的なエネルギーを象徴します。
+ */
+:root { --morpho-bg-primary: #0a0a0a; --morpho-bg-secondary: #151515; --morpho-bg-card: #1c1c1c; --morpho-text-primary: #ffffff; --morpho-text-secondary: #a0a0a0; --morpho-accent-primary: #ccff00; --morpho-accent-secondary: #ff0055; --morpho-border-color: #2e2e2e; --morpho-accent-gradient: linear-gradient(135deg, #ccff00 0%, #ff0055 100%); }

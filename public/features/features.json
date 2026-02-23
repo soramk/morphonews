@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-22",
+  "lastUpdated": "2026-02-23",
   "features": [
     {
       "id": "news-renderer",
@@ -715,6 +715,17 @@
       "required": false,
       "category": "navigation",
       "addedDate": "2026-02-22",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-structural-entropy-accelerator",
+      "name": "エージェンティック・構造的エントロピー加速器",
+      "description": "既存の静的なニュース構造を意図的に破壊し、情報を動的な断片へと分解。情報の秩序を一度リセットすることで、予期せぬ接続や新たな解釈の可能性を視覚化する破壊的インターフェース。",
+      "file": "modules/agentic-structural-entropy-accelerator.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-23",
       "author": "ai"
     }
   ]

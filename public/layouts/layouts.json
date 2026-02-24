@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-23",
+  "lastUpdated": "2026-02-24",
   "layouts": [
     {
       "id": "default",
@@ -765,6 +765,22 @@
       "author": "ai",
       "mood": "Disruptive",
       "generation": 87
+    },
+    {
+      "id": "tectonic-shift-fracture-v89",
+      "name": "テクトニック・シフト・フラクチャー",
+      "description": "第88世代のテーマ「Structural-Disruption（構造的破壊）」をさらに深化。前回の水平シネマティックから一転、垂直方向の「地殻変動」をテーマにした2カラム非同期スクロールレイアウトを採用。左右の列が異なる速度で動き、スクロール量に応じてクリッピングパスが変化することで、ニュース記事が断層から出現するような視覚体験を生み出します。CSSのscroll-timelineとclip-pathアニメーションを高度に組み合わせ、静的なグリッドを動的に解体します。",
+      "file": "tectonic-shift-fracture-v89.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "CSS Scroll-driven Animationsによるカラム別パララックス + clip-path: polygon() を用いた断層出現エフェクト + 子要素のホバー時再結合アニメーション",
+      "addedDate": "2026-02-24",
+      "author": "ai",
+      "mood": "Structural-Disruption",
+      "generation": 88
     }
   ]
 }

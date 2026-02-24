@@ -1,0 +1,154 @@
+/**
+ * MorphoNews Layout: テクトニック・シフト・フラクチャー
+ * Generated: 2026-02-24_0956
+ * Generation: #88
+ * Mood: Structural-Disruption
+ * Evolution: CSS Scroll-driven Animationsによるカラム別パララックス + clip-path: polygon() を用いた断層出現エフェクト + 子要素のホバー時再結合アニメーション
+ * Description: 第88世代のテーマ「Structural-Disruption（構造的破壊）」をさらに深化。前回の水平シネマティックから一転、垂直方向の「地殻変動」をテーマにした2カラム非同期スクロールレイアウトを採用。左右の列が異なる速度で動き、スクロール量に応じてクリッピングパスが変化することで、ニュース記事が断層から出現するような視覚体験を生み出します。CSSのscroll-timelineとclip-pathアニメーションを高度に組み合わせ、静的なグリッドを動的に解体します。
+ */
+/**
+ * MorphoNews Layout: テクトニック・シフト・フラクチャー
+ * Generation: #89
+ * Mood: Structural-Disruption
+ * Evolution: Vertical Asynchronous Column Scroll + Tectonic Clipping Reveal
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(2, 1fr);
+    --layout-card-gap: 6rem;
+    --layout-card-direction: column;
+    --layout-animation-style: tectonic-slide;
+    --fracture-intensity: 15%;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: 10vh 2rem;
+    perspective: 1500px;
+}
+
+/* 左カラムと右カラムに異なるスクロール挙動を与える */
+.news-card:nth-child(odd) {
+    transform: translateY(100px);
+    animation: scroll-drift-up linear both;
+    animation-timeline: scroll();
+}
+
+.news-card:nth-child(even) {
+    transform: translateY(-100px);
+    animation: scroll-drift-down linear both;
+    animation-timeline: scroll();
+    margin-top: 15vh;
+}
+
+@keyframes scroll-drift-up {
+    from { transform: translateY(150px); }
+    to { transform: translateY(-150px); }
+}
+
+@keyframes scroll-drift-down {
+    from { transform: translateY(-150px); }
+    to { transform: translateY(150px); }
+}
+
+.news-card {
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    border-left: 4px solid var(--morpho-accent-primary);
+    padding: 0;
+    overflow: visible;
+    transition: clip-path 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    /* 断層のようなクリッピングパス */
+    clip-path: polygon(
+        0% var(--fracture-intensity), 
+        100% 0%, 
+        100% calc(100% - var(--fracture-intensity)), 
+        0% 100%
+    );
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--morpho-accent-gradient);
+    opacity: 0.03;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.news-card-inner {
+    padding: 3rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.news-card:hover {
+    /* ホバー時に「破壊」が修復されるような視覚効果 */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    border-left-width: 12px;
+}
+
+.news-card-number {
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--morpho-accent-primary);
+    opacity: 0.1;
+    z-index: -1;
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover .news-card-number {
+    transform: scale(1.2) translateY(-20px);
+    opacity: 0.2;
+}
+
+.news-card-tag {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    background: var(--morpho-accent-primary);
+    color: var(--morpho-bg-primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.news-card-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    color: var(--morpho-text-primary);
+    font-weight: 700;
+}
+
+/* レスポンシブ設定: モバイルでは1列に強制し、構造的破壊を「歪み」として残す */
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .news-card:nth-child(even), .news-card:nth-child(odd) {
+        margin-top: 0;
+        animation: none;
+        transform: none;
+        --fracture-intensity: 5%;
+    }
+
+    .news-card-title {
+        font-size: 1.4rem;
+    }
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-23",
+  "lastUpdated": "2026-02-24",
   "currentDefault": "default",
   "themes": [
     {
@@ -986,6 +986,21 @@
       "addedDate": "2026-02-23",
       "author": "ai",
       "mood": "Disruptive"
+    },
+    {
+      "id": "structural-disruption",
+      "name": "ストラクチュアル・ディスラプション",
+      "description": "既存の構造を打破し、新たな秩序への再編を予感させる、高コントラストでエネルギッシュなテーマ。断絶と閃光をイメージした配色です。",
+      "file": "themes/structural-disruption.css",
+      "preview": {
+        "primary": "#ff3e00",
+        "secondary": "#00f2ff",
+        "background": "#0d0d0d",
+        "text": "#f0f0f0"
+      },
+      "addedDate": "2026-02-24",
+      "author": "ai",
+      "mood": "Structural-Disruption"
     }
   ]
 }

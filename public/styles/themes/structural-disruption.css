@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: ストラクチュアル・ディスラプション
+ * Generated: 2026-02-24_0956
+ * Mood: Structural-Disruption
+ * Description: 既存の構造を打破し、新たな秩序への再編を予感させる、高コントラストでエネルギッシュなテーマ。断絶と閃光をイメージした配色です。
+ */
+:root {
+  --morpho-bg-primary: #0d0d0d;
+  --morpho-bg-secondary: #1a1a24;
+  --morpho-bg-card: #15151b;
+  --morpho-text-primary: #f0f0f0;
+  --morpho-text-secondary: #a0a0b0;
+  --morpho-accent-primary: #ff3e00;
+  --morpho-accent-secondary: #00f2ff;
+  --morpho-border-color: #333344;
+  --morpho-accent-gradient: linear-gradient(135deg, #ff3e00 0%, #ff007b 50%, #00f2ff 100%);
+}

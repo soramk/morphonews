@@ -1,0 +1,139 @@
+/**
+ * MorphoNews Layout: フリュイド・キネティック・ホライゾン
+ * Generated: 2026-02-25_1002
+ * Generation: #89
+ * Mood: Agentic
+ * Evolution: CSS View Timelineによる水平3Dプロジェクション + backdrop-filterによる深度表現 + 擬似的なZ軸スタッキング
+ * Description: 第90世代への進化として、前回の「垂直・断絶・破壊」という静的な対立構造を脱却し、「水平・流動・重なり」をテーマにしたオービタル（軌道）スクロールレイアウトを採用。CSSのview-timelineを利用し、水平方向に並んだ記事が画面中央に近づくにつれて3D回転しながら前面にせり出し、遠ざかると背後へ消えていく擬似的な円環配置を表現しました。ガラスモーフィズムと内側からの発光エフェクトを組み合わせ、情報の断片が浮遊する未来的なアーカイブ体験を提供します。
+ */
+/**
+ * MorphoNews Layout: フリュイド・キネティック・ホライゾン
+ * Generation: #90
+ * Mood: Agentic / Fluid-Intelligence
+ */
+
+:root {
+    --layout-max-width: 100vw;
+    --layout-news-columns: none;
+    --layout-card-gap: 4rem;
+    --layout-card-direction: row;
+    --layout-animation-style: orbital-flow;
+    --card-width: 400px;
+    --card-aspect-ratio: 16 / 9;
+}
+
+#news-container {
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    gap: var(--layout-card-gap);
+    padding: 0 calc(50vw - var(--card-width) / 2);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    perspective: 2000px;
+    align-items: center;
+    height: 80vh;
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+#news-container::-webkit-scrollbar {
+    display: none;
+}
+
+.news-card {
+    flex: 0 0 var(--card-width);
+    aspect-ratio: var(--card-aspect-ratio);
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    scroll-snap-align: center;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    /* View Timeline for 3D Animation */
+    view-timeline: --card-visible-area inline;
+    animation: orbital-rotate linear both;
+    animation-timeline: --card-visible-area;
+}
+
+@keyframes orbital-rotate {
+    0% {
+        transform: translateX(-50%) rotateY(45deg) scale(0.8) translateZ(-500px);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateX(0) rotateY(0deg) scale(1.1) translateZ(200px);
+        opacity: 1;
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 20px var(--morpho-accent-primary);
+    }
+    100% {
+        transform: translateX(50%) rotateY(-45deg) scale(0.8) translateZ(-500px);
+        opacity: 0.3;
+    }
+}
+
+.news-card-inner {
+    height: 100%;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+    border-radius: 24px;
+}
+
+.news-card:hover {
+    transform: scale(1.15) translateZ(300px) !important;
+    border-color: var(--morpho-accent-primary);
+    z-index: 10;
+}
+
+.news-card-number {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--morpho-accent-primary);
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 99px;
+    border: 1px solid var(--morpho-accent-primary);
+}
+
+.news-card h3 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* 擬似的なインジケーター */
+#news-container::after {
+    content: 'SCROLL HORIZONTALLY';
+    position: fixed;
+    bottom: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.5em;
+    opacity: 0.4;
+    color: var(--morpho-text-primary);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    --card-width: 85vw;
+    #news-container {
+        height: 70vh;
+        gap: 2rem;
+    }
+    .news-card-inner {
+        padding: 1.5rem;
+    }
+}

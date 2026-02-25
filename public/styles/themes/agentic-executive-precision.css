@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・エグゼクティブ・プレシジョン
+ * Generated: 2026-02-25_1002
+ * Mood: Agentic
+ * Description: 高度な意思決定と迅速な行動を促すためのテーマ。深遠なダークネイビーを基調に、鋭いシアンの初動色と、戦略的な判断を象徴するアンバーを配し、指揮官のような明確な視界を提供します。
+ */
+:root {
+  --morpho-bg-primary: #0a0e14;
+  --morpho-bg-secondary: #141b26;
+  --morpho-bg-card: #1b2431;
+  --morpho-text-primary: #f0f4f8;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #00ffcc;
+  --morpho-accent-secondary: #f59e0b;
+  --morpho-border-color: #2d3748;
+  --morpho-accent-gradient: linear-gradient(135deg, #00ffcc 0%, #3b82f6 100%);
+}

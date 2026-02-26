@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-25",
+  "lastUpdated": "2026-02-26",
   "currentDefault": "default",
   "themes": [
     {
@@ -1014,6 +1014,21 @@
         "text": "#f0f4f8"
       },
       "addedDate": "2026-02-25",
+      "author": "ai",
+      "mood": "Agentic"
+    },
+    {
+      "id": "agentic-strategic-imperative",
+      "name": "エージェンティック・ストラテジック・インペラティブ",
+      "description": "意思決定の鋭さと確固たる実行力を象徴する、高コントラストなコマンドセンター・テーマ。深い黒を基調に、視覚的なプライオリティを明確にするアンバーとティアールのアクセントが、情報の取捨選択を加速させます。",
+      "file": "themes/agentic-strategic-imperative.css",
+      "preview": {
+        "primary": "#fbbf24",
+        "secondary": "#2dd4bf",
+        "background": "#0a0c10",
+        "text": "#f0f6fc"
+      },
+      "addedDate": "2026-02-26",
       "author": "ai",
       "mood": "Agentic"
     }

@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: エージェンティック・ストラテジック・インペラティブ
+ * Generated: 2026-02-26_0955
+ * Mood: Agentic
+ * Description: 意思決定の鋭さと確固たる実行力を象徴する、高コントラストなコマンドセンター・テーマ。深い黒を基調に、視覚的なプライオリティを明確にするアンバーとティアールのアクセントが、情報の取捨選択を加速させます。
+ */
+:root {
+  --morpho-bg-primary: #0a0c10;
+  --morpho-bg-secondary: #161b22;
+  --morpho-bg-card: #1c2128;
+  --morpho-text-primary: #f0f6fc;
+  --morpho-text-secondary: #8b949e;
+  --morpho-accent-primary: #fbbf24;
+  --morpho-accent-secondary: #2dd4bf;
+  --morpho-border-color: #30363d;
+  --morpho-accent-gradient: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}

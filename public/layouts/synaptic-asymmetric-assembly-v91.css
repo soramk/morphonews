@@ -1,0 +1,152 @@
+/**
+ * MorphoNews Layout: シナプティック・アシンメトリック・アセンブリ
+ * Generated: 2026-02-26_0955
+ * Generation: #90
+ * Mood: Agentic
+ * Evolution: 12カラム非対称グリッド + 垂直Scroll-driven Animationsによる「合体」エフェクト + CSS変数による動的トランスフォーム制御
+ * Description: 第91世代の進化として、前回の「水平・流動・円環」という浮遊感のある構成から一転、情報の「密度・結合・構造化」をテーマにした垂直非対称グリッドを採用しました。12カラムの精密なサブグリッド・システムをベースに、記事がパズルのように噛み合う「Bento Box」の進化形を提示。CSSのScroll-driven Animations（垂直方向）を活用し、スクロールに合わせて各カードが左右から中央へ引き寄せられ、論理的に「合体（Assembly）」していくようなインテリジェントな演出を施しています。各カードは単なる矩形ではなく、隣接する要素との境界に「擬似的なコネクタ」を感じさせるデザインに仕上げました。
+ */
+/**
+ * MorphoNews Layout: Synaptic Asymmetric Assembly
+ * Generation: #91
+ * Mood: Agentic / Structural-Intelligence
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: repeat(12, 1fr);
+    --layout-card-gap: 1.5rem;
+    --layout-card-direction: column;
+    --layout-animation-style: synaptic-assembly;
+    --curve-radius: 12px;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    gap: var(--layout-card-gap);
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding: 2rem;
+    perspective: 1200px;
+}
+
+/* 非対称グリッドの定義 */
+.news-card {
+    grid-column: span 12;
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--curve-radius);
+    overflow: hidden;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    
+    /* Scroll-driven Animation Setup */
+    view-timeline: --reveal-timeline block;
+    animation: reveal-assembly linear both;
+    animation-timeline: --reveal-timeline;
+    animation-range: entry 10% cover 30%;
+}
+
+@media (min-width: 768px) {
+    .news-card:nth-child(4n+1) { grid-column: span 8; height: 450px; }
+    .news-card:nth-child(4n+2) { grid-column: span 4; height: 450px; }
+    .news-card:nth-child(4n+3) { grid-column: span 4; height: 400px; }
+    .news-card:nth-child(4n+4) { grid-column: span 8; height: 400px; }
+    .news-card:nth-child(5n)   { grid-column: span 12; height: 300px; }
+}
+
+@keyframes reveal-assembly {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: 
+            translateY(100px) 
+            rotateX(-15deg) 
+            scale(0.9);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: 
+            translateY(0) 
+            rotateX(0) 
+            scale(1);
+    }
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: var(--morpho-accent-gradient);
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.news-card:hover {
+    border-color: var(--morpho-accent-primary);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.news-card:hover::before {
+    opacity: 1;
+}
+
+.news-card-inner {
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    height: 100%;
+    padding: 2rem;
+    gap: 1.5rem;
+    z-index: 2;
+}
+
+.news-card-number {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--morpho-accent-primary);
+    background: rgba(255, 255, 255, 0.03);
+    width: fit-content;
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.news-card h3 {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(to right, var(--morpho-text-primary), var(--morpho-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.news-card-meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--morpho-text-secondary);
+}
+
+/* 擬似的なシナプス・コネクタ */
+.news-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: 20%;
+    width: 2px;
+    height: 20px;
+    background: var(--morpho-accent-primary);
+    filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.news-card:hover::after {
+    opacity: 0.5;
+}

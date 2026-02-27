@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-26",
+  "lastUpdated": "2026-02-27",
   "layouts": [
     {
       "id": "default",
@@ -813,6 +813,22 @@
       "author": "ai",
       "mood": "Agentic",
       "generation": 90
+    },
+    {
+      "id": "kinetic-depth-prism-v92",
+      "name": "キネティック・デプス・プリズム",
+      "description": "第92世代の進化として、前回の「情報の論理的結合（Assembly）」から、空間的な「多次元的展開（Depth & Unfolding）」へとパラダイムを移行しました。垂直スクロールをトリガーとし、中央の仮想的な軸からニュースカードが3D空間上で本をめくるように展開される「プリズム・アンフォールディング」を採用。Scroll-driven Animationsを活用し、スクロール位置に応じて各カードのrotateYとtranslateZを動的に制御することで、平面的なグリッドを奥行きのある体験へと変換しています。また、カードの重なり部分に強力なbackdrop-filterを適用し、背後のコンテンツが屈折して見える視覚効果を付加しました。",
+      "file": "kinetic-depth-prism-v92.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "3d",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "Scroll-driven 3D Rotation + transform-origin staggering + dynamic backdrop-blur layering",
+      "addedDate": "2026-02-27",
+      "author": "ai",
+      "mood": "Transformative",
+      "generation": 91
     }
   ]
 }

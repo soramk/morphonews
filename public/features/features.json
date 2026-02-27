@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-26",
+  "lastUpdated": "2026-02-27",
   "features": [
     {
       "id": "news-renderer",
@@ -759,6 +759,17 @@
       "required": false,
       "category": "analytics",
       "addedDate": "2026-02-26",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-morphogenetic-topology-mapper",
+      "name": "形態形成的トポロジー・マッパー",
+      "description": "ニュース記事間の意味的関連性を地形（トポロジー）として視覚化し、ページ全体のレイアウトを動的に「うねらせる」ことで、情報の重要度と繋がりを物理的な変形として表現します。",
+      "file": "modules/agentic-morphogenetic-topology-mapper.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-27",
       "author": "ai"
     }
   ]

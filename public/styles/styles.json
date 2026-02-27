@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-26",
+  "lastUpdated": "2026-02-27",
   "currentDefault": "default",
   "themes": [
     {
@@ -1031,6 +1031,21 @@
       "addedDate": "2026-02-26",
       "author": "ai",
       "mood": "Agentic"
+    },
+    {
+      "id": "transformative-metabolic-surge",
+      "name": "トランスフォーマティブ・メタボリック・サージ",
+      "description": "劇的な変容と代謝を象徴するテーマ。深みのあるバイオレットを基調に、変革のエネルギーを放つマゼンタと、新たな秩序を示すシアンが交差する、進化の最前線を表現した配色です。",
+      "file": "themes/transformative-metabolic-surge.css",
+      "preview": {
+        "primary": "#ff00ff",
+        "secondary": "#00ffd0",
+        "background": "#0f0a1e",
+        "text": "#f5f3ff"
+      },
+      "addedDate": "2026-02-27",
+      "author": "ai",
+      "mood": "Transformative"
     }
   ]
 }

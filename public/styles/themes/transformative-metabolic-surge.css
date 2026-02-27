@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: トランスフォーマティブ・メタボリック・サージ
+ * Generated: 2026-02-27_0957
+ * Mood: Transformative
+ * Description: 劇的な変容と代謝を象徴するテーマ。深みのあるバイオレットを基調に、変革のエネルギーを放つマゼンタと、新たな秩序を示すシアンが交差する、進化の最前線を表現した配色です。
+ */
+:root {
+  --morpho-bg-primary: #0f0a1e;
+  --morpho-bg-secondary: #1a1430;
+  --morpho-bg-card: #241d42;
+  --morpho-text-primary: #f5f3ff;
+  --morpho-text-secondary: #b1a9cc;
+  --morpho-accent-primary: #ff00ff;
+  --morpho-accent-secondary: #00ffd0;
+  --morpho-border-color: #3d346b;
+  --morpho-accent-gradient: linear-gradient(135deg, #ff00ff 0%, #7000ff 50%, #00ffd0 100%);
+}

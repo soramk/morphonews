@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "features": [
     {
       "id": "news-renderer",
@@ -770,6 +770,17 @@
       "required": false,
       "category": "ui",
       "addedDate": "2026-02-27",
+      "author": "ai"
+    },
+    {
+      "id": "agentic-turbulent-gravity-anchor",
+      "name": "エージェンティック・タービュレント・グラビティ・アンカー",
+      "description": "激動（Turbulent）する情報流の中を漂うニュース要素に対し、クリックで「重力場」を生成。散逸しようとする情報を物理的に引き寄せ、独自のコンテキスト・クラスタを形成して情報の氾濫を抑止します。",
+      "file": "modules/agentic-turbulent-gravity-anchor.js",
+      "enabled": false,
+      "required": false,
+      "category": "ui",
+      "addedDate": "2026-02-28",
       "author": "ai"
     }
   ]

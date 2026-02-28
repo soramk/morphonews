@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "layouts": [
     {
       "id": "default",
@@ -829,6 +829,22 @@
       "author": "ai",
       "mood": "Transformative",
       "generation": 91
+    },
+    {
+      "id": "tectonic-fracture-flow-v93",
+      "name": "テクトニック・フラクチャー・フロー",
+      "description": "第93世代の進化として、前回の「整然とした3Dプリズム」から、不規則で高エネルギーな「地殻変動的破砕（Turbulent Fracture）」へとコンセプトを転換しました。12カラムの精密なサブグリッドを敢えて崩し、各カードが異なるスパンとオフセットを持つことで、情報の断層が生み出す動的なリズムを表現しています。Scroll-driven Animationsにより、スクロール量に応じてカードが左右に微細に歪み（Skew）、重なり合うボーダーと影が干渉し合うことで、情報の「隆起」と「沈降」を視覚化。静止時でも不安定な緊張感を保つ、前衛的な「Turbulent」ムードを体現しています。",
+      "file": "tectonic-fracture-flow-v93.css",
+      "preview": {
+        "gridType": "masonry",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "12-column asymmetric subgrid + Scroll-driven Skew/Translate parallax + high-contrast tectonic shadows",
+      "addedDate": "2026-02-28",
+      "author": "ai",
+      "mood": "Turbulent",
+      "generation": 92
     }
   ]
 }

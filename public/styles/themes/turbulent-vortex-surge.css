@@ -1,0 +1,17 @@
+/**
+ * MorphoNews Theme: タービュレント・ヴォルテックス
+ * Generated: 2026-02-28_0950
+ * Mood: Turbulent
+ * Description: 激しく変化する情勢と荒れ狂うエネルギーを視覚化したテーマ。深い嵐のような背景に、摩擦から生じる閃光のようなアンバーと警告を促すレッドを配し、不穏な空気の中での高い視認性を確保しています。
+ */
+:root {
+  --morpho-bg-primary: #1a1c22;
+  --morpho-bg-secondary: #121418;
+  --morpho-bg-card: #252830;
+  --morpho-text-primary: #f0f4f8;
+  --morpho-text-secondary: #94a3b8;
+  --morpho-accent-primary: #fbbf24;
+  --morpho-accent-secondary: #ef4444;
+  --morpho-border-color: #3f414a;
+  --morpho-accent-gradient: linear-gradient(135deg, #fbbf24 0%, #ef4444 100%);
+}

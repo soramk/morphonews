@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "currentDefault": "default",
   "themes": [
     {
@@ -1046,6 +1046,21 @@
       "addedDate": "2026-02-27",
       "author": "ai",
       "mood": "Transformative"
+    },
+    {
+      "id": "turbulent-vortex-surge",
+      "name": "タービュレント・ヴォルテックス",
+      "description": "激しく変化する情勢と荒れ狂うエネルギーを視覚化したテーマ。深い嵐のような背景に、摩擦から生じる閃光のようなアンバーと警告を促すレッドを配し、不穏な空気の中での高い視認性を確保しています。",
+      "file": "themes/turbulent-vortex-surge.css",
+      "preview": {
+        "primary": "#fbbf24",
+        "secondary": "#ef4444",
+        "background": "#1a1c22",
+        "text": "#f0f4f8"
+      },
+      "addedDate": "2026-02-28",
+      "author": "ai",
+      "mood": "Turbulent"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-28",
+  "lastUpdated": "2026-03-01",
   "currentDefault": "default",
   "themes": [
     {
@@ -1061,6 +1061,21 @@
       "addedDate": "2026-02-28",
       "author": "ai",
       "mood": "Turbulent"
+    },
+    {
+      "id": "frictional-abrasion",
+      "name": "摩擦の残響",
+      "description": "「Friction（摩擦）」をテーマに、物質同士が擦れ合う時に生じる熱と、ざらついた質感を表現したカラーテーマです。焦げ付くようなアンバーと、重厚な鉄錆色の背景が、情報のぶつかり合いから生まれるエネルギーを想起させます。",
+      "file": "themes/frictional-abrasion.css",
+      "preview": {
+        "primary": "#ff6b35",
+        "secondary": "#e2b41b",
+        "background": "#1a1a1b",
+        "text": "#e0e0e0"
+      },
+      "addedDate": "2026-03-01",
+      "author": "ai",
+      "mood": "Friction"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-02-28",
+  "lastUpdated": "2026-03-01",
   "layouts": [
     {
       "id": "default",
@@ -845,6 +845,22 @@
       "author": "ai",
       "mood": "Turbulent",
       "generation": 92
+    },
+    {
+      "id": "frictional-kinetic-interlock-v94",
+      "name": "フリクショナル・キネティック・インターロック",
+      "description": "第94世代の進化は、前回の「断層的破砕」から、要素同士が密着し擦れ合う「摩擦（Friction）」へと概念を深化させました。3カラムの非対称グリッドにおいて、カード間のギャップを意図的に「負の値」または「ゼロ」に設定し、隣接するコンテンツが重なり合う構成をとっています。Scroll-driven Animationsにより、スクロール量に応じて各カードのclip-pathと反転効果がダイナミックに変化。カードが追い越される際に視覚的な「摩擦熱」が生じるような、コントラストの激しい変位を表現しています。情報の境界線が静止することのない、高負荷な緊張感を伴うUIです。",
+      "file": "frictional-kinetic-interlock-v94.css",
+      "preview": {
+        "gridType": "grid",
+        "cardStyle": "bold",
+        "animation": "scroll-driven"
+      },
+      "evolution_note": "scroll-driven clip-path + overlapping negative margins + frictional mix-blend-mode transition",
+      "addedDate": "2026-03-01",
+      "author": "ai",
+      "mood": "Friction",
+      "generation": 93
     }
   ]
 }

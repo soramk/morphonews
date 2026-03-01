@@ -1,0 +1,161 @@
+/**
+ * MorphoNews Layout: フリクショナル・キネティック・インターロック
+ * Generated: 2026-03-01_1003
+ * Generation: #93
+ * Mood: Friction
+ * Evolution: scroll-driven clip-path + overlapping negative margins + frictional mix-blend-mode transition
+ * Description: 第94世代の進化は、前回の「断層的破砕」から、要素同士が密着し擦れ合う「摩擦（Friction）」へと概念を深化させました。3カラムの非対称グリッドにおいて、カード間のギャップを意図的に「負の値」または「ゼロ」に設定し、隣接するコンテンツが重なり合う構成をとっています。Scroll-driven Animationsにより、スクロール量に応じて各カードのclip-pathと反転効果がダイナミックに変化。カードが追い越される際に視覚的な「摩擦熱」が生じるような、コントラストの激しい変位を表現しています。情報の境界線が静止することのない、高負荷な緊張感を伴うUIです。
+ */
+/**
+ * MorphoNews Layout: フリクショナル・キネティック・インターロック
+ * Mood: Friction
+ * Evolution: Overlapping Grid + Scroll-driven Intersection Masking
+ */
+
+:root {
+    --layout-max-width: 1400px;
+    --layout-news-columns: 1fr 1.2fr 1fr;
+    --layout-card-gap: 0px;
+    --layout-card-direction: column;
+    --layout-animation-style: friction-glide;
+    --friction-intensity: 15%;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: var(--layout-news-columns);
+    max-width: var(--layout-max-width);
+    margin: 4rem auto;
+    padding: 0 2rem;
+    gap: var(--layout-card-gap);
+    background: var(--morpho-bg-primary);
+}
+
+.news-card {
+    position: relative;
+    background: var(--morpho-bg-secondary);
+    border: 1px solid var(--morpho-text-primary);
+    margin: -1px;
+    overflow: hidden;
+    z-index: 1;
+    
+    /* Scroll-driven Animation */
+    view-timeline: --card-friction block;
+    animation: friction-mask linear both;
+    animation-timeline: --card-friction;
+    animation-range: entry 0% exit 100%;
+}
+
+/* 非対称オーバーラップ配置 */
+.news-card:nth-child(3n+1) {
+    grid-column: 1 / span 2;
+    height: 600px;
+    margin-top: 5rem;
+}
+
+.news-card:nth-child(3n+2) {
+    grid-column: 2 / span 2;
+    height: 500px;
+    margin-top: -2rem;
+    z-index: 2;
+}
+
+.news-card:nth-child(3n+3) {
+    grid-column: 1 / span 3;
+    height: 400px;
+    margin-top: 2rem;
+}
+
+@keyframes friction-mask {
+    0% {
+        clip-path: polygon(0% var(--friction-intensity), 100% 0%, 100% 100%, 0% 100%);
+        filter: contrast(1.2) grayscale(0.5);
+        transform: translateX(-20px);
+    }
+    50% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        filter: contrast(1) grayscale(0);
+        transform: translateX(0);
+    }
+    100% {
+        clip-path: polygon(0% 0%, 100% var(--friction-intensity), 100% 100%, 0% 100%);
+        filter: contrast(1.5) invert(0.1);
+        transform: translateX(20px);
+    }
+}
+
+.news-card-inner {
+    height: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: var(--layout-card-direction);
+    justify-content: flex-end;
+    transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.news-card:hover {
+    z-index: 10;
+    background: var(--morpho-text-primary);
+}
+
+.news-card:hover * {
+    color: var(--morpho-bg-primary) !important;
+}
+
+.news-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--morpho-accent-primary), transparent);
+    opacity: 0;
+    transform: translateX(-100%);
+    mix-blend-mode: overlay;
+    transition: transform 0.8s ease, opacity 0.3s ease;
+}
+
+.news-card:hover::after {
+    opacity: 0.4;
+    transform: translateX(100%);
+}
+
+/* タイポグラフィへの摩擦干渉 */
+.news-card h3 {
+    font-size: 2.5rem;
+    line-height: 0.9;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    animation: friction-text linear both;
+    animation-timeline: --card-friction;
+}
+
+@keyframes friction-text {
+    0% { letter-spacing: 1rem; opacity: 0; }
+    50% { letter-spacing: -0.05rem; opacity: 1; }
+    100% { letter-spacing: 0.5rem; opacity: 0; }
+}
+
+.news-card .badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem 1rem;
+    background: var(--morpho-accent-secondary);
+    color: var(--morpho-bg-primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    #news-container {
+        grid-template-columns: 1fr;
+    }
+    .news-card:nth-child(n) {
+        grid-column: 1;
+        height: auto;
+        margin-top: 0;
+    }
+}
